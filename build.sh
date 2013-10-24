@@ -10,7 +10,7 @@ lunch cm_edison-userdebug
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 
-make bacon
+make bacon  -j4  TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig
 
 [ -d out/target/product/edison ] || exit
 sf=`find out/target/product/edison -name cm-*-UNOFFICIAL-edison.zip`
