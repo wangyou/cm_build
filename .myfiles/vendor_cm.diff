@@ -1,0 +1,13 @@
+diff --git a/config/common_full.mk b/config/common_full.mk
+index 428968a..a85ca75 100644
+--- a/config/common_full.mk
++++ b/config/common_full.mk
+@@ -8,7 +8,7 @@ include frameworks/base/data/sounds/NewAudio.mk
+ include frameworks/base/data/sounds/AudioPackageNewWave.mk
+ 
+ # Bring in all video files
+-$(call inherit-product, frameworks/base/data/videos/VideoPackage2.mk)
++#$(call inherit-product, frameworks/base/data/videos/VideoPackage2.mk)
+ 
+ # Include CM audio files
+ include vendor/cm/config/cm_audio.mk
