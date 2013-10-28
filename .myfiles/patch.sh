@@ -33,4 +33,13 @@ fi
 [ -d $basedir/vendor/cm/prebuilt/common/etc ] && cp $rdir/apns-conf.xml $basedir/vendor/cm/prebuilt/common/etc/
 [ -d $basedir/device/motorola/edison ] && cp $rdir/apns-conf.xml $basedir/device/motorola/edison/
 
+### jbx-kernel patch ###########
+if [ -f $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c ]; then
+	grep "^\s*OPP_INITIALIZER(\"gpu\", \"dpll_per_m7x2_ck\", \"core\", true, 100300000, OMAP4430_VDD_CORE_OPP25_UV)," arch/arm/mach-omap2/opp4xxx_data.c >/dev/null
+	if [ $? -eq 1 ]; then
+		cd $basedir/kernel/motorola/omap4-common-jbx
+		patch -N -p1 <$rdir/jbx-kernel.diff
+		cd $rdir
+	fi
+fi
 
