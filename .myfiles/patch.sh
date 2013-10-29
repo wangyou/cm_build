@@ -29,9 +29,10 @@ if [ -f $basedir/vendor/cm/config/common_full.mk ]; then
 	fi
 fi
 
-### apns-conf.xml #######
-[ -d $basedir/vendor/cm/prebuilt/common/etc ] && cp $rdir/apns-conf.xml $basedir/vendor/cm/prebuilt/common/etc/
-[ -d $basedir/device/motorola/edison ] && cp $rdir/apns-conf.xml $basedir/device/motorola/edison/
+### apns-conf.xml and gps.conf#######
+#[ -d $basedir/vendor/cm/prebuilt/common/etc ] && cp $rdir/apns-conf.xml $basedir/vendor/cm/prebuilt/common/etc/
+#[ -d $basedir/device/motorola/edison ] && cp $rdir/apns-conf.xml $basedir/device/motorola/edison/
+#[ -d $basedir/device/motorola/omap4-common ] && cp $rdir/gps.conf $basedir/device/motorola/omap4-common/prebuilt/etc/gps.conf
 
 ### jbx-kernel patch ###########
 if [ -f $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c ]; then
