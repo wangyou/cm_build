@@ -1,6 +1,9 @@
 device=edison
+compile_user=NX111
 rdir=`dirname $0`
 [ "$rdir" != "." ] && cd $rdir
+TOP=`pwd`
+
 if [ ! -f build/envsetup.sh ]; then
 	repo init -u git://github.com/CyanogenMod/android.git -b cm-10.2
 	repo sync
@@ -9,13 +12,17 @@ fi
 . build/envsetup.sh
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
+cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 .myfiles/patch.sh
 
+find out/target/product/$device/obj/PACKAGING/target_files_intermediates/ -type d -mtime +2 -exec rm -rf {} \;
 lunch cm_$device-userdebug 
-if [ "$1" = "jbx" ]; then
-	make bacon -j4 TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx  TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
-	if [ $? -eq 0 -a "$2" = "kernel" -a "$device" = "edison" ]; then	
+if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" ]; then
+	make bacon -j4 TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
+  			 TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
+
+	if [ $? -eq 0 -a "$1" = "jbx-kernel" -a "$device" = "edison" ]; then	
 		[ -d out/target/product/$device/jbx-kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/jbx-kernel/rls/system/lib/modules/
 		[ -d out/target/product/$device/jbx-kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/jbx-kernel/rls/system/etc/kexec/
 		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/jbx-kernel/rls/system/lib/modules/
@@ -25,19 +32,19 @@ if [ "$1" = "jbx" ]; then
 		zip -r "../JBX-Kernel-1.4-Hybrid-Edison-4.3_$(date +"%Y-%m-%d").zip" *
 		cd $curdir
 	fi
-else
+
+	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
+		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-JBX_KERNEL-${compile_user}-$device.zip
+	fi
+elif [ "$1" = "orig" -o "$1" = "cm" ]; then
 	make -j4 bacon 
+	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
+		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date -u +
+%Y%m%d`-${compile_user}-$device.zip
+	fi
+
 fi
 
-[ -d out/target/product/$device ] || exit
-sf=`find out/target/product/$device -name cm-*-UNOFFICIAL-edison.zip`
-[ "$sf" = "" ] && exit
-
-farray=($sf)
-for f in ${farray[@]} 
-do
-	 mv $f `echo $f|sed -e "s/UNOFFICIAL/NX111/"`
-done
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
 rm -f out/target/product/$device/cm-*.zip.md5sum
