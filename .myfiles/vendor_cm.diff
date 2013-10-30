@@ -1,14 +1,22 @@
 diff --git a/config/common.mk b/config/common.mk
-index 1b8a5e2..73a0e82 100644
+index 1b8a5e2..3cf2b8f 100644
 --- a/config/common.mk
 +++ b/config/common.mk
-@@ -153,8 +153,7 @@ PRODUCT_PACKAGES += \
+@@ -45,7 +45,6 @@ $(eval TARGET_BOOTANIMATION_NAME := $(shell \
+ endef
+ $(foreach size,$(bootanimation_sizes), $(call check_and_set_bootanimation,$(size)))
+ 
+-PRODUCT_BOOTANIMATION := vendor/cm/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip
+ endif
+ 
+ ifdef CM_NIGHTLY
+@@ -153,8 +152,7 @@ PRODUCT_PACKAGES += \
      CMWallpapers \
      Apollo \
      CMFileManager \
 -    LockClock \
 -    CMAccount
-+    LockClock 
++    LockClock
  
  # CM Hardware Abstraction Framework
  PRODUCT_PACKAGES += \
