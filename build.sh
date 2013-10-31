@@ -1,5 +1,6 @@
 device=edison
 compile_user=NX111
+
 rdir=`dirname $0`
 [ "$rdir" != "." ] && cd $rdir
 TOP=`pwd`
@@ -22,7 +23,9 @@ find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -type
 lunch cm_$device-userdebug 
 if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" ]; then
 	make bacon -j4 TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
-  			 TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
+  		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  \
+		       KBUILD_BUILD_HOST="Aim Hi" \
+		       BOARD_KERNEL_CMDLINE='root=/dev/ram0 rw mem=1023M@0x80000000 console=null vram=10300K omapfb.vram=0:8256K,1:4K,2:2040K init=/init ip=off mmcparts=mmcblk1:p7(pds),p15(boot),p16(recovery),p17(cdrom),p18(misc),p19(cid),p20(kpanic),p21(system),p22(cache),p23(preinstall),p24(webtop),p25(userdata) mot_sst=1 androidboot.bootloader=0x0A72'
 
 	if [ $? -eq 0 -a "$1" = "jbx-kernel" -a "$device" = "edison" ]; then	
 		[ -d out/target/product/$device/jbx-kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/jbx-kernel/rls/system/lib/modules/

@@ -31,8 +31,7 @@ fi
 
 
 ### jbx-kernel patch ###########
-sed -e  "s/\s*\(UTS_VERSION=\"#\$VERSION\"\)$/#\1/" -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h 
+sed -e  "s/^\(\s*UTS_VERSION=\"\)#\$VERSION\(\"\)/#\1\2/" -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h 
 sed -e "s/^\(\s*\)\(OPP_INITIALIZER(\"gpu\", \"dpll_per_m7x2_ck\", \"core\", \)true\(, 512000000, OMAP4430_VDD_CORE_OPP100_OV_UV),\)/\1\2false\3/" -i $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c 
 
-fi
 
