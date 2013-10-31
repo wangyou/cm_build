@@ -16,7 +16,9 @@ cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | 
 
 .myfiles/patch.sh
 
-find out/target/product/$device/obj/PACKAGING/target_files_intermediates/ -type d -mtime +2 -exec rm -rf {} \;
+find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -maxdepth 1 -type d -mtime +1  -exec rm -rf {} \;
+find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -type f -name cm_$device-*.zip -mtime +1 -exec rm -rf {} \;
+
 lunch cm_$device-userdebug 
 if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" ]; then
 	make bacon -j4 TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \

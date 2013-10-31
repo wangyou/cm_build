@@ -31,12 +31,8 @@ fi
 
 
 ### jbx-kernel patch ###########
-if [ -f $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c ]; then
-	grep "^\s*OPP_INITIALIZER(\"gpu\", \"dpll_per_m7x2_ck\", \"core\", true, 512000000, OMAP4430_VDD_CORE_OPP100_OV_UV)," $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c >/dev/null
-	if [ $? -eq 0 ]; then
-		cd $basedir/kernel/motorola/omap4-common-jbx
-		#patch -N -p1 <$rdir/jbx-kernel.diff
-		cd $rdir
-	fi
+sed -e  "s/\s*\(UTS_VERSION=\"#\$VERSION\"\)$/#\1/" -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h 
+sed -e "s/^\(\s*\)\(OPP_INITIALIZER(\"gpu\", \"dpll_per_m7x2_ck\", \"core\", \)true\(, 512000000, OMAP4430_VDD_CORE_OPP100_OV_UV),\)/\1\2false\3/" -i $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c 
+
 fi
 
