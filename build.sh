@@ -44,8 +44,7 @@ if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" ]; then
 elif [ "$1" = "orig" -o "$1" = "cm" ]; then
 	make -j4 bacon 
 	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
-		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date -u +
-%Y%m%d`-${compile_user}-$device.zip
+		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-${compile_user}-$device.zip
 	fi
 
 fi
