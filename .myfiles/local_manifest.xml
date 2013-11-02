@@ -7,11 +7,16 @@
 <project name="CyanogenMod/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github"  revision="cm-10.2" />
 <project name="CyanogenMod/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-10.2" />
 
-<!-- JBX-Kernel -->
+<!-- JBX-Kernel for RAZR and Edison-->
 <project name="RAZR-K-Devs/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common-jbx" remote="github" revision="JBX_4.3" />
-
 <!-- VENDOR -->
 <project name="Atrix2-Dev-Team/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-10.2-a" />
+
+<!-- Defy -->
+<project name="Quarx2k/android_device_moto_mb526" path="device/moto/mb526" remote="github" revision="cm10.2-3.0" />
+<project name="Quarx2k/android_device_moto_jordan-common" path="device/moto/jordan-common" remote="github" revision="cm10.2-3.0" />
+<project name="Quarx2k/jordan-kernel" path="kernel/motorola/jordan" remote="github" revision="AeroKernel"  />
+<project name="MoKee/android_vendor_motorola_jordan-common" path="vendor/motorola/jordan-common" remote="github" revision="jb-mr2_mkt" />
 
 <!-- package -->
 <project path="packages/apps/Calendar"        name="nx111/android_packages_apps_Calendar" remote="github" revision="nx111_jb-4.3"/>
