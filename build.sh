@@ -1,3 +1,4 @@
+clear
 device=edison
 compile_user=NX111
 
@@ -21,6 +22,7 @@ find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -maxd
 find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -type f -name cm_$device-*.zip -mtime +1 -exec rm -rf {} \;
 
 lunch cm_$device-userdebug 
+rm -f out/target/product/$device/system/build.prop
 if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" ]; then
 	make bacon -j4 TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  \
@@ -42,7 +44,7 @@ if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" ]; then
 		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-JBX_KERNEL-${compile_user}-$device.zip
 	fi
 elif [ "$1" = "orig" -o "$1" = "cm" ]; then
-	make -j4 bacon 
+	make -j4 bacon
 	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
 		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-${compile_user}-$device.zip
 	fi
