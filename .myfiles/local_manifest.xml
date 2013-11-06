@@ -17,7 +17,12 @@
 <project name="Quarx2k/android_device_moto_jordan-common" path="device/moto/jordan-common" remote="github" revision="cm10.2-3.0" />
 <project name="Quarx2k/jordan-kernel" path="kernel/motorola/jordan" remote="github" revision="p-android-omap3-3.0"  />
 <project path="vendor/moto" name="Quarx2k/proprietary_vendor_motorola" revision="cm10.1-3.0" />
-  
+<project path="frameworks/base.quarx2k" name="Quarx2k/android_frameworks_base" />
+<project path="frameworks/av.quarx2k" name="Quarx2k/android_frameworks_av" />
+<project path="frameworks/native.quarx2k" name="Quarx2k/android_frameworks_native" />
+<project path="hardware/ril.quarx2k" name="Quarx2k/android_hardware_ril" />
+<project path="system/core.quarx2k" name="Quarx2k/android_system_core" />
+
 
 <!-- package -->
 <project path="packages/apps/Calendar"        name="nx111/android_packages_apps_Calendar" remote="github" revision="nx111_jb-4.3"/>

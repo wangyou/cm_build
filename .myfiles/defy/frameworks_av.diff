@@ -1,17 +1,630 @@
-diff --git a/camera/Android.mk b/camera/Android.mk
-index 75fced7..5d57b8a 100644
---- a/camera/Android.mk
-+++ b/camera/Android.mk
-@@ -29,6 +29,12 @@ LOCAL_SHARED_LIBRARIES := \
- 	libgui \
- 	libcamera_metadata \
+diff -Naur '--exclude=.git' av/camera/Android.mk av.quarx2k/camera/Android.mk
+--- av/camera/Android.mk	2013-11-06 13:20:44.685488189 +0800
++++ av.quarx2k/camera/Android.mk	2013-11-06 14:27:43.041369460 +0800
+@@ -19,6 +19,11 @@
+ 	ProCamera.cpp \
+ 	CameraBase.cpp \
  
 +ifeq ($(BOARD_OVERLAY_BASED_CAMERA_HAL),true)
 +    LOCAL_CFLAGS += -DUSE_OVERLAY_CPP
 +    LOCAL_SRC_FILES += Overlay.cpp
 +endif
 +
-+
- LOCAL_C_INCLUDES += \
- 	system/media/camera/include \
+ LOCAL_SHARED_LIBRARIES := \
+ 	libcutils \
+ 	libutils \
+diff -Naur '--exclude=.git' av/include/media/stagefright/OMXCodec.h av.quarx2k/include/media/stagefright/OMXCodec.h
+--- av/include/media/stagefright/OMXCodec.h	2013-10-19 15:45:13.865816658 +0800
++++ av.quarx2k/include/media/stagefright/OMXCodec.h	2013-11-06 14:27:43.057369460 +0800
+@@ -103,8 +103,8 @@
+         kSupportsMultipleFramesPerInputBuffer = 1024,
+         kRequiresLargerEncoderOutputBuffer    = 2048,
+         kOutputBuffersAreUnreadable           = 4096,
+-#if defined(OMAP_ENHANCEMENT)
+-        kAvoidMemcopyInputRecordingFrames     = 0x20000000,
++#if defined(OMAP_ENHANCEMENT) || defined(OMAP_COMPAT)
++	kAvoidMemcopyInputRecordingFrames     = 0x20000000,
+ #endif
+ #ifdef QCOM_HARDWARE
+         kRequiresGlobalFlush                  = 0x20000000, // 2^29
+@@ -185,6 +185,8 @@
+         size_t mSize;
+         void *mData;
+         MediaBuffer *mMediaBuffer;
++        OMX_U8 *mAllocatedBuffer;
++        OMX_U32 mAllocatedSize;
+     };
  
+     struct CodecSpecificData {
+@@ -373,7 +375,7 @@
+     void dumpPortStatus(OMX_U32 portIndex);
+ 
+     status_t configureCodec(const sp<MetaData> &meta);
+-#if defined(OMAP_ENHANCEMENT)
++#if defined(OMAP_ENHANCEMENT) || defined(OMAP_COMPAT)
+     void restorePatchedDataPointer(BufferInfo *info);
+ #endif
+ 
+diff -Naur '--exclude=.git' av/media/libmedia/Android.mk av.quarx2k/media/libmedia/Android.mk
+--- av/media/libmedia/Android.mk	2013-10-19 15:45:13.905816657 +0800
++++ av.quarx2k/media/libmedia/Android.mk	2013-11-06 14:27:43.093369459 +0800
+@@ -103,6 +103,17 @@
+ 
+ LOCAL_WHOLE_STATIC_LIBRARY := libmedia_helper
+ 
++ifeq ($(BOARD_USES_AUDIO_LEGACY),true)
++    LOCAL_SRC_FILES+= \
++        AudioParameter.cpp
++
++    LOCAL_CFLAGS += -DUSES_AUDIO_LEGACY
++endif
++
++ifeq ($(BOARD_USE_KINETO_COMPATIBILITY),true)
++    LOCAL_CFLAGS += -DUSE_KINETO_COMPATIBILITY
++endif
++
+ LOCAL_MODULE:= libmedia
+ 
+ LOCAL_C_INCLUDES := \
+diff -Naur '--exclude=.git' av/media/libmedia/AudioRecord.cpp av.quarx2k/media/libmedia/AudioRecord.cpp
+--- av/media/libmedia/AudioRecord.cpp	2013-10-19 15:45:13.909816657 +0800
++++ av.quarx2k/media/libmedia/AudioRecord.cpp	2013-11-06 14:27:43.093369459 +0800
+@@ -106,6 +106,39 @@
+             frameCount, cbf, user, notificationFrames, false /*threadCanCallJava*/, sessionId);
+ }
+ 
++#ifdef USE_KINETO_COMPATIBILITY
++// Really dirty hack to give a Froyo-compatible constructor
++extern "C" AudioRecord *_ZN7android11AudioRecordC1EijijijPFviPvS1_ES1_ii(
++        AudioRecord *This,
++        int inputSource,
++        uint32_t sampleRate,
++        int format,
++        uint32_t channels,
++        int frameCount,
++        uint32_t flags,
++        AudioRecord::callback_t cbf,
++        void* user,
++        int notificationFrames,
++        int sessionId);
++/*
++extern "C" AudioRecord *_ZN7android11AudioRecordC1EijijijPFviPvS1_ES1_i(
++        AudioRecord *This,
++        int inputSource,
++        uint32_t sampleRate,
++        int format,
++        uint32_t channels,
++        int frameCount,
++        uint32_t flags,
++        AudioRecord::callback_t cbf,
++        void* user,
++        int notificationFrames)
++{
++    return _ZN7android11AudioRecordC1EijijijPFviPvS1_ES1_ii(This,
++        inputSource, sampleRate, format, channels,
++        frameCount, flags, cbf, user, notificationFrames, 0);
++}*/
++#endif
++
+ AudioRecord::~AudioRecord()
+ {
+     if (mStatus == NO_ERROR) {
+diff -Naur '--exclude=.git' av/media/libmedia/AudioSystem.cpp av.quarx2k/media/libmedia/AudioSystem.cpp
+--- av/media/libmedia/AudioSystem.cpp	2013-10-19 15:45:13.909816657 +0800
++++ av.quarx2k/media/libmedia/AudioSystem.cpp	2013-11-06 14:27:43.093369459 +0800
+@@ -812,4 +812,64 @@
+ }
+ #endif // USE_SAMSUNG_SEPARATEDSTREAM
+ 
++#ifdef USES_AUDIO_LEGACY
++extern "C" uint32_t _ZN7android11AudioSystem8popCountEj(uint32_t u)
++{
++    return popcount(u);
++}
++
++extern "C" bool _ZN7android11AudioSystem12isA2dpDeviceENS0_13audio_devicesE(uint32_t device)
++{
++    return audio_is_a2dp_device((audio_devices_t)device);
++}
++
++extern "C" bool _ZN7android11AudioSystem13isInputDeviceENS0_13audio_devicesE(uint32_t device)
++{
++    return audio_is_input_device((audio_devices_t)device);
++}
++
++extern "C" bool _ZN7android11AudioSystem14isOutputDeviceENS0_13audio_devicesE(uint32_t device)
++{
++    return audio_is_output_device((audio_devices_t)device);
++}
++
++extern "C" bool _ZN7android11AudioSystem20isBluetoothScoDeviceENS0_13audio_devicesE(uint32_t device)
++{
++    return audio_is_bluetooth_sco_device((audio_devices_t)device);
++}
++
++extern "C" status_t _ZN7android11AudioSystem24setDeviceConnectionStateENS0_13audio_devicesENS0_23device_connection_stateEPKc(audio_devices_t device,
++                                               audio_policy_dev_state_t state,
++                                               const char *device_address) 
++{
++    return AudioSystem::setDeviceConnectionState(device, state, device_address);
++}
++
++extern "C" audio_io_handle_t _ZN7android11AudioSystem9getOutputENS0_11stream_typeEjjjNS0_12output_flagsE(audio_stream_type_t stream,
++                                    uint32_t samplingRate,
++                                    uint32_t format,
++                                    uint32_t channels,
++                                    audio_output_flags_t flags) 
++{
++   return AudioSystem::getOutput(stream,samplingRate,(audio_format_t)format,channels>>2,flags);
++}
++
++extern "C" bool _ZN7android11AudioSystem11isLinearPCMEj(uint32_t format)
++{
++    return audio_is_linear_pcm((audio_format_t)format);
++}
++
++extern "C" bool _ZN7android11AudioSystem15isLowVisibilityENS0_11stream_typeE(audio_stream_type_t stream)
++{
++    if (stream == AUDIO_STREAM_SYSTEM ||
++        stream == AUDIO_STREAM_NOTIFICATION ||
++        stream == AUDIO_STREAM_RING) {
++        return true;
++    } else {
++        return false;
++    }
++}
++
++#endif // AUDIO_LEGACY
++
+ }; // namespace android
+diff -Naur '--exclude=.git' av/media/libmedia/AudioTrack.cpp av.quarx2k/media/libmedia/AudioTrack.cpp
+--- av/media/libmedia/AudioTrack.cpp	2013-10-19 15:45:13.909816657 +0800
++++ av.quarx2k/media/libmedia/AudioTrack.cpp	2013-11-06 14:27:43.097369459 +0800
+@@ -101,6 +101,38 @@
+ 
+ // ---------------------------------------------------------------------------
+ 
++#if 0//def USE_KINETO_COMPATIBILITY
++// Really dirty hack to give a Froyo-compatible constructor
++extern "C" AudioTrack *_ZN7android10AudioTrackC1EijiiijPFviPvS1_ES1_ii(
++        AudioTrack *This,
++        int streamType,
++        uint32_t sampleRate,
++        int format,
++        int channels,
++        int frameCount,
++        uint32_t flags,
++        AudioTrack::callback_t cbf,
++        void* user,
++        int notificationFrames,
++        int sessionId);
++extern "C" AudioTrack *_ZN7android10AudioTrackC1EijiiijPFviPvS1_ES1_i(
++        AudioTrack *This,
++        int streamType,
++        uint32_t sampleRate,
++        int format,
++        int channels,
++        int frameCount,
++        uint32_t flags,
++        AudioTrack::callback_t cbf,
++        void* user,
++        int notificationFrames)
++{
++    return _ZN7android10AudioTrackC1EijiiijPFviPvS1_ES1_ii(This,
++        streamType, sampleRate, format, channels,
++        frameCount, flags, cbf, user, notificationFrames, 0);
++}
++#endif
++
+ AudioTrack::AudioTrack()
+     : mCblk(NULL),
+       mStatus(NO_INIT),
+diff -Naur '--exclude=.git' av/media/libstagefright/AwesomePlayer.cpp av.quarx2k/media/libstagefright/AwesomePlayer.cpp
+--- av/media/libstagefright/AwesomePlayer.cpp	2013-10-19 15:45:13.929816656 +0800
++++ av.quarx2k/media/libstagefright/AwesomePlayer.cpp	2013-11-06 14:27:43.105369459 +0800
+@@ -1335,6 +1335,9 @@
+     if (USE_SURFACE_ALLOC
+             && !strncmp(component, "OMX.", 4)
+             && strncmp(component, "OMX.google.", 11)
++#ifdef OMAP_COMPAT
++            && strncmp(component, "OMX.TI.", 7)
++#endif
+             && strcmp(component, "OMX.Nvidia.mpeg2v.decode")) {
+         // Hardware decoders avoid the CPU color conversion by decoding
+         // directly to ANativeBuffers, so we must use a renderer that
+diff -Naur '--exclude=.git' av/media/libstagefright/colorconversion/SoftwareRenderer.cpp av.quarx2k/media/libstagefright/colorconversion/SoftwareRenderer.cpp
+--- av/media/libstagefright/colorconversion/SoftwareRenderer.cpp	2013-10-19 15:45:14.033816653 +0800
++++ av.quarx2k/media/libstagefright/colorconversion/SoftwareRenderer.cpp	2013-11-06 14:27:43.201369456 +0800
+@@ -28,6 +28,11 @@
+ 
+ namespace android {
+ 
++static int ALIGN(int x, int y) {
++    // y must be a power of 2.
++    return (x + y - 1) & ~(y - 1);
++}
++
+ static bool runningInEmulator() {
+     char prop[PROPERTY_VALUE_MAX];
+     return (property_get("ro.kernel.qemu", prop, NULL) > 0);
+@@ -66,11 +71,24 @@
+ 
+     switch (mColorFormat) {
+         case OMX_COLOR_FormatYUV420Planar:
++#ifdef OMAP_COMPAT
++        /* OMX.TI.VideoDecoder decoding to OMX_COLOR_FormatYUV420Planar
++           is buggy (causing occasional DSP bridge resets), so we have
++           to use OMX_COLOR_FormatCbYCrY, which is reliable */
++        case OMX_COLOR_FormatCbYCrY:
++#endif
+         case OMX_TI_COLOR_FormatYUV420PackedSemiPlanar:
+         {
+             if (!runningInEmulator()) {
+                 halFormat = HAL_PIXEL_FORMAT_YV12;
+-                bufWidth = (mCropWidth + 1) & ~1;
++#ifndef OMAP_COMPAT
++            bufWidth = (mCropWidth + 1) & ~1;
++#else
++            /* omap3.gralloc.so 8 aligns the stride of YV12 buffer
++            instead of 16 align, so we have to align the width ourselves
++            to avoid broken playback of videos with width not multiple of 16 */
++            bufWidth = ALIGN(mCropWidth, 16);
++#endif
+                 bufHeight = (mCropHeight + 1) & ~1;
+                 break;
+             }
+@@ -141,11 +159,6 @@
+     mConverter = NULL;
+ }
+ 
+-static int ALIGN(int x, int y) {
+-    // y must be a power of 2.
+-    return (x + y - 1) & ~(y - 1);
+-}
+-
+ void SoftwareRenderer::render(
+         const void *data, size_t size, void *platformPrivate) {
+     ANativeWindowBuffer *buf;
+@@ -158,7 +171,11 @@
+ 
+     GraphicBufferMapper &mapper = GraphicBufferMapper::get();
+ 
++#ifndef OMAP_COMPAT
+     Rect bounds(mCropWidth, mCropHeight);
++#else
++    Rect bounds(buf->width, mCropHeight);
++#endif
+ 
+     void *dst;
+     CHECK_EQ(0, mapper.lock(
+@@ -179,7 +196,14 @@
+ 
+         uint8_t *dst_y = (uint8_t *)dst;
+         size_t dst_y_size = buf->stride * buf->height;
++#ifndef OMAP_COMPAT
+         size_t dst_c_stride = ALIGN(buf->stride / 2, 16);
++#else
++        /* the above ALIGN of just the color plane stride would have
++           caused writes outside of the allocated buffer, so it has
++           to be avoided */
++         size_t dst_c_stride = buf->stride / 2;
++#endif
+         size_t dst_c_size = dst_c_stride * buf->height / 2;
+         uint8_t *dst_v = dst_y + dst_y_size;
+         uint8_t *dst_u = dst_v + dst_c_size;
+@@ -200,6 +224,52 @@
+             dst_u += dst_c_stride;
+             dst_v += dst_c_stride;
+         }
++#ifdef OMAP_COMPAT
++    } else if (mColorFormat == OMX_COLOR_FormatCbYCrY) {
++        const uint8_t *src = (const uint8_t *)data;
++
++        size_t dst_y_size = buf->stride * buf->height;
++        size_t dst_c_size = buf->stride * buf->height / 4;
++
++        /* small pillarbox for videos with width not multiple of 16, needed
++           because of bug in (proprietary) gralloc.omap3.so as it 8 aligns
++           the stride of YV12 buffer instead of the correct 16 align */
++        size_t pb_c_size = (buf->stride - mCropWidth) / 2;
++        size_t pb_c_l_size = pb_c_size / 2;
++        size_t pb_c_r_size = pb_c_size - pb_c_l_size;
++        size_t pb_y_l_size = pb_c_l_size * 2;
++
++        uint8_t *dst_y = (uint8_t *)dst;
++        uint8_t *dst_v = dst_y + dst_y_size;
++        uint8_t *dst_u = dst_v + dst_c_size;
++
++        size_t nl_src = mWidth * 2;         // next line offset - source
++        size_t n2l_dst_y = buf->stride * 2; // next 2 lines offset - dest y
++
++        dst_y += pb_y_l_size;
++        memset(dst_v, 0x80, pb_c_l_size);   // make the pillarbox black
++        memset(dst_u, 0x80, pb_c_l_size);
++        dst_v += pb_c_l_size;
++        dst_u += pb_c_l_size;
++        for (int i = 0; i < mCropHeight; i += 2) {
++            size_t pb_c_size_tmp = i < mCropHeight - 2 ? pb_c_size : pb_c_r_size;
++            for (int j = 0; j < mCropWidth; j += 2) {
++                dst_y[j] = src[1];
++                dst_y[j + 1] = src[3];
++                dst_y[j + buf->stride] = src[nl_src + 1];
++                dst_y[j + buf->stride + 1] = src[nl_src + 3];
++                *dst_v++ = (src[2] + src[nl_src + 2]) / 2;
++                *dst_u++ = (src[0] + src[nl_src]) / 2;
++                src += 4;
++            }
++            src += nl_src;
++            dst_y += n2l_dst_y;
++            memset(dst_v, 0x80, pb_c_size_tmp);
++            memset(dst_u, 0x80, pb_c_size_tmp);
++            dst_v += pb_c_size_tmp;
++            dst_u += pb_c_size_tmp;
++        }
++#endif
+     } else {
+         CHECK_EQ(mColorFormat, OMX_TI_COLOR_FormatYUV420PackedSemiPlanar);
+ 
+diff -Naur '--exclude=.git' av/media/libstagefright/OMXCodec.cpp av.quarx2k/media/libstagefright/OMXCodec.cpp
+--- av/media/libstagefright/OMXCodec.cpp	2013-10-19 15:45:13.933816656 +0800
++++ av.quarx2k/media/libstagefright/OMXCodec.cpp	2013-11-06 14:27:43.109369458 +0800
+@@ -345,7 +345,7 @@
+                 index, "output-buffers-are-unreadable")) {
+         quirks |= kOutputBuffersAreUnreadable;
+     }
+-#ifdef OMAP_ENHANCEMENT
++#if defined(OMAP_ENHANCEMENT) || defined(OMAP_COMPAT)
+     if (list->codecHasQuirk(
+                 index, "avoid-memcopy-input-recording-frames")) {
+       quirks |= kAvoidMemcopyInputRecordingFrames;
+@@ -354,6 +354,26 @@
+                 index, "input-buffer-sizes-are-bogus")) {
+       quirks |= kInputBufferSizesAreBogus;
+     }
++    if (list->codecHasQuirk(
++                index, "needs-flush-before-disable")) {
++      quirks |= kNeedsFlushBeforeDisable;
++    }
++    if (list->codecHasQuirk(
++                index, "decoder-lies-about-nubmer-of-channels")) {
++      quirks |= kDecoderLiesAboutNumberOfChannels;
++    }
++    if (list->codecHasQuirk(
++                index, "requires-flush-complete-emulation")) {
++      quirks |= kRequiresFlushCompleteEmulation;
++    }
++    if (list->codecHasQuirk(
++                index, "supports-multiple-frames-per-input-buffer")) {
++      quirks |= kSupportsMultipleFramesPerInputBuffer;
++    }
++    if (list->codecHasQuirk(
++                index, "input-buffer-sizes-are-bogus")) {
++      quirks |= kInputBufferSizesAreBogus;
++    }
+ #endif
+     if (list->codecHasQuirk(
+                 index, "requires-loaded-to-idle-after-allocation")) {
+@@ -375,6 +395,7 @@
+     return quirks;
+ }
+ 
++
+ // static
+ bool OMXCodec::findCodecQuirks(const char *componentName, uint32_t *quirks) {
+     const MediaCodecList *list = MediaCodecList::getInstance();
+@@ -442,6 +463,15 @@
+         uint32_t quirks = matchingCodecs[i].mQuirks;
+         const char *componentName = componentNameBase;
+ 
++        // kPreferSoftwareCodecs causes matchingCodecs[] to get sorted
++        // (at the end of findMatchingCodecs) while matchingCodecQuirks[]
++        // remains in original order.
++        // Prevent mismatch between codec and quirks in such case, otherwise
++        // a sw codec could end up using quirks of some hw codec.
++        if (flags & kPreferSoftwareCodecs) {
++            findCodecQuirks(componentName, &quirks);
++        }
++
+         AString tmp;
+         if (flags & kUseSecureInputBuffers) {
+             tmp = componentNameBase;
+@@ -468,6 +498,23 @@
+ 
+         ALOGV("Attempting to allocate OMX node '%s'", componentName);
+ 
++#ifdef OMAP_COMPAT
++        if (!strcmp(componentName, "OMX.TI.Video.Decoder")) {
++            int32_t width, height;
++            bool success = meta->findInt32(kKeyWidth, &width);
++            success = success && meta->findInt32(kKeyHeight, &height);
++            CHECK(success);
++            // We need this for 720p video without AVC profile
++            // Not a good solution, but ..
++            if (width*height > 412800) {  //860*480
++               componentName = "OMX.TI.720P.Decoder";
++               ALOGE("Format exceed the decoder's capabilities. %d", width*height);
++               continue;
++            }
++        }
++#endif
++
++
+         if (!createEncoder
+                 && (quirks & kOutputBuffersAreUnreadable)
+                 && (flags & kClientNeedsFramebuffer)) {
+@@ -629,6 +676,17 @@
+             CODEC_LOGI(
+                     "AVC profile = %u (%s), level = %u",
+                     profile, AVCProfileToString(profile), level);
++#ifdef OMAP_COMPAT
++            if (!strcmp(mComponentName, "OMX.TI.Video.Decoder")
++                && (profile != kAVCProfileBaseline || level > 31)) {
++                // This stream exceeds the decoder's capabilities. The decoder
++                // does not handle this gracefully and would clobber the heap
++                // and wreak havoc instead...
++
++                ALOGE("Profile and/or level exceed the decoder's capabilities.");
++                return ERROR_UNSUPPORTED;
++            }
++#endif
+         } else if (meta->findData(kKeyVorbisInfo, &type, &data, &size)) {
+             addCodecSpecificData(data, size);
+ 
+@@ -770,6 +828,12 @@
+         setMinBufferSize(kPortIndexInput, (OMX_U32)maxInputSize);
+     }
+ 
++    if (!strcmp(mComponentName, "OMX.TI.AMR.encode")
++        || !strcmp(mComponentName, "OMX.TI.WBAMR.encode")
++        || !strcmp(mComponentName, "OMX.TI.AAC.encode")) {
++        setMinBufferSize(kPortIndexOutput, 8192); // XXX
++    }
++
+     initOutputFormat(meta);
+ 
+     if ((mFlags & kClientNeedsFramebuffer)
+@@ -1658,6 +1722,9 @@
+       mPaused(false),
+       mNativeWindow(
+               (!strncmp(componentName, "OMX.google.", 11)
++#ifdef OMAP_COMPAT
++              || !strncmp(componentName, "OMX.TI.", 7)
++#endif
+               || !strcmp(componentName, "OMX.Nvidia.mpeg2v.decode"))
+                         ? NULL : nativeWindow),
+       mNumBFrames(0),
+@@ -1909,6 +1976,8 @@
+         BufferInfo info;
+         info.mData = NULL;
+         info.mSize = def.nBufferSize;
++        info.mAllocatedBuffer = NULL;
++        info.mAllocatedSize = 0;
+ 
+         IOMX::buffer_id buffer;
+         if (portIndex == kPortIndexInput
+@@ -2210,6 +2279,8 @@
+         info.mSize = def.nBufferSize;
+         info.mStatus = OWNED_BY_US;
+         info.mMem = NULL;
++        info.mAllocatedBuffer = NULL;
++        info.mAllocatedSize = 0;
+         info.mMediaBuffer = new MediaBuffer(graphicBuffer);
+         info.mMediaBuffer->setObserver(this);
+         mPortBuffers[kPortIndexOutput].push(info);
+@@ -2515,7 +2586,7 @@
+ 
+             // Buffer could not be released until empty buffer done is called.
+             if (info->mMediaBuffer != NULL) {
+-#ifdef OMAP_ENHANCEMENT
++#if defined(OMAP_ENHANCEMENT) || defined(OMAP_COMPAT)
+                 if (mIsEncoder &&
+                     (mQuirks & kAvoidMemcopyInputRecordingFrames)) {
+                     // If zero-copy mode is enabled this will send the
+@@ -3243,6 +3314,12 @@
+ 
+     BufferInfo *info = &buffers->editItemAt(bufIndex);
+ 
++    if (info->mAllocatedBuffer != NULL) {
++        OMX_BUFFERHEADERTYPE *header = (OMX_BUFFERHEADERTYPE *) info->mBuffer;
++        header->pBuffer = info->mAllocatedBuffer;
++        header->nAllocLen = info->mAllocatedSize;
++    }
++
+     status_t err = mOMX->freeBuffer(mNode, portIndex, info->mBuffer);
+ 
+     if (err == OK && info->mMediaBuffer != NULL) {
+@@ -3597,7 +3674,7 @@
+         }
+ 
+         bool releaseBuffer = true;
+-#ifdef OMAP_ENHANCEMENT
++#if defined(OMAP_ENHANCEMENT) || defined(OMAP_COMPAT)
+         if (mIsEncoder && (mQuirks & kAvoidMemcopyInputRecordingFrames)) {
+             CHECK(mOMXLivesLocally && offset == 0);
+ 
+@@ -3606,8 +3683,14 @@
+ 
+             CHECK(header->pBuffer == info->mData);
+ 
++            if (info->mAllocatedBuffer == NULL) {
++                info->mAllocatedBuffer = header->pBuffer;
++                info->mAllocatedSize = header->nAllocLen;
++            }
++
+             header->pBuffer =
+                 (OMX_U8 *)srcBuffer->data() + srcBuffer->range_offset();
++            header->nAllocLen = srcBuffer->size() - srcBuffer->range_offset();
+ 
+             releaseBuffer = false;
+             info->mMediaBuffer = srcBuffer;
+@@ -3670,7 +3753,7 @@
+ #endif // USE_SAMSUNG_COLORFORMAT
+         }
+ 
+-#ifdef OMAP_ENHANCEMENT
++#if defined(OMAP_ENHANCEMENT) || defined(OMAP_COMPAT)
+ 	}
+ #endif
+ 
+@@ -5323,7 +5406,7 @@
+ 
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-#ifdef OMAP_ENHANCEMENT
++#if defined(OMAP_ENHANCEMENT) || defined(OMAP_COMPAT)
+ void OMXCodec::restorePatchedDataPointer(BufferInfo *info) {
+     CHECK(mIsEncoder && (mQuirks & kAvoidMemcopyInputRecordingFrames));
+     CHECK(mOMXLivesLocally);
+@@ -5410,7 +5493,7 @@
+     // Color format query
+     OMX_VIDEO_PARAM_PORTFORMATTYPE portFormat;
+     InitOMXParams(&portFormat);
+-#ifdef OMAP_ENHANCEMENT
++#if defined(OMAP_ENHANCEMENT) || defined(OMAP_COMPAT)
+     portFormat.nPortIndex = !isEncoder ? 0 : 1;
+ #else
+     portFormat.nPortIndex = !isEncoder ? 1 : 0;
+diff -Naur '--exclude=.git' av/services/audioflinger/Android.mk av.quarx2k/services/audioflinger/Android.mk
+--- av/services/audioflinger/Android.mk	2013-10-19 15:45:14.049816653 +0800
++++ av.quarx2k/services/audioflinger/Android.mk	2013-11-06 14:27:43.213369455 +0800
+@@ -75,6 +75,10 @@
+ 
+ LOCAL_CFLAGS += -UFAST_TRACKS_AT_NON_NATIVE_SAMPLE_RATE
+ 
++ifneq ($(BOARD_USE_HARDCODED_FAST_TRACK_LATENCY_WHEN_DENIED),)
++LOCAL_CFLAGS += -DHARDCODED_FAST_TRACK_LATENCY_WHEN_DENIED=$(BOARD_USE_HARDCODED_FAST_TRACK_LATENCY_WHEN_DENIED)
++endif
++
+ # uncomment to allow tee sink debugging to be enabled by property
+ # LOCAL_CFLAGS += -DTEE_SINK
+ 
+diff -Naur '--exclude=.git' av/services/audioflinger/AudioFlinger.h av.quarx2k/services/audioflinger/AudioFlinger.h
+--- av/services/audioflinger/AudioFlinger.h	2013-10-19 15:45:14.049816653 +0800
++++ av.quarx2k/services/audioflinger/AudioFlinger.h	2013-11-06 14:27:43.213369455 +0800
+@@ -90,8 +90,8 @@
+ #define INCLUDING_FROM_AUDIOFLINGER_H
+ 
+ static uint32_t getInputChannelCount(uint32_t channels) {
+-    // only mono, stereo, and 5.1 are supported for input sources
+-    return popcount((channels)&(AUDIO_CHANNEL_IN_STEREO|AUDIO_CHANNEL_IN_MONO
++    // only mono, stereo, voice uplink and 5.1 are supported for input sources
++    return popcount((channels)&(AUDIO_CHANNEL_IN_STEREO|AUDIO_CHANNEL_IN_MONO|AUDIO_CHANNEL_IN_VOICE_UPLINK
+ #ifdef QCOM_HARDWARE
+                 |AUDIO_CHANNEL_IN_5POINT1
+ #endif
+diff -Naur '--exclude=.git' av/services/audioflinger/Threads.cpp av.quarx2k/services/audioflinger/Threads.cpp
+--- av/services/audioflinger/Threads.cpp	2013-10-19 15:45:14.109816651 +0800
++++ av.quarx2k/services/audioflinger/Threads.cpp	2013-11-06 14:27:43.217369455 +0800
+@@ -1215,7 +1215,12 @@
+         // to be at least 2 x the normal mixer frame count and cover audio hardware latency.
+         // This is probably too conservative, but legacy application code may depend on it.
+         // If you change this calculation, also review the start threshold which is related.
++#ifdef HARDCODED_FAST_TRACK_LATENCY_WHEN_DENIED
++        ALOGW("Using HARDCODED_FAST_TRACK_LATENCY setting = %d", HARDCODED_FAST_TRACK_LATENCY_WHEN_DENIED);
++        uint32_t latencyMs = HARDCODED_FAST_TRACK_LATENCY_WHEN_DENIED;
++#else
+         uint32_t latencyMs = mOutput->stream->get_latency(mOutput->stream);
++#endif
+         uint32_t minBufCount = 0;
+         if(mSampleRate)
+             minBufCount = latencyMs / ((1000 * mNormalFrameCount) / mSampleRate);
