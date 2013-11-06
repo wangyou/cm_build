@@ -1,0 +1,17 @@
+diff --git a/camera/Android.mk b/camera/Android.mk
+index 75fced7..5d57b8a 100644
+--- a/camera/Android.mk
++++ b/camera/Android.mk
+@@ -29,6 +29,12 @@ LOCAL_SHARED_LIBRARIES := \
+ 	libgui \
+ 	libcamera_metadata \
+ 
++ifeq ($(BOARD_OVERLAY_BASED_CAMERA_HAL),true)
++    LOCAL_CFLAGS += -DUSE_OVERLAY_CPP
++    LOCAL_SRC_FILES += Overlay.cpp
++endif
++
++
+ LOCAL_C_INCLUDES += \
+ 	system/media/camera/include \
+ 

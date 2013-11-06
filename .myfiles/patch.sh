@@ -39,3 +39,20 @@ sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\
 #### LOG for KERNEL ##########
 sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/system/core/include/cutils/klog.h
 
+
+###### for jordan ##########
+if grep -q "^\s*<string-array name=\"config_vendorServices\">" $basedir/device/moto/jordan-common/overlay/frameworks/base/core/res/res/values/arrays.xml; then
+    cd $basedir/device/moto/jordan-common;
+    patch -N -p1 <$rdir/jordan-common.diff
+    cd $rdir
+fi
+
+[ -f $basedir/frameworks/av/include/camera/Overlay.h ] || cp $rdir/defy/Overlay.h $basedir/frameworks/av/include/camera/
+[ -f $basedir/frameworks/av/camera/Overlay.cpp ] || cp $rdir/defy/Overlay.cpp $basedir/frameworks/av/camera/ 
+
+if ! grep -q Overlay.cpp $basedir/frameworks/av/camera/Android.mk; then
+ 	cd $basedir/frameworks/av
+	patch -N -p1 <$rdir/defy/frameworks_av.diff
+	cd $rdir
+fi
+

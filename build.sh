@@ -15,7 +15,9 @@ KERNELOPT=""
 case "$1" in
 	"jordan")
 		device="mb526"
-		KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan TARGET_KERNEL_CONFIG=mb526_cm10.1_defconfig"
+		KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
+		rm -rf $TOP/vendor/motorola/jordan-common
+		cp -r $TOP/vendor/moto/jordan-common $TOP/vendor/motorola/jordan-common
 	;;
 	"spyder")
 		device="spyder"
@@ -76,6 +78,12 @@ else
 	fi
 fi
 
+if [ "$device" = "mb526" ]; then
+ 	cd $TOP/frameworks/av
+	patch -R -p1 <$TOP/.myfiles/defy/frameworks_av.diff
+	cd $curdir
+
+fi
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
 rm -f out/target/product/$device/cm-*.zip.md5sum
