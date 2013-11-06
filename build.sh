@@ -17,7 +17,7 @@ case "$1" in
 		device="mb526"
 		KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
 		rm -rf $TOP/vendor/motorola/jordan-common
-		cp -r $TOP/vendor/moto/jordan-common $TOP/vendor/motorola/jordan-common
+		[ -d  $TOP/vendor/moto/jordan-common ] && cp -r $TOP/vendor/moto/jordan-common $TOP/vendor/motorola/jordan-common
 	;;
 	"spyder")
 		device="spyder"
@@ -32,7 +32,7 @@ esac
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
-.myfiles/patch.sh
+.myfiles/patch.sh device=$device 
 if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
   find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -maxdepth 1 -type d -mtime +1  -exec rm -rf {} \; 
   find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -type f -name cm_$device-*.zip -mtime +1 -exec rm -rf {} \; 
@@ -78,12 +78,8 @@ else
 	fi
 fi
 
-if [ "$device" = "mb526" ]; then
- 	cd $TOP/frameworks/av
-	patch -R -p1 <$TOP/.myfiles/defy/frameworks_av.diff
-	cd $curdir
+.myfiles/patch.sh mode=r 
 
-fi
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
 rm -f out/target/product/$device/cm-*.zip.md5sum
