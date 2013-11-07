@@ -42,15 +42,21 @@ if [ "$mode" = "r" ]; then
 		mv $basedir/hardware/ril $basedir/hardware/ril.quarx2k
 		mv $basedir/hardware/ril.cm $basedir/hardware/ril
 	fi
+	if [ -d $basedir/frameworks/opt/telephony.cm -a ! -d $basedir/frameworks/opt/telephony.quarx2k ]; then
+		mv $basedir/frameworks/opt/telephony $basedir/frameworks/opt/telephony.quarx2k
+		mv $basedir/frameworks/opt/telephony.cm $basedir/frameworks/opt/telephony
+	fi
 	
 	cd $basedir/frameworks/base;			git stash >/dev/null
 	cd $basedir/frameworks/av;			git stash >/dev/null
 	cd $basedir/frameworks/native;			git stash >/dev/null
+	cd $basedir/frameworks/opt/telephony;		git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
 	cd $basedir/hardware/ril;			git stash >/dev/null
 	cd $basedir/frameworks/base.quarx2k		git stash >/dev/null
 	cd $basedir/frameworks/av.quarx2k;		git stash >/dev/null
 	cd $basedir/frameworks/native.quarx2k;		git stash >/dev/null
+	cd $basedir/frameworks/opt/telephony.quarx2k;	git stash >/dev/null
 	cd $basedir/system/core.quarx2k;		git stash >/dev/null
 	cd $basedir/hardware/ril.quarx2k;		git stash >/dev/null
 
@@ -82,6 +88,10 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 		mv $basedir/frameworks/native $basedir/frameworks/native.quarx2k
 		mv $basedir/frameworks/native.cm $basedir/frameworks/native
 	fi
+	if [ -d $basedir/frameworks/opt/telephony.cm -a ! -d $basedir/frameworks/opt/telephony.quarx2k ]; then
+		mv $basedir/frameworks/opt/telephony $basedir/frameworks/opt/telephony.quarx2k
+		mv $basedir/frameworks/opt/telephony.cm $basedir/frameworks/opt/telephony
+	fi
 	if [ -d $basedir/system/core.cm -a ! -d $basedir/system/core.quarx2k ]; then
 		mv $basedir/system/core $basedir/system/core.quarx2k
 		mv $basedir/system/core.cm $basedir/system/core
@@ -93,11 +103,13 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	rm -rf $basedir/frameworks/base.quarx2k/*
 	rm -rf $basedir/frameworks/av.quarx2k/*
 	rm -rf $basedir/frameworks/native.quarx2k/*
+	rm -rf $basedir/frameworks/opt/telephony.quarx2k/*
 	rm -rf $basedir/system/core.quarx2k/*
 	rm -rf $basedir/hardware/ril.quarx2k/*
 	cd $basedir/frameworks/base;			git stash >/dev/null
 	cd $basedir/frameworks/av;			git stash >/dev/null
 	cd $basedir/frameworks/native;			git stash >/dev/null
+	cd $basedir/frameworks/opt/telephony;		git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
 	cd $basedir/hardware/ril;			git stash >/dev/null
 
@@ -112,6 +124,14 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    sed -e "s/^\(\s*\)\(OPP_INITIALIZER(\"gpu\", \"dpll_per_m7x2_ck\", \"core\", \)true\(, 512000000, OMAP4430_VDD_CORE_OPP100_OV_UV),\)/\1\2false\3/" -i $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c 
 
    sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h
+
+   ### patch for vendor cm  ########
+   if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
+        $basedir/vendor/cm/config/common_full.mk; then
+	cd $basedir/vendor/cm
+	patch -N -p1 <$rdir/vendor_cm.diff
+	cd $rdir
+   fi
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
@@ -129,6 +149,10 @@ elif [ "$device" = "mb526" ]; then
 		mv $basedir/frameworks/native $basedir/frameworks/native.cm
 		mv $basedir/frameworks/native.quarx2k $basedir/frameworks/native
 	fi
+	if [ -d $basedir/frameworks/opt/telephony.quarx2k -a ! -d $basedir/frameworks/opt/telephony.cm ]; then
+		mv $basedir/frameworks/opt/telephony $basedir/frameworks/opt/telephony.cm
+		mv $basedir/frameworks/opt/telephony.quarx2k $basedir/frameworks/opt/telephony
+	fi
 	if [ -d $basedir/system/core.quarx2k -a ! -d $basedir/system/core.cm ]; then
 		mv $basedir/system/core $basedir/system/core.cm
 		mv $basedir/system/core.quarx2k $basedir/system/core
@@ -140,36 +164,26 @@ elif [ "$device" = "mb526" ]; then
 	rm -rf $basedir/frameworks/base.cm/*
 	rm -rf $basedir/frameworks/av.cm/*
 	rm -rf $basedir/frameworks/native.cm/*
+	rm -rf $basedir/frameworks/opt/telephony.cm/*
 	rm -rf $basedir/system/core.cm/*
 	rm -rf $basedir/hardware/ril.cm/*
 	cd $basedir/frameworks/base;			git stash >/dev/null
 	cd $basedir/frameworks/av;			git stash >/dev/null
 	cd $basedir/frameworks/native;			git stash >/dev/null
+	cd $basedir/frameworks/opt/telephony;		git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
 	cd $basedir/hardware/ril;			git stash >/dev/null
 
-   if grep -q "^\s*<string-array name=\"config_vendorServices\">" $basedir/device/moto/jordan-common/overlay/frameworks/base/core/res/res/values/arrays.xml; then
-       cd $basedir/device/moto/jordan-common;
-       patch -N -p1 <$rdir/jordan-common.diff
-       cd $rdir
-   fi
-   [ -f $basedir/frameworks/av/include/camera/Overlay.h ] || cp $rdir/defy/Overlay.h $basedir/frameworks/av/include/camera/
-   [ -f $basedir/frameworks/av/camera/Overlay.cpp ] || cp $rdir/defy/Overlay.cpp $basedir/frameworks/av/camera/ 
-
-   if ! grep -q Overlay.cpp $basedir/frameworks/av/camera/Android.mk; then
- 	cd $basedir/frameworks/av
-	patch -N -p1 <$rdir/defy/frameworks_av.diff
-	cd $rdir
-   fi
-fi
-
-### patch for vendor cm  ########
-
-if ! grep -q "#\$(call inherit-product, frameworks/base/data/videos/VideoPackage2.mk)" $basedir/vendor/cm/config/common_full.mk; then
+   ### patch for vendor cm  ########
+   if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
+        $basedir/vendor/cm/config/common_full.mk; then
 	cd $basedir/vendor/cm
-	patch -N -p1 <$rdir/vendor_cm.diff
+	patch -N -p1 <$rdir/vendor_cm_quarx2k.diff
 	cd $rdir
+   fi
+
 fi
+
 #### LOG for KERNEL ##########
 sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/system/core/include/cutils/klog.h
 

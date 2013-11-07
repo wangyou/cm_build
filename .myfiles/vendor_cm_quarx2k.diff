@@ -21,7 +21,7 @@ index 1b8a5e2..da5ec53 100644
  # CM Hardware Abstraction Framework
  PRODUCT_PACKAGES += \
 diff --git a/config/common_full.mk b/config/common_full.mk
-index 428968a..98dfd57 100644
+index 428968a..bd16661 100644
 --- a/config/common_full.mk
 +++ b/config/common_full.mk
 @@ -8,7 +8,7 @@ include frameworks/base/data/sounds/NewAudio.mk
@@ -33,7 +33,7 @@ index 428968a..98dfd57 100644
  
  # Include CM audio files
  include vendor/cm/config/cm_audio.mk
-@@ -17,10 +17,10 @@ include vendor/cm/config/cm_audio.mk
+@@ -17,18 +17,18 @@ include vendor/cm/config/cm_audio.mk
  PRODUCT_PACKAGES += \
      Galaxy4 \
      HoloSpiralWallpaper \
@@ -48,6 +48,21 @@ index 428968a..98dfd57 100644
      PhaseBeam \
      VisualizationWallpapers \
      PhotoTable
+ 
+-PRODUCT_PACKAGES += \
+-    VideoEditor \
+-    libvideoeditor_jni \
+-    libvideoeditor_core \
+-    libvideoeditor_osal \
+-    libvideoeditor_videofilters \
+-    libvideoeditorplayer
++#PRODUCT_PACKAGES += \
++#    VideoEditor \
++#    libvideoeditor_jni \
++#    libvideoeditor_core \
++#    libvideoeditor_osal \
++#    libvideoeditor_videofilters \
++#    libvideoeditorplayer
 diff --git a/config/common_full_phone.mk b/config/common_full_phone.mk
 index 2324a11..b2c0c5b 100644
 --- a/config/common_full_phone.mk

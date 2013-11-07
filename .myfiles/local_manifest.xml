@@ -22,6 +22,7 @@
 <project path="frameworks/native.quarx2k" name="Quarx2k/android_frameworks_native" />
 <project path="hardware/ril.quarx2k" name="Quarx2k/android_hardware_ril" />
 <project path="system/core.quarx2k" name="Quarx2k/android_system_core" />
+<project path="frameworks/opt/telephony.quarx2k" name="Quarx2k/android_frameworks_opt_telephony" />
 
 
 <!-- package -->

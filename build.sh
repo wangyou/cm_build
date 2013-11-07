@@ -11,6 +11,9 @@ if [ ! -f build/envsetup.sh ]; then
 	repo sync
 fi
 
+lastDevice="edison"
+[ -f .device ] && lastDevice=`cat .device`
+
 KERNELOPT=""
 case "$1" in
 	"jordan")
@@ -27,19 +30,38 @@ case "$1" in
 	;;
 esac
 
+echo "$device">.device
+
 . build/envsetup.sh
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 .myfiles/patch.sh device=$device 
-if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
-  find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -maxdepth 1 -type d -mtime +1  -exec rm -rf {} \; 
-  find out/target/product/$device/obj/PACKAGING/target_files_intermediates/  -type f -name cm_$device-*.zip -mtime +1 -exec rm -rf {} \; 
-fi
-lunch cm_$device-userdebug 
-rm -f out/target/product/$device/system/build.prop
 
+########Delete old files#############################
+if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
+  cd out/target/product/$device/obj/PACKAGING/target_files_intermediates
+  ls -t  | awk '{if(NR>2){print $0}}' | xargs rm -rf 
+  cd $TOP
+fi
+if [ -d out/target/product/$device/ ]; then
+  cd out/target/product/$device
+  ls -t cm-*.zip | awk '{if(NR>3){print $0}}' |xargs rm -rf 
+  cd $TOP
+fi
+rm -rf out/target/product/$device/system/*
+if [ "$lastDevice" != "$device" ]; then
+	rm -rf out/target/common/obj/JAVA_LIBRARIES/framework_intermediates
+	rm -rf out/target/common/obj/JAVA_LIBRARIES/core_intermediates
+	rm -rf out/target/common/obj/JAVA_LIBRARIES/core-junit_intermediates
+	rm -rf out/target/common/obj/JAVA_LIBRARIES/telephony-common_intermediates
+fi
+
+#############lunch######################
+lunch cm_$device-userdebug 
+
+########## MAKE #########################
 if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" -o "$2" = "jbx" -o "$2" = "jbx-kernel" ] \
    && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
@@ -64,7 +86,7 @@ if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" -o "$2" = "jbx" -o "$2" = 
 	fi
 
 	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
-		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-JBX_KERNEL-${compile_user}-$device.zip
+		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-JBX_KERNEL-${compile_user}-$device.zip
 	fi
 elif [ "$1" = "cm" -o "$2" = "cm" ]; then
 	make -j4 bacon $KERNELOPT
