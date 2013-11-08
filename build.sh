@@ -15,20 +15,22 @@ lastDevice="edison"
 [ -f .device ] && lastDevice=`cat .device`
 
 KERNELOPT=""
-case "$1" in
-	"jordan")
-		device="mb526"
-		KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
-		rm -rf $TOP/vendor/motorola/jordan-common
-		[ -d  $TOP/vendor/moto/jordan-common ] && cp -r $TOP/vendor/moto/jordan-common $TOP/vendor/motorola/jordan-common
-	;;
-	"spyder")
-		device="spyder"
-	;;
-	*)
-		device="edison"
-	;;
-esac
+device=edison
+opKernel="jbx"
+for op in $*;do
+   if [ "$op" = "spyder" ]; then
+	device="$op"
+   elif [ "$op" = "edison" ]; then
+	device="edison"
+   elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
+	device="mb526"
+	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
+	rm -rf $TOP/vendor/motorola/jordan-common
+	[ -d  $TOP/vendor/moto/jordan-common ] && cp -r $TOP/vendor/moto/jordan-common $TOP/vendor/motorola/jordan-common
+   elif [ "$op" = "jbx" -o "$op" = "jbx-kernel" -o "$op" = "cm" ]; then
+	opKernel="$op"
+   fi
+done
 
 echo "$device">.device
 
@@ -37,7 +39,7 @@ echo "$device">.device
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
-.myfiles/patch.sh device=$device 
+.myfiles/patch.sh $device 
 
 ########Delete old files#############################
 if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
@@ -51,19 +53,19 @@ if [ -d out/target/product/$device/ ]; then
   cd $TOP
 fi
 rm -rf out/target/product/$device/system/*
-if [ "$lastDevice" != "$device" ]; then
-	rm -rf out/target/common/obj/JAVA_LIBRARIES/framework_intermediates
-	rm -rf out/target/common/obj/JAVA_LIBRARIES/core_intermediates
-	rm -rf out/target/common/obj/JAVA_LIBRARIES/core-junit_intermediates
-	rm -rf out/target/common/obj/JAVA_LIBRARIES/telephony-common_intermediates
+if [ "$lastDevice" != "$device" -a "$device" = "mb526" ]; then
+	mv out/target/common out/target/common.cm
+	[ -d out/target/common.quarx2k ] && mv out/target/common.quarx2k out/target/common
+elif [ "$lastDevice" != "$device" -a "$lastDevice" = "mb526" ]; then
+	mv out/target/common out/target/common.quarx2k
+	[ -d out/target/common.cm ] && mv out/target/common.cm out/target/common
 fi
 
 #############lunch######################
 lunch cm_$device-userdebug 
 
 ########## MAKE #########################
-if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" -o "$2" = "jbx" -o "$2" = "jbx-kernel" ] \
-   && [ "$device" = "edison" -o "$device" = "spyder" ]; then
+if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
 		make bacon -j4 TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  \
@@ -74,7 +76,7 @@ if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" -o "$2" = "jbx" -o "$2" = 
 
 	fi
 
-	if [ $? -eq 0 ] && [ "$1" = "jbx-kernel" -o "$2" = "jbx-kernel"  ] && [ "$device" = "edison" ]; then	
+	if [ "$opKernel" = "jbx-kernel" ]; then
 		[ -d out/target/product/$device/jbx-kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/jbx-kernel/rls/system/lib/modules/
 		[ -d out/target/product/$device/jbx-kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/jbx-kernel/rls/system/etc/kexec/
 		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/jbx-kernel/rls/system/lib/modules/
@@ -88,7 +90,7 @@ if [ "$1" = "jbx" -o "$1" = "jbx-kernel" -o "$1" = "" -o "$2" = "jbx" -o "$2" = 
 	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
 		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-JBX_KERNEL-${compile_user}-$device.zip
 	fi
-elif [ "$1" = "cm" -o "$2" = "cm" ]; then
+elif [ "$opKernel" = "cm" ]; then
 	make -j4 bacon $KERNELOPT
 	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
 		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-${compile_user}-$device.zip
@@ -100,7 +102,7 @@ else
 	fi
 fi
 
-.myfiles/patch.sh mode=r 
+.myfiles/patch.sh -r 
 
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
