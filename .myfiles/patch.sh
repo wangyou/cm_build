@@ -1,21 +1,50 @@
-###switch directory ,usage: swDirectory <basedir> <ext_target> <ext_src> ####
-swDirectory()
+device=edison
+branch=cm-10.2
+mode=""
+
+#### functions ############
+
+#initBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch>
+initBranch()
 {
-	if [ $# -lt 3 ]; then
-		echo "##Error: function swDirectory failed!"
-		echo "  usage: swDirectory <basedir> <ext_target> <ext_src> "
-		return -1;
+	curdir=`pwd`
+	if [ $# -lt 5 ]; then return -1;fi
+	[ -d $1 ] || mkdir -p $1
+	cd $1
+	git branch | grep -wq "$branch" || git branch $branch
+	git remote | grep -wq "$3" || git remote add $3 $4
+	
+	if ! git branch | grep -wq "$2"; then
+		git checkout --orphan $2
+		rm -rf * 
+		git add -A
+		git commit -a -m "init branch"
+		git fetch $3 $5
+		git merge FETCH_HEAD -m "First Fetch"
 	fi
-	if [ -d $1.$2  ]; then
-		rm -rf $1.$3
-		mv $1 $1.$3
-		mv $1.$2 $1
+
+	if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
+		git checkout $2
 	fi
+	
+	cd $curdir
 	return 0
 }
 
-device=edison
-mode=""
+#updateBranch <dir> <localBranch> <remoteName> <remoteBranch>
+updateBranch()
+{
+	curdir=`pwd`
+	if [ $# -lt 4 ]; then return -1;fi
+	[ -d $1 ] || mkdir -p $1
+	cd $1
+	git checkout $2
+	git fetch $3 $4
+	git merge FETCH_HEAD -m "$3:$4 `date +%Y%m%d`"
+	cd $curdir
+	return 0
+}
+
 ### parse params #########
 for op in $*;do 
    if [ "$op" = "spyder" ]; then
@@ -24,14 +53,15 @@ for op in $*;do
 	device="edison"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
-   elif [ "$op" = "-r" ]; then
-	mode="r"
+   elif [ "${op:0:1}" = "-" ]; then
+	mode="${op#-*}"
    fi
 done
 cdir=`pwd`
 rdir=`cd \`dirname $0\`;pwd`
 
 basedir=`dirname $rdir`
+[ -s $basedir/.device ] && lastDevice=`cat $basedir/.device`
 
 ## local_manifest.xml   ####
 if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
@@ -39,59 +69,23 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
 fi
 
 if [ "$mode" = "r" ]; then
-	swDirectory $basedir/frameworks/base cm quarx2k
-	swDirectory $basedir/frameworks/av cm quarx2k
-	swDirectory $basedir/frameworks/native cm quarx2k
-	swDirectory $basedir/frameworks/opt/telephony cm quarx2k
-	swDirectory $basedir/system/core cm quarx2k
-	swDirectory $basedir/hardware/ril cm quarx2k
-
-	cd $basedir/frameworks/base;			git stash >/dev/null
-	cd $basedir/frameworks/av;			git stash >/dev/null
-	cd $basedir/frameworks/native;			git stash >/dev/null
-	cd $basedir/frameworks/opt/telephony;		git stash >/dev/null
-	cd $basedir/system/core;			git stash >/dev/null
-	cd $basedir/hardware/ril;			git stash >/dev/null
-	cd $basedir/frameworks/base.quarx2k		git stash >/dev/null
-	cd $basedir/frameworks/av.quarx2k;		git stash >/dev/null
-	cd $basedir/frameworks/native.quarx2k;		git stash >/dev/null
-	cd $basedir/frameworks/opt/telephony.quarx2k;	git stash >/dev/null
-	cd $basedir/system/core.quarx2k;		git stash >/dev/null
-	cd $basedir/hardware/ril.quarx2k;		git stash >/dev/null
 
 	cd $basedir/device/motorola/omap4-common;       git stash >/dev/null
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/device/moto/jordan-common; 		git stash >/dev/null
-	cd $basedir/frameworks/av;			git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
-	cd $basedir/system/core;			git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
 	cd $rdir
 	exit
-	
 fi
 
-
 if [ "$device" = "edison" -o "$device" = "spyder" ]; then
-
-	swDirectory $basedir/frameworks/base cm quarx2k
-	swDirectory $basedir/frameworks/av cm quarx2k
-	swDirectory $basedir/frameworks/native cm quarx2k
-	swDirectory $basedir/frameworks/opt/telephony cm quarx2k
-	swDirectory $basedir/system/core cm quarx2k
-	swDirectory $basedir/hardware/ril cm quarx2k
-	rm -rf $basedir/frameworks/base.quarx2k/*
-	rm -rf $basedir/frameworks/av.quarx2k/*
-	rm -rf $basedir/frameworks/native.quarx2k/*
-	rm -rf $basedir/frameworks/opt/telephony.quarx2k/*
-	rm -rf $basedir/system/core.quarx2k/*
-	rm -rf $basedir/hardware/ril.quarx2k/*
-	cd $basedir/frameworks/base;			git stash >/dev/null
-	cd $basedir/frameworks/av;			git stash >/dev/null
-	cd $basedir/frameworks/native;			git stash >/dev/null
-	cd $basedir/frameworks/opt/telephony;		git stash >/dev/null
-	cd $basedir/system/core;			git stash >/dev/null
-	cd $basedir/hardware/ril;			git stash >/dev/null
+    cd $basedir/frameworks/av; 			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
+    cd $basedir/frameworks/base; 		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
+    cd $basedir/frameworks/native; 		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
+    cd $basedir/frameworks/opt/telephony;	[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
+    cd $basedir/system/core;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
+    cd $basedir/hardware/ril;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
 
    ### patch for CAMERA_CMD_LONGSHOT_ON  ##########
    if ! grep -q CAMERA_CMD_LONGSHOT_ON $basedir/device/motorola/omap4-common/include/system/camera.h;  then
@@ -115,24 +109,22 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
-	swDirectory $basedir/frameworks/base quarx2k cm
-	swDirectory $basedir/frameworks/av quarx2k cm
-	swDirectory $basedir/frameworks/native quarx2k cm
-	swDirectory $basedir/frameworks/opt/telephony quarx2k cm
-	swDirectory $basedir/system/core quarx2k cm
-	swDirectory $basedir/hardware/ril quarx2k cm
-	rm -rf $basedir/frameworks/base.cm/*
-	rm -rf $basedir/frameworks/av.cm/*
-	rm -rf $basedir/frameworks/native.cm/*
-	rm -rf $basedir/frameworks/opt/telephony.cm/*
-	rm -rf $basedir/system/core.cm/*
-	rm -rf $basedir/hardware/ril.cm/*
-	cd $basedir/frameworks/base;			git stash >/dev/null
-	cd $basedir/frameworks/av;			git stash >/dev/null
-	cd $basedir/frameworks/native;			git stash >/dev/null
-	cd $basedir/frameworks/opt/telephony;		git stash >/dev/null
-	cd $basedir/system/core;			git stash >/dev/null
-	cd $basedir/hardware/ril;			git stash >/dev/null
+   cp -r vendor/moto/jordan-common vendor/motorola/jordan-common
+   initBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch
+   initBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch
+   initBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch
+   initBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch
+   initBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch
+   initBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch
+
+   if [ "$mode" = "u" ]; then
+   	updateBranch frameworks/av quarx2k_$branch quarx2k $branch
+   	updateBranch frameworks/base quarx2k_$branch  quarx2k  $branch
+   	updateBranch frameworks/native quarx2k_$branch  quarx2k $branch
+   	updateBranch frameworks/opt/telephony quarx2k_$branch  quarx2k $branch
+   	updateBranch system/core quarx2k_$branch  quarx2k $branch
+   	updateBranch hardware/ril quarx2k_$branch  quarx2k $branch
+   fi
 
    ### patch for vendor cm  ########
    if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
@@ -141,10 +133,22 @@ elif [ "$device" = "mb526" ]; then
 	patch -N -p1 <$rdir/vendor_cm_quarx2k.diff
 	cd $rdir
    fi
-
+  if grep -q "^\s*<string-array name=\"config_vendorServices\">\s*$" \
+	 $basedir/device/moto/jordan-common/overlay/frameworks/base/core/res/res/values/arrays.xml; then
+	cd $basedir/device/moto/jordan-common
+	patch -N -p1 <$rdir/jordan-common.diff
+	cd $rdir
+  fi
 fi
 
 #### LOG for KERNEL ##########
 sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/system/core/include/cutils/klog.h
+
+#### update calendar ###########
+if [ "$mode" = "u" ]; then
+	initBranch packages/app/Calendar $branch cm https://github.com/CyanogenMod/android_packages_app_Calendar.git $branch
+	updateBranch packages/app/Calendar $branch cm $branch
+fi
+
 
 

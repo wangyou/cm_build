@@ -1,15 +1,11 @@
 clear
 compile_user=NX111
-
+branch=cm-10.2
 
 rdir=`dirname $0`
 [ "$rdir" != "." ] && cd $rdir
 TOP=`pwd`
 
-if [ ! -f build/envsetup.sh ]; then
-	repo init -u git://github.com/CyanogenMod/android.git -b cm-10.2
-	repo sync
-fi
 
 lastDevice="edison"
 [ -f .device ] && lastDevice=`cat .device`
@@ -29,17 +25,26 @@ for op in $*;do
 	[ -d  $TOP/vendor/moto/jordan-common ] && cp -r $TOP/vendor/moto/jordan-common $TOP/vendor/motorola/jordan-common
    elif [ "$op" = "jbx" -o "$op" = "jbx-kernel" -o "$op" = "cm" ]; then
 	opKernel="$op"
+   elif [ "${op:0:1}" = "-" ]; then
+	mode="${op#-*}"
    fi
 done
 
 echo "$device">.device
+
+if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
+	repo init -u git://github.com/CyanogenMod/android.git -b $branch
+	repo sync
+	repo start $branch .
+fi
+
 
 . build/envsetup.sh
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
-.myfiles/patch.sh $device 
+.myfiles/patch.sh $device $mode
 
 ########Delete old files#############################
 if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
@@ -49,17 +54,10 @@ if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; t
 fi
 if [ -d out/target/product/$device/ ]; then
   cd out/target/product/$device
-  ls -t cm-*.zip | awk '{if(NR>3){print $0}}' |xargs rm -rf 
+  ls -t cm-*.zip 2>/dev/null | awk '{if(NR>3){print $0}}' |xargs rm -rf 
   cd $TOP
 fi
-rm -rf out/target/product/$device/system/*
-if [ "$lastDevice" != "$device" -a "$device" = "mb526" ]; then
-	mv out/target/common out/target/common.cm
-	[ -d out/target/common.quarx2k ] && mv out/target/common.quarx2k out/target/common
-elif [ "$lastDevice" != "$device" -a "$lastDevice" = "mb526" ]; then
-	mv out/target/common out/target/common.quarx2k
-	[ -d out/target/common.cm ] && mv out/target/common.cm out/target/common
-fi
+rm -f out/target/product/$device/system/build.prop
 
 #############lunch######################
 lunch cm_$device-userdebug 
