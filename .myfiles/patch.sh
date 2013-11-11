@@ -86,6 +86,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
     cd $basedir/frameworks/opt/telephony;	[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
     cd $basedir/system/core;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
     cd $basedir/hardware/ril;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
+    cd $basedir/bootable/recovery;		[ _`git branch | grep "\*" |cut -f2 -d" "` = _twrp2.7 ] && git checkout $branch;
 
    ### patch for CAMERA_CMD_LONGSHOT_ON  ##########
    if ! grep -q CAMERA_CMD_LONGSHOT_ON $basedir/device/motorola/omap4-common/include/system/camera.h;  then
@@ -116,6 +117,7 @@ elif [ "$device" = "mb526" ]; then
    initBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch
    initBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch
    initBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch
+   initBranch bootable/recovery twrp2.7  twrp https://github.com/TeamWin/Team-Win-Recovery-Project.git twrp2.7
 
    if [ "$mode" = "u" ]; then
    	updateBranch frameworks/av quarx2k_$branch quarx2k $branch
@@ -124,6 +126,7 @@ elif [ "$device" = "mb526" ]; then
    	updateBranch frameworks/opt/telephony quarx2k_$branch  quarx2k $branch
    	updateBranch system/core quarx2k_$branch  quarx2k $branch
    	updateBranch hardware/ril quarx2k_$branch  quarx2k $branch
+	updateBranch bootable/recovery twrp2.7 twrp twrp2.7
    fi
 
    ### patch for vendor cm  ########
