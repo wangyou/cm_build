@@ -1,6 +1,6 @@
 clear
 compile_user=NX111
-branch=cm-10.2
+branch=cm-11.0
 
 rdir=`dirname $0`
 [ "$rdir" != "." ] && cd $rdir
