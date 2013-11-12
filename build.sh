@@ -30,7 +30,13 @@ for op in $*;do
    fi
 done
 
-echo "$device">.device
+if [ "$mode" = "cleanall" ]; then
+    for f in * .*; do
+	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != "." -a "$f" != ".." ] \
+	   && rm -rf $f
+    done
+   exit
+fi
 
 if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 	repo init -u git://github.com/CyanogenMod/android.git -b $branch
@@ -38,12 +44,12 @@ if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 	repo start $branch .
 fi
 
-
 . build/envsetup.sh
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
+echo "$device">.device
 .myfiles/patch.sh $device $mode
 
 ########Delete old files#############################
