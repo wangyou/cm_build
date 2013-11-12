@@ -5,7 +5,7 @@ branch=cm-10.2
 rdir=`dirname $0`
 [ "$rdir" != "." ] && cd $rdir
 TOP=`pwd`
-
+ScriptName=`basename $0`
 
 lastDevice="edison"
 [ -f .device ] && lastDevice=`cat .device`
@@ -29,6 +29,14 @@ for op in $*;do
 	mode="${op#-*}"
    fi
 done
+
+if [ "$mode" = "cleanall" ]; then
+    for f in * .*; do
+	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != "." -a "$f" != ".." ] \
+	   && rm -rf $f
+    done
+   exit
+fi
 
 echo "$device">.device
 

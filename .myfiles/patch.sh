@@ -110,6 +110,13 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cd $rdir
    fi
 
+   ### fix duplicate wlan firmware ######
+   if [ -f $basedir/hardware/ti/wlan/mac80211/firmware/128x/wl128x-fw-4-sr.bin -a \
+	-f $basedir/device/motorola/omap4-common/firmware/ti-connectivity/wl128x-fw-4-sr.bin ] then
+	mv $basedir/device/motorola/omap4-common/firmware/ti-connectivity/Android.mk \
+	   $basedir/device/motorola/omap4-common/firmware/ti-connectivity/Android.mk-ignore
+   fi 
+
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
    cp -r vendor/moto/jordan-common vendor/motorola/jordan-common
