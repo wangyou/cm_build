@@ -94,9 +94,13 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	patch -N -p1 <$rdir/omap4-common.diff
 	cd $rdir
    fi
+
+   sed -e "s/^\(type powervr_device, dev_type, mlstrustedobject;\)$/#\1/" -i $basedir/device/motorola/omap4-common/sepolicy/device.te
+   sed -e "s/^\(\/dev\/pvrsrvkm\s*u:object_r:powervr_device:s0\)$/#\1/" -i $basedir/device/motorola/omap4-common/sepolicy/file_contexts
    ### patch for apns-conf #########
    [ -f $basedir/device/motorola/edison/apns-conf.xml ] && \
 	sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" -i $basedir/device/motorola/edison/apns-conf.xml 
+
    ### jbx-kernel patch ###########
    sed -e "s/^\(\s*\)\(OPP_INITIALIZER(\"gpu\", \"dpll_per_m7x2_ck\", \"core\", \)true\(, 512000000, OMAP4430_VDD_CORE_OPP100_OV_UV),\)/\1\2false\3/" -i $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c 
 
