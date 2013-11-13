@@ -46,8 +46,16 @@ if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 	repo init -u git://github.com/CyanogenMod/android.git -b $branch
 	repo sync
 	repo start $branch .
+	exit
 fi
 
+if [ "$mode" = "sync" ]; then
+    while ! repo sync;
+    do 
+	echo "sync successed!"
+	exit
+    done
+fi
 . build/envsetup.sh
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
