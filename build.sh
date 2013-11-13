@@ -2,6 +2,7 @@ clear
 compile_user=NX111
 branch=cm-11.0
 
+ScriptName=`basename $0`
 rdir=`dirname $0`
 [ "$rdir" != "." ] && cd $rdir
 TOP=`pwd`
@@ -35,8 +36,8 @@ done
 
 if [ "$mode" = "cleanall" ]; then
     for f in * .*; do
-	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != "." -a "$f" != ".." ] \
-	   && rm -rf $f
+	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != ".repo" ] \
+	   && [ "$f" != "." -a "$f" != ".." ] && rm -rf $f
     done
    exit
 fi
