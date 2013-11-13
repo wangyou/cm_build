@@ -95,8 +95,19 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cd $rdir
    fi
 
+   #### fix for cm-11.0
    sed -e "s/^\(type powervr_device, dev_type, mlstrustedobject;\)$/#\1/" -i $basedir/device/motorola/omap4-common/sepolicy/device.te
    sed -e "s/^\(\/dev\/pvrsrvkm\s*u:object_r:powervr_device:s0\)$/#\1/" -i $basedir/device/motorola/omap4-common/sepolicy/file_contexts
+   [ -f $basedir/system/core/include/private/android_filesystem_config.h ] \
+		&& rm -rf $basedir/device/motorola/omap4-common/include/private/android_filesystem_config.h
+   [ -f $basedir/system/core/include/private/android_filesystem_capability.h ] \
+		&& rm -rf $basedir/device/motorola/omap4-common/include/private/android_filesystem_capability.h
+   sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
+   sed -e "s/^#define PROPERTY_PERMS_APPEND/\/\/#define PROPERTY_PERMS_APPEND/g" \
+       -e "s/^#define CONTROL_PERMS_APPEND/\/\/#define CONTROL_PERMS_APPEND/g" \
+       -i $basedir/device/motorola/omap4-common/include/device_perms.h
+
+
    ### patch for apns-conf #########
    [ -f $basedir/device/motorola/edison/apns-conf.xml ] && \
 	sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" -i $basedir/device/motorola/edison/apns-conf.xml 
