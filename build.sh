@@ -39,6 +39,13 @@ if [ "$mode" = "cleanall" ]; then
 	   && rm -rf $f
     done
    exit
+elif [ "$mode" = "clean" ]; then
+    for f in * .*; do
+	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a \
+          "$f" != ".gitignore" -a "$f" != "." -a "$f" != ".." -a "$f" != ".repo" ] \
+	   && rm -rf $f
+    done
+   exit
 fi
 
 echo "$device">.device
