@@ -3,8 +3,9 @@
 <remove-project name="CyanogenMod/android_packages_apps_Calendar" />
 
 <project name="CyanogenMod/android_device_motorola_edison" path="device/motorola/edison" remote="github" revision="cm-10.2" />
-<project name="CyanogenMod/android_device_motorola_spyder" path="device/motorola/spyder" remote="github"  revision="cm-10.2" />
-<project name="CyanogenMod/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github"  revision="cm-10.2" />
+<project name="CyanogenMod/android_device_motorola_spyder" path="device/motorola/spyder" remote="github" revision="cm-10.2" />
+<project name="CyanogenMod/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-10.2" />
+<project name="CyanogenMod/android_external_wpa_supplicant_8_ti" path="external/wpa_supplicant_8_ti" remote="github" revision="cm-10.2" />
 <project name="Atrix2-Dev-Team/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-11-wip" />
 <project name="Quarx2k/android_external_bootmenu" path="external/bootmenu" remote="github" revision="jellybean" />
 <!-- JBX-Kernel for RAZR and Edison-->
@@ -19,5 +20,5 @@
 <project path="vendor/moto" name="Quarx2k/proprietary_vendor_motorola" revision="cm10.1-3.0" />
 
 <!-- package -->
-<project path="packages/apps/Calendar"        name="nx111/android_packages_apps_Calendar" remote="github" revision="nx111_jb-4.3"/>
+<project path="packages/apps/Calendar"        name="nx111/android_packages_apps_Calendar" remote="github" revision="cm-11.0"/>
 </manifest>
