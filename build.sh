@@ -15,6 +15,7 @@ KERNELOPT=""
 device=edison
 opKernel="jbx"
 mkJop="-j4"
+mod=bacon
 for op in $*;do
    if [ "$op" = "spyder" ]; then
 	device="$op"
@@ -31,6 +32,8 @@ for op in $*;do
 	mkJop=$op
    elif [ "${op:0:1}" = "-" ]; then
 	mode="${op#-*}"
+   elif [ "${op:0:4}" = "mod=" ]; then
+	mod="${op#mod=*}"
    fi
 done
 
@@ -83,11 +86,11 @@ lunch cm_$device-userdebug
 ########## MAKE #########################
 if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
-		LANG=en_US make bacon $mkJop TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
+		LANG=en_US make $mod $mkJop TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  \
 		       BOARD_KERNEL_CMDLINE='root=/dev/ram0 rw mem=1023M@0x80000000 console=null vram=10300K omapfb.vram=0:8256K,1:4K,2:2040K init=/init ip=off mmcparts=mmcblk1:p7(pds),p15(boot),p16(recovery),p17(cdrom),p18(misc),p19(cid),p20(kpanic),p21(system),p22(cache),p23(preinstall),p24(webtop),p25(userdata) mot_sst=1 androidboot.bootloader=0x0A72'
 	else
-		LANG=en_US make bacon $mkJop TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
+		LANG=en_US make $mod $mkJop TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
 
 	fi
@@ -107,18 +110,18 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "ediso
 		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-JBX_KERNEL-${compile_user}-$device.zip
 	fi
 elif [ "$opKernel" = "cm" ]; then
-	LANG=en_US make $mkJop bacon $KERNELOPT
+	LANG=en_US make $mkJop $mod $KERNELOPT
 	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
 		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-${compile_user}-$device.zip
 	fi
 else 
-	LANG=en_US make $mkJop bacon $KERNELOPT
+	LANG=en_US make $mkJop $mod $KERNELOPT
 	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
 		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-${compile_user}-$device.zip
 	fi
 fi
 
-.myfiles/patch.sh -r 
+#.myfiles/patch.sh -r 
 
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
