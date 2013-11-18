@@ -1,7 +1,7 @@
 device=edison
 branch=cm-11.0
 mode=""
-
+oldupdate=0
 #### functions ############
 
 #initBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch>
@@ -55,6 +55,8 @@ for op in $*;do
 	device="mb526"
    elif [ "${op:0:1}" = "-" ]; then
 	mode="${op#-*}"
+   elif [ "$op" = "old" ]; then
+	oldupdate=1
    fi
 done
 cdir=`pwd`
@@ -170,5 +172,10 @@ if [ "$mode" = "u" ]; then
 	updateBranch packages/app/Calendar $branch cm $branch
 fi
 
+if [ $oldupdate -eq 1 ]; then
+	sed -e "s/use_set_metadata=1/use_set_metadata=0/g" -i $basedir/build/core/Makefile
+else
+	sed -e "s/use_set_metadata=0/use_set_metadata=1/g" -i $basedir/build/core/Makefile
+fi
 
 

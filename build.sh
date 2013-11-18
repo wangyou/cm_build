@@ -34,6 +34,8 @@ for op in $*;do
 	mode="${op#-*}"
    elif [ "${op:0:4}" = "mod=" ]; then
 	mod="${op#mod=*}"
+   elif [ "$op" = "old" ]; then
+	oldupdate="$op"
    fi
 done
 
@@ -65,7 +67,7 @@ fi
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 echo "$device">.device
-.myfiles/patch.sh $device $mode
+.myfiles/patch.sh $device $mode $oldupdate
 
 ########Delete old files#############################
 if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
