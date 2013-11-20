@@ -14,7 +14,7 @@ lastDevice="edison"
 KERNELOPT=""
 device=edison
 opKernel="jbx"
-mkJop="-j4"
+mkJop=""
 mod=bacon
 for op in $*;do
    if [ "$op" = "spyder" ]; then
@@ -126,5 +126,5 @@ fi
 #.myfiles/patch.sh -r 
 
 
-rm -f out/target/product/$device/cm_$device-ota-*.zip
-rm -f out/target/product/$device/cm-*.zip.md5sum
+#rm -f out/target/product/$device/cm_$device-ota-*.zip
+#rm -f out/target/product/$device/cm-*.zip.md5sum

@@ -91,11 +91,11 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
     cd $basedir/bootable/recovery;		[ _`git branch | grep "\*" |cut -f2 -d" "` = _twrp2.7 ] && git checkout $branch;
 
    ### patch for CAMERA_CMD_LONGSHOT_ON  ##########
-   if ! grep -q CAMERA_CMD_LONGSHOT_ON $basedir/device/motorola/omap4-common/include/system/camera.h;  then
-	cd $basedir/device/motorola/omap4-common
-	patch -N -p1 <$rdir/omap4-common.diff
-	cd $rdir
-   fi
+#   if ! grep -q CAMERA_CMD_LONGSHOT_ON $basedir/device/motorola/omap4-common/include/system/camera.h;  then
+#	cd $basedir/device/motorola/omap4-common
+#	patch -N -p1 <$rdir/omap4-common.diff
+#	cd $rdir
+#   fi
 
    #### fix for cm-11.0
 #   sed -e "s/^\(type powervr_device, dev_type, mlstrustedobject;\)$/#\1/" -i $basedir/device/motorola/omap4-common/sepolicy/device.te
