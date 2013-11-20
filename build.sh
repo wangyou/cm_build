@@ -35,15 +35,8 @@ done
 
 if [ "$mode" = "cleanall" ]; then
     for f in * .*; do
-	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != "." -a "$f" != ".." ] \
-	   && rm -rf $f
-    done
-   exit
-elif [ "$mode" = "clean" ]; then
-    for f in * .*; do
-	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a \
-          "$f" != ".gitignore" -a "$f" != "." -a "$f" != ".." -a "$f" != ".repo" ] \
-	   && rm -rf $f
+	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != ".repo" ] \
+	   && [ "$f" != "." -a "$f" != ".." ] && rm -rf $f
     done
    exit
 fi
@@ -56,6 +49,13 @@ if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 	repo start $branch .
 fi
 
+if [ "$mode" = "sync" ]; then
+    while ! repo sync;
+    do 
+	echo "sync successed!"
+	exit
+    done
+fi
 
 . build/envsetup.sh
 
