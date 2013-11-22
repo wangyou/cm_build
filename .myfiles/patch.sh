@@ -90,12 +90,6 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
     cd $basedir/hardware/ril;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
     cd $basedir/bootable/recovery;		[ _`git branch | grep "\*" |cut -f2 -d" "` = _twrp2.7 ] && git checkout $branch;
 
-   ### patch for CAMERA_CMD_LONGSHOT_ON  ##########
-#   if ! grep -q CAMERA_CMD_LONGSHOT_ON $basedir/device/motorola/omap4-common/include/system/camera.h;  then
-#	cd $basedir/device/motorola/omap4-common
-#	patch -N -p1 <$rdir/omap4-common.diff
-#	cd $rdir
-#   fi
 
    #### fix for cm-11.0
 #   sed -e "s/^\(type powervr_device, dev_type, mlstrustedobject;\)$/#\1/" -i $basedir/device/motorola/omap4-common/sepolicy/device.te
@@ -115,7 +109,6 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" -i $basedir/device/motorola/edison/apns-conf.xml 
 
    ### jbx-kernel patch ###########
-   sed -e "s/^\(\s*\)\(OPP_INITIALIZER(\"gpu\", \"dpll_per_m7x2_ck\", \"core\", \)true\(, 512000000, OMAP4430_VDD_CORE_OPP100_OV_UV),\)/\1\2false\3/" -i $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/opp4xxx_data.c 
 
    sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h
 
