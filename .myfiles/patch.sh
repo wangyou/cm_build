@@ -163,4 +163,12 @@ if [ "$mode" = "u" ]; then
 fi
 
 
+#################################
+
+if ! grep -q getValueCount $basedir/external/koush/AndroidAsync/AndroidAsync/src/com/koushikdutta/async/http/libcore/DiskLruCache.java 2>/dev/null; then
+	cd $basedir/external/koush/AndroidAsync/
+	patch -p1< $rdir/AndroidAsync.diff
+	cd $rdir
+fi
+
 
