@@ -1,4 +1,4 @@
-clear
+reset
 compile_user=NX111
 branch=cm-11.0
 
@@ -96,8 +96,7 @@ lunch cm_$device-userdebug
 if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
 		LANG=en_US make $mod $mkJop $mkOp TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
-  		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  \
-		       BOARD_KERNEL_CMDLINE='root=/dev/ram0 rw mem=1023M@0x80000000 console=null vram=10300K omapfb.vram=0:8256K,1:4K,2:2040K init=/init ip=off mmcparts=mmcblk1:p7(pds),p15(boot),p16(recovery),p17(cdrom),p18(misc),p19(cid),p20(kpanic),p21(system),p22(cache),p23(preinstall),p24(webtop),p25(userdata) mot_sst=1 androidboot.bootloader=0x0A72'
+  		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
 	else
 		LANG=en_US make $mod $mkJop $mkOp TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
@@ -111,7 +110,7 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "ediso
 		cp out/target/product/$device/kernel out/target/product/$device/jbx-kernel/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/jbx-kernel/rls/
-		zip -r "../JBX-Kernel-1.4-Hybrid-$device-4.3_$(date +"%Y-%m-%d").zip" *
+		zip -r "../JBX-Kernel-1.4-Hybrid-$device-4.4_$(date +"%Y-%m-%d").zip" *
 		cd $curdir
 	fi
 
@@ -133,5 +132,5 @@ fi
 #.myfiles/patch.sh -r 
 
 
-#rm -f out/target/product/$device/cm_$device-ota-*.zip
-#rm -f out/target/product/$device/cm-*.zip.md5sum
+rm -f out/target/product/$device/cm_$device-ota-*.zip
+rm -f out/target/product/$device/cm-*.zip.md5sum

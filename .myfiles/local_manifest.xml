@@ -3,13 +3,12 @@
 <remove-project name="CyanogenMod/android_packages_apps_Calendar" />
 
 <project name="CyanogenMod/android_device_motorola_edison" path="device/motorola/edison" remote="github" revision="cm-10.2" />
-<project name="CyanogenMod/android_external_wpa_supplicant_8_ti" path="external/wpa_supplicant_8_ti" remote="github" revision="cm-10.2" />
-<project name="nx111/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-11.0" />
-<project name="CyanogenMod/android_device_motorola_spyder" path="device/motorola/spyder" remote="github" revision="cm-10.2" />
-<project name="CyanogenMod/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-10.2" />
+<project name="CyanogenMod/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-11.0" />
+<project name="CyanogenMod/android_device_motorola_spyder" path="device/motorola/spyder" remote="github" revision="cm-11.0" />
+<project name="CyanogenMod/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-11.0" />
 
 <!-- JBX-Kernel for RAZR and Edison-->
-<project name="RAZR-K-Devs/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common-jbx" remote="github" revision="JBX_4.3" />
+<project name="RAZR-K-Devs/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common-jbx" remote="github" revision="JBX_4.4" />
 
 <!-- VENDOR -->
 <project name="Atrix2-Dev-Team/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-10.2-a" />

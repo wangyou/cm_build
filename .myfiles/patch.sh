@@ -171,4 +171,7 @@ else
 	sed -e "s/use_set_metadata=0/use_set_metadata=1/g" -i $basedir/build/core/Makefile
 fi
 
-
+if grep -q "if not self.info.get(\"use_set_metadata\", False):" $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py; then
+    sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
+	-i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
+fi
