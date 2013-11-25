@@ -175,3 +175,12 @@ if grep -q "if not self.info.get(\"use_set_metadata\", False):" $basedir/device/
     sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
 	-i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
 fi
+
+if grep -q "\-DNEEDS_VECTORIMPL_SYMBOLS" $basedir/device/motorola/omap4-common/BoardConfigCommon.mk; then
+   sed -s "s/\-DNEEDS_VECTORIMPL_SYMBOLS//g" -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
+fi
+
+if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 
+   sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" $basedir/external/wpa_supplicant_8/hostapd/android.config
+fi
+
