@@ -74,8 +74,9 @@ if [ "$mode" = "r" ]; then
 
 	cd $basedir/device/motorola/omap4-common;       git stash >/dev/null
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
-	cd $basedir/device/moto/jordan-common; 		git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
+	cd $basedir/system/core;			git stash >/dev/null
+	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
 	cd $rdir
 	exit
@@ -181,6 +182,6 @@ if grep -q "\-DNEEDS_VECTORIMPL_SYMBOLS" $basedir/device/motorola/omap4-common/B
 fi
 
 if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 
-   sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" $basedir/external/wpa_supplicant_8/hostapd/android.config
+   sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
 fi
 
