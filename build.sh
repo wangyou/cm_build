@@ -47,8 +47,10 @@ echo "$device">.device
 
 if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 	repo init -u git://github.com/CyanogenMod/android.git -b $branch
+	cp .myfiles/local_manifest.xml .repo/
 	repo sync
 	repo start $branch .
+	exit
 fi
 
 if [ "$mode" = "sync" ]; then

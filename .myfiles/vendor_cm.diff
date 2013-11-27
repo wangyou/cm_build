@@ -1,5 +1,5 @@
 diff --git a/config/common.mk b/config/common.mk
-index aafd228..e4c75fc 100644
+index 5f1a6fc..06814c4 100644
 --- a/config/common.mk
 +++ b/config/common.mk
 @@ -45,7 +45,7 @@ $(eval TARGET_BOOTANIMATION_NAME := $(shell \
@@ -11,10 +11,10 @@ index aafd228..e4c75fc 100644
  endif
  
  ifdef CM_NIGHTLY
-@@ -158,7 +158,7 @@ PRODUCT_PACKAGES += \
-     Apollo \
-     CMFileManager \
+@@ -163,7 +163,7 @@ PRODUCT_PACKAGES += \
      LockClock \
+     CMUpdater \
+     CMFota \
 -    CMAccount
 +#    CMAccount
  
@@ -49,12 +49,12 @@ index 428968a..98dfd57 100644
      VisualizationWallpapers \
      PhotoTable
 diff --git a/config/common_full_phone.mk b/config/common_full_phone.mk
-index 2324a11..b2c0c5b 100644
+index c12b156..e009079 100644
 --- a/config/common_full_phone.mk
 +++ b/config/common_full_phone.mk
-@@ -10,9 +10,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
- PRODUCT_PACKAGES += \
-   Mms
+@@ -7,9 +7,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
+     ro.config.notification_sound=Argon.ogg \
+     ro.config.alarm_alert=Hassium.ogg
  
 -ifeq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
 -    PRODUCT_COPY_FILES += \
@@ -83,12 +83,12 @@ index 8bd6ee7..63de813 100644
 +#        vendor/cm/prebuilt/common/bootanimation/800.zip:system/media/bootanimation.zip
 +#endif
 diff --git a/config/common_mini_phone.mk b/config/common_mini_phone.mk
-index 7589dad..eb296a7 100644
+index 5c46f7d..f6a4206 100644
 --- a/config/common_mini_phone.mk
 +++ b/config/common_mini_phone.mk
-@@ -16,9 +16,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
- PRODUCT_PACKAGES += \
-   Mms
+@@ -13,9 +13,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
+     ro.config.notification_sound=Argon.ogg \
+     ro.config.alarm_alert=Hassium.ogg
  
 -ifeq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
 -    PRODUCT_COPY_FILES += \
