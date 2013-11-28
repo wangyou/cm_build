@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-<remove-project name="CyanogenMod/android_packages_apps_Calendar" />
 
 <project name="Atrix2-Dev-Team/android_device_motorola_edison" path="device/motorola/edison" remote="github" revision="cm-11.0" />
 <project name="CyanogenMod/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-11.0" />
@@ -25,6 +24,7 @@
 -->
 
 <!-- packages -->
+<remove-project name="CyanogenMod/android_packages_apps_Calendar" />
 <project path="packages/apps/Calendar"        name="nx111/android_packages_apps_Calendar" remote="github" revision="cm-11.0"/>
 
 </manifest>
