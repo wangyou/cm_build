@@ -1,7 +1,7 @@
 device=edison
 branch=cm-11.0
 mode=""
-oldupdate=0
+oldupdate=1
 #### functions ############
 
 #initBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch>
@@ -57,6 +57,8 @@ for op in $*;do
 	mode="${op#-*}"
    elif [ "$op" = "old" ]; then
 	oldupdate=1
+   elif [ "$op" = "new" ]; then
+	oldupdate=0
    fi
 done
 cdir=`pwd`

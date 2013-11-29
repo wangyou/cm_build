@@ -17,6 +17,8 @@ opKernel="jbx"
 mkJop=""
 mod=bacon
 mkForce=""
+oldupdate="old"
+
 for op in $*;do
    if [ "$op" = "spyder" ]; then
 	device="$op"
@@ -37,7 +39,7 @@ for op in $*;do
 	mode="${op#-*}"
    elif [ "${op:0:4}" = "mod=" ]; then
 	mod="${op#mod=*}"
-   elif [ "$op" = "old" ]; then
+   elif [ "$op" = "new" -o "$op" = "old" ]; then
 	oldupdate="$op"
    fi
 done
