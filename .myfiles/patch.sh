@@ -79,6 +79,8 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
+	cd $basedir/vendor/motorola;			git stash >/dev/null
+	rm -f $basedir/vendor/motorola/edison/proprietary/lib/libril.so
 	rm -rf $basedir/vendor/motorola/jordan-common
 	cd $rdir
 	exit
@@ -122,6 +124,16 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	patch -N -p1 <$rdir/vendor_cm.diff
 	cd $rdir
    fi
+   
+  #use prebuilt libril.so
+  if ! grep -q "vendor\/motorola\/edison\/proprietary\/lib\/libril.so:system\/lib\/libril.so" \
+	$basedir/vendor/motorola/edison/edison-vendor-blobs.mk; then
+	cd $basedir/vendor/motorola
+	patch -N -p1<$rdir/vendor_edison.diff
+	cd $rdir
+  fi
+  [ -f $basedir/vendor/motorola/edison/proprietary/lib/libril.so ] || \
+	cp $rdir/prebuilts/libril.so $basedir/vendor/motorola/edison/proprietary/lib/
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
