@@ -97,17 +97,13 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 
 
    #### fix for cm-11.0
-#   sed -e "s/^\(type powervr_device, dev_type, mlstrustedobject;\)$/#\1/" -i $basedir/device/motorola/omap4-common/sepolicy/device.te
-#   sed -e "s/^\(\/dev\/pvrsrvkm\s*u:object_r:powervr_device:s0\)$/#\1/" -i $basedir/device/motorola/omap4-common/sepolicy/file_contexts
-#   [ -f $basedir/system/core/include/private/android_filesystem_config.h ] \
-#		&& rm -rf $basedir/device/motorola/omap4-common/include/private/android_filesystem_config.h
-#   [ -f $basedir/system/core/include/private/android_filesystem_capability.h ] \
-#		&& rm -rf $basedir/device/motorola/omap4-common/include/private/android_filesystem_capability.h
    sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
-#   sed -e "s/^#define PROPERTY_PERMS_APPEND/\/\/#define PROPERTY_PERMS_APPEND/g" \
-#       -e "s/^#define CONTROL_PERMS_APPEND/\/\/#define CONTROL_PERMS_APPEND/g" \
-#       -i $basedir/device/motorola/omap4-common/include/device_perms.h
 
+   if ! grep -q "reservedSortedVectorImpl1(){};" $basedir/system/core/include/utils/VectorImpl.h; then
+       cd $basedir/system/core
+       patch -N -p1<$rdir/patchs/system_core_vectorimpl.diff
+       cd $rdir
+   fi
 
    ### patch for apns-conf #########
    [ -f $basedir/device/motorola/edison/apns-conf.xml ] && \
@@ -121,7 +117,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
         $basedir/vendor/cm/config/common_full.mk; then
 	cd $basedir/vendor/cm
-	patch -N -p1 <$rdir/vendor_cm.diff
+	patch -N -p1 <$rdir/patchs/vendor_cm.diff
 	cd $rdir
    fi
    
@@ -129,7 +125,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   if ! grep -q "vendor\/motorola\/edison\/proprietary\/lib\/libril.so:system\/lib\/libril.so" \
 	$basedir/vendor/motorola/edison/edison-vendor-blobs.mk; then
 	cd $basedir/vendor/motorola
-	patch -N -p1<$rdir/vendor_edison.diff
+	patch -N -p1<$rdir/patchs/vendor_edison.diff
 	cd $rdir
   fi
   [ -f $basedir/vendor/motorola/edison/proprietary/lib/libril.so ] || \
@@ -160,13 +156,13 @@ elif [ "$device" = "mb526" ]; then
    if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
         $basedir/vendor/cm/config/common_full.mk; then
 	cd $basedir/vendor/cm
-	patch -N -p1 <$rdir/vendor_cm_quarx2k.diff
+	patch -N -p1 <$rdir/patchs/vendor_cm_quarx2k.diff
 	cd $rdir
    fi
   if grep -q "^\s*<string-array name=\"config_vendorServices\">\s*$" \
 	 $basedir/device/moto/jordan-common/overlay/frameworks/base/core/res/res/values/arrays.xml; then
 	cd $basedir/device/moto/jordan-common
-	patch -N -p1 <$rdir/jordan-common.diff
+	patch -N -p1 <$rdir/patchs/jordan-common.diff
 	cd $rdir
   fi
 fi
@@ -189,10 +185,6 @@ fi
 if grep -q "if not self.info.get(\"use_set_metadata\", False):" $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py; then
     sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
 	-i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
-fi
-
-if grep -q "\-DNEEDS_VECTORIMPL_SYMBOLS" $basedir/device/motorola/omap4-common/BoardConfigCommon.mk; then
-   sed -s "s/\-DNEEDS_VECTORIMPL_SYMBOLS//g" -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
 fi
 
 if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 

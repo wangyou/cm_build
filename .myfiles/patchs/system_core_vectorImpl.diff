@@ -1,0 +1,86 @@
+diff --git a/include/utils/VectorImpl.h b/include/utils/VectorImpl.h
+index cab95be..47032a1 100644
+--- a/include/utils/VectorImpl.h
++++ b/include/utils/VectorImpl.h
+@@ -108,14 +108,14 @@ protected:
+ 
+ #if NEEDS_VECTORIMPL_SYMBOLS
+     // take care of FBC...
+-    virtual void            reservedVectorImpl1();
+-    virtual void            reservedVectorImpl2();
+-    virtual void            reservedVectorImpl3();
+-    virtual void            reservedVectorImpl4();
+-    virtual void            reservedVectorImpl5();
+-    virtual void            reservedVectorImpl6();
+-    virtual void            reservedVectorImpl7();
+-    virtual void            reservedVectorImpl8();
++    virtual void            reservedVectorImpl1(){};
++    virtual void            reservedVectorImpl2(){};
++    virtual void            reservedVectorImpl3(){};
++    virtual void            reservedVectorImpl4(){};
++    virtual void            reservedVectorImpl5(){};
++    virtual void            reservedVectorImpl6(){};
++    virtual void            reservedVectorImpl7(){};
++    virtual void            reservedVectorImpl8(){};
+ #endif
+ 
+ private:
+@@ -170,14 +170,14 @@ protected:
+ 
+ #if NEEDS_VECTORIMPL_SYMBOLS
+     // take care of FBC...
+-    virtual void            reservedSortedVectorImpl1();
+-    virtual void            reservedSortedVectorImpl2();
+-    virtual void            reservedSortedVectorImpl3();
+-    virtual void            reservedSortedVectorImpl4();
+-    virtual void            reservedSortedVectorImpl5();
+-    virtual void            reservedSortedVectorImpl6();
+-    virtual void            reservedSortedVectorImpl7();
+-    virtual void            reservedSortedVectorImpl8();
++    virtual void            reservedSortedVectorImpl1(){};
++    virtual void            reservedSortedVectorImpl2(){};
++    virtual void            reservedSortedVectorImpl3(){};
++    virtual void            reservedSortedVectorImpl4(){};
++    virtual void            reservedSortedVectorImpl5(){};
++    virtual void            reservedSortedVectorImpl6(){};
++    virtual void            reservedSortedVectorImpl7(){};
++    virtual void            reservedSortedVectorImpl8(){};
+ #endif
+ 
+ private:
+diff --git a/libutils/VectorImpl.cpp b/libutils/VectorImpl.cpp
+index 275f19a..7b26893 100644
+--- a/libutils/VectorImpl.cpp
++++ b/libutils/VectorImpl.cpp
+@@ -504,6 +504,7 @@ void VectorImpl::_do_move_backward(void* dest, const void* from, size_t num) con
+     do_move_backward(dest, from, num);
+ }
+ 
++#if 0
+ #if NEEDS_VECTORIMPL_SYMBOLS
+ void VectorImpl::reservedVectorImpl1() { }
+ void VectorImpl::reservedVectorImpl2() { }
+@@ -514,6 +515,7 @@ void VectorImpl::reservedVectorImpl6() { }
+ void VectorImpl::reservedVectorImpl7() { }
+ void VectorImpl::reservedVectorImpl8() { }
+ #endif
++#endif
+ 
+ /*****************************************************************************/
+ 
+@@ -630,6 +632,7 @@ ssize_t SortedVectorImpl::remove(const void* item)
+     return i;
+ }
+ 
++#if 0
+ #if NEEDS_VECTORIMPL_SYMBOLS
+ void SortedVectorImpl::reservedSortedVectorImpl1() { };
+ void SortedVectorImpl::reservedSortedVectorImpl2() { };
+@@ -640,6 +643,7 @@ void SortedVectorImpl::reservedSortedVectorImpl6() { };
+ void SortedVectorImpl::reservedSortedVectorImpl7() { };
+ void SortedVectorImpl::reservedSortedVectorImpl8() { };
+ #endif
++#endif
+ 
+ /*****************************************************************************/
+ 

@@ -1,0 +1,11 @@
+diff --git a/edison/edison-vendor-blobs.mk b/edison/edison-vendor-blobs.mk
+index b76b3cd..6b5aff7 100644
+--- a/edison/edison-vendor-blobs.mk
++++ b/edison/edison-vendor-blobs.mk
+@@ -90,4 +90,5 @@ PRODUCT_COPY_FILES += \
+     vendor/motorola/edison/proprietary/bin/ap_gain_mmul.bin:system/bin/ap_gain_mmul.bin \
+     vendor/motorola/edison/proprietary/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin \
+     vendor/motorola/edison/proprietary/etc/firmware/TIInit_10.6.15.bts:system/etc/firmware/TIInit_10.6.15.bts \
+-    vendor/motorola/edison/proprietary/lib/hw/audio.primary.omap4.so:system/lib/hw/audio.primary.omap4.so
++    vendor/motorola/edison/proprietary/lib/hw/audio.primary.omap4.so:system/lib/hw/audio.primary.omap4.so \
++    vendor/motorola/edison/proprietary/lib/libril.so:system/lib/libril.so
