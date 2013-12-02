@@ -1,0 +1,52 @@
+diff --git a/sdcard/sdcard.c b/sdcard/sdcard.c
+index 5763e5d..6f9263d 100644
+--- a/sdcard/sdcard.c
++++ b/sdcard/sdcard.c
+@@ -1760,6 +1760,38 @@ static int usage()
+     return 1;
+ }
+ 
++static int save_mapinfo(const char* source_path,const char *dest_path) {
++    FILE *fp1,*fp2;
++    char line[1024];
++    char source[256],dest[256];
++    bool findDevice = false;
++    fp1 = fopen("/mnt/fuse/mapinfo", "r");
++    if(fp2 = fopen("/mnt/fuse/mapinfo.tmp","w")){
++        return false;
++    }
++
++    if (fp1){
++        while(fgets(line, sizeof(line), fp1)) {
++            line[strlen(line)-1] = '\0';
++            sscanf(line, "%255s %255s\n", source, dest);
++            if (!strcmp(dest, dest_path)) {
++                findDevice = true;
++                fprintf(fp2,"%s\t%s\n",source_path,dest_path);
++            }
++            else
++               fprintf(fp2,"%s\t%s\n",source,dest);
++        }
++        fclose(fp1);
++    }
++
++    if(!findDevice){
++            fprintf(fp2,"%s\t%s\n",source_path,dest_path);
++    }
++
++    fclose(fp2);
++    rename("/mnt/fuse/mapinfo.tmp","/mnt/fuse/mapinfo");
++}
++
+ static int run(const char* source_path, const char* dest_path, uid_t uid,
+         gid_t gid, gid_t write_gid, int num_threads, derive_t derive,
+         bool split_perms) {
+@@ -1810,6 +1842,8 @@ static int run(const char* source_path, const char* dest_path, uid_t uid,
+     umask(0);
+     res = ignite_fuse(&fuse, num_threads);
+ 
++    save_mapinfo(source_path,dest_path);
++
+     /* we do not attempt to umount the file system here because we are no longer
+      * running as the root user */
+ 

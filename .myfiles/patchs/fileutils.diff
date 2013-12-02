@@ -1,0 +1,26 @@
+diff --git a/core/jni/android_os_FileUtils.cpp b/core/jni/android_os_FileUtils.cpp
+index b236480..d6d7ca5 100644
+--- a/core/jni/android_os_FileUtils.cpp
++++ b/core/jni/android_os_FileUtils.cpp
+@@ -74,6 +74,21 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
+     } else {
+         uuid = blkid_get_tag_value(NULL, "UUID", pathStr);
+     }
++
++    if (!uuid && findDevice && !strcmp(device,"/dev/fuse")){
++        if(!(fp = fopen("/mnt/fuse/mapinfo","r")))
++             return false;
++        char source[256],dest[256];
++        while(fgets(line, sizeof(line), fp)) {
++            line[strlen(line)-1] = '\0';
++            sscanf(line, "%255s %255s\n", source, dest);
++            if (!strcmp(dest,mount_path)) {
++                  uuid = blkid_get_tag_value(NULL, "UUID",source);
++                  break;
++            }
++        fclose(fp);
++    }
++
+     if (uuid) {
+         ALOGD("UUID for %s is %s\n", pathStr, uuid);
+ 
