@@ -11,9 +11,9 @@ index 5763e5d..b6c07e5 100644
 +    char line[1024];
 +    char source[256],dest[256];
 +    bool findDevice = false;
-+    fp1 = fopen("/mnt/fuse/mapinfo", "r");
-+    if(!(fp2 = fopen("/mnt/fuse/mapinfo.tmp","w"))){
-+        ERROR("sdcard: Error to create /mnt/fuse/mapinfo.tmp!");
++    fp1 = fopen("/etc/.fuse_map", "r");
++    if(!(fp2 = fopen("/etc/.fuse_map.tmp","w"))){
++        ERROR("sdcard: Error to create /etc/.fuse_map.tmp!");
 +        return false;
 +    }
 +
@@ -36,7 +36,7 @@ index 5763e5d..b6c07e5 100644
 +    }
 +
 +    fclose(fp2);
-+    rename("/mnt/fuse/mapinfo.tmp","/mnt/fuse/mapinfo");
++    rename("/etc/.fuse_map.tmp","/etc/.fuse_map");
 +    return true;
 +}
 +

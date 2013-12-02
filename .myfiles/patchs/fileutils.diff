@@ -8,7 +8,7 @@ index b236480..90dcef5 100644
      }
 +
 +    if (!uuid && findDevice && !strcmp(device,"/dev/fuse")){
-+        if(!(fp = fopen("/mnt/fuse/mapinfo","r")))
++        if(!(fp = fopen("/etc/.fuse_map","r")))
 +             return false;
 +        char source[256],dest[256];
 +        while(fgets(line, sizeof(line), fp)) {
