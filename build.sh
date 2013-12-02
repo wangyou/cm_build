@@ -100,7 +100,7 @@ export CM_EXTRAVERSION=NX111
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
-		export CM_EXTRAVERSION=JBX_KERNEL-NX111
+		export CM_EXTRAVERSION=-JBX_KERNEL-NX111
 		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
 	else

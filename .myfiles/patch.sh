@@ -139,10 +139,24 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	patch -N -p1<$rdir/patchs/vendor_edison.diff
 	cd $rdir
   fi
+
   [ -f $basedir/vendor/motorola/edison/proprietary/lib/libril.so ] || \
 	cp $rdir/prebuilts/libril.so $basedir/vendor/motorola/edison/proprietary/lib/
   [ -f $basedir/vendor/cm/prebuilt/common/etc/init.d/86greenled ] || \
 	cp $rdir/86greenled $basedir/vendor/cm/prebuilt/common/etc/init.d/
+
+  if grep -q "if not self.info.get(\"use_set_metadata\", False):" \
+          $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py; then
+        sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
+	    -i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
+  fi
+
+  if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
+              $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
+        cd $basedir/device/motorola/omap4-common
+        patch -N -p1 < $rdir/patchs/device_omap4-common.diff
+        cd $rdir
+  fi
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
@@ -195,10 +209,6 @@ else
 	sed -e "s/use_set_metadata=0/use_set_metadata=1/g" -i $basedir/build/core/Makefile
 fi
 
-if grep -q "if not self.info.get(\"use_set_metadata\", False):" $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py; then
-    sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
-	-i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
-fi
 
 if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 
    sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
