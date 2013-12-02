@@ -104,17 +104,17 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    [ -d $basedir/system/core/include/utils ] && \
 	mv $basedir/system/core/include/utils $basedir/frameworks/native/include/utils
 
-#   if ! grep -q "save_mapinfo(source_path,dest_path);" $basedir/system/core/sdcard/sdcard.c; then
-#        cd $basedir/system/core
-#        patch -N -p1<$rdir/patchs/sdcard.diff
-#        cd $rdir
-#   fi
+   if ! grep -q "save_mapinfo(source_path,dest_path);" $basedir/system/core/sdcard/sdcard.c; then
+        cd $basedir/system/core
+        patch -N -p1<$rdir/patchs/sdcard.diff
+        cd $rdir
+   fi
 
-#   if ! grep -q "\/mnt\/fuse\/mapinfo" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
-#       cd $basedir/frameworks/base
-#       patch -N -p1 < $rdir/patchs/fileutils.diff
-#       cd $rdir
-#   fi 
+   if ! grep -q "\/mnt\/fuse\/mapinfo" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
+       cd $basedir/frameworks/base
+       patch -N -p1 < $rdir/patchs/fileutils.diff
+       cd $rdir
+   fi 
 
    ### patch for apns-conf #########
    [ -f $basedir/device/motorola/edison/apns-conf.xml ] && \
