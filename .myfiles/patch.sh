@@ -80,7 +80,7 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/system/core;			git stash >/dev/null
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
-        rm -rf $basedir/frameworks/native/libutils $basedir/frameworks/native/include/utils
+        rm -rf $basedir/frameworks/native/libs/libutils $basedir/frameworks/native/include/utils
 	rm -rf $basedir/vendor/motorola/jordan-common
 	cd $rdir
 	exit
@@ -100,7 +100,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
 
    [ -d $basedir/system/core/libutils ] && \
-	mv $basedir/system/core/libutils $basedir/frameworks/native/libutils
+	mv $basedir/system/core/libutils $basedir/frameworks/native/libs/libutils
    [ -d $basedir/system/core/include/utils ] && \
 	mv $basedir/system/core/include/utils $basedir/frameworks/native/include/utils
 
@@ -141,6 +141,8 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   fi
   [ -f $basedir/vendor/motorola/edison/proprietary/lib/libril.so ] || \
 	cp $rdir/prebuilts/libril.so $basedir/vendor/motorola/edison/proprietary/lib/
+  [ -f $basedir/vendor/cm/prebuilt/common/etc/init.d/86greenled ] || \
+	cp $rdir/86greenled $basedir/vendor/cm/prebuilt/common/etc/init.d/
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
