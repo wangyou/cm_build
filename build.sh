@@ -100,7 +100,6 @@ export CM_EXTRAVERSION=NX111
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
-		export CM_EXTRAVERSION=-JBX_KERNEL-NX111
 		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
 	else
@@ -129,7 +128,7 @@ else
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
 fi
 
-.myfiles/patch.sh -r 
+#.myfiles/patch.sh -r 
 
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
