@@ -100,6 +100,7 @@ export CM_EXTRAVERSION=NX111
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
+		export CM_EXTRAVERSION=JBX_KERNEL-NX111
 		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
 	else
@@ -119,9 +120,6 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "ediso
 		cd $curdir
 	fi
 
-	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
-		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-JBX_KERNEL-${compile_user}-$device.zip
-	fi
 elif [ "$opKernel" = "cm" ]; then
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
 	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
@@ -129,9 +127,6 @@ elif [ "$opKernel" = "cm" ]; then
 	fi
 else 
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
-	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
-		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-${compile_user}-$device.zip
-	fi
 fi
 
 .myfiles/patch.sh -r 
