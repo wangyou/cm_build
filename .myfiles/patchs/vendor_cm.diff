@@ -1,5 +1,5 @@
 diff --git a/config/common.mk b/config/common.mk
-index 3ef85d3..e67b6d7 100644
+index 3ef85d3..b294697 100644
 --- a/config/common.mk
 +++ b/config/common.mk
 @@ -45,7 +45,7 @@ $(eval TARGET_BOOTANIMATION_NAME := $(shell \
@@ -11,7 +11,19 @@ index 3ef85d3..e67b6d7 100644
  endif
  
  ifdef CM_NIGHTLY
-@@ -157,7 +157,7 @@ PRODUCT_PACKAGES += \
+@@ -98,6 +98,11 @@ PRODUCT_COPY_FILES += \
+ PRODUCT_COPY_FILES += \
+     vendor/cm/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
+ 
++#greenled
++PRODUCT_COPY_FILES += \
++    vendor/cm/prebuilt/common/etc/init.d/86greenled:system/etc/init.d/86greenled
++
++
+ # SELinux filesystem labels
+ PRODUCT_COPY_FILES += \
+     vendor/cm/prebuilt/common/etc/init.d/50selinuxrelabel:system/etc/init.d/50selinuxrelabel
+@@ -157,7 +162,7 @@ PRODUCT_PACKAGES += \
      Apollo \
      CMFileManager \
      LockClock \
