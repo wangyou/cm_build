@@ -1,8 +1,8 @@
 diff --git a/sdcard/sdcard.c b/sdcard/sdcard.c
-index 5763e5d..6f9263d 100644
+index 5763e5d..ed9edc5 100644
 --- a/sdcard/sdcard.c
 +++ b/sdcard/sdcard.c
-@@ -1760,6 +1760,38 @@ static int usage()
+@@ -1760,6 +1760,39 @@ static int usage()
      return 1;
  }
  
@@ -12,7 +12,7 @@ index 5763e5d..6f9263d 100644
 +    char source[256],dest[256];
 +    bool findDevice = false;
 +    fp1 = fopen("/mnt/fuse/mapinfo", "r");
-+    if(fp2 = fopen("/mnt/fuse/mapinfo.tmp","w")){
++    if(!(fp2 = fopen("/mnt/fuse/mapinfo.tmp","w"))){
 +        return false;
 +    }
 +
@@ -36,12 +36,13 @@ index 5763e5d..6f9263d 100644
 +
 +    fclose(fp2);
 +    rename("/mnt/fuse/mapinfo.tmp","/mnt/fuse/mapinfo");
++    return true;
 +}
 +
  static int run(const char* source_path, const char* dest_path, uid_t uid,
          gid_t gid, gid_t write_gid, int num_threads, derive_t derive,
          bool split_perms) {
-@@ -1810,6 +1842,8 @@ static int run(const char* source_path, const char* dest_path, uid_t uid,
+@@ -1810,6 +1843,8 @@ static int run(const char* source_path, const char* dest_path, uid_t uid,
      umask(0);
      res = ignite_fuse(&fuse, num_threads);
  

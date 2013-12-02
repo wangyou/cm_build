@@ -78,9 +78,9 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
-	cd $basedir/frameworks/native;			git stash >/dev/null
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
+        rm -rf $basedir/frameworks/native/libutils $basedir/frameworks/native/include/utils
 	rm -rf $basedir/vendor/motorola/jordan-common
 	cd $rdir
 	exit
@@ -99,9 +99,9 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    #### fix for cm-11.0
    sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
 
-   [ -d $basedir/frameworks/native/libutils ] || \
+   [ -d $basedir/system/core/libutils ] && \
 	mv $basedir/system/core/libutils $basedir/frameworks/native/libutils
-   [ -d $basedir/frameworks/native/include/utils ] || \
+   [ -d $basedir/system/core/include/utils ] && \
 	mv $basedir/system/core/include/utils $basedir/frameworks/native/include/utils
    if ! grep -q "save_mapinfo(source_path,dest_path);" $basedir/system/core/sdcard/sdcard.c; then
         cd $basedir/system/core

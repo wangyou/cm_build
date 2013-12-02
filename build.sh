@@ -95,6 +95,9 @@ rm -f out/target/product/$device/system/build.prop
 lunch cm_$device-userdebug 
 
 ########## MAKE #########################
+export CM_BUILDTYPE=NIGHTLY
+export CM_EXTRAVERSION=NX111
+
 if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
 		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
