@@ -128,7 +128,7 @@ else
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
 fi
 
-#.myfiles/patch.sh -r 
+.myfiles/patch.sh -r 
 
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip

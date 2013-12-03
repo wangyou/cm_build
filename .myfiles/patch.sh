@@ -99,10 +99,10 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    #### fix for cm-11.0
    sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
 
-   [ -d $basedir/system/core/libutils ] && \
-	mv $basedir/system/core/libutils $basedir/frameworks/native/libs/libutils
-   [ -d $basedir/system/core/include/utils ] && \
-	mv $basedir/system/core/include/utils $basedir/frameworks/native/include/utils
+#   [ -d $basedir/system/core/libutils ] && \
+#	mv $basedir/system/core/libutils $basedir/frameworks/native/libs/libutils
+#   [ -d $basedir/system/core/include/utils ] && \
+#	mv $basedir/system/core/include/utils $basedir/frameworks/native/include/utils
 
    if ! grep -q "save_mapinfo(source_path,dest_path);" $basedir/system/core/sdcard/sdcard.c; then
         cd $basedir/system/core
@@ -212,5 +212,11 @@ fi
 
 if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 
    sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
+fi
+
+if ! grep -q "import android.util.Slog" $basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java; then
+   cd $basedir/frameworks/base
+   patch -N -p1 <$rdir/patchs/screenshot.diff
+   cd $rdir
 fi
 
