@@ -1,25 +1,41 @@
 diff --git a/core/jni/android_os_FileUtils.cpp b/core/jni/android_os_FileUtils.cpp
-index b236480..90dcef5 100644
+index b236480..53601e5 100644
 --- a/core/jni/android_os_FileUtils.cpp
 +++ b/core/jni/android_os_FileUtils.cpp
-@@ -74,6 +74,22 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
+@@ -32,6 +32,7 @@
+ #include <sys/ioctl.h>
+ #include <linux/msdos_fs.h>
+ #include <blkid/blkid.h>
++#include <uuid/uuid.h>
+ 
+ namespace android {
+ 
+@@ -74,6 +75,30 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
      } else {
          uuid = blkid_get_tag_value(NULL, "UUID", pathStr);
      }
 +
++    char uuidFilePath[256];
 +    if (!uuid && findDevice && !strcmp(device,"/dev/fuse")){
-+        if(!(fp = fopen("/etc/.fuse_map","r")))
-+             return false;
-+        char source[256],dest[256];
-+        while(fgets(line, sizeof(line), fp)) {
-+            line[strlen(line)-1] = '\0';
-+            sscanf(line, "%255s %255s\n", source, dest);
-+            if (!strcmp(dest,mount_path)) {
-+                  uuid = blkid_get_tag_value(NULL, "UUID",source);
-+                  break;
-+            }
++        FILE * fp;
++        snprintf(uuidFilePath,sizeof(uuidFilePath),"%s/.VolumeID",pathStr);
++        if (fp=fopen(uuidFilePath,"r")){
++            if(fscanf(fp,"%256s",line))
++               uuid=line;
++            fclose(fp);
 +        }
-+        fclose(fp);
++        else if(fp=fopen(uuidFilePath,"w")){
++             uuid_t uu;
++             uuid_generate(uu);
++             int i;
++             for(i=0;i<sizeof(uuid_t);i++){
++		sprintf(line+2*i,"%02x",uu[i]);
++	     }
++             line[2*i]='\0';
++             uuid=line;
++             fprintf(fp,"%s",uuid);
++             fclose(fp);
++        }
 +    }
 +
      if (uuid) {

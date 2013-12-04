@@ -1,5 +1,32 @@
+diff --git a/core/jni/android_os_FileUtils.cpp b/core/jni/android_os_FileUtils.cpp
+index b236480..90dcef5 100644
+--- a/core/jni/android_os_FileUtils.cpp
++++ b/core/jni/android_os_FileUtils.cpp
+@@ -74,6 +74,22 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
+     } else {
+         uuid = blkid_get_tag_value(NULL, "UUID", pathStr);
+     }
++
++    if (!uuid && findDevice && !strcmp(device,"/dev/fuse")){
++        if(!(fp = fopen("/mnt/fuse/mapinfo","r")))
++             return false;
++        char source[256],dest[256];
++        while(fgets(line, sizeof(line), fp)) {
++            line[strlen(line)-1] = '\0';
++            sscanf(line, "%255s %255s\n", source, dest);
++            if (!strcmp(dest,mount_path)) {
++                  uuid = blkid_get_tag_value(NULL, "UUID",source);
++                  break;
++            }
++        }
++        fclose(fp);
++    }
++
+     if (uuid) {
+         ALOGD("UUID for %s is %s\n", pathStr, uuid);
+ 
 diff --git a/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java b/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java
-index 2063563..25b4b18 100644
+index 2063563..7d4caa6 100644
 --- a/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java
 +++ b/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java
 @@ -62,6 +62,8 @@ import java.io.File;
@@ -11,7 +38,15 @@ index 2063563..25b4b18 100644
  
  /**
   * POD used in the AsyncTask which saves an image in the background.
-@@ -249,6 +251,7 @@ class SaveImageInBackgroundTask extends AsyncTask<SaveImageInBackgroundData, Voi
+@@ -193,6 +195,7 @@ class SaveImageInBackgroundTask extends AsyncTask<SaveImageInBackgroundData, Voi
+         Resources r = context.getResources();
+ 
+         try {
++            Slog.d(TAG,"ScreenshotDir="+mScreenshotDir);
+             // Create screenshot directory if it doesn't exist
+             mScreenshotDir.mkdirs();
+ 
+@@ -249,6 +252,7 @@ class SaveImageInBackgroundTask extends AsyncTask<SaveImageInBackgroundData, Voi
              // mounted
              params[0].clearImage();
              params[0].result = 1;
