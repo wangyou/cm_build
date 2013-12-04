@@ -1,56 +1,29 @@
-diff --git a/core/jni/android_os_FileUtils.cpp b/core/jni/android_os_FileUtils.cpp
-index b236480..90dcef5 100644
---- a/core/jni/android_os_FileUtils.cpp
-+++ b/core/jni/android_os_FileUtils.cpp
-@@ -74,6 +74,22 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
-     } else {
-         uuid = blkid_get_tag_value(NULL, "UUID", pathStr);
+diff --git a/core/jni/android_view_SurfaceControl.cpp b/core/jni/android_view_SurfaceControl.cpp
+index 67eade8..2302327 100644
+--- a/core/jni/android_view_SurfaceControl.cpp
++++ b/core/jni/android_view_SurfaceControl.cpp
+@@ -163,10 +163,12 @@ static inline SkBitmap::Config convertPixelFormat(PixelFormat format) {
+ static jobject nativeScreenshotBitmap(JNIEnv* env, jclass clazz, jobject displayTokenObj,
+         jint width, jint height, jint minLayer, jint maxLayer, bool allLayers) {
+     sp<IBinder> displayToken = ibinderForJavaObject(env, displayTokenObj);
++    ALOGD("nativeScreenshotBitmap 0");
+     if (displayToken == NULL) {
+         return NULL;
      }
-+
-+    if (!uuid && findDevice && !strcmp(device,"/dev/fuse")){
-+        if(!(fp = fopen("/mnt/fuse/mapinfo","r")))
-+             return false;
-+        char source[256],dest[256];
-+        while(fgets(line, sizeof(line), fp)) {
-+            line[strlen(line)-1] = '\0';
-+            sscanf(line, "%255s %255s\n", source, dest);
-+            if (!strcmp(dest,mount_path)) {
-+                  uuid = blkid_get_tag_value(NULL, "UUID",source);
-+                  break;
-+            }
-+        }
-+        fclose(fp);
-+    }
-+
-     if (uuid) {
-         ALOGD("UUID for %s is %s\n", pathStr, uuid);
- 
-diff --git a/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java b/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java
-index 2063563..7d4caa6 100644
---- a/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java
-+++ b/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java
-@@ -62,6 +62,8 @@ import java.io.File;
- import java.io.OutputStream;
- import java.text.SimpleDateFormat;
- import java.util.Date;
-+import android.util.Slog;
-+
- 
- /**
-  * POD used in the AsyncTask which saves an image in the background.
-@@ -193,6 +195,7 @@ class SaveImageInBackgroundTask extends AsyncTask<SaveImageInBackgroundData, Voi
-         Resources r = context.getResources();
- 
-         try {
-+            Slog.d(TAG,"ScreenshotDir="+mScreenshotDir);
-             // Create screenshot directory if it doesn't exist
-             mScreenshotDir.mkdirs();
- 
-@@ -249,6 +252,7 @@ class SaveImageInBackgroundTask extends AsyncTask<SaveImageInBackgroundData, Voi
-             // mounted
-             params[0].clearImage();
-             params[0].result = 1;
-+	    Slog.e(TAG, "ScreenShot ERROR",e);
-         }
- 
-         // Recycle the bitmap data
+-
++    
++    ALOGD("nativeScreenshotBitmap 1");
+     ScreenshotPixelRef* pixels = new ScreenshotPixelRef(NULL);
+     if (pixels->update(displayToken, width, height,
+             minLayer, maxLayer, allLayers) != NO_ERROR) {
+@@ -194,7 +196,9 @@ static jobject nativeScreenshotBitmap(JNIEnv* env, jclass clazz, jobject display
+         delete pixels;
+         bitmap->setPixels(NULL);
+     }
+-
++    
++    ALOGD("nativeScreenshotBitmap 2");
++    
+     return GraphicsJNI::createBitmap(env, bitmap,
+             GraphicsJNI::kBitmapCreateFlag_Premultiplied, NULL);
+ }

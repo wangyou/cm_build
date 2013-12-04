@@ -204,7 +204,7 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
    sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
 fi
 
-if ! grep -q "import android.util.Slog" $basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java; then
+if ! grep -q "ALOGD(\"nativeScreenshotBitmap" $basedir/frameworks/base/core/jni/android_view_SurfaceControl.cpp; then
    cd $basedir/frameworks/base
    patch -N -p1 <$rdir/patchs/screenshot.diff
    cd $rdir
