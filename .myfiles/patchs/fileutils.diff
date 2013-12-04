@@ -1,43 +1,52 @@
 diff --git a/core/jni/android_os_FileUtils.cpp b/core/jni/android_os_FileUtils.cpp
-index b236480..53601e5 100644
+index b236480..e3fdd03 100644
 --- a/core/jni/android_os_FileUtils.cpp
 +++ b/core/jni/android_os_FileUtils.cpp
-@@ -32,6 +32,7 @@
- #include <sys/ioctl.h>
- #include <linux/msdos_fs.h>
- #include <blkid/blkid.h>
-+#include <uuid/uuid.h>
+@@ -69,16 +69,47 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
  
- namespace android {
+     fclose(fp);
  
-@@ -74,6 +75,30 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
+     if (findDevice) {
+         uuid = blkid_get_tag_value(NULL, "UUID", device);
      } else {
          uuid = blkid_get_tag_value(NULL, "UUID", pathStr);
      }
 +
++#define RANDOM "/dev/urandom"
 +    char uuidFilePath[256];
-+    if (!uuid && findDevice && !strcmp(device,"/dev/fuse")){
++    if (!uuid && findDevice){
 +        FILE * fp;
 +        snprintf(uuidFilePath,sizeof(uuidFilePath),"%s/.VolumeID",pathStr);
-+        if (fp=fopen(uuidFilePath,"r")){
++        if ((fp=fopen(uuidFilePath,"r"))){
 +            if(fscanf(fp,"%256s",line))
 +               uuid=line;
 +            fclose(fp);
 +        }
-+        else if(fp=fopen(uuidFilePath,"w")){
-+             uuid_t uu;
-+             uuid_generate(uu);
-+             int i;
-+             for(i=0;i<sizeof(uuid_t);i++){
-+		sprintf(line+2*i,"%02x",uu[i]);
-+	     }
-+             line[2*i]='\0';
++        else {
++             char uu[8];
++             int len;
++             int fd;
++             if(!(fd=open(RANDOM, O_RDONLY)))
++                 return false;
++             if(8 != read(fd, uu, 8))
++                 return false;
++             close(fd);
++
++             sprintf(line,"%02x%02x%02x%02x%02x%02x%02x%02x",uu[0],uu[1],uu[2],uu[3],uu[4],uu[5],uu[6],uu[7]);
++             line[8]='\0';
 +             uuid=line;
-+             fprintf(fp,"%s",uuid);
-+             fclose(fp);
++             if(fp=fopen(uuidFilePath,"w")){
++                      fprintf(fp,"%s",uuid);
++                      fclose(fp);
++             }
 +        }
 +    }
 +
      if (uuid) {
          ALOGD("UUID for %s is %s\n", pathStr, uuid);
  
+         int len = strlen(uuid);
+         char result[len];
+ 
+         if (len > 0) {
+             char * pCur = uuid;

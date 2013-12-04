@@ -100,7 +100,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
 
 
-   if ! grep -q "uuid_generate" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
+   if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
        cd $basedir/frameworks/base
        patch -N -p1 < $rdir/patchs/fileutils.diff
        cd $rdir
