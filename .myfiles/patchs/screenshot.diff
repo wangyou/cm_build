@@ -1,29 +1,80 @@
-diff --git a/core/jni/android_view_SurfaceControl.cpp b/core/jni/android_view_SurfaceControl.cpp
-index 67eade8..2302327 100644
---- a/core/jni/android_view_SurfaceControl.cpp
-+++ b/core/jni/android_view_SurfaceControl.cpp
-@@ -163,10 +163,12 @@ static inline SkBitmap::Config convertPixelFormat(PixelFormat format) {
- static jobject nativeScreenshotBitmap(JNIEnv* env, jclass clazz, jobject displayTokenObj,
-         jint width, jint height, jint minLayer, jint maxLayer, bool allLayers) {
-     sp<IBinder> displayToken = ibinderForJavaObject(env, displayTokenObj);
-+    ALOGD("nativeScreenshotBitmap 0");
-     if (displayToken == NULL) {
-         return NULL;
+diff --git a/opengl/libagl/egl.cpp b/opengl/libagl/egl.cpp
+index bbbda76..14a2736 100644
+--- a/opengl/libagl/egl.cpp
++++ b/opengl/libagl/egl.cpp
+@@ -2028,22 +2028,29 @@ EGLImageKHR eglCreateImageKHR(EGLDisplay dpy, EGLContext ctx, EGLenum target,
+         EGLClientBuffer buffer, const EGLint *attrib_list)
+ {
+     if (egl_display_t::is_valid(dpy) == EGL_FALSE) {
++	ALOGD("Screenshot eglCreateImageKHR  line=2031");
+         return setError(EGL_BAD_DISPLAY, EGL_NO_IMAGE_KHR);
      }
--
-+    
-+    ALOGD("nativeScreenshotBitmap 1");
-     ScreenshotPixelRef* pixels = new ScreenshotPixelRef(NULL);
-     if (pixels->update(displayToken, width, height,
-             minLayer, maxLayer, allLayers) != NO_ERROR) {
-@@ -194,7 +196,9 @@ static jobject nativeScreenshotBitmap(JNIEnv* env, jclass clazz, jobject display
-         delete pixels;
-         bitmap->setPixels(NULL);
+     if (ctx != EGL_NO_CONTEXT) {
++	ALOGD("Screenshot eglCreateImageKHR  line=2035");
+         return setError(EGL_BAD_CONTEXT, EGL_NO_IMAGE_KHR);
      }
--
-+    
-+    ALOGD("nativeScreenshotBitmap 2");
-+    
-     return GraphicsJNI::createBitmap(env, bitmap,
-             GraphicsJNI::kBitmapCreateFlag_Premultiplied, NULL);
+     if (target != EGL_NATIVE_BUFFER_ANDROID) {
++	ALOGD("Screenshot eglCreateImageKHR  line=2039");
+         return setError(EGL_BAD_PARAMETER, EGL_NO_IMAGE_KHR);
+     }
+ 
+     ANativeWindowBuffer* native_buffer = (ANativeWindowBuffer*)buffer;
+ 
+-    if (native_buffer->common.magic != ANDROID_NATIVE_BUFFER_MAGIC)
++    if (native_buffer->common.magic != ANDROID_NATIVE_BUFFER_MAGIC){
++	ALOGD("Screenshot eglCreateImageKHR  line=2046");
+         return setError(EGL_BAD_PARAMETER, EGL_NO_IMAGE_KHR);
++    }
+ 
+-    if (native_buffer->common.version != sizeof(ANativeWindowBuffer))
++    if (native_buffer->common.version != sizeof(ANativeWindowBuffer)){
++	ALOGD("Screenshot eglCreateImageKHR  line=2051");
+         return setError(EGL_BAD_PARAMETER, EGL_NO_IMAGE_KHR);
++    }
+ 
+     switch (native_buffer->format) {
+         case HAL_PIXEL_FORMAT_RGBA_8888:
+@@ -2053,10 +2060,13 @@ EGLImageKHR eglCreateImageKHR(EGLDisplay dpy, EGLContext ctx, EGLenum target,
+         case HAL_PIXEL_FORMAT_BGRA_8888:
+             break;
+         default:
++            ALOGD("Screenshot eglCreateImageKHR  line=2063");
+             return setError(EGL_BAD_PARAMETER, EGL_NO_IMAGE_KHR);
+     }
+ 
+     native_buffer->common.incRef(&native_buffer->common);
++    ALOGD("Screenshot eglCreateImageKHR  line=2068  native_buffer->format=%d",native_buffer->format);
++    ALOGD_IF((EGLImageKHR)native_buffer == EGL_NO_IMAGE_KHR, "Screenshot eglCreateImageKHR line=2069 return=EGL_NO_IMAGE_KHR");
+     return (EGLImageKHR)native_buffer;
  }
+ 
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index 529461e..d17ab98 100644
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -2795,6 +2795,9 @@ status_t SurfaceFlinger::onTransact(
+     }
+ 
+     status_t err = BnSurfaceComposer::onTransact(code, data, reply, flags);
++    if (code==CAPTURE_SCREEN)
++        ALOGD("Screenshot:  BnSurfaceComposer::onTransact code=%d result=%d",code,err);
++
+     if (err == UNKNOWN_TRANSACTION || err == PERMISSION_DENIED) {
+         CHECK_INTERFACE(ISurfaceComposer, data, reply);
+         if (CC_UNLIKELY(!PermissionCache::checkCallingPermission(sHardwareTest))) {
+@@ -3149,11 +3152,15 @@ status_t SurfaceFlinger::captureScreenImplLocked(
+              * server-side waits on the fence that dequeueBuffer returns.
+              */
+             result = native_window_dequeue_buffer_and_wait(window,  &buffer);
++	    ALOGD("Screenshot: breakpoint at line 3155,result=%d",result);
++
+             if (result == NO_ERROR) {
+                 // create an EGLImage from the buffer so we can later
+                 // turn it into a texture
++		ALOGD("Screenshot: breakpoint at line 3159,result=NO_ERROR");
+                 EGLImageKHR image = eglCreateImageKHR(mEGLDisplay, EGL_NO_CONTEXT,
+                         EGL_NATIVE_BUFFER_ANDROID, buffer, NULL);
++                ALOGD_IF(image == EGL_NO_IMAGE_KHR,"Screenshot: breakpoint at line 3163,image=EGL_NO_IMAGE_KHR");
+                 if (image != EGL_NO_IMAGE_KHR) {
+                     // this binds the given EGLImage as a framebuffer for the
+                     // duration of this scope.

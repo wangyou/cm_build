@@ -79,6 +79,7 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
         cd $basedir/frameworks/base;			git stash >/dev/null
+        cd $basedir/frameworks/native;			git stash >/dev/null
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
@@ -204,8 +205,8 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
    sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
 fi
 
-if ! grep -q "ALOGD(\"nativeScreenshotBitmap" $basedir/frameworks/base/core/jni/android_view_SurfaceControl.cpp; then
-   cd $basedir/frameworks/base
+if ! grep -q "if (code==CAPTURE_SCREEN)" $basedir/frameworks/native/services/surfaceflinger/SurfaceFlinger.cpp; then
+   cd $basedir/frameworks/native
    patch -N -p1 <$rdir/patchs/screenshot.diff
    cd $rdir
 fi
