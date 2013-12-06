@@ -205,7 +205,7 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
    sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
 fi
 
-if ! grep -q "if (code==CAPTURE_SCREEN)" $basedir/frameworks/native/services/surfaceflinger/SurfaceFlinger.cpp; then
+if ! grep -q "#ifdef USE_OPENGLES_FOR_SCREEN_CAPTURE" $basedir/frameworks/native/services/surfaceflinger/SurfaceFlinger.cpp; then
    cd $basedir/frameworks/native
    patch -N -p1 <$rdir/patchs/screenshot.diff
    cd $rdir
