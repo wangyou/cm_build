@@ -74,6 +74,7 @@ fi
 
 if [ "$mode" = "r" ]; then
 
+	cd $basedir/device/motorola/edison;       	git stash >/dev/null
 	cd $basedir/device/motorola/omap4-common;       git stash >/dev/null
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
@@ -100,6 +101,11 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    #### fix for cm-11.0
    sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
 
+   if ! grep -q "write \/sys\/class\/leds\/green\/brightness" $basedir/device/motorola/edison/init.mapphone.rc; then
+       cd $basedir/device/motorola/edison
+       patch -N -p1 <$rdir/patchs/init.mapphone.rc.diff
+       cd $rdir
+   fi
 
    if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
        cd $basedir/frameworks/base
@@ -133,8 +139,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 
   [ -f $basedir/vendor/motorola/edison/proprietary/lib/libril.so ] || \
 	cp $rdir/prebuilts/libril.so $basedir/vendor/motorola/edison/proprietary/lib/
-  [ -f $basedir/vendor/cm/prebuilt/common/etc/init.d/86greenled ] || \
-	cp $rdir/86greenled $basedir/vendor/cm/prebuilt/common/etc/init.d/
+
 
   if grep -q "if not self.info.get(\"use_set_metadata\", False):" \
           $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py; then

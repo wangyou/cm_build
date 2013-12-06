@@ -1,0 +1,60 @@
+diff --git a/init.mapphone.rc b/init.mapphone.rc
+index 6950117..f11a3ed 100755
+--- a/init.mapphone.rc
++++ b/init.mapphone.rc
+@@ -4,6 +4,9 @@ loglevel 8
+ 
+     export EXTERNAL_STORAGE /storage/sdcard0
+ 
++    # Create mountpoint so Dalvik can mark as slave in zygotes.
++    mount tmpfs tmpfs /storage mode=0050,uid=0,gid=1028
++
+     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
+     mkdir /storage/sdcard0 0700 root root
+     # for backwards compatibility
+@@ -28,9 +31,7 @@ loglevel 8
+     chown system radio /sys/class/radio/mdm6600/command
+ 
+ on fs
+-    exec /sbin/fixboot.sh
+     mount_all /fstab.mapphone_umts
+-    setprop ro.crypto.fuse_sdcard true
+ 
+ on post-fs
+ # Enable PVR modules
+@@ -48,7 +49,6 @@ on post-fs
+ 
+ # Create mountpoints and mount tmpfs
+     mkdir /misc 0770 system misc
+-    mkdir /sd-ext 0771 system system
+     symlink /data/tmp /tmp
+     mount tmpfs tmpfs /tmp
+ 
+@@ -76,6 +76,8 @@ on post-fs
+     # Disable automatic power control for OHCI USB IPC Temporarily
+     #    write /sys/devices/platform/ohci-omap3/usb1/1-1/power/control auto
+ 
++    # kill green LED at boot
++    write /sys/class/leds/green/brightness 0
+ # NFC configuration
+     # Reset system time
+     write /sys/class/rtc/rtc0/unsecured_rtc on
+@@ -168,9 +170,8 @@ on post-fs
+     insmod /system/lib/modules/mac80211.ko
+     insmod /system/lib/modules/wl12xx.ko
+ on post-fs-data
++    mount rootfs rootfs / ro remount
+     mkdir /data/tmp 0777 system system
+-    chown system system /mnt/sdcard # Feature 34534
+-    chmod 0777 /mnt/sdcard # Feature 34534
+ #Set the default value for bluedroid_ref
+     write /data/tmp/bluedroid_ref 0
+     chown system system /data/tmp/bluedroid_ref
+@@ -259,6 +260,7 @@ on early-boot
+ # mount eCryptFS if required
+     exec /system/bin/enc_mgt_tool
+     class_start media_early_init
++    setprop vold.post_fs_data_done 1
+ on boot
+ # Define Motorola DBVC ATVC Property defaults (failsafe properties)
+     setprop ro.sys.atvc_allow_netmon_usb 0
