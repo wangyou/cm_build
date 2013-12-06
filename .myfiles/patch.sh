@@ -114,8 +114,14 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    fi 
 
    ### patch for apns-conf #########
-   [ -f $basedir/device/motorola/edison/apns-conf.xml ] && \
-	sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" -i $basedir/device/motorola/edison/apns-conf.xml 
+   if [ -f $basedir/device/motorola/edison/apns-conf.xml ]; then
+	sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" \
+            -e "s/\"China Mobile\"/\"中国移动\"/g" \
+            -e "s/\"China Mobile MMS\"/\"中国移动彩信\"/g" \
+	    -e "s/\"China Unicom 3G\"/\"中国联通3G\"/g" \
+            -e "s/\"China Unicom MMS\"/\"中国联通彩信\"/g" \
+	    -i $basedir/device/motorola/edison/apns-conf.xml 
+   fi
 
    ### jbx-kernel patch ###########
 
