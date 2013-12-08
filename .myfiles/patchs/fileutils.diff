@@ -1,13 +1,8 @@
 diff --git a/core/jni/android_os_FileUtils.cpp b/core/jni/android_os_FileUtils.cpp
-index b236480..e3fdd03 100644
+index c881a2a..0abd8cf 100644
 --- a/core/jni/android_os_FileUtils.cpp
 +++ b/core/jni/android_os_FileUtils.cpp
-@@ -69,16 +69,47 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
- 
-     fclose(fp);
- 
-     if (findDevice) {
-         uuid = blkid_get_tag_value(NULL, "UUID", device);
+@@ -74,6 +74,37 @@ jint android_os_FileUtils_getVolumeUUID(JNIEnv* env, jobject clazz, jstring path
      } else {
          uuid = blkid_get_tag_value(NULL, "UUID", pathStr);
      }
@@ -18,7 +13,7 @@ index b236480..e3fdd03 100644
 +        FILE * fp;
 +        snprintf(uuidFilePath,sizeof(uuidFilePath),"%s/.VolumeID",pathStr);
 +        if ((fp=fopen(uuidFilePath,"r"))){
-+            if(fscanf(fp,"%256s",line))
++            if(fscanf(fp,"%256s",line) && 5<strlen(line))
 +               uuid=line;
 +            fclose(fp);
 +        }
@@ -45,8 +40,3 @@ index b236480..e3fdd03 100644
      if (uuid) {
          ALOGD("UUID for %s is %s\n", pathStr, uuid);
  
-         int len = strlen(uuid);
-         char result[len];
- 
-         if (len > 0) {
-             char * pCur = uuid;

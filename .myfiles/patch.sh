@@ -110,6 +110,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
        cd $basedir/frameworks/base
        patch -N -p1 < $rdir/patchs/fileutils.diff
+       patch -N -p1 < $rdir/patchs/fileutils-1.diff
        cd $rdir
    fi 
 
@@ -216,9 +217,7 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
    sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
 fi
 
-if ! grep -q "#ifdef USE_OPENGLES_FOR_SCREEN_CAPTURE" $basedir/frameworks/native/services/surfaceflinger/SurfaceFlinger.cpp; then
-   cd $basedir/frameworks/native
-   patch -N -p1 <$rdir/patchs/screenshot.diff
-   cd $rdir
-fi
+#if [ ! -f $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml ]; then
+   cp $rdir/patchs/cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
+#fi
 

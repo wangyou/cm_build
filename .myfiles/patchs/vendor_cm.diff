@@ -1,8 +1,8 @@
 diff --git a/config/common.mk b/config/common.mk
-index 3ef85d3..e67b6d7 100644
+index 927442d..7282320 100644
 --- a/config/common.mk
 +++ b/config/common.mk
-@@ -45,7 +45,7 @@ $(eval TARGET_BOOTANIMATION_NAME := $(shell \
+@@ -29,7 +29,7 @@ $(eval TARGET_BOOTANIMATION_NAME := $(shell \
  endef
  $(foreach size,$(bootanimation_sizes), $(call check_and_set_bootanimation,$(size)))
  
@@ -11,12 +11,13 @@ index 3ef85d3..e67b6d7 100644
  endif
  
  ifdef CM_NIGHTLY
-@@ -157,7 +157,7 @@ PRODUCT_PACKAGES += \
-     Apollo \
+@@ -149,8 +149,7 @@ PRODUCT_PACKAGES += \
      CMFileManager \
      LockClock \
+     CMUpdater \
+-    CMFota \
 -    CMAccount
-+#    CMAccount
++    CMFota 
  
  # CM Hardware Abstraction Framework
  PRODUCT_PACKAGES += \
