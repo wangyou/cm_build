@@ -73,7 +73,7 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
 fi
 
 if [ "$mode" = "r" ]; then
-
+	cd $basedir/build;				git stash >/dev/null
 	cd $basedir/device/motorola/edison;       	git stash >/dev/null
 	cd $basedir/device/motorola/omap4-common;       git stash >/dev/null
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
