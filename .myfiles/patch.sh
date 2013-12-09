@@ -110,9 +110,14 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
        cd $basedir/frameworks/base
        patch -N -p1 < $rdir/patchs/fileutils.diff
-       patch -N -p1 < $rdir/patchs/fileutils-1.diff
        cd $rdir
    fi 
+   if ! grep -q "android_os_FileUtils.cpp" $basedir/frameworks/base/core/jni/Android.mk; then
+       cd $basedir/frameworks/base
+       patch -N -p1 < $rdir/patchs/fileutils-link.diff
+       cd $rdir
+   fi 
+
 
    ### patch for apns-conf #########
    if [ -f $basedir/device/motorola/edison/apns-conf.xml ]; then
