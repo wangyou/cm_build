@@ -162,6 +162,14 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	    -i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
   fi
 
+  if ! grep -q "Bitmap ss = Bitmap.createBitmap(mDisplayMetrics.widthPixels," \
+	$basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java; then
+	cd $basedir/frameworks/base
+	patch -N -p1 <$rdir/patchs/screenshot.diff
+	cd $rdir
+  fi
+
+
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         cd $basedir/device/motorola/omap4-common
