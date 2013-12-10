@@ -222,7 +222,7 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
    sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
 fi
 
-#if [ ! -f $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml ]; then
+if [ ! -f $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml ]; then
    cp $rdir/patchs/cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
-#fi
+fi
 

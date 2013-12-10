@@ -18,6 +18,7 @@ mkJop=""
 mod=bacon
 mkForce=""
 oldupdate="old"
+keepPatch=1
 
 for op in $*;do
    if [ "$op" = "spyder" ]; then
@@ -33,6 +34,8 @@ for op in $*;do
 	opKernel="$op"
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
+   elif [ "${op:0:2}" = "-k" ]; then
+	keepPatch=0
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
    elif [ "${op:0:1}" = "-" ]; then
@@ -128,7 +131,7 @@ else
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
 fi
 
-.myfiles/patch.sh -r 
+[ $keepPatch -eq 0 ] || .myfiles/patch.sh -r 
 
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
