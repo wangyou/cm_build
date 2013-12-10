@@ -134,6 +134,9 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h
 
    ### patch for vendor cm  ########
+   sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d" -e "/WhisperPush/d" -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
+   sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
+   sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
    if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
         $basedir/vendor/cm/config/common_full.mk; then
 	cd $basedir/vendor/cm
@@ -222,7 +225,14 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
    sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
 fi
 
-if [ ! -f $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml ]; then
-   cp $rdir/patchs/cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
-fi
+####Translation#################
+[ -f $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml ] || \
+   cp $rdir/patchs/trans/packages_apps_Settings-cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
+
+[ -f $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml ] || \
+   cp $rdir/patchs/trans/packages_services_Telephony-cm_strings.xml $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml
+
+[ -f $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml ] || \
+   cp $rdir/patchs/trans/packages_apps_Dialer-cm_strings.xml $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml
+
 
