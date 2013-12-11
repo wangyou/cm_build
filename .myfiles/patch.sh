@@ -79,9 +79,10 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
-        cd $basedir/frameworks/base;			git stash >/dev/null
+        cd $basedir/frameworks/base;			git stash >/dev/null ;    git rebase m/cm-11.0 >/dev/null;
         cd $basedir/frameworks/native;			git stash >/dev/null
         cd $basedir/frameworks/av;			git stash >/dev/null
+	cd $basedir/packages/apps/Settings;		git stash >/dev/null;
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
@@ -142,14 +143,6 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
 	    -i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
   fi
-
-  if ! grep -q "^\tBitmap ss = Bitmap.createBitmap(mDisplayMetrics.widthPixels," \
-	$basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java; then
-	cd $basedir/frameworks/base
-	patch -N -p1 <$rdir/patchs/screenshot.diff
-	cd $rdir
-  fi
-
 
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
