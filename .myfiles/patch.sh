@@ -81,6 +81,7 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/system/core;			git stash >/dev/null
         cd $basedir/frameworks/base;			git stash >/dev/null
         cd $basedir/frameworks/native;			git stash >/dev/null
+        cd $basedir/frameworks/av;			git stash >/dev/null
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
@@ -96,27 +97,6 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
     cd $basedir/system/core;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
     cd $basedir/hardware/ril;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
     cd $basedir/bootable/recovery;		[ _`git branch | grep "\*" |cut -f2 -d" "` = _twrp2.7 ] && git checkout $branch;
-
-
-   #### fix for cm-11.0
-   sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
-
-   if ! grep -q "write \/sys\/class\/leds\/green\/brightness" $basedir/device/motorola/edison/init.mapphone.rc; then
-       cd $basedir/device/motorola/edison
-       patch -N -p1 <$rdir/patchs/init.mapphone.rc.diff
-       cd $rdir
-   fi
-
-   if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
-       cd $basedir/frameworks/base
-       patch -N -p1 < $rdir/patchs/fileutils.diff
-       cd $rdir
-   fi 
-   if ! grep -q "android_os_FileUtils.cpp" $basedir/frameworks/base/core/jni/Android.mk; then
-       cd $basedir/frameworks/base
-       patch -N -p1 < $rdir/patchs/fileutils-link.diff
-       cd $rdir
-   fi 
 
 
    ### patch for apns-conf #########
@@ -137,7 +117,8 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d" -e "/WhisperPush/d" -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
    sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
    sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
-   if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
+   if ! grep -q "^\s*vendor\/cm\/prebuilt\/common\/bootanimation\/480.zip:system\/media\/bootanimation.zip" \
+		$basedir/vendor/cm/config/common_full_phone.mk \
         $basedir/vendor/cm/config/common_full.mk; then
 	cd $basedir/vendor/cm
 	patch -N -p1 <$rdir/patchs/vendor_cm.diff
@@ -162,7 +143,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	    -i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
   fi
 
-  if ! grep -q "Bitmap ss = Bitmap.createBitmap(mDisplayMetrics.widthPixels," \
+  if ! grep -q "^\tBitmap ss = Bitmap.createBitmap(mDisplayMetrics.widthPixels," \
 	$basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java; then
 	cd $basedir/frameworks/base
 	patch -N -p1 <$rdir/patchs/screenshot.diff
@@ -243,4 +224,30 @@ fi
 [ -f $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_apps_Dialer-cm_strings.xml $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml
 
+####some patchs###########
 
+   sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
+
+   if ! grep -q "write \/sys\/class\/leds\/green\/brightness" $basedir/device/motorola/edison/init.mapphone.rc; then
+       cd $basedir/device/motorola/edison
+       patch -N -p1 <$rdir/patchs/init.mapphone.rc.diff
+       cd $rdir
+   fi
+
+   if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
+       cd $basedir/frameworks/base
+       patch -N -p1 < $rdir/patchs/fileutils.diff
+       cd $rdir
+   fi 
+   if ! grep -q "android_os_FileUtils.cpp" $basedir/frameworks/base/core/jni/Android.mk; then
+       cd $basedir/frameworks/base
+       patch -N -p1 < $rdir/patchs/fileutils-link.diff
+       cd $rdir
+   fi 
+
+   if ! grep -q "|| !(header\[4\] == 0x80 || header\[4\] == 0x00)" \
+		$basedir/frameworks/av/media/libstagefright/FLACExtractor.cpp; then
+	cd $basedir/frameworks/av
+	patch -N -p1 <$rdir/patchs/flacExtractor.diff
+	cd $rdir
+  fi

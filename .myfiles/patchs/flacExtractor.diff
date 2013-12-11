@@ -1,0 +1,15 @@
+diff --git a/media/libstagefright/FLACExtractor.cpp b/media/libstagefright/FLACExtractor.cpp
+index 098fcf9..f4e5e73 100644
+--- a/media/libstagefright/FLACExtractor.cpp
++++ b/media/libstagefright/FLACExtractor.cpp
+@@ -826,7 +826,9 @@ bool SniffFLAC(
+     // no need to read rest of the header, as a premature EOF will be caught later
+     uint8_t header[4+4];
+     if (source->readAt(0, header, sizeof(header)) != sizeof(header)
+-            || memcmp("fLaC\0\0\0\042", header, 4+4))
++            || memcmp("fLaC", header, 4)
++            || !(header[4] == 0x80 || header[4] == 0x00)
++            || memcmp("\0\0\042", header + 5, 3))
+     {
+         return false;
+     }
