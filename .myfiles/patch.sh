@@ -215,13 +215,13 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
 fi
 
 ####Translation#################
-[ -f $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml ] || \
+#[ -f $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_apps_Settings-cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
 
-[ -f $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml ] || \
+#[ -f $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_services_Telephony-cm_strings.xml $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml
 
-[ -f $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml ] || \
+#[ -f $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_apps_Dialer-cm_strings.xml $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml
 
 ####some patchs###########
@@ -249,5 +249,11 @@ fi
 		$basedir/frameworks/av/media/libstagefright/FLACExtractor.cpp; then
 	cd $basedir/frameworks/av
 	patch -N -p1 <$rdir/patchs/flacExtractor.diff
+	cd $rdir
+  fi
+
+  if ! grep -q "<string name=\"usb_mass_storage_title\">Mass storage</string>" $basedir/packages/apps/Settings/res/values/cm_strings.xml; then
+  	cd $basedir/packages/apps/Settings/
+	patch -N -p1 <$rdir/patchs/ums.diff
 	cd $rdir
   fi
