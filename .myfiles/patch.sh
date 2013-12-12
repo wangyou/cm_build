@@ -79,10 +79,10 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
-        cd $basedir/frameworks/base;			git stash >/dev/null ;    git rebase m/cm-11.0 >/dev/null;
+        cd $basedir/frameworks/base;			git stash >/dev/null;    git rebase m/$branch >/dev/null;
         cd $basedir/frameworks/native;			git stash >/dev/null
         cd $basedir/frameworks/av;			git stash >/dev/null
-	cd $basedir/packages/apps/Settings;		git stash >/dev/null;
+	cd $basedir/packages/apps/Settings;		git stash >/dev/null;    git rebase m/$branch >/dev/null;
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
