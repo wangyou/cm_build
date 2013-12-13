@@ -79,10 +79,10 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
-        cd $basedir/frameworks/base;			git stash >/dev/null;    git rebase m/$branch >/dev/null;
+        cd $basedir/frameworks/base;			git stash >/dev/null;  git clean -f; git rebase m/$branch >/dev/null;
         cd $basedir/frameworks/native;			git stash >/dev/null
         cd $basedir/frameworks/av;			git stash >/dev/null
-	cd $basedir/packages/apps/Settings;		git stash >/dev/null;    git rebase m/$branch >/dev/null;
+	cd $basedir/packages/apps/Settings;		git stash >/dev/null;  git clean -f; git rebase m/$branch >/dev/null;
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
@@ -138,9 +138,6 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cp $rdir/prebuilts/libril.so $basedir/vendor/motorola/edison/proprietary/lib/
 
 
-  sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
-      -i  $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
-
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         cd $basedir/device/motorola/omap4-common
@@ -194,9 +191,7 @@ if [ "$mode" = "u" ]; then
 fi
 
 if [ $oldupdate -eq 1 ]; then
-	sed -e "s/use_set_metadata=1/use_set_metadata=0/g" -i $basedir/build/core/Makefile
-else
-	sed -e "s/use_set_metadata=0/use_set_metadata=1/g" -i $basedir/build/core/Makefile
+	sed -e "/use_set_metadata=1/d" -i $basedir/build/core/Makefile
 fi
 
 

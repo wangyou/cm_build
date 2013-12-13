@@ -1,8 +1,0 @@
-#!/system/bin/sh
-
-#When booting some ROMs with Boot Menu Manager (BMM),
-#the green notification LED gets stuck.
-#
-#This is a workaround to kill it during boot.
-
-echo 0 > /sys/class/leds/green/brightness
