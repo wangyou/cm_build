@@ -115,7 +115,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h
 
    ### patch for vendor cm  ########
-   sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d" -e "/WhisperPush/d" -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
+   sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
    sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
    sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
    if ! grep -q "^\s*vendor\/cm\/prebuilt\/common\/bootanimation\/480.zip:system\/media\/bootanimation.zip" \
@@ -138,11 +138,8 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cp $rdir/prebuilts/libril.so $basedir/vendor/motorola/edison/proprietary/lib/
 
 
-  if grep -q "if not self.info.get(\"use_set_metadata\", False):" \
-          $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py; then
-        sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
-	    -i $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
-  fi
+  sed -e "s/if not self.info.get(\"use_set_metadata\", False):/if \"0\" == self.info.get(\"use_set_metadata\", \"0\"):/g" \
+      -i  $basedir/device/motorola/omap4-common/releasetools/common_edify_generator.py
 
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then

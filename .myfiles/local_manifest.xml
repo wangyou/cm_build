@@ -10,7 +10,7 @@
 <project name="RAZR-K-Devs/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common-jbx" remote="github" revision="JBX_4.4" />
 
 <!-- VENDOR -->
-<project name="Atrix2-Dev-Team/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-10.2-a" />
+<project name="Atrix2-Dev-Team/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-11.0" />
 
 
 <!-- Defy -->
