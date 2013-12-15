@@ -796,10 +796,6 @@
     <string name="keyboard_backlight_seekbar_title">键盘亮度</string>
     <string name="backlight_timeout_title">背光超时</string>
     <string name="backlight_timeout_unlimited">从不关闭</string>
-    <plurals name="backlight_timeout_time">
-        <item quantity="one"><xliff:g id="seconds">%d</xliff:g> 秒</item>
-        <item quantity="other"><xliff:g id="seconds">%d</xliff:g> 秒</item>
-    </plurals>
     <string name="backlight_summary_disabled">禁用</string>
     <string name="backlight_summary_enabled_with_timeout">保持背光灯 <xliff:g id="timeout">%s</xliff:g></string>
     <string name="backlight_summary_enabled">启用</string>
