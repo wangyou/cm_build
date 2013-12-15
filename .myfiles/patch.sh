@@ -83,6 +83,7 @@ if [ "$mode" = "r" ]; then
         cd $basedir/frameworks/native;			git stash >/dev/null
         cd $basedir/frameworks/av;			git stash >/dev/null
 	cd $basedir/packages/apps/Settings;		git stash >/dev/null;  git clean -f; git rebase m/$branch >/dev/null;
+	cd $basedir/packages/services/Telephony;	git stash >/dev/null;  git clean -f;
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
@@ -203,10 +204,10 @@ fi
 #[ -f $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_apps_Settings-cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
 
-#[ -f $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml ] || \
+[ -f $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_services_Telephony-cm_strings.xml $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml
 
-#[ -f $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml ] || \
+[ -f $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_apps_Dialer-cm_strings.xml $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml
 
 ####some patchs###########
@@ -237,7 +238,8 @@ fi
 	cd $rdir
   fi
 
-  if ! grep -q "<string name=\"usb_mass_storage_title\">Mass storage</string>" $basedir/packages/apps/Settings/res/values/cm_strings.xml; then
+  if ! grep -q "function = UsbManager.USB_FUNCTION_MASS_STORAGE;" \
+            $basedir/packages/apps/Settings/src/com/android/settings/deviceinfo/UsbSettings.java; then
   	cd $basedir/packages/apps/Settings/
 	patch -N -p1 <$rdir/patchs/ums.diff
 	cd $rdir

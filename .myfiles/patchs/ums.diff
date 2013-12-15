@@ -1,18 +1,3 @@
-diff --git a/res/values/cm_strings.xml b/res/values/cm_strings.xml
-index 5d762bc..5816603 100644
---- a/res/values/cm_strings.xml
-+++ b/res/values/cm_strings.xml
-@@ -821,6 +821,10 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
-     <string name="development_shortcut_title">Development shortcut</string>
-     <string name="development_shortcut_summary">Enable \'wipe data\' and \'force close\' options in notification area and recent apps list</string>
- 
-+    <!-- USB Mass Storage -->
-+    <string name="usb_mass_storage_title">Mass storage</string>
-+    <string name="usb_mass_storage_summary">Enable USB mass storage</string>
-+
-     <!-- WhisperPush -->
-     <string name="whisperpush_title">WhisperPush</string>
-     <string name="whisperpush_registration_title">Register</string>
 diff --git a/res/xml/usb_settings.xml b/res/xml/usb_settings.xml
 index 4d6ccc9..d81dbc2 100644
 --- a/res/xml/usb_settings.xml

@@ -234,8 +234,6 @@
     <string name="lockscreen_maximize_widgets_summary">开启屏幕时将最小化解锁界面并默认显示最大化的锁屏小部件</string>
     <string name="lockscreen_enable_widgets_title">小部件页</string>
     <string name="lockscreen_enable_widgets_summary">允许选择和添加各种小部件</string>
-    <string name="lockscreen_quick_unlock_control_title">快速解锁</string>
-    <string name="lockscreen_quick_unlock_control_summary">输入正确的PIN/口令后自动解锁</string>
 
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_volume_title">安全耳机音量</string>
@@ -341,13 +339,26 @@
     <string name="auto_brightness_help_dialog_title">帮助</string>
     <string name="auto_brightness_help_text"><b>亮度是怎么被计算的？</b>
 \n\n
-亮度曲线是通过在选定的<i>控制点</i>上进行<i>三次样条插值</i>而计算出的。这并不是一个设定了环境亮度范围内，屏幕亮度就不会改变的计算方式。通过这种特殊方式，环境亮度的细微变化将不会导致屏幕亮度的大幅度改变。由于改变控制点会导致的结果是难以预测的，我们为您提供了一个计算后的曲线预览。\n
-请注意：为了能够清晰的显示各个控制点，预览是使用<i>对数刻度</i>绘制的。如果使用的是线性刻度，您将无法明确地区分各个控制点，特别是处于范围底部的。
+亮度曲线是通过在选定的<i>控制点</i>上进行<i>三次样条插
+值</i>而计算出的。这并不是一个设定了环境亮度范围内，屏
+幕亮度就不会改变的计算方式。通过这种特殊方式，环境亮度
+的细微变化将不会导致屏幕亮度的大幅度改变。由于改变控制
+点会导致的结果是难以预测的，我们为您提供了一个计算后的
+曲线预览。\n
+请注意：为了能够清晰的显示各个控制点，预览是使用<i>对数
+刻度</i>绘制的。如果使用的是线性刻度，您将无法明确地区
+分各个控制点，特别是处于范围底部的。
 \n\n
 <b>应该如何去编辑亮度曲线呢？</b>
 \n\n
-在亮度列表里的每一行都对应着一个在亮度曲线上的<i>控制点</i>。您可以通过各行的滑块来调整每个点的亮度级别。触摸滑块时屏幕的亮度也会做出相应的改变，作为一个亮度级别的预览。\n
-长按任何一行将显示更多的选项。选择 \'编辑\' 将让您编辑环境亮度级别并手动输入所需的屏幕亮度。选择 \'分离\' 将让您把一行分离为两行并同时加入更多的控制点。选择 \'移除\' 将移除所选行。
+在亮度列表里的每一行都对应着一个在亮度曲线上的<i>控制
+点</i>。您可以通过各行的滑块来调整每个点的亮度级别。触
+摸滑块时屏幕的亮度也会做出相应的改变，作为一个亮度级别
+的预览。
+\n
+长按任何一行将显示更多的选项。选择 \'编辑\' 将让您编辑环境亮
+度级别并手动输入所需的屏幕亮度。选择 \'分离\' 将让您把一行分
+离为两行并同时加入更多的控制点。选择 \'移除\' 将移除所选行。
     </string>
 
     <string name="auto_brightness_sensitivity_title">调整敏感度</string>
@@ -420,7 +431,9 @@
     <string name="anonymous_statistics_title">CyanogenMod 统计</string>
     <string name="anonymous_statistics_summary">开启匿名统计报告以便帮助 CyanogenMod 未来向更好的方向发展</string>
     <string name="anonymous_statistics_warning_title">关于统计</string>
-    <string name="anonymous_statistics_warning">开启 CyanogenMod 统计将允许非个人数据被提交到 CyanogenMod 的开发者以便记录各种设备上的独特安装。提交的信息包含一个独特的标识符，而不会涉及您的隐私与个人数据。该数据将在每次启动时被提交。\n\n如您想看一个作为被提交数据的实例，请点击预览数据。</string>
+    <string name="anonymous_statistics_warning">开启 CyanogenMod 统计将允许非个人数据被提交到 CyanogenMod 的开发者以便记录各种设备上
+的独特安装。提交的信息包含一个独特的标识符，而不会涉及您的隐私与个人数据。该数据将在每次启动时被提交。\n\n
+如您想看一个作为被提交数据的实例，请点击预览数据。</string>
     <string name="enable_reporting_title">开启报告</string>
     <string name="preview_data_title">预览数据</string>
     <string name="preview_data_summary" translatable="false">%s</string>
@@ -501,7 +514,6 @@
 
     <!-- Change Log strings -->
     <string name="changelog_title">查看更改记录</string>
-    <string name="changelog_dialog">更改记录</string>
     <string name="changelog_loading">正在读取更改记录...</string>
     <string name="changelog_error">无法读取更改记录</string>
     <string name="changelog_unknown">未知</string>
@@ -750,10 +762,6 @@
     <string name="hardware_keys_short_press_title">短按行为</string>
     <string name="hardware_keys_long_press_title">长按行为</string>
     <string name="hardware_keys_double_tap_title">双击行为</string>
-    <string name="hardware_keys_show_overflow_title">显示更多选项菜单键</string>
-    <string name="hardware_keys_show_overflow_summary">在程序内加入更多选项菜单键</string>
-    <string name="hardware_keys_show_overflow_toast_enable">更多选项菜单键在程序重启前可能不会显示</string>
-    <string name="hardware_keys_show_overflow_toast_disable">更多选项菜单键在程序重启前可能不会被隐藏</string>
     <string name="hardware_keys_action_nothing">无作用</string>
     <string name="hardware_keys_action_menu">开启/关闭菜单</string>
     <string name="hardware_keys_action_app_switch">最近使用程序切换器</string>
@@ -773,6 +781,10 @@
     <string name="volume_wake_summary">当屏幕变暗的时候，长按相机键将播放/暂停当前的音乐</string>
     <string name="volbtn_music_controls_title">音量键音乐控制</string>
     <string name="volbtn_music_controls_summary">当屏幕关闭时，长按音量键即可改变音乐曲目</string>
+    <string name="volbtn_cursor_control_title">键盘光标控制</string>
+    <string name="volbtn_cursor_control_off">禁用</string>
+    <string name="volbtn_cursor_control_on">音量 +/- 光标 左/右 移动</string>
+    <string name="volbtn_cursor_control_on_reverse">音量 +/- 光标 右/左 移动</string>
     <string name="swap_volume_buttons_title">交换音量键</string>
     <string name="swap_volume_buttons_summary">旋转屏幕时交换音量键的布局</string>
 
@@ -803,21 +815,21 @@
     <string name="status_bar_battery_status_circle">环形</string>
     <string name="status_bar_battery_status_circle_percentage">环形百分比</string>
 
-    <!-- AOSP dummy strings -->
-    <string name="experimental_webview"></string>
-    <string name="experimental_webview_summary"></string>
-
     <!--  development shortcut -->
     <string name="development_shortcut_title">开发中快捷方式</string>
     <string name="development_shortcut_summary">在通知区域和最近应用列表中启用 \'清除数据\' 和 \'强行关闭\' 选项</string>
-
-    <!-- USB Mass Storage -->
-    <string name="usb_mass_storage_title">大容量存储</string>
-    <string name="usb_mass_storage_summary">启用USB大容量存储模式</string>
 
     <!-- WhisperPush -->
     <string name="whisperpush_title">WhisperPush</string>
     <string name="whisperpush_registration_title">注册</string>
     <string name="whisperpush_registration_summary">注册WhisperPush以使用加密短信.</string>
     <string name="whisperpush_identitykey_title">检查身份密钥</string>
+
+    <!-- Message of dialog confirming that user wants to restart their device with a new runtime -->
+    <string name="custom_runtime_warning_title">警告</string>
+    <string name="custom_runtime_warning_message">ART不被CyanogenMod所支持. 此设置仅用于实验，有可能造成不稳定、死机、数据丢失或导致您的设备不能正常开机。 请访问 &lt;a href=\"http://source.android.com/devices/tech/dalvik/art.html\"&gt;Introducing ART&lt;/a&gt; 查看更多信息。&lt;br/&gt;&lt;br/&gt;如果你启用ART作为你的运行环境，我们请求你不要发送错误报告给我们.&lt;br/&gt;&lt;br/&gt;你要重启设备将运行环境从<xliff:g id="old" example="libdvm.so">%1$s</xliff:g> 改为 <xliff:g id="new" example="libart.so">%2$s</xliff:g>吗?</string>
+
+    <!-- USB Mass Storage -->
+    <string name="usb_mass_storage_title">大容量存储</string>
+    <string name="usb_mass_storage_summary">启用USB大容量存储模式</string>
 </resources>
