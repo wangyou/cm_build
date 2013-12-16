@@ -28,7 +28,7 @@ index 999611d..52fef32 100644
      }
  
 diff --git a/src/com/android/settings/deviceinfo/UsbSettings.java b/src/com/android/settings/deviceinfo/UsbSettings.java
-index 42de2fd..e8f1ece 100644
+index 42de2fd..e6cfd4c 100644
 --- a/src/com/android/settings/deviceinfo/UsbSettings.java
 +++ b/src/com/android/settings/deviceinfo/UsbSettings.java
 @@ -23,6 +23,8 @@ import android.content.IntentFilter;
@@ -81,24 +81,24 @@ index 42de2fd..e8f1ece 100644
      }
  
      @Override
-@@ -107,27 +120,37 @@ public class UsbSettings extends SettingsPreferenceFragment {
-         if (UsbManager.USB_FUNCTION_MTP.equals(function)) {
-             mMtp.setChecked(true);
-             mPtp.setChecked(false);
-+            mUms.setChecked(false);
-         } else if (UsbManager.USB_FUNCTION_PTP.equals(function)) {
-             mMtp.setChecked(false);
-+            mUms.setChecked(false);
-             mPtp.setChecked(true);
-+        } else if (UsbManager.USB_FUNCTION_MASS_STORAGE.equals(function)) {
-+            mMtp.setChecked(false);
-+            mPtp.setChecked(false);
-+            mUms.setChecked(true);
-         } else  {
-             mMtp.setChecked(false);
-             mPtp.setChecked(false);
-+            mUms.setChecked(false);
-         }
+@@ -104,30 +117,27 @@ public class UsbSettings extends SettingsPreferenceFragment {
+     }
+ 
+     private void updateToggles(String function) {
+-        if (UsbManager.USB_FUNCTION_MTP.equals(function)) {
+-            mMtp.setChecked(true);
+-            mPtp.setChecked(false);
+-        } else if (UsbManager.USB_FUNCTION_PTP.equals(function)) {
+-            mMtp.setChecked(false);
+-            mPtp.setChecked(true);
+-        } else  {
+-            mMtp.setChecked(false);
+-            mPtp.setChecked(false);
+-        }
++        mMtp.setChecked(UsbManager.USB_FUNCTION_MTP.equals(function));
++        mPtp.setChecked(UsbManager.USB_FUNCTION_PTP.equals(function));
++        mUms.setChecked(UsbManager.USB_FUNCTION_MASS_STORAGE.equals(function));
++
          UserManager um = (UserManager) getActivity().getSystemService(Context.USER_SERVICE);
          if (um.hasUserRestriction(UserManager.DISALLOW_USB_FILE_TRANSFER)) {
              Log.e(TAG, "USB is locked down");
@@ -119,7 +119,7 @@ index 42de2fd..e8f1ece 100644
          }
      }
  
-@@ -151,6 +174,8 @@ public class UsbSettings extends SettingsPreferenceFragment {
+@@ -151,6 +161,8 @@ public class UsbSettings extends SettingsPreferenceFragment {
              function = UsbManager.USB_FUNCTION_MTP;
          } else if (preference == mPtp && mPtp.isChecked()) {
              function = UsbManager.USB_FUNCTION_PTP;

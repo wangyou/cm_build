@@ -84,6 +84,7 @@ if [ "$mode" = "r" ]; then
         cd $basedir/frameworks/av;			git stash >/dev/null
 	cd $basedir/packages/apps/Settings;		git stash >/dev/null;  git clean -f; git rebase m/$branch >/dev/null;
 	cd $basedir/packages/services/Telephony;	git stash >/dev/null;  git clean -f;
+	cd $basedir/packages/apps/Dialer;		git stash >/dev/null;  git clean -f; 
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
 	cd $basedir/vendor/motorola;			git stash >/dev/null
 	rm -rf $basedir/vendor/motorola/jordan-common
@@ -138,6 +139,8 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   [ -f $basedir/vendor/motorola/edison/proprietary/lib/libril.so ] || \
 	cp $rdir/prebuilts/libril.so $basedir/vendor/motorola/edison/proprietary/lib/
 
+  sed -e "s/BOARD_HOSTAPD_DRIVER             := NL80211/BOARD_HOSTAPD_DRIVER_TI          := NL80211/" \
+      -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
 
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
