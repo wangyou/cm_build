@@ -149,6 +149,13 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         cd $rdir
   fi
 
+  if ! grep -q "if (curr >=BGAP_THRESHOLD_T_HOT || curr < 0) {" \
+	$basedir/kernel/motorola/omap4-common-jbx/drivers/misc/omap_temp_sensor.c; then
+	cd $basedir/kernel/motorola/omap4-common-jbx
+	patch -N -p1 <$rdis/patchs/omap4-kernel.diff
+	cd $rdir
+  fi
+
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
    cp -r vendor/moto/jordan-common vendor/motorola/jordan-common
