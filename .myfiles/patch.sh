@@ -79,10 +79,10 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
-        cd $basedir/frameworks/base;			git stash >/dev/null;  git clean -f; git rebase m/$branch >/dev/null;
+        cd $basedir/frameworks/base;			git stash >/dev/null;  git clean -f; git rebase >/dev/null;
         cd $basedir/frameworks/native;			git stash >/dev/null
         cd $basedir/frameworks/av;			git stash >/dev/null
-	cd $basedir/packages/apps/Settings;		git stash >/dev/null;  git clean -f; git rebase m/$branch >/dev/null;
+	cd $basedir/packages/apps/Settings;		git stash >/dev/null;  git clean -f; git rebase >/dev/null;
 	cd $basedir/packages/services/Telephony;	git stash >/dev/null;  git clean -f;
 	cd $basedir/packages/apps/Dialer;		git stash >/dev/null;  git clean -f; 
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
@@ -149,12 +149,12 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         cd $rdir
   fi
 
-  if ! grep -q "if (curr >=BGAP_THRESHOLD_T_HOT || curr < 0) {" \
-	$basedir/kernel/motorola/omap4-common-jbx/drivers/misc/omap_temp_sensor.c; then
-	cd $basedir/kernel/motorola/omap4-common-jbx
-	patch -N -p1 <$rdir/patchs/omap4-kernel.diff
-	cd $rdir
-  fi
+#  if ! grep -q "if (curr >=BGAP_THRESHOLD_T_HOT || curr < 0) {" \
+#	$basedir/kernel/motorola/omap4-common-jbx/drivers/misc/omap_temp_sensor.c; then
+#	cd $basedir/kernel/motorola/omap4-common-jbx
+#	patch -N -p1 <$rdir/patchs/omap4-kernel.diff
+#	cd $rdir
+#  fi
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########

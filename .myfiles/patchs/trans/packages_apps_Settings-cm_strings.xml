@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!--
+     Copyright (C) 2012-2013 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -806,9 +807,9 @@
     <!-- Status bar  -->
     <string name="status_bar_title">状态栏</string>
     <string name="status_bar_battery_title">电池状态样式</string>
-    <string name="status_bar_style_icon_portrait">竖向图标</string>
-    <string name="status_bar_style_icon_landscape">横向图标</string>
-    <string name="status_bar_battery_status_circle">环形</string>
+    <string name="status_bar_style_icon_portrait">立式图标</string>
+    <string name="status_bar_style_icon_landscape">卧式图标</string>
+    <string name="status_bar_style_circle">环形</string>
     <string name="status_bar_style_hidden">隐藏</string>
     <string name="status_bar_battery_show_percent_title">显示百分比</string>
 
@@ -842,8 +843,7 @@
     <string name="menu_stats_reset">重置</string>
 
     <!-- CM Legal -->
-    <string name="cmlicense_title">CyanogenMod法律申明</string>
+    <string name="cmlicense_title">CyanogenMod 法律申明</string>
     <string name="settings_cmlicense_activity_title">CyanogenMod 法律申明</string>
     <string name="settings_cmlicense_activity_unreachable">没有数据连接,要查看此信息, 从链接互联网的计算机访问 %s.</string>
-
 </resources>
