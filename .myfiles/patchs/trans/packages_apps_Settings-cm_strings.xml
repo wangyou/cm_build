@@ -806,14 +806,19 @@
     <!-- Status bar  -->
     <string name="status_bar_title">状态栏</string>
     <string name="status_bar_battery_title">电池状态样式</string>
-    <string name="status_bar_style_icon">图标</string>
-    <string name="status_bar_style_hidden">隐藏</string>
+    <string name="status_bar_style_icon_portrait">竖向图标</string>
+    <string name="status_bar_style_icon_landscape">横向图标</string>
     <string name="status_bar_battery_status_circle">环形</string>
-    <string name="status_bar_battery_status_circle_percentage">环形百分比</string>
+    <string name="status_bar_style_hidden">隐藏</string>
+    <string name="status_bar_battery_show_percent_title">显示百分比</string>
 
     <!--  development shortcut -->
     <string name="development_shortcut_title">开发中快捷方式</string>
     <string name="development_shortcut_summary">在通知区域和最近应用列表中启用 \'清除数据\' 和 \'强行关闭\' 选项</string>
+
+    <!-- USB Mass Storage -->
+    <string name="usb_mass_storage_title">大容量存储</string>
+    <string name="usb_mass_storage_summary">启用USB大容量存储模式</string>
 
     <!-- WhisperPush -->
     <string name="whisperpush_title">WhisperPush</string>
@@ -825,7 +830,20 @@
     <string name="custom_runtime_warning_title">警告</string>
     <string name="custom_runtime_warning_message">ART不被CyanogenMod所支持. 此设置仅用于实验，有可能造成不稳定、死机、数据丢失或导致您的设备不能正常开机。 请访问 &lt;a href=\"http://source.android.com/devices/tech/dalvik/art.html\"&gt;Introducing ART&lt;/a&gt; 查看更多信息。&lt;br/&gt;&lt;br/&gt;如果你启用ART作为你的运行环境，我们请求你不要发送错误报告给我们.&lt;br/&gt;&lt;br/&gt;你要重启设备将运行环境从<xliff:g id="old" example="libdvm.so">%1$s</xliff:g> 改为 <xliff:g id="new" example="libart.so">%2$s</xliff:g>吗?</string>
 
-    <!-- USB Mass Storage -->
-    <string name="usb_mass_storage_title">大容量存储</string>
-    <string name="usb_mass_storage_summary">启用USB大容量存储模式</string>
+    <!-- GPS download data over wi-fi only -->
+    <string name="gps_download_data_wifi_only">只通过WiFi下载GPS辅助数据</string>
+
+    <!-- Battery Info screen. Units shown after a value.  Used for diagnostic info screens, precise translation isn't needed -->
+    <string name="battery_info_status_charging_dock_ac">(基座AC)</string>
+    <!-- Battery Info screen. Units shown after a value.  Used for diagnostic info screens, precise translation isn't needed -->
+    <string name="battery_info_status_charging_dock_usb">(基座USB)</string>
+
+    <!-- Menu label for reset the battery stats -->
+    <string name="menu_stats_reset">重置</string>
+
+    <!-- CM Legal -->
+    <string name="cmlicense_title">CyanogenMod法律申明</string>
+    <string name="settings_cmlicense_activity_title">CyanogenMod 法律申明</string>
+    <string name="settings_cmlicense_activity_unreachable">没有数据连接,要查看此信息, 从链接互联网的计算机访问 %s.</string>
+
 </resources>

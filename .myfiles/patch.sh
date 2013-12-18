@@ -152,7 +152,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   if ! grep -q "if (curr >=BGAP_THRESHOLD_T_HOT || curr < 0) {" \
 	$basedir/kernel/motorola/omap4-common-jbx/drivers/misc/omap_temp_sensor.c; then
 	cd $basedir/kernel/motorola/omap4-common-jbx
-	patch -N -p1 <$rdis/patchs/omap4-kernel.diff
+	patch -N -p1 <$rdir/patchs/omap4-kernel.diff
 	cd $rdir
   fi
 
@@ -248,9 +248,4 @@ fi
 	cd $rdir
   fi
 
-  if ! grep -q "function = UsbManager.USB_FUNCTION_MASS_STORAGE;" \
-            $basedir/packages/apps/Settings/src/com/android/settings/deviceinfo/UsbSettings.java; then
-  	cd $basedir/packages/apps/Settings/
-	patch -N -p1 <$rdir/patchs/ums.diff
-	cd $rdir
-  fi
+
