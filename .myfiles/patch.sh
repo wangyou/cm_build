@@ -1,8 +1,8 @@
 device=edison
 branch=cm-11.0
 
-#JBX 2.0.5
-releaseKernelCommit=fe12ed0e818eb73a73fff8751fdeee7a10339906    
+#JBX 2.0.5 ----   defconfig: default governor: revert to ktoonservative
+releaseKernelCommit=70fc7d6fc7ea24e6efd6ba640354b870ebb0f642
 mode=""
 oldupdate=1
 releaseKernel=1
@@ -57,6 +57,8 @@ for op in $*;do
 	device="edison"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
+   elif [ "$op" = "jbx" -o "$op" = "jbx-kernel" -o "$op" = "cm" ]; then
+	opKernel="$op"
    elif [ "$op" = "-rk" ]; then
 	releaseKernel=0
    elif [ "${op:0:1}" = "-" ]; then
@@ -119,8 +121,9 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    fi
 
    ### jbx-kernel patch ###########
-
-   sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h
+   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then
+      sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h
+   fi
 
    ### patch for vendor cm  ########
    sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
@@ -160,6 +163,9 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if ! git log -1 | grep -q $releaseKernelCommit; then
 		echo "Reset JBX Kernel to Release commit: $releaseKernelCommit"
 		git reset --hard $releaseKernelCommit
+	fi
+	if ! grep -q "static int plat_uart_asleep(void)" $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/board-mapphone.c; then
+		patch -N -p1 < $rdir/patchs/kernel/wakelock.diff
 	fi
 	cd $rdir
   fi
@@ -241,11 +247,6 @@ fi
    if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
        cd $basedir/frameworks/base
        patch -N -p1 < $rdir/patchs/fileutils.diff
-       cd $rdir
-   fi 
-   if ! grep -q "android_os_FileUtils.cpp" $basedir/frameworks/base/core/jni/Android.mk; then
-       cd $basedir/frameworks/base
-       patch -N -p1 < $rdir/patchs/fileutils-link.diff
        cd $rdir
    fi 
 

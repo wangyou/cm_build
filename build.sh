@@ -84,7 +84,7 @@ fi
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 echo "$device">.device
-.myfiles/patch.sh $device $mode $oldupdate $moreopt
+.myfiles/patch.sh $device $mode $oldupdate $moreopt $opKernel
 
 ########Delete old files#############################
 if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
@@ -108,10 +108,12 @@ export CM_EXTRAVERSION=NX111
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
-		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
+		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
+		       TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
 	else
-		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
+		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
+		       TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
 
 	fi
@@ -129,9 +131,6 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "ediso
 
 elif [ "$opKernel" = "cm" ]; then
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
-	if [ -f out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip ] ; then
-		mv out/target/product/$device/${cm_version}-`date -u +%Y%m%d`-UNOFFICIAL-$device.zip out/target/product/$device/${cm_version}-`date +%Y%m%d`-${compile_user}-$device.zip
-	fi
 else 
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
 fi
