@@ -1,7 +1,11 @@
 device=edison
 branch=cm-11.0
+
+#JBX 2.0.5
+releaseKernelCommit=fe12ed0e818eb73a73fff8751fdeee7a10339906    
 mode=""
 oldupdate=1
+releaseKernel=1
 #### functions ############
 
 #initBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch>
@@ -53,6 +57,8 @@ for op in $*;do
 	device="edison"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
+   elif [ "$op" = "-rk" ]; then
+	releaseKernel=0
    elif [ "${op:0:1}" = "-" ]; then
 	mode="${op#-*}"
    elif [ "$op" = "old" ]; then
@@ -149,12 +155,14 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         cd $rdir
   fi
 
-#  if ! grep -q "if (curr >=BGAP_THRESHOLD_T_HOT || curr < 0) {" \
-#	$basedir/kernel/motorola/omap4-common-jbx/drivers/misc/omap_temp_sensor.c; then
-#	cd $basedir/kernel/motorola/omap4-common-jbx
-#	patch -N -p1 <$rdir/patchs/omap4-kernel.diff
-#	cd $rdir
-#  fi
+  if [ $releaseKernel -eq 0 ]; then
+  	cd $basedir/kernel/motorola/omap4-common-jbx
+	if ! git log -1 | grep -q $releaseKernelCommit; then
+		echo "Reset JBX Kernel to Release commit: $releaseKernelCommit"
+		git reset --hard $releaseKernelCommit
+	fi
+	cd $rdir
+  fi
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########

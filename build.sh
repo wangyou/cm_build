@@ -19,6 +19,7 @@ mod=bacon
 mkForce=""
 oldupdate="old"
 keepPatch=1
+moreopt=""
 
 for op in $*;do
    if [ "$op" = "spyder" ]; then
@@ -38,12 +39,16 @@ for op in $*;do
 	keepPatch=0
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
+   elif [ "$op" = "-rk" ]; then
+	moreopt="$moreopt $op"
    elif [ "${op:0:1}" = "-" ]; then
 	mode="${op#-*}"
    elif [ "${op:0:4}" = "mod=" ]; then
 	mod="${op#mod=*}"
    elif [ "$op" = "new" -o "$op" = "old" ]; then
 	oldupdate="$op"
+   else
+	moreopt="$moreopt $op"
    fi
 done
 
@@ -79,7 +84,7 @@ fi
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 echo "$device">.device
-.myfiles/patch.sh $device $mode $oldupdate
+.myfiles/patch.sh $device $mode $oldupdate $moreopt
 
 ########Delete old files#############################
 if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
@@ -131,7 +136,7 @@ else
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
 fi
 
-[ $keepPatch -eq 0 ] || $rdir/patch.sh -r 
+[ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
 
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
