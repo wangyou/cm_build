@@ -137,17 +137,6 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cd $rdir
    fi
    
-  #use prebuilt libril.so
-  if ! grep -q "vendor\/motorola\/edison\/proprietary\/lib\/libril.so:system\/lib\/libril.so" \
-	$basedir/vendor/motorola/edison/edison-vendor-blobs.mk; then
-	cd $basedir/vendor/motorola
-	patch -N -p1<$rdir/patchs/vendor_edison.diff
-	cd $rdir
-  fi
-
-  [ -f $basedir/vendor/motorola/edison/proprietary/lib/libril.so ] || \
-	cp $rdir/prebuilts/libril.so $basedir/vendor/motorola/edison/proprietary/lib/
-
   sed -e "s/BOARD_HOSTAPD_DRIVER             := NL80211/BOARD_HOSTAPD_DRIVER_TI          := NL80211/" \
       -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
 
