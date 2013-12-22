@@ -87,10 +87,10 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
-        cd $basedir/frameworks/base;			git stash >/dev/null;  git clean -f; git rebase >/dev/null;
+        cd $basedir/frameworks/base;			git clean -f; git stash >/dev/null; git rebase >/dev/null; 
         cd $basedir/frameworks/native;			git stash >/dev/null
         cd $basedir/frameworks/av;			git stash >/dev/null
-	cd $basedir/packages/apps/Settings;		git stash >/dev/null;  git clean -f; git rebase >/dev/null;
+	cd $basedir/packages/apps/Settings;		git clean -f; git stash >/dev/null; git rebase >/dev/null;
 	cd $basedir/packages/services/Telephony;	git stash >/dev/null;  git clean -f;
 	cd $basedir/packages/apps/Dialer;		git stash >/dev/null;  git clean -f; 
 	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
@@ -226,12 +226,6 @@ fi
 ####some patchs###########
 
    sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
-
-   if ! grep -q "write \/sys\/class\/leds\/green\/brightness" $basedir/device/motorola/edison/init.mapphone.rc; then
-       cd $basedir/device/motorola/edison
-       patch -N -p1 <$rdir/patchs/init.mapphone.rc.diff
-       cd $rdir
-   fi
 
    if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
        cd $basedir/frameworks/base
