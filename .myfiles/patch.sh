@@ -240,4 +240,9 @@ fi
 	cd $rdir
   fi
 
+  if ! grep -q "getInt(KEY_QC_MAX_SATURATION,100)" $basedir/frameworks/base/core/java/android/hardware/Camera.java; then
+ 	cd $basedir/frameworks/base
+	patch -N -p1 <$rdir/patchs/camera_getInt.diff
+	cd $rdir
+  fi
 
