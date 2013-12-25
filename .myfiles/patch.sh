@@ -223,6 +223,9 @@ fi
 [ -f $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_apps_Dialer-cm_strings.xml $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml
 
+[ -f $basedir/packages/apps/Camera2/res/values-zh-rCN/cm_strings.xml ] || \
+   cp $rdir/patchs/trans/packages_apps_Camera2-cm_strings.xml $basedir/packages/apps/Camera2/res/values-zh-rCN/cm_strings.xml
+
 ####some patchs###########
 
    sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c

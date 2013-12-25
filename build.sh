@@ -63,7 +63,7 @@ fi
 if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 	repo init -u git://github.com/CyanogenMod/android.git -b $branch
 	repo sync
-	repo start $branch .
+	repo start $branch --all
 	exit
 fi
 
