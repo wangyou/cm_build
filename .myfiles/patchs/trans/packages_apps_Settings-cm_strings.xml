@@ -695,6 +695,9 @@
     <string name="sms_security_check_limit_summary">应用程序在 30 分钟内发送 %d 条信息后需要用户认可才能继续</string>
     <string name="sms_security_check_limit_default">30 (默认)</string>
 
+    <!-- Custom widgets -->
+    <string name="lockscreen_custom_widgets_title">显示小部件</string>
+
     <!--- Lock clock -->
     <string name="lock_clock_title">时钟小部件</string>
     <string name="lock_clock_summary">查看或改变 \'cLock\' 锁屏与主屏幕小部件的显示方式</string>
