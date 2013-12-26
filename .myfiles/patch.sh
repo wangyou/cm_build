@@ -248,4 +248,7 @@ fi
 	patch -N -p1 <$rdir/patchs/camera_getInt.diff
 	cd $rdir
   fi
-
+  
+   ##fix for battery charging over 100%
+  sed -e "s/if (batteryState.batteryLevel == 100)/if (batteryState.batteryLevel >= 100)/g" \
+      -i $basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/QuickSettings.java
