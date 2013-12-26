@@ -147,6 +147,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         cd $rdir
   fi
 
+  [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
   if [ $releaseKernel -eq 0 ]; then
   	cd $basedir/kernel/motorola/omap4-common-jbx
 	if ! git log -1 | grep -q $releaseKernelCommit; then
