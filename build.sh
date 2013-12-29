@@ -13,7 +13,7 @@ lastDevice="edison"
 
 KERNELOPT=""
 device=edison
-opKernel="jbx"
+opKernel="cm"
 mkJop=""
 mod=bacon
 mkForce=""

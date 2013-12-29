@@ -87,7 +87,7 @@ if [ "$mode" = "r" ]; then
 	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
 	cd $basedir/vendor/cm;				git stash >/dev/null
 	cd $basedir/system/core;			git stash >/dev/null
-        cd $basedir/frameworks/base;			git clean -f; git stash >/dev/null; git rebase >/dev/null; 
+        cd $basedir/frameworks/base;			git stash >/dev/null;  git clean -f;  git rebase >/dev/null; 
         cd $basedir/frameworks/native;			git stash >/dev/null
         cd $basedir/frameworks/av;			git stash >/dev/null
 	cd $basedir/packages/apps/Settings;		git clean -f; git stash >/dev/null; git rebase >/dev/null;
@@ -236,13 +236,6 @@ fi
        patch -N -p1 < $rdir/patchs/fileutils.diff
        cd $rdir
    fi 
-
-   if ! grep -q "|| !(header\[4\] == 0x80 || header\[4\] == 0x00)" \
-		$basedir/frameworks/av/media/libstagefright/FLACExtractor.cpp; then
-	cd $basedir/frameworks/av
-	patch -N -p1 <$rdir/patchs/flacExtractor.diff
-	cd $rdir
-  fi
 
   if ! grep -q "getInt(KEY_QC_MAX_SATURATION,100)" $basedir/frameworks/base/core/java/android/hardware/Camera.java; then
  	cd $basedir/frameworks/base
