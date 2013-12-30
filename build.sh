@@ -19,6 +19,7 @@ mod=bacon
 mkForce=""
 oldupdate="old"
 keepPatch=1
+kernelzip=1
 moreopt=""
 
 for op in $*;do
@@ -35,6 +36,8 @@ for op in $*;do
 	opKernel="$op"
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
+   elif [ "${op}" = "-kernel-zip" ]; then
+	kernelzip=0
    elif [ "${op}" = "-k" ]; then
 	keepPatch=0
    elif [ "$op" = "-B" ]; then
@@ -106,7 +109,7 @@ lunch cm_$device-userdebug
 export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
-if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
+if [ "$opKernel" = "jbx" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	if [ "$device" = "edison" ]; then 
 		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
 		       TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
@@ -118,21 +121,43 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && [ "$device" = "ediso
 
 	fi
 
-	if [ "$opKernel" = "jbx-kernel" ]; then
-		[ -d out/target/product/$device/jbx-kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/jbx-kernel/rls/system/lib/modules/
-		[ -d out/target/product/$device/jbx-kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/jbx-kernel/rls/system/etc/kexec/
-		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/jbx-kernel/rls/system/lib/modules/
-		cp out/target/product/$device/kernel out/target/product/$device/jbx-kernel/rls/system/etc/kexec/
+	if [ $kernelzip -eq 0 ]; then
+		[ -d out/target/product/$device/kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel/rls/system/lib/modules/
+		[ -d out/target/product/$device/kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel/rls/system/etc/kexec/
+		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel/rls/system/lib/modules/
+		cp out/target/product/$device/kernel out/target/product/$device/kernel/rls/system/etc/kexec/
 		curdir=`pwd`
-		cd out/target/product/$device/jbx-kernel/rls/
-		zip -r "../JBX-Kernel-1.4-Hybrid-$device-4.4_$(date +"%Y-%m-%d").zip" *
+		cd out/target/product/$device/kernel/rls/
+		zip -r "../JBX-Kernel-2.0-Hybrid-$device-4.4_$(date +"%Y-%m-%d").zip" *
 		cd $curdir
 	fi
 
 elif [ "$opKernel" = "cm" ]; then
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
+
+	if [ $kernelzip -eq 0 ]; then
+		[ -d out/target/product/$device/kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel/rls/system/lib/modules/
+		[ -d out/target/product/$device/kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel/rls/system/etc/kexec/
+		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel/rls/system/lib/modules/
+		cp out/target/product/$device/kernel out/target/product/$device/kernel/rls/system/etc/kexec/
+		curdir=`pwd`
+		cd out/target/product/$device/kernel/rls/
+		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" *
+		cd $curdir
+	fi
+
 else 
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
+	if [ $kernelzip -eq 0 ]; then
+		[ -d out/target/product/$device/kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel/rls/system/lib/modules/
+		[ -d out/target/product/$device/kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel/rls/system/etc/kexec/
+		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel/rls/system/lib/modules/
+		cp out/target/product/$device/kernel out/target/product/$device/kernel/rls/system/etc/kexec/
+		curdir=`pwd`
+		cd out/target/product/$device/kernel/rls/
+		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" *
+		cd $curdir
+	fi
 fi
 
 [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
