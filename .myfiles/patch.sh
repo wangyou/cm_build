@@ -140,6 +140,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   sed -e "s/BOARD_HOSTAPD_DRIVER             := NL80211/BOARD_HOSTAPD_DRIVER_TI          := NL80211/" \
       -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
 
+  [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         cd $basedir/device/motorola/omap4-common
@@ -237,12 +238,7 @@ fi
        cd $rdir
    fi 
 
-  if ! grep -q "getInt(KEY_QC_MAX_SATURATION,100)" $basedir/frameworks/base/core/java/android/hardware/Camera.java; then
- 	cd $basedir/frameworks/base
-	patch -N -p1 <$rdir/patchs/camera_getInt.diff
-	cd $rdir
-  fi
-  
+ 
    ##fix for battery charging over 100%
   sed -e "s/if (batteryState.batteryLevel == 100)/if (batteryState.batteryLevel >= 100)/g" \
       -i $basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/QuickSettings.java
