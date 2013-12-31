@@ -9,7 +9,7 @@
 <project name="CyanogenMod/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-11.0" />
 
 <!-- JBX-Kernel for RAZR and Edison-->
-<project name="RAZR-K-Devs/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common-jbx" remote="github" revision="JBX_4.4" />
+<project name="nx111/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common-jbx" remote="github" revision="JBX_4.4" />
 
 <!-- VENDOR -->
 <project name="Atrix2-Dev-Team/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-11.0" />
