@@ -122,12 +122,13 @@ if [ "$opKernel" = "jbx" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; 
 	fi
 
 	if [ $kernelzip -eq 0 ]; then
-		[ -d out/target/product/$device/kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel/rls/system/lib/modules/
-		[ -d out/target/product/$device/kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel/rls/system/etc/kexec/
-		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel/rls/system/lib/modules/
-		cp out/target/product/$device/kernel out/target/product/$device/kernel/rls/system/etc/kexec/
+		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
+		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
+		[ -d out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ ] || mkdir -p out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
+		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel_zip/rls/system/lib/modules/
+		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
-		cd out/target/product/$device/kernel/rls/
+		cd out/target/product/$device/kernel_zip/rls/
 		zip -r "../JBX-Kernel-2.0-Hybrid-$device-4.4_$(date +"%Y-%m-%d").zip" *
 		cd $curdir
 	fi
@@ -136,12 +137,14 @@ elif [ "$opKernel" = "cm" ]; then
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
 
 	if [ $kernelzip -eq 0 ]; then
-		[ -d out/target/product/$device/kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel/rls/system/lib/modules/
-		[ -d out/target/product/$device/kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel/rls/system/etc/kexec/
-		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel/rls/system/lib/modules/
-		cp out/target/product/$device/kernel out/target/product/$device/kernel/rls/system/etc/kexec/
+		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
+		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
+		[ -d out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ ] || mkdir -p out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
+		cp .myfiles/scripts/kernel-zip/* out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/
+		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel_zip/rls/system/lib/modules/
+		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
-		cd out/target/product/$device/kernel/rls/
+		cd out/target/product/$device/kernel_zip/rls/
 		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" *
 		cd $curdir
 	fi
@@ -149,12 +152,13 @@ elif [ "$opKernel" = "cm" ]; then
 else 
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
 	if [ $kernelzip -eq 0 ]; then
-		[ -d out/target/product/$device/kernel/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel/rls/system/lib/modules/
-		[ -d out/target/product/$device/kernel/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel/rls/system/etc/kexec/
-		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel/rls/system/lib/modules/
-		cp out/target/product/$device/kernel out/target/product/$device/kernel/rls/system/etc/kexec/
+		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
+		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
+		[ -d out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ ] || mkdir -p out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
+		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel_zip/rls/system/lib/modules/
+		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
-		cd out/target/product/$device/kernel/rls/
+		cd out/target/product/$device/kernel_zip/rls/
 		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" *
 		cd $curdir
 	fi

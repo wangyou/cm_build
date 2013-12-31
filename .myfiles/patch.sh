@@ -1,8 +1,8 @@
 device=edison
 branch=cm-11.0
 
-#JBX 2.0.5 ----   defconfig: default governor: revert to ktoonservative
-releaseKernelCommit=70fc7d6fc7ea24e6efd6ba640354b870ebb0f642
+#JBX 2.0.5 ----   Added todays changelog and updated full history
+releaseKernelCommit=fe12ed0e818eb73a73fff8751fdeee7a10339906
 mode=""
 oldupdate=1
 releaseKernel=1
