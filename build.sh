@@ -86,6 +86,21 @@ fi
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
+######generate projects's last 5 logs########
+echo "Generating projects's last 5 logs..."
+PROJECTLIST=$rdir/.repo/project.list
+OUTLOG=$TOP/out/target/product/$device/system/etc/ChangeLog-5.log
+rm -f $OUTLOG
+touch $OUTLOG
+while read project
+do
+	cd $TOP/$project
+	echo $project: >>$OUTLOG
+	git log -5 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
+	echo -e "\n">>$OUTLOG
+done < $PROJECTLIST
+cd $TOP
+
 echo "$device">.device
 .myfiles/patch.sh $device $mode $oldupdate $moreopt $opKernel
 
