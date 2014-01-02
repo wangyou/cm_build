@@ -858,6 +858,7 @@
     <string name="status_bar_style_circle">环形</string>
     <string name="status_bar_style_hidden">隐藏</string>
     <string name="status_bar_battery_show_percent_title">显示百分比</string>
+    <string name="status_bar_double_tap_to_sleep_title">双击睡眠</string>
 
     <!--  development shortcut -->
     <string name="development_shortcut_title">开发中快捷方式</string>
