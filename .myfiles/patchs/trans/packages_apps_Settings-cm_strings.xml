@@ -168,18 +168,18 @@
     <string name="ring_mode_mute">静音</string>
 
     <!-- Volume panel style -->
-    <string name="volume_overlay_title">音量面板风格</string>
-    <string name="volume_overlay_single">单线边框</string>
-    <string name="volume_overlay_expandable">可放大</string>
-    <string name="volume_overlay_expanded">已放大</string>
-    <string name="volume_overlay_none">无边框</string>
+    <string name="volume_overlay_title">音量面板样式</string>
+    <string name="volume_overlay_single">单一设置</string>
+    <string name="volume_overlay_expandable">可扩展设置</string>
+    <string name="volume_overlay_expanded">已扩展设置</string>
+    <string name="volume_overlay_none">无面板</string>
 
     <!-- Automatation and effects category -->
     <string name="automation_effects_title">自动 &amp; 效果</string>
 
     <!-- Convert sound to vibration toggle -->
     <string name="notification_convert_sound_to_vibration_title">提示时震动</string>
-    <string name="notification_convert_sound_to_vibration_summary">震动模式下,不论应用怎么设置，所有的通知都会震动</string>
+    <string name="notification_convert_sound_to_vibration_summary">震动模式下,不论应用如何设置，所有的提示都会震动</string>
 
     <!-- Vibrate during phone calls -->
     <string name="notification_vibrate_during_calls_title">通话中震动</string>

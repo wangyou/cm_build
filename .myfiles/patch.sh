@@ -49,6 +49,19 @@ updateBranch()
 	return 0
 }
 
+revertProject()
+{
+	if [ $# -lt 1 ]; then return -1; fi
+	if [ ! -d $1 ]; then return -1; fi
+	curdir=`pwd`
+	cd $1
+	git clean -f >/dev/null
+	git stash >/dev/null
+	git rebase >/dev/null
+	git rebase >/dev/null
+	cd $curdir
+}
+
 ### parse params #########
 for op in $*;do 
    if [ "$op" = "spyder" ]; then
@@ -81,22 +94,21 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
 fi
 
 if [ "$mode" = "r" ]; then
-	cd $basedir/build;				git stash >/dev/null
-	cd $basedir/device/motorola/edison;       	git stash >/dev/null
-	cd $basedir/device/motorola/omap4-common;       git stash >/dev/null
-	cd $basedir/kernel/motorola/omap4-common-jbx;   git stash >/dev/null
-	cd $basedir/vendor/cm;				git stash >/dev/null
-	cd $basedir/system/core;			git stash >/dev/null
-        cd $basedir/frameworks/base;			git stash >/dev/null;  git clean -f;  git rebase >/dev/null; 
-        cd $basedir/frameworks/native;			git stash >/dev/null
-        cd $basedir/frameworks/av;			git stash >/dev/null
-	cd $basedir/packages/apps/Settings;		git clean -f; git stash >/dev/null; git rebase >/dev/null;
-	cd $basedir/packages/services/Telephony;	git stash >/dev/null;  git clean -f;
-	cd $basedir/packages/apps/Dialer;		git stash >/dev/null;  git clean -f; 
-	cd $basedir/external/wpa_supplicant_8;		git stash >/dev/null
-	cd $basedir/vendor/motorola;			git stash >/dev/null
+	revertProject $basedir/build
+	revertProject $basedir/device/motorola/edison
+	revertProject $basedir/device/motorola/omap4-common
+	revertProject $basedir/kernel/motorola/omap4-common-jbx
+	revertProject $basedir/vendor/cm
+	revertProject $basedir/system/core
+        revertProject $basedir/frameworks/base
+        revertProject $basedir/frameworks/native
+        revertProject $basedir/frameworks/av
+	revertProject $basedir/packages/apps/Settings
+	revertProject $basedir/packages/services/Telephony
+	revertProject $basedir/packages/apps/Dialer
+	revertProject $basedir/external/wpa_supplicant_8
+	revertProject $basedir/vendor/motorola
 	rm -rf $basedir/vendor/motorola/jordan-common
-	cd $rdir
 	exit
 fi
 
