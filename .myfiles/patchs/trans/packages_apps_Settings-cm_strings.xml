@@ -162,9 +162,38 @@
     <string name="toggleNfc">NFC</string>
 
     <!-- Sound volumes panel -->
+    <string name="volume_ring_only_description">铃声</string>
     <string name="link_volume_ringtones">链接铃声与通知的音量</string>
     <string name="link_volume_mutes">静音模式将会影响通知</string>
     <string name="volume_keys_control_ring_stream">音量键将控制铃声音量</string>
+
+    <!-- Ring mode -->
+    <string name="ring_mode_title">响铃模式</string>
+    <string name="ring_mode_normal">正常</string>
+    <string name="ring_mode_vibrate">震动</string>
+    <string name="ring_mode_mute">静音</string>
+
+    <!-- Volume panel style -->
+    <string name="volume_overlay_title">音量面板风格</string>
+    <string name="volume_overlay_single">单线边框</string>
+    <string name="volume_overlay_expandable">可放大</string>
+    <string name="volume_overlay_expanded">已放大</string>
+    <string name="volume_overlay_none">无边框</string>
+
+    <!-- Automatation and effects category -->
+    <string name="automation_effects_title">自动 &amp; 效果</string>
+
+    <!-- Convert sound to vibration toggle -->
+    <string name="notification_convert_sound_to_vibration_title">提示时震动</string>
+    <string name="notification_convert_sound_to_vibration_summary">震动模式下,不论应用怎么设置，所有的通知都会震动</string>
+
+    <!-- Vibrate during phone calls -->
+    <string name="notification_vibrate_during_calls_title">通话中震动</string>
+    <string name="notification_vibrate_during_calls_summary">通话中来电会轻微震动</string>
+
+    <!-- Volume adjustment sound -->
+    <string name="volume_adjust_sounds_enable_title">音量键调节声音</string>
+    <string name="volume_adjust_sounds_enable_summary">用音量键调节声音时会播放声音</string>
 
     <!-- String for IconPicker -->
     <string name="icon_picker_title">选择图标来源</string>
@@ -225,9 +254,6 @@
     <string name="battery_light_low_color_title">电量低</string>
     <string name="battery_light_medium_color_title">正在充电</string>
     <string name="battery_light_full_color_title">已充满</string>
-
-    <!-- Sound settings screen -->
-    <string name="volume_ring_only_description">铃声</string>
 
     <!-- Sizes for pattern lockscreen -->
     <string name="lock_pattern_size_3">3x3</string>
