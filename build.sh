@@ -145,7 +145,7 @@ if [ "$opKernel" = "jbx" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; 
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../JBX-Kernel-2.0-Hybrid-$device-4.4_$(date +"%Y-%m-%d").zip" *
+		zip -r "../JBX-Kernel-2.0-Hybrid-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
 		cd $curdir
 	fi
 
@@ -161,7 +161,7 @@ elif [ "$opKernel" = "cm" ]; then
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" *
+		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
 		cd $curdir
 	fi
 
@@ -176,7 +176,7 @@ else
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" *
+		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
 		cd $curdir
 	fi
 fi
