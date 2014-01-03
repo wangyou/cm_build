@@ -26,12 +26,6 @@
     <!-- Wi-Fi settings screen, setting summary for setting the Wi-Fi priority-->
     <string name="wifi_setting_priority_summary">指定WIFI网络的优先级别</string>
 
-    <!-- Sound settings screen -->
-    <string name="ring_mode_title">响铃模式</string>
-    <string name="ring_mode_normal">正常</string>
-    <string name="ring_mode_vibrate">振动</string>
-    <string name="ring_mode_mute">静音</string>
-
     <string name="lock_screen_title">锁屏</string>
 
     <string name="increasing_ring_title">渐强铃声</string>
@@ -301,9 +295,7 @@
     <!-- Lock screen widgets -->
     <string name="lockscreen_widgets_category_title">小部件</string>
     <string name="lockscreen_maximize_widgets_title">最大化锁屏小部件</string>
-    <string name="lockscreen_maximize_widgets_summary">开启屏幕时将最小化解锁界面并默认显示最大化的锁屏小部件</string>
-    <string name="lockscreen_enable_widgets_title">小部件页</string>
-    <string name="lockscreen_enable_widgets_summary">允许选择和添加各种小部件</string>
+    <string name="lockscreen_maximize_widgets_summary">开启屏幕时放大锁屏小部件</string>
 
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_volume_title">安全耳机音量</string>
@@ -722,11 +714,11 @@
     <string name="sms_security_check_limit_default">30 (默认)</string>
 
     <!-- Custom widgets -->
-    <string name="lockscreen_custom_widgets_title">显示小部件</string>
+    <string name="lockscreen_custom_widgets_title">定制小部件</string>
 
     <!--- Lock clock -->
     <string name="lock_clock_title">时钟小部件</string>
-    <string name="lock_clock_summary">查看或改变 \'cLock\' 锁屏与主屏幕小部件的显示方式</string>
+    <string name="lock_clock_summary">定制 \'cLock\' 锁屏与主屏幕小部件的显示方式</string>
 
     <!-- Category title for Charging sounds (Power state change) specific Settings.
          [CHAR LIMIT=40] -->
@@ -892,7 +884,9 @@
 
     <!-- USB Mass Storage -->
     <string name="usb_mass_storage_title">大容量存储</string>
-    <string name="usb_mass_storage_summary">启用USB大容量存储模式</string>
+    <string name="usb_mass_storage_summary">SD卡被挂载为闪存设备，可以和计算机传输文件。</string>
+    <string name="storage_rescan_media">为存储卷重新扫描媒体</string>
+    <string name="storage_rescan_media_complete">扫描完成</string>
 
     <!-- WhisperPush -->
     <string name="whisperpush_title">WhisperPush</string>
@@ -919,4 +913,33 @@
     <string name="cmlicense_title">CyanogenMod 法律申明</string>
     <string name="settings_cmlicense_activity_title">CyanogenMod 法律申明</string>
     <string name="settings_cmlicense_activity_unreachable">没有数据连接,要查看此信息, 从链接互联网的计算机访问 %s.</string>
+
+    <!-- Stylus Icon -->
+    <string name="stylus_icon_enabled_title">使用触控笔时显示光标</string>
+    <string name="stylus_icon_enabled_summary">使用触控笔悬停或书写时显示指示光标</string>
+
+    <!-- Stylus Gestures -->
+    <string name="gestures_settings_title">触控笔手势</string>
+    <string name="category_spen_title">触控笔手势</string>
+    <string name="enable_subcat_title">触控笔</string>
+    <string name="enable_spen_title_head">启用手势</string>
+    <string name="enable_spen_summary_head">持续压住触控笔按钮启用滑动手势</string>
+    <string name="gestures_subcat_title">手势</string>
+    <string name="gestures_left_spen_title_head">左划</string>
+    <string name="gestures_right_spen_title_head">右划</string>
+    <string name="gestures_up_spen_title_head">上划</string>
+    <string name="gestures_down_spen_title_head">下划</string>
+    <string name="gestures_long_spen_title_head">长按</string>
+    <string name="gestures_double_spen_title_head">双击</string>
+
+    <!-- Gestures Options -->
+    <string name="gestures_action_empty">无操作</string>
+    <string name="gestures_action_home">Home</string>
+    <string name="gestures_action_back">后退</string>
+    <string name="gestures_action_menu">菜单</string>
+    <string name="gestures_action_search">搜索</string>
+    <string name="gestures_action_recent">最近应用</string>
+
+    <!-- Stylus gestures -->
+    <string name="stylus_app_not_installed">%s 未安装</string>
 </resources>
