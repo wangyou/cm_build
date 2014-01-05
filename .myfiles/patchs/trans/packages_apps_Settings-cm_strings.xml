@@ -556,9 +556,6 @@
 
     <!-- Memory Management -->
     <string name="memory_management_title">内存管理</string>
-    <!-- zRam -->
-    <string name="pref_zram_title">zRam</string>
-    <string name="pref_zram_summary">压缩内存以增加虚拟容量 (需要重启)</string>
     <!-- KSM -->
     <string name="pref_ksm_title">KSM</string>
     <string name="pref_ksm_summary">KSM 降低系统对内存的要求并提高性能</string>
