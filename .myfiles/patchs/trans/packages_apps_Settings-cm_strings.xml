@@ -296,6 +296,7 @@
     <string name="lockscreen_widgets_category_title">小部件</string>
     <string name="lockscreen_maximize_widgets_title">最大化锁屏小部件</string>
     <string name="lockscreen_maximize_widgets_summary">开启屏幕时放大锁屏小部件</string>
+    <string name="lockscreen_enable_camera_title">相机部件</string>
 
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_volume_title">安全耳机音量</string>
@@ -867,12 +868,21 @@
 
     <!-- Status bar  -->
     <string name="status_bar_title">状态栏</string>
+    <string name="status_bar_show_clock_title">显示时钟</string>
     <string name="status_bar_battery_title">电池状态样式</string>
     <string name="status_bar_style_icon_portrait">立式图标</string>
     <string name="status_bar_style_icon_landscape">卧式图标</string>
     <string name="status_bar_style_circle">环形</string>
     <string name="status_bar_style_hidden">隐藏</string>
     <string name="status_bar_battery_show_percent_title">显示百分比</string>
+    <string name="status_bar_signal_text_title">信号状态样式</string>
+    <string name="status_bar_signal_style_icon">图标</string>
+    <string name="status_bar_signal_style_text">文字</string>
+    <string name="status_bar_toggle_brightness">亮度控制</string>
+    <string name="status_bar_toggle_brightness_summary">在状态栏上滑动调整亮度</string>
+    <string name="status_bar_toggle_info">自动亮度已启用</string>
+    <string name="status_bar_notif_count_title">显示提示数量</string>
+    <string name="status_bar_notif_count_summary">显示未读的提示数量</string>
     <string name="status_bar_double_tap_to_sleep_title">双击睡眠</string>
 
     <!--  development shortcut -->

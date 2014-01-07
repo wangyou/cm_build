@@ -57,8 +57,7 @@ revertProject()
 	cd $1
 	git clean -f >/dev/null
 	git stash >/dev/null
-	git rebase >/dev/null
-	git rebase >/dev/null
+	git rebase m/$branch >/dev/null
 	cd $curdir
 }
 
@@ -94,20 +93,20 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
 fi
 
 if [ "$mode" = "r" ]; then
-	revertProject $basedir/build
-	revertProject $basedir/device/motorola/edison
-	revertProject $basedir/device/motorola/omap4-common
-	revertProject $basedir/kernel/motorola/omap4-common-jbx
-	revertProject $basedir/vendor/cm
-	revertProject $basedir/system/core
-        revertProject $basedir/frameworks/base
-        revertProject $basedir/frameworks/native
-        revertProject $basedir/frameworks/av
-	revertProject $basedir/packages/apps/Settings
-	revertProject $basedir/packages/services/Telephony
-	revertProject $basedir/packages/apps/Dialer
-	revertProject $basedir/external/wpa_supplicant_8
-	revertProject $basedir/vendor/motorola
+	revertProject build
+	revertProject device/motorola/edison
+	revertProject device/motorola/omap4-common
+	revertProject kernel/motorola/omap4-common-jbx
+	revertProject vendor/cm
+	revertProject system/core
+        revertProject frameworks/base
+        revertProject frameworks/native
+        revertProject frameworks/av
+	revertProject packages/apps/Settings
+	revertProject packages/services/Telephony
+	revertProject packages/apps/Dialer
+	revertProject external/wpa_supplicant_8
+	revertProject vendor/motorola
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
