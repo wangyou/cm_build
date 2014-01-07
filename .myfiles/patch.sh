@@ -57,7 +57,7 @@ revertProject()
 	cd $1
 	git clean -f >/dev/null
 	git stash >/dev/null
-	git rebase m/$branch >/dev/null
+	git rebase -f m/$branch >/dev/null
 	cd $curdir
 }
 
