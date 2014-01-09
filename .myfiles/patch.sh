@@ -1,8 +1,8 @@
 device=edison
 branch=cm-11.0
 
-#JBX 2.0.5 ----   Added todays changelog and updated full history
-releaseKernelCommit=fe12ed0e818eb73a73fff8751fdeee7a10339906
+#JBX ----   a059cd8  2014-01-06  Added todays changelog and updated full history
+releaseKernelCommit=a059cd8
 mode=""
 oldupdate=1
 releaseKernel=1
