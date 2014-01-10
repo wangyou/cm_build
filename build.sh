@@ -86,6 +86,10 @@ fi
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
+
+echo "$device">.device
+.myfiles/patch.sh $device $mode $oldupdate $moreopt $opKernel
+
 ######generate projects's last 5 logs########
 echo "Generating projects's last 5 logs..."
 PROJECTLIST=$rdir/.repo/project.list
@@ -100,9 +104,6 @@ do
 	echo -e "\n">>$OUTLOG
 done < $PROJECTLIST
 cd $TOP
-
-echo "$device">.device
-.myfiles/patch.sh $device $mode $oldupdate $moreopt $opKernel
 
 ########Delete old files#############################
 if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
