@@ -105,6 +105,7 @@ if [ "$mode" = "r" ]; then
 	revertProject packages/apps/Settings
 	revertProject packages/services/Telephony
 	revertProject packages/apps/Dialer
+	revertProject packages/apps/LockClock
 	revertProject external/wpa_supplicant_8
 	revertProject vendor/motorola
 	rm -rf $basedir/vendor/motorola/jordan-common
@@ -150,6 +151,9 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    
   sed -e "s/BOARD_HOSTAPD_DRIVER             := NL80211/BOARD_HOSTAPD_DRIVER_TI          := NL80211/" \
       -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
+
+  [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
+     cp $rdir/patchs/kernel/mapphone_OCEdison_defconfig $basedir/kernel/motorola/omap4-common-jbx/arch/arm/configs/
 
   [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
