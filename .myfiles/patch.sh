@@ -229,6 +229,7 @@ fi
 ####Translation#################
 cp $rdir/patchs/trans/packages_apps_Settings-cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
 cp $rdir/patchs/trans/packages_apps_Settings-cm_plurals.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_plurals.xml
+cp $rdir/patchs/trans/packages_apps_LockClock-strings.xml $basedir/packages/apps/LockClock/res/values-zh-rCN/strings.xml
 
 [ -f $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_services_Telephony-cm_strings.xml $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml
