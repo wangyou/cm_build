@@ -126,16 +126,9 @@ export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
 if [ "$opKernel" = "jbx" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
-	if [ "$device" = "edison" ]; then 
-		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
+	LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
 		       TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
   		       TARGET_KERNEL_CONFIG=mapphone_OCEdison_defconfig  
-	else
-		LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
-		       TARGET_KERNEL_SOURCE=kernel/motorola/omap4-common-jbx \
-  		       TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
-
-	fi
 
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
