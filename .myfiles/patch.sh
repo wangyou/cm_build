@@ -153,9 +153,6 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
       -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
 
   [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
-     cp $rdir/patchs/kernel/mapphone_OCEdison_defconfig $basedir/kernel/motorola/omap4-common-jbx/arch/arm/configs/
-
-  [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         cd $basedir/device/motorola/omap4-common
@@ -254,6 +251,7 @@ cp $rdir/patchs/trans/packages_apps_LockClock-strings.xml $basedir/packages/apps
        cd $rdir
    fi 
 
+  sed -e "s/SETSUSPENDMODE/POWERMODE/g" -i $basedir/frameworks/base/wifi/java/android/net/wifi/WifiNative.java
  
    ##fix for battery charging over 100%
   sed -e "s/if (batteryState.batteryLevel == 100)/if (batteryState.batteryLevel >= 100)/g" \
