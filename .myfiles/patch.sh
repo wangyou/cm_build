@@ -251,8 +251,6 @@ cp $rdir/patchs/trans/packages_apps_LockClock-strings.xml $basedir/packages/apps
        cd $rdir
    fi 
 
-  sed -e "s/SETSUSPENDMODE/POWERMODE/g" -i $basedir/frameworks/base/wifi/java/android/net/wifi/WifiNative.java
- 
    ##fix for battery charging over 100%
   sed -e "s/if (batteryState.batteryLevel == 100)/if (batteryState.batteryLevel >= 100)/g" \
       -i $basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/QuickSettings.java
