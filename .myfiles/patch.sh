@@ -159,20 +159,16 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         patch -N -p1 < $rdir/patchs/device_omap4-common.diff
         cd $rdir
   fi
-
-  [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
-  if [ $releaseKernel -eq 0 ]; then
-  	cd $basedir/kernel/motorola/omap4-common-jbx
-	if ! git log -1 | grep -q $releaseKernelCommit; then
-		echo "Reset JBX Kernel to Release commit: $releaseKernelCommit"
-		git reset --hard $releaseKernelCommit
-	fi
-	if ! grep -q "static int plat_uart_asleep(void)" $basedir/kernel/motorola/omap4-common-jbx/arch/arm/mach-omap2/board-mapphone.c; then
-		patch -N -p1 < $rdir/patchs/kernel/wakelock.diff
-	fi
-	cd $rdir
-  fi
-
+  
+  if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then
+     initBranch $basedir/kernel/motorola/omap4-common JBX_4.4 nx111 https://github.com/nx111/android_kernel_motorola_omap4-common.git JBX_4.4
+     cd $basedir/kernel/motorola/omap4-common && git pull nx111 JBX_4.4; cd $basedir
+     git remote | grep -wq "jbx" || git remote add jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
+  else
+     initBranch $basedir/kernel/motorola/omap4-common $branch nx111 https://github.com/nx111/android_kernel_motorola_omap4-common.git $branch
+     cd $basedir/kernel/motorola/omap4-common && git pull nx111 $branch; cd $basedir
+     git remote | grep -wq "cm" || git remote add cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git   
+  fi     
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
    cp -r vendor/moto/jordan-common vendor/motorola/jordan-common
