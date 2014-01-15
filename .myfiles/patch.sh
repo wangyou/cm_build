@@ -28,6 +28,7 @@ initBranch()
 	fi
 
 	if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
+		git stash
 		git checkout $2
 	fi
 	
@@ -95,8 +96,6 @@ fi
 if [ "$mode" = "r" ]; then
 	revertProject build
 	revertProject device/motorola/edison
-	revertProject device/motorola/omap4-common
-	revertProject kernel/motorola/omap4-common-jbx
 	revertProject vendor/cm
 	revertProject system/core
         revertProject frameworks/base
@@ -108,6 +107,7 @@ if [ "$mode" = "r" ]; then
 	revertProject packages/apps/LockClock
 	revertProject external/wpa_supplicant_8
 	revertProject vendor/motorola
+	cd kernel/motorola/omap4-common;git checkout $banch >/dev/null;cd $basedir
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
@@ -160,15 +160,22 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         cd $rdir
   fi
   
-  if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then
+  echo "Processing kernel ..."
+  if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then 
      initBranch $basedir/kernel/motorola/omap4-common JBX_4.4 nx111 https://github.com/nx111/android_kernel_motorola_omap4-common.git JBX_4.4
-     cd $basedir/kernel/motorola/omap4-common && git pull nx111 JBX_4.4; cd $basedir
+     if [ _`git branch | grep "\*" |cut -f2 -d" "` != _JBX_4.4 ]; then
+     	cd $basedir/kernel/motorola/omap4-common && git pull nx111 JBX_4.4; cd $basedir
+     fi
      git remote | grep -wq "jbx" || git remote add jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
   else
      initBranch $basedir/kernel/motorola/omap4-common $branch nx111 https://github.com/nx111/android_kernel_motorola_omap4-common.git $branch
-     cd $basedir/kernel/motorola/omap4-common && git pull nx111 $branch; cd $basedir
+     if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$branch ]; then
+	    cd $basedir/kernel/motorola/omap4-common && git pull nx111 $branch; cd $basedir
+     fi
      git remote | grep -wq "cm" || git remote add cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git   
   fi     
+  echo "Process kernel ended."
+
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
    cp -r vendor/moto/jordan-common vendor/motorola/jordan-common
