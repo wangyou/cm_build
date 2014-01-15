@@ -19,17 +19,15 @@ initBranch()
 	git remote | grep -wq "$3" || git remote add $3 $4
 	
 	if ! git branch | grep -wq "$2"; then
+		echo "Create branch $2..."
 		git checkout --orphan $2
-		git rm -rf .
-#		git add -A
-#		git commit -a -m "init branch"
+		git rm -rf . >/dev/null
 		git pull $3 $5
-#		git merge FETCH_HEAD -m "First Fetch"
 	fi
 
 	if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
-		git stash
-		git checkout $2
+		git stash >/dev/null
+		git checkout $2 >/dev/null
 	fi
 	
 	cd $curdir
@@ -107,7 +105,7 @@ if [ "$mode" = "r" ]; then
 	revertProject packages/apps/LockClock
 	revertProject external/wpa_supplicant_8
 	revertProject vendor/motorola
-	cd kernel/motorola/omap4-common;git checkout $branch >/dev/null;cd $basedir
+	cd $basedir/kernel/motorola/omap4-common;git checkout $branch >/dev/null 2>/dev/null;cd $basedir
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
@@ -160,7 +158,8 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         cd $rdir
   fi
   
-  echo "Processing kernel ..."
+  echo "Use $opKernel kernel ..."
+  
   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then 
      cd $basedir/kernel/motorola/omap4-common
      initBranch $basedir/kernel/motorola/omap4-common JBX_4.4 nx111 git@github.com:nx111/android_kernel_motorola_omap4-common.git JBX_4.4
@@ -260,7 +259,7 @@ cp $rdir/patchs/trans/packages_apps_LockClock-strings.xml $basedir/packages/apps
    fi 
 
    ##fix for battery charging over 100%
-   if ! grep -q "batteryLevel = mbatteryLevel>100 ? 100 : mbatteryLevel;" \
+   if ! grep -q "batteryLevel = mbatteryLevel > 100 ? 100 : mbatteryLevel;" \
 	$basedir/frameworks/native/services/batteryservice/BatteryProperties.cpp; then
 	cd $basedir/frameworks/native
 	patch -N -p1 < $rdir/patchs/batteryProperties.diff

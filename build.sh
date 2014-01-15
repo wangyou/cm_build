@@ -8,9 +8,6 @@ rdir=`dirname $0`
 TOP=`pwd`
 
 
-lastDevice="edison"
-[ -f .device ] && lastDevice=`cat .device`
-
 KERNELOPT=""
 device=edison
 opKernel="cm"
@@ -21,6 +18,13 @@ oldupdate="old"
 keepPatch=1
 kernelzip=1
 moreopt=""
+
+lastDevice="edison"
+if [ -f .lastBuild ]; then
+   lastDevice=`grep device: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+   opKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+   [ -z $opKernel ] && opKernel="cm"
+fi
 
 for op in $*;do
    if [ "$op" = "spyder" ]; then
@@ -87,7 +91,9 @@ fi
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 
-echo "$device">.device
+echo "device: $device">.lastBuild
+echo "opKernel: $opKernel">>.lastBuild
+
 .myfiles/patch.sh $device $mode $oldupdate $moreopt $opKernel
 
 ######generate projects's last 5 logs########
