@@ -20,11 +20,11 @@ initBranch()
 	
 	if ! git branch | grep -wq "$2"; then
 		git checkout --orphan $2
-		rm -rf * 
-		git add -A
-		git commit -a -m "init branch"
-		git fetch $3 $5
-		git merge FETCH_HEAD -m "First Fetch"
+		git rm -rf .
+#		git add -A
+#		git commit -a -m "init branch"
+		git pull $3 $5
+#		git merge FETCH_HEAD -m "First Fetch"
 	fi
 
 	if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
@@ -107,7 +107,7 @@ if [ "$mode" = "r" ]; then
 	revertProject packages/apps/LockClock
 	revertProject external/wpa_supplicant_8
 	revertProject vendor/motorola
-	cd kernel/motorola/omap4-common;git checkout $banch >/dev/null;cd $basedir
+	cd kernel/motorola/omap4-common;git checkout $branch >/dev/null;cd $basedir
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
@@ -132,10 +132,10 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	    -i $basedir/device/motorola/edison/apns-conf.xml 
    fi
 
-   ### jbx-kernel patch ###########
-   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then
-      sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common-jbx/scripts/mkcompile_h
-   fi
+#   ### jbx-kernel patch ###########
+#   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then
+#      sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
+#   fi
 
    ### patch for vendor cm  ########
    sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
@@ -162,17 +162,22 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   
   echo "Processing kernel ..."
   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then 
-     initBranch $basedir/kernel/motorola/omap4-common JBX_4.4 nx111 https://github.com/nx111/android_kernel_motorola_omap4-common.git JBX_4.4
+     cd $basedir/kernel/motorola/omap4-common
+     initBranch $basedir/kernel/motorola/omap4-common JBX_4.4 nx111 git@github.com:nx111/android_kernel_motorola_omap4-common.git JBX_4.4
      if [ _`git branch | grep "\*" |cut -f2 -d" "` != _JBX_4.4 ]; then
-     	cd $basedir/kernel/motorola/omap4-common && git pull nx111 JBX_4.4; cd $basedir
+     	git pull nx111 JBX_4.4
      fi
+     cd $basedir/kernel/motorola/omap4-common
      git remote | grep -wq "jbx" || git remote add jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
+     cd $basedir   
   else
-     initBranch $basedir/kernel/motorola/omap4-common $branch nx111 https://github.com/nx111/android_kernel_motorola_omap4-common.git $branch
+     initBranch $basedir/kernel/motorola/omap4-common $branch nx111 git@github.com:nx111/android_kernel_motorola_omap4-common.git $branch
      if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$branch ]; then
 	    cd $basedir/kernel/motorola/omap4-common && git pull nx111 $branch; cd $basedir
      fi
-     git remote | grep -wq "cm" || git remote add cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git   
+     cd $basedir/kernel/motorola/omap4-common
+     git remote | grep -wq "cm" || git remote add cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
+     cd $basedir   
   fi     
   echo "Process kernel ended."
 
@@ -255,5 +260,9 @@ cp $rdir/patchs/trans/packages_apps_LockClock-strings.xml $basedir/packages/apps
    fi 
 
    ##fix for battery charging over 100%
-  sed -e "s/if (batteryState.batteryLevel == 100)/if (batteryState.batteryLevel >= 100)/g" \
-      -i $basedir/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/QuickSettings.java
+   if ! grep -q "batteryLevel = mbatteryLevel>100 ? 100 : mbatteryLevel;" \
+	$basedir/frameworks/native/services/batteryservice/BatteryProperties.cpp; then
+	cd $basedir/frameworks/native
+	patch -N -p1 < $rdir/patchs/batteryProperties.diff
+	cd $rdir
+   fi
