@@ -8,8 +8,8 @@ oldupdate=1
 releaseKernel=1
 #### functions ############
 
-#addBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch> [checkout]
-addBranch()
+#newBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch> [checkout]
+newBranch()
 {
 	curdir=`pwd`
 	if [ $# -lt 5 ]; then return 1;fi
@@ -35,6 +35,31 @@ addBranch()
 	cd $curdir
 	return 0
 }
+
+#addBranch <dir> <localBranchName>  [checkout]
+addBranch()
+{
+	curdir=`pwd`
+	if [ $# -lt 2 ]; then return 1;fi
+	[ -d $1 ] || return 1
+	cd $1
+	
+	if ! git branch | grep -wq "$2"; then
+		echo "Create branch $2..."
+		git checkout $2
+	fi
+	
+ 	if [ _$3 = _checkout ]; then
+	    if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
+		git stash >/dev/null
+		git checkout $2 >/dev/null
+	    fi
+	fi 
+
+	cd $curdir
+	return 0
+}
+
 #checkoutBranch <dir> <branchName>
 checkoutBranch()
 {
@@ -85,7 +110,7 @@ revertProject()
 	cd $1
 	git clean -f >/dev/null
 	git stash >/dev/null
-	git rebase -f m/$branch >/dev/null
+	git rebase -f >/dev/null
 	cd $curdir
 }
 
@@ -134,7 +159,7 @@ if [ "$mode" = "r" ]; then
 	revertProject packages/apps/LockClock
 	revertProject external/wpa_supplicant_8
 	revertProject vendor/motorola
-	cd $basedir/kernel/motorola/omap4-common;git checkout $branch >/dev/null 2>/dev/null;cd $basedir
+	revertProject kernel/motorola/omap4-common
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
@@ -189,12 +214,14 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   
   echo "Use $opKernel kernel ..."
   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then 
-     addBranch $basedir/kernel/motorola/omap4-common JBX_4.4 nx111 git@github.com:nx111/android_kernel_motorola_omap4-common.git JBX_4.4
-     checkoutBranch $basedir/kernel/motorola/omap4-common JBX_4.4	     
+     addBranch $basedir/kernel/motorola/omap4-common-jbx JBX_4.4 
+     checkoutBranch $basedir/kernel/motorola/omap4-common JBX_4.4
+     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(>\):\1\"JBX_4.4\"\2:" -i $basedir/.repo/local_manifest.xml	     
      addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
   else
-     addBranch $basedir/kernel/motorola/omap4-common $branch nx111 git@github.com:nx111/android_kernel_motorola_omap4-common.git $branch
+     addBranch $basedir/kernel/motorola/omap4-common $branch
      checkoutBranch $basedir/kernel/motorola/omap4-common $branch
+     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(>\):\1\"$branch\"\2:" -i $basedir/.repo/local_manifest.xml	     
      addRemote cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
   fi     
   echo "Process kernel ended."
@@ -202,13 +229,13 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
    cp -r vendor/moto/jordan-common vendor/motorola/jordan-common
-   addBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
-   addBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
-   addBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
-   addBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch checkout
-   addBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch checkout
-   addBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch checkout
-   addBranch bootable/recovery twrp2.7  twrp https://github.com/TeamWin/Team-Win-Recovery-Project.git twrp2.7 checkout
+   newBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
+   newBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
+   newBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
+   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch checkout
+   newBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch checkout
+   newBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch checkout
+   newBranch bootable/recovery twrp2.7  twrp https://github.com/TeamWin/Team-Win-Recovery-Project.git twrp2.7 checkout
 
    if [ "$mode" = "u" ]; then
    	updateBranch frameworks/av quarx2k_$branch quarx2k $branch
@@ -240,7 +267,7 @@ sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/syste
 
 #### update calendar ###########
 if [ "$mode" = "u" ]; then
-	addBranch packages/app/Calendar $branch cm https://github.com/CyanogenMod/android_packages_app_Calendar.git $branch
+	newBranch packages/app/Calendar $branch cm https://github.com/CyanogenMod/android_packages_app_Calendar.git $branch
 	updateBranch packages/app/Calendar $branch cm $branch
 fi
 

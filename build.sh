@@ -134,7 +134,7 @@ export CM_EXTRAVERSION=NX111
 if [ "$opKernel" = "jbx" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	CM_EXTRAVERSION=NX111_JBX \
 	LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
-  		       TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
+  		        TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
 
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
