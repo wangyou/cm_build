@@ -71,6 +71,7 @@ checkoutBranch()
 	if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
 		git stash >/dev/null
 		git checkout $2 >/dev/null
+		rm -rf $basedir/out/target/product/$device/obj/KERNEL_OBJ
 	fi
 	cd $curdir
 }
@@ -106,7 +107,7 @@ revertProject()
 {
 	if [ $# -lt 1 ]; then return 1; fi
 	if [ ! -d $1 ]; then return 1; fi
-	echo "revert project: $1"
+#	echo "revert project: $1"
 	curdir=`pwd`
 	cd $1
 	branch=`git branch | grep "\*" |cut -f2 -d" "`
@@ -150,6 +151,7 @@ fi
 if [ "$mode" = "r" ]; then
 	revertProject build
 	revertProject device/motorola/edison
+	revertProject device/motorola/omap4-common
 	revertProject vendor/cm
 	revertProject system/core
         revertProject frameworks/base
@@ -203,8 +205,8 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cd $rdir
    fi
    
-  sed -e "s/BOARD_HOSTAPD_DRIVER             := NL80211/BOARD_HOSTAPD_DRIVER_TI          := NL80211/" \
-      -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
+#  sed -e "s/BOARD_HOSTAPD_DRIVER             := NL80211/BOARD_HOSTAPD_DRIVER_TI          := NL80211/" \
+#      -i $basedir/device/motorola/omap4-common/BoardConfigCommon.mk
 
   [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \

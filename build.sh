@@ -100,6 +100,7 @@ echo "opKernel: $opKernel">>.lastBuild
 echo "Generating projects's last 5 logs..."
 PROJECTLIST=$rdir/.repo/project.list
 OUTLOG=$TOP/out/target/product/$device/system/etc/ChangeLog-5.log
+[ -d $TOP/out/target/product/$device/system/etc/ ] || mkdir -p $TOP/out/target/product/$device/system/etc/
 rm -f $OUTLOG
 touch $OUTLOG
 while read project
