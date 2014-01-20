@@ -900,6 +900,7 @@
     <string name="status_bar_style_icon_portrait">立式图标</string>
     <string name="status_bar_style_icon_landscape">卧式图标</string>
     <string name="status_bar_style_circle">环形</string>
+    <string name="status_bar_style_text">文字</string>
     <string name="status_bar_style_hidden">隐藏</string>
     <string name="status_bar_battery_show_percent_title">显示百分比</string>
     <string name="status_bar_signal_text_title">信号状态样式</string>
