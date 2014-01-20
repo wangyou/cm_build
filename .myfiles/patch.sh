@@ -106,11 +106,16 @@ revertProject()
 {
 	if [ $# -lt 1 ]; then return 1; fi
 	if [ ! -d $1 ]; then return 1; fi
-#	echo "revert project: $1"
+	echo "revert project: $1"
 	curdir=`pwd`
 	cd $1
-	branch=`LANG=en_US git branch -r | grep  "\->" | sed "s/->.*//g;s/ $//g"`
-	if echo $branch | grep -q "(" ; then branch="";fi
+	remote=`git branch -r | grep  "\->" | sed "s/.*->//g;s/ $//g;s/^ //g;s/\/.*//g"`
+	branch=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
+	if echo $branch | grep -q "(" ; then 
+		branch=""
+	else
+		branch="$remote/$branch"
+	fi
 	git clean -f >/dev/null
 	git stash >/dev/null
 	git rebase -f $branch >/dev/null 
