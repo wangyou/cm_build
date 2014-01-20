@@ -20,10 +20,12 @@ kernelzip=1
 moreopt=""
 
 lastDevice="edison"
+lastKernel=""
 if [ -f .lastBuild ]; then
    lastDevice=`grep device: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
    opKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
    [ -z $opKernel ] && opKernel="cm"
+   lastKernel=$opKernel
 fi
 
 for op in $*;do
@@ -90,11 +92,9 @@ fi
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
-
+.myfiles/patch.sh $device $mode $oldupdate $moreopt $opKernel
 echo "device: $device">.lastBuild
 echo "opKernel: $opKernel">>.lastBuild
-
-.myfiles/patch.sh $device $mode $oldupdate $moreopt $opKernel
 
 ######generate projects's last 5 logs########
 echo "Generating projects's last 5 logs..."
@@ -124,6 +124,7 @@ if [ -d out/target/product/$device/ ]; then
   cd $TOP
 fi
 rm -f out/target/product/$device/system/build.prop
+[ _"$opKernel" != _"$lastKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ
 
 #############lunch######################
 lunch cm_$device-userdebug 
