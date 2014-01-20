@@ -109,7 +109,7 @@ revertProject()
 #	echo "revert project: $1"
 	curdir=`pwd`
 	cd $1
-	branch=`LANG=en_US git branch | grep "\*" |cut -f2 -d" "`
+	branch=`LANG=en_US git branch -r | grep  "\->" | sed "s/->.*//g;s/ $//g"`
 	if echo $branch | grep -q "(" ; then branch="";fi
 	git clean -f >/dev/null
 	git stash >/dev/null
