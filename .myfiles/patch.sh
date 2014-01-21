@@ -221,17 +221,25 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   fi
   
   echo "Use $opKernel kernel ..."
+  cd $basedir/kernel/motorola/omap4-common
   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then 
-     addBranch $basedir/kernel/motorola/omap4-common-jbx JBX_4.4 
+     addBranch $basedir/kernel/motorola/omap4-common JBX_4.4 
      checkoutBranch $basedir/kernel/motorola/omap4-common JBX_4.4
-     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(>\):\1\"JBX_4.4\"\2:" -i $basedir/.repo/local_manifest.xml	     
+     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(>\):\1\"JBX_4.4\"\2:" -i $basedir/.repo/local_manifest.xml
+     git branch --unset-upstream $branch >/dev/null 2>/dev/null
+     git branch --unset-upstream JBX_4.4 >/dev/null 2>/dev/null
+     git branch --set-upstream-to github/JBX_4.4 JBX_4.4 >/dev/null 2>/dev/null
      addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
   else
      addBranch $basedir/kernel/motorola/omap4-common $branch
      checkoutBranch $basedir/kernel/motorola/omap4-common $branch
      sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(>\):\1\"$branch\"\2:" -i $basedir/.repo/local_manifest.xml	     
+     git branch --unset-upstream $branch >/dev/null 2>/dev/null
+     git branch --unset-upstream JBX_4.4 >/dev/null 2>/dev/null
+     git branch --set-upstream-to github/$branch $branch >/dev/null 2>/dev/null	     
      addRemote cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
   fi     
+  cd $basedir
   echo "Process kernel ended."
 
 elif [ "$device" = "mb526" ]; then
@@ -292,6 +300,9 @@ fi
 cp $rdir/patchs/trans/packages_apps_Settings-cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
 cp $rdir/patchs/trans/packages_apps_Settings-cm_plurals.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_plurals.xml
 cp $rdir/patchs/trans/packages_apps_LockClock-strings.xml $basedir/packages/apps/LockClock/res/values-zh-rCN/strings.xml
+
+[ -f $basedir/packages/apps/InCallUI/res/values-zh-rCN/cm_strings.xml ] || \
+   cp $rdir/patchs/trans/packages_apps_InCallUI-cm_strings.xml $basedir/packages/apps/InCallUI/res/values-zh-rCN/cm_strings.xml
 
 [ -f $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml ] || \
    cp $rdir/patchs/trans/packages_services_Telephony-cm_strings.xml $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml
