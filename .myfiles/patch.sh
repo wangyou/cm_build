@@ -225,7 +225,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then 
      addBranch $basedir/kernel/motorola/omap4-common JBX_4.4 
      checkoutBranch $basedir/kernel/motorola/omap4-common JBX_4.4
-     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(>\):\1\"JBX_4.4\"\2:" -i $basedir/.repo/local_manifest.xml
+     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(/>\):\1\"JBX_4.4\"\2:" -i $basedir/.repo/local_manifest.xml
      git branch --unset-upstream $branch >/dev/null 2>/dev/null
      git branch --unset-upstream JBX_4.4 >/dev/null 2>/dev/null
      git branch --set-upstream-to github/JBX_4.4 JBX_4.4 >/dev/null 2>/dev/null
@@ -233,7 +233,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   else
      addBranch $basedir/kernel/motorola/omap4-common $branch
      checkoutBranch $basedir/kernel/motorola/omap4-common $branch
-     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(>\):\1\"$branch\"\2:" -i $basedir/.repo/local_manifest.xml	     
+     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(/>\):\1\"$branch\"\2:" -i $basedir/.repo/local_manifest.xml	     
      git branch --unset-upstream $branch >/dev/null 2>/dev/null
      git branch --unset-upstream JBX_4.4 >/dev/null 2>/dev/null
      git branch --set-upstream-to github/$branch $branch >/dev/null 2>/dev/null	     
