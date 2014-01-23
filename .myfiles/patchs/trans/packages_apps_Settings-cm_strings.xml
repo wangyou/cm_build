@@ -231,8 +231,8 @@
     <string name="dialog_test">测试</string>
     <string name="dialog_delete_title">删除</string>
     <string name="dialog_delete_message">移除选中的项目?</string>
-    <string name="dialog_test_message">请将屏幕关闭以便测试新的指示灯设置。关闭此对话框将停止测试。</string>
-    <string name="dialog_test_button">关闭</string>
+    <string name="dialog_test_message">关闭屏幕以查看所选的通知中的行动或关闭此对话框停止测试</string>
+    <string name="dialog_test_button">消除</string>
 
     <!-- Values for the notification light pulse spinners -->
     <string name="pulse_length_always_on">始终开启</string>
@@ -728,7 +728,9 @@
     <!-- Sms security limit -->
     <string name="sms_security_check_limit_title">短信限制</string>
     <string name="sms_security_check_limit_summary">应用程序在 30 分钟内发送 %d 条信息后需要用户认可才能继续</string>
+    <string name="sms_security_check_limit_summary_none">未经确认，应用程序不能发送任何短信</string>
     <string name="sms_security_check_limit_default">30 (默认)</string>
+    <string name="sms_security_check_limit_none">无限制</string>
 
     <!-- Custom widgets -->
     <string name="lockscreen_custom_widgets_title">定制小部件</string>
