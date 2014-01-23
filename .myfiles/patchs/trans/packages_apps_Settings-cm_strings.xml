@@ -217,6 +217,12 @@
     <string name="wake_when_plugged_or_unplugged_title">插入/拔出电源点亮屏幕</string>
     <string name="wake_when_plugged_or_unplugged_summary">连接或断开充电器时点亮屏幕</string>
 
+    <!-- Lights settings screen, screen animation options -->
+    <string name="screen_animation_off_title">屏幕关闭动画</string>
+    <string name="screen_animation_style_title">动画方式</string>
+    <string name="screen_animation_style_electronbeam">电子射束</string>
+    <string name="screen_animation_style_fade">渐隐</string>
+
     <!-- Notification light dialogs -->
     <string name="edit_light_settings">编辑指示灯设置</string>
     <string name="pulse_speed_title">呼吸长度与速度</string>
@@ -484,7 +490,6 @@
     <string name="start_time_title">起始</string>
     <string name="end_time_title">结束</string>
 
-
     <!-- About phone screen,  setting option name -->
     <string name="mod_version">CyanogenMod 版本</string>
     <string name="mod_version_default">未知</string>
@@ -707,6 +712,9 @@
     <string name="collapse_on_dismiss_if_empty_summary">移除所有通知后关闭下拉通知栏</string>
     <string name="collapse_on_dismiss_if_no_clearable_summary">移除最后一个可移除的通知后关闭下拉通知栏</string>
 
+    <!-- tap-to-wake -->
+    <string name="double_tap_to_wake_title">双击唤醒</string>
+			
     <!-- Quick access ribbon -->
     <string name="category_quick_access">下拉快捷开关</string>
     <string name="title_quick_access">在下拉通知栏内显示</string>
