@@ -70,7 +70,7 @@ checkoutBranch()
 
 	if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
 		git stash >/dev/null
-		git checkout $2 >/dev/null
+		git checkout -f $2 >/dev/null
 	fi
 	cd $curdir
 }
@@ -152,7 +152,9 @@ basedir=`dirname $rdir`
 
 ## local_manifest.xml   ####
 if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
-   cp $rdir/local_manifest.xml $basedir/.repo/
+   if [ _$rdir/local_manifest.xml = _`find $rdir/local_manifest.xml -newer $basedir/.repo/local_manifest.xml` ]; then
+   	cp $rdir/local_manifest.xml $basedir/.repo/
+   fi
 fi
 
 if [ "$mode" = "r" ]; then
@@ -233,7 +235,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   else
      addBranch $basedir/kernel/motorola/omap4-common $branch
      checkoutBranch $basedir/kernel/motorola/omap4-common $branch
-     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(/>\):\1\"$branch\"\2:" -i $basedir/.repo/local_manifest.xml	     
+     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(/>\):\1\"$branch\"\2:" -i $basedir/.repo/local_manifest.xml
      git branch --unset-upstream $branch >/dev/null 2>/dev/null
      git branch --unset-upstream JBX_4.4 >/dev/null 2>/dev/null
      git branch --set-upstream-to github/$branch $branch >/dev/null 2>/dev/null	     
