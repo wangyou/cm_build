@@ -299,21 +299,17 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
 fi
 
 ####Translation#################
-cp $rdir/patchs/trans/packages_apps_Settings-cm_strings.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_strings.xml
-cp $rdir/patchs/trans/packages_apps_Settings-cm_plurals.xml $basedir/packages/apps/Settings/res/values-zh-rCN/cm_plurals.xml
-cp $rdir/patchs/trans/packages_apps_LockClock-strings.xml $basedir/packages/apps/LockClock/res/values-zh-rCN/strings.xml
 
-[ -f $basedir/packages/apps/InCallUI/res/values-zh-rCN/cm_strings.xml ] || \
-   cp $rdir/patchs/trans/packages_apps_InCallUI-cm_strings.xml $basedir/packages/apps/InCallUI/res/values-zh-rCN/cm_strings.xml
-
-[ -f $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml ] || \
-   cp $rdir/patchs/trans/packages_services_Telephony-cm_strings.xml $basedir/packages/services/Telephony/res/values-zh-rCN/cm_strings.xml
-
-[ -f $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml ] || \
-   cp $rdir/patchs/trans/packages_apps_Dialer-cm_strings.xml $basedir/packages/apps/Dialer/res/values-zh-rCN/cm_strings.xml
-
-[ -f $basedir/packages/apps/Camera2/res/values-zh-rCN/cm_strings.xml ] || \
-   cp $rdir/patchs/trans/packages_apps_Camera2-cm_strings.xml $basedir/packages/apps/Camera2/res/values-zh-rCN/cm_strings.xml
+#translation file must name as: ####_####_###-#####.xml
+for f in $rdir/patchs/trans/*; do
+   fpath=`echo $f|sed "s:$rdir/patchs/trans/::"`
+   xml=`echo $fpath| cut -f2 -d-`
+   project=`echo $fpath | sed "s:-.*::g;s:_:/:g"`
+   if [ -d $basedir/$project ]; then
+      [ -d $basedir/$project/res/values-zh-rCN ] || mkdir -p $basedir/$project/res/values-zh-rCN
+      cp $f $basedir/$project/res/values-zh-rCN/$xml
+   fi
+done
 
 ####some patchs###########
 
