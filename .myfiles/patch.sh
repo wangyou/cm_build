@@ -1,8 +1,6 @@
 device=edison
 branch=cm-11.0
 
-#JBX ----   a059cd8  2014-01-06  Added todays changelog and updated full history
-releaseKernelCommit=a059cd8
 mode=""
 oldupdate=1
 releaseKernel=1
@@ -132,10 +130,8 @@ for op in $*;do
 	device="edison"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
-   elif [ "$op" = "jbx" -o "$op" = "jbx-kernel" -o "$op" = "cm" ]; then
+   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44" -o "$op" = "cm" ]; then
 	opKernel="$op"
-   elif [ "$op" = "-rk" ]; then
-	releaseKernel=0
    elif [ "${op:0:1}" = "-" ]; then
 	mode="${op#-*}"
    elif [ "$op" = "old" ]; then
@@ -150,10 +146,18 @@ rdir=`cd \`dirname $0\`;pwd`
 basedir=`dirname $rdir`
 [ -s $basedir/.device ] && lastDevice=`cat $basedir/.device`
 
+case "$opKernel" in
+      "jbx"|"j44" ) kbranch=JBX_4.4;;
+      "j30x")kbranch=JBX_30X;;
+      *)kbranch=$branch;;
+esac
+
 ## local_manifest.xml   ####
 if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
    if [ _$rdir/local_manifest.xml = _`find $rdir/local_manifest.xml -newer $basedir/.repo/local_manifest.xml` ]; then
    	cp $rdir/local_manifest.xml $basedir/.repo/
+	sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" -i $basedir/.repo/local_manifest.xml
+
    fi
 fi
 
@@ -214,7 +218,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cd $rdir
    fi
    
-  [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ] && \
+  [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" ] && \
   if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         cd $basedir/device/motorola/omap4-common
@@ -222,25 +226,22 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         cd $rdir
   fi
   
-  echo "Use $opKernel kernel ..."
+  echo "Use $opKernel $kbranch kernel ..."
   cd $basedir/kernel/motorola/omap4-common
-  if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then 
-     addBranch $basedir/kernel/motorola/omap4-common JBX_4.4 
-     checkoutBranch $basedir/kernel/motorola/omap4-common JBX_4.4
-     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(/>\):\1\"JBX_4.4\"\2:" -i $basedir/.repo/local_manifest.xml
-     git branch --unset-upstream $branch >/dev/null 2>/dev/null
-     git branch --unset-upstream JBX_4.4 >/dev/null 2>/dev/null
-     git branch --set-upstream-to github/JBX_4.4 JBX_4.4 >/dev/null 2>/dev/null
-     addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
+  oldBranch=`git branch | grep "\*" |cut -f2 -d" "`
+  addBranch $basedir/kernel/motorola/omap4-common $kbranch
+  checkoutBranch $basedir/kernel/motorola/omap4-common $kbranch
+  if [ -f $basedir/.lastBuild ]; then
+	sed -e "s/opKernel:.*/opKernel: $opKernel/" -i $basedir/.lastBuild
   else
-     addBranch $basedir/kernel/motorola/omap4-common $branch
-     checkoutBranch $basedir/kernel/motorola/omap4-common $branch
-     sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*/\(/>\):\1\"$branch\"\2:" -i $basedir/.repo/local_manifest.xml
-     git branch --unset-upstream $branch >/dev/null 2>/dev/null
-     git branch --unset-upstream JBX_4.4 >/dev/null 2>/dev/null
-     git branch --set-upstream-to github/$branch $branch >/dev/null 2>/dev/null	     
-     addRemote cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
-  fi     
+	echo "opKernel: $opKernel" > $basedir/.lastBuild
+  fi
+  sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" -i $basedir/.repo/local_manifest.xml
+  git branch --unset-upstream $oldBranch >/dev/null 2>/dev/null
+  git branch --set-upstream-to github/$kbranch $kbranch >/dev/null 2>/dev/null	     
+  addRemote cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
+  addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
+
   cd $basedir
   echo "Process kernel ended."
 

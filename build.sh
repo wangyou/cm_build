@@ -38,7 +38,7 @@ for op in $*;do
 	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
 	rm -rf $TOP/vendor/motorola/jordan-common
 	[ -d  $TOP/vendor/moto/jordan-common ] && cp -r $TOP/vendor/moto/jordan-common $TOP/vendor/motorola/jordan-common
-   elif [ "$op" = "jbx" -o "$op" = "jbx-kernel" -o "$op" = "cm" ]; then
+   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44" -o "$op" = "cm" ]; then
 	opKernel="$op"
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
@@ -133,8 +133,14 @@ lunch cm_$device-userdebug
 export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
-if [ "$opKernel" = "jbx" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
-	CM_EXTRAVERSION=NX111_JBX \
+case "$opKernel" in
+      "jbx"|"j44" ) 
+		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX;;
+      "j30x")
+		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX30X;;
+esac
+
+if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
   		        TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
 
