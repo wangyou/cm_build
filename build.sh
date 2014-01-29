@@ -48,8 +48,6 @@ for op in $*;do
 	keepPatch=0
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
-   elif [ "$op" = "-rk" ]; then
-	moreopt="$moreopt $op"
    elif [ "${op:0:1}" = "-" ]; then
 	mode="${op#-*}"
    elif [ "${op:0:4}" = "mod=" ]; then
