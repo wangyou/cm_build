@@ -1,5 +1,5 @@
 diff --git a/services/batteryservice/BatteryProperties.cpp b/services/batteryservice/BatteryProperties.cpp
-index 8c7d287..2aeb21a 100644
+index 8c7d287..6029945 100644
 --- a/services/batteryservice/BatteryProperties.cpp
 +++ b/services/batteryservice/BatteryProperties.cpp
 @@ -37,7 +37,8 @@ status_t BatteryProperties::readFromParcel(Parcel* p) {
@@ -22,3 +22,21 @@ index 8c7d287..2aeb21a 100644
      dockBatteryVoltage = p->readInt32();
      dockBatteryCurrentNow = p->readInt32();
      dockBatteryChargeCounter = p->readInt32();
+@@ -67,7 +69,7 @@ status_t BatteryProperties::writeToParcel(Parcel* p) const {
+     p->writeInt32(batteryStatus);
+     p->writeInt32(batteryHealth);
+     p->writeInt32(batteryPresent ? 1 : 0);
+-    p->writeInt32(batteryLevel);
++    p->writeInt32(batteryLevel > 100 ? 100 : batteryLevel );
+     p->writeInt32(batteryVoltage);
+     p->writeInt32(batteryCurrentNow);
+     p->writeInt32(batteryChargeCounter);
+@@ -79,7 +81,7 @@ status_t BatteryProperties::writeToParcel(Parcel* p) const {
+     p->writeInt32(dockBatteryStatus);
+     p->writeInt32(dockBatteryHealth);
+     p->writeInt32(dockBatteryPresent ? 1 : 0);
+-    p->writeInt32(dockBatteryLevel);
++    p->writeInt32(dockBatteryLevel > 100 ? 100 : dockBatteryLevel);
+     p->writeInt32(dockBatteryVoltage);
+     p->writeInt32(dockBatteryCurrentNow);
+     p->writeInt32(dockBatteryChargeCounter);
