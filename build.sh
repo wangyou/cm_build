@@ -134,10 +134,10 @@ export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
 case "$opKernel" in
-      "jbx"|"j44" ) 
+      "j44" ) 
+		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX44;;
+      "jbx" | "j30x" )
 		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX;;
-      "j30x")
-		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX30X;;
 esac
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then

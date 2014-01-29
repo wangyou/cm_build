@@ -147,8 +147,8 @@ basedir=`dirname $rdir`
 [ -s $basedir/.device ] && lastDevice=`cat $basedir/.device`
 
 case "$opKernel" in
-      "jbx"|"j44" ) kbranch=JBX_4.4;;
-      "j30x")kbranch=JBX_30X;;
+      "j44" ) kbranch=JBX_4.4;;
+      "jbx"|"j30x")kbranch=JBX_30X;;
       *)kbranch=$branch;;
 esac
 
@@ -202,9 +202,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
    fi
 
 #   ### jbx-kernel patch ###########
-#   if [ "$opKernel" = "jbx" -o "$opKernel" = "jbx-kernel" ]; then
-#      sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
-#   fi
+      sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
 
    ### patch for vendor cm  ########
    sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
