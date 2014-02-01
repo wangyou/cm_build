@@ -117,7 +117,7 @@ revertProject()
 	if [ "$branch" = "" ]; then
 		git rebase -f >/dev/null
 	else
-		git rebase -f $remote/$branch >/dev/null
+		git rebase -f $branch >/dev/null
 	fi
 	cd $curdir
 }
@@ -176,7 +176,7 @@ if [ "$mode" = "r" ]; then
 	revertProject packages/apps/LockClock
 	revertProject external/wpa_supplicant_8
 	revertProject vendor/motorola
-	revertProject kernel/motorola/omap4-common
+#	revertProject kernel/motorola/omap4-common
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
@@ -216,14 +216,15 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cd $rdir
    fi
    
-  [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" ] && \
-  if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
+  if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" ]; then
+  	if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
-        cd $basedir/device/motorola/omap4-common
-        patch -N -p1 < $rdir/patchs/device_omap4-common.diff
-        cd $rdir
+        	cd $basedir/device/motorola/omap4-common
+        	patch -N -p1 < $rdir/patchs/device_omap4-common.diff
+        	cd $rdir
+  	fi
+
   fi
-  
   echo "Use $opKernel $kbranch kernel ..."
   cd $basedir/kernel/motorola/omap4-common
   oldBranch=`git branch | grep "\*" |cut -f2 -d" "`
@@ -239,6 +240,12 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   git branch --set-upstream-to github/$kbranch $kbranch >/dev/null 2>/dev/null	     
   addRemote cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
   addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
+  
+  if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" ]; then
+	sed -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
+	    -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
+	    -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_OCE_defconfig
+  fi
 
   cd $basedir
   echo "Process kernel ended."
