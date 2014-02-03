@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2014 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- Application name -->
+    <string name="cm_application_name" translatable="false">Trebuchet</string>
+    <!-- App copyright -->
+    <string name="application_copyright" translatable="false">Copyright \u00A9 2014 The CyanogenMod Project</string>
+    <!-- App version -->
+    <string name="application_version" translatable="false">1.0</string>
+
+    <!-- Strings for the customization mode -->
+    <!-- Text for sorting mode button -->
+    <string name="sort_button_text">排序</string>
+    <!-- Text for filter button -->
+    <string name="filter_button_text">过滤</string>
+    <!-- Text for default screen button -->
+    <string name="default_screen_button_text">默认屏幕</string>
+    <!-- Text for transition effect button -->
+    <string name="transition_effect_button_text">滚动效果</string>
+
+    <string name="sort_mode_title">标题</string>
+    <string name="sort_mode_launch_count">运行次数</string>
+    <string name="sort_mode_install_time">安装时间</string>
+
+    <string name="scrolling_page_outlines">页面轮廓</string>
+    <string name="scrolling_fade_adjacent">页面边界渐隐</string>
+
+
+    <string name="wallpaper_scroll">滚动壁纸</string>
+
+    <!-- Settings -->
+    <string name="preferences_title">设置</string>
+    <!-- UI -->
+    <string name="preferences_interface_title">界面</string>
+    <!-- Application -->
+    <string name="preferences_application_title">应用</string>
+
+    <!-- UI -->
+    <!-- Homescreen -->
+    <string name="preferences_interface_homescreen_title">主界面</string>
+    <string name="preferences_interface_homescreen_summary">屏幕和壁纸</string>
+    <string name="preferences_interface_homescreen_search_title">搜索条</string>
+    <string name="preferences_interface_homescreen_search_summary">在屏幕上方显示固定搜索条</string>
+
+    <!-- Drawer -->
+    <string name="preferences_interface_drawer_title">抽屉</string>
+
+    <!-- Dock -->
+    <string name="preferences_interface_dock_title">基座</string>
+
+    <!-- General -->
+    <string name="preferences_interface_general_title">常规</string>
+    <string name="preferences_interface_general_icons_category">图标</string>
+    <string name="preferences_interface_general_icons_large_title">大图标</string>
+    <string name="preferences_interface_general_icons_large_summary">在主屏幕和抽屉中显示更大的图标</string>
+    <string name="preferences_interface_general_icons_text_style_title">文本字体风格</string>
+    <string name="preferences_interface_general_icons_text_style_summary">图标文本的字体变形和风格</string>
+    <string name="dialog_pick_iconpack_title">选择图标集</string>
+    <string name="default_iconpack_title">默认图标集</string>
+    <string name="icon_packs_title">图标集</string>
+    <string name="no_iconpacks_summary">没有安装图标集</string>
+
+    <!-- Folder titles -->
+    <string name="google_title" translatable="false">Google</string>
+</resources>
