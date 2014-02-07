@@ -21,6 +21,7 @@ echo "Unpacking << $1..."
 unzip $1 -d $edir >/dev/null
 sed -e "/\/system\/app\/Calendar.apk/d" \
     -e "s/PA\ *GApps\ *Modular\ *-\ *Mini/GApps/g" \
+    -e "s/PA\ *GApps\ *Modular\ *-\ *Micro/GApps/g" \
     -e "s/PA\ *GApps\ *Modular\ *-\ *Full/GApps/g" \
     -i $edir/META-INF/com/google/android/updater-script
 for f in $edir/system/addon.d/*; do
