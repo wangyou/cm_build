@@ -114,11 +114,11 @@ revertProject()
 	fi
 	git clean -f >/dev/null
 	git stash >/dev/null
-	if [ "$branch" = "" ]; then
-		git rebase -f >/dev/null
-	else
-		git rebase -f $branch >/dev/null
-	fi
+#	if [ "$branch" = "" ]; then
+#		git rebase -f >/dev/null
+#	else
+#		git rebase -f $branch >/dev/null
+#	fi
 	cd $curdir
 }
 
@@ -176,7 +176,7 @@ if [ "$mode" = "r" ]; then
 	revertProject packages/apps/LockClock
 	revertProject external/wpa_supplicant_8
 	revertProject vendor/motorola
-#	revertProject kernel/motorola/omap4-common
+	revertProject kernel/motorola/omap4-common
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
