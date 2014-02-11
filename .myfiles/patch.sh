@@ -100,11 +100,11 @@ addRemote()
 	cd $curdir
 }
 
-revertProject()
+resetProject()
 {
 	if [ $# -lt 1 ]; then return 1; fi
 	if [ ! -d $1 ]; then return 1; fi
-#	echo "revert project: $1"
+#	echo "reset project: $1"
 	curdir=`pwd`
 	cd $1
 	remote=`git branch -r | grep  "\->" | sed "s/.*->//g;s/ $//g;s/^ //g;s/\/.*//g"`
@@ -162,21 +162,21 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
 fi
 
 if [ "$mode" = "r" ]; then
-	revertProject build
-	revertProject device/motorola/edison
-	revertProject device/motorola/omap4-common
-	revertProject vendor/cm
-	revertProject system/core
-        revertProject frameworks/base
-        revertProject frameworks/native
-        revertProject frameworks/av
-	revertProject packages/apps/Settings
-	revertProject packages/services/Telephony
-	revertProject packages/apps/Dialer
-	revertProject packages/apps/LockClock
-	revertProject external/wpa_supplicant_8
-	revertProject vendor/motorola
-	revertProject kernel/motorola/omap4-common
+	resetProject build
+	resetProject device/motorola/edison
+	resetProject device/motorola/omap4-common
+	resetProject vendor/cm
+	resetProject system/core
+        resetProject frameworks/base
+        resetProject frameworks/native
+        resetProject frameworks/av
+	resetProject packages/apps/Settings
+	resetProject packages/services/Telephony
+	resetProject packages/apps/Dialer
+	resetProject packages/apps/LockClock
+	resetProject external/wpa_supplicant_8
+	resetProject vendor/motorola
+	resetProject kernel/motorola/omap4-common
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
