@@ -995,12 +995,12 @@
     <string name="ime_switcher_notify_summary">显示输入法选择器通知</string>
 
     <!-- App ops -->
-    <string name="app_ops_summaries_wifi_change">WIFI改变</string>
-    <string name="app_ops_labels_wifi_change">Wi-Fi改变</string>
-    <string name="app_ops_summaries_bluetooth_change">蓝牙改变</string>
-    <string name="app_ops_labels_bluetooth_change">蓝牙改变</string>
-    <string name="app_ops_summaries_data_change">数据改变</string>
-    <string name="app_ops_labels_data_change">数据改变</string>
+    <string name="app_ops_summaries_wifi_change">WIFI设置改变</string>
+    <string name="app_ops_labels_wifi_change">WiFi设置改变</string>
+    <string name="app_ops_summaries_bluetooth_change">蓝牙设置改变</string>
+    <string name="app_ops_labels_bluetooth_change">蓝牙设置改变</string>
+    <string name="app_ops_summaries_data_change">数据设置改变</string>
+    <string name="app_ops_labels_data_change">数据设置改变</string>
     <string name="app_ops_summaries_alarm_wakeup">唤醒</string>
     <string name="app_ops_labels_alarm_wakeup">唤醒</string>
     <string name="app_ops_summaries_auto_start">自动启动</string>

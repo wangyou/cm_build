@@ -201,8 +201,6 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	    -i $basedir/device/motorola/edison/apns-conf.xml 
    fi
 
-#   ### jbx-kernel patch ###########
-      sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
 
    ### patch for vendor cm  ########
    sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
@@ -242,9 +240,10 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
   
   if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" ]; then
-	sed -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
-	    -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
-	    -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_OCE_defconfig
+      sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
+      sed -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
+	  -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
+	  -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_OCE_defconfig
   fi
 
   cd $basedir
