@@ -17,8 +17,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- App ops, extension of AOSP app_ops_summaries and app_ops_labels -->
     <string-array name="app_ops_summaries_cm">
-        <item>低精度位置</item>
-        <item>高精度位置</item>
+        <item>大致位置</item>
+        <item>精确位置</item>
         <item>GPS</item>
         <item>震动</item>
         <item>读取联系人</item>
@@ -59,7 +59,7 @@
         <item>蓝牙音量</item>
         <item>保持唤醒</item>
         <item>监测位置</item>
-        <item>监测高精度位置</item>
+        <item>监测精确位置</item>
         <item>@string/app_ops_summaries_wifi_change</item>
         <item>@string/app_ops_summaries_bluetooth_change</item>
         <item>@string/app_ops_summaries_data_change</item>
