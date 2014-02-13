@@ -4,6 +4,7 @@ branch=cm-11.0
 mode=""
 oldupdate=1
 releaseKernel=1
+kernelUpdate=1
 #### functions ############
 
 #newBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch> [checkout]
@@ -132,6 +133,8 @@ for op in $*;do
 	device="mb526"
    elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44" -o "$op" = "cm" ]; then
 	opKernel="$op"
+   elif [ "$op" = "-ku" ]; then
+	kernelUpdate=0
    elif [ "${op:0:1}" = "-" ]; then
 	mode="${op#-*}"
    elif [ "$op" = "old" ]; then
@@ -154,9 +157,17 @@ esac
 
 ## local_manifest.xml   ####
 if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
-   if [ _$rdir/local_manifest.xml = _`find $rdir/local_manifest.xml -newer $basedir/.repo/local_manifest.xml` ]; then
-   	cp $rdir/local_manifest.xml $basedir/.repo/
-	sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" -i $basedir/.repo/local_manifest.xml
+   if [ -f $basedir/.repo/local_manifest.xml ]; then
+	if [ -f $basedir/.repo/local_manifests/local_manifest.xml ]; then
+	    rm $basedir/.repo/local_manifest.xml
+	else
+	    mv $basedir/.repo/local_manifest.xml $basedir/.repo/local_manifests/
+        fi
+   fi
+   if [ _$rdir/local_manifest.xml = _`find $rdir/local_manifest.xml -newer $basedir/.repo/local_manifests/local_manifest.xml` ]; then
+   	cp $rdir/local_manifest.xml $basedir/.repo/local_manifests/
+	sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" \
+            -i $basedir/.repo/local_manifests/local_manifest.xml
 
    fi
 fi
@@ -233,12 +244,15 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   else
 	echo "opKernel: $opKernel" > $basedir/.lastBuild
   fi
-  sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" -i $basedir/.repo/local_manifest.xml
+  sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" \
+      -i $basedir/.repo/local_manifests/local_manifest.xml
   git branch --unset-upstream $oldBranch >/dev/null 2>/dev/null
   git branch --set-upstream-to github/$kbranch $kbranch >/dev/null 2>/dev/null	     
   addRemote cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
   addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
   
+  [ $kernelUpdate -eq 0 ] && repo sync -q .
+
   if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" ]; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
       sed -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
@@ -300,7 +314,7 @@ fi
 
 
 if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 
-   sed -s "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
+   sed -e "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
 fi
 
 ####Translation#################

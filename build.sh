@@ -90,7 +90,7 @@ fi
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
-.myfiles/patch.sh $device $mode $oldupdate $moreopt $opKernel
+.myfiles/patch.sh $device -$mode $oldupdate $moreopt $opKernel
 echo "device: $device">.lastBuild
 echo "opKernel: $opKernel">>.lastBuild
 
@@ -171,20 +171,6 @@ elif [ "$opKernel" = "cm" ]; then
 		cd $curdir
 	fi
 
-else 
-	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
-	if [ $kernelzip -eq 0 ]; then
-		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
-		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
-		[ -d out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ ] || mkdir -p out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
-		cp .myfiles/scripts/kernel_zip/* out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/
-		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel_zip/rls/system/lib/modules/
-		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
-		curdir=`pwd`
-		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
-		cd $curdir
-	fi
 fi
 
 [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
