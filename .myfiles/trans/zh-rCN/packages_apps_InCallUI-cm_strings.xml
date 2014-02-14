@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
+    
+    <string name="incall_call_type_label_forwarded">呼叫转移</string>
+    <string name="card_title_dialing_waiting">呼叫 (等待中\u2026)</string>
+    <string name="card_title_waiting_call">呼叫等待</string>
+    <string name="onscreenBlacklistText">黑名单</string>
+    <string name="blacklist_dialog_title">加入黑名单</string>
+    <string name="blacklist_dialog_message">从<ns0:g id="number">%s</ns0:g>的呼叫将被阻止</string>
+</resources>

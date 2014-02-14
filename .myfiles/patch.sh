@@ -196,7 +196,6 @@ if [ "$mode" = "r" ]; then
 	           project=`echo $fpath | sed "s:-.*::g;s:_:/:g"`
 	           [ -d $basedir/$project ] && resetProject $project
 	        done
-	       fi
 	   fi
 	done
 
@@ -331,7 +330,7 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
 fi
 
 ####Translation#################
-python scripts/mTrans.py
+python $rdir/scripts/mTrans.py -wt >/dev/null
 #translation file must name as: ####_####_###-#####.xml
 #for fl in $rdir/trans/*; do
 #   if [ -d $fl ]; then
