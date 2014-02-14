@@ -181,13 +181,25 @@ if [ "$mode" = "r" ]; then
         resetProject frameworks/base
         resetProject frameworks/native
         resetProject frameworks/av
-	resetProject packages/apps/Settings
 	resetProject packages/services/Telephony
-	resetProject packages/apps/Dialer
-	resetProject packages/apps/LockClock
 	resetProject external/wpa_supplicant_8
 	resetProject vendor/motorola
 	resetProject kernel/motorola/omap4-common
+
+	#reset that translation local
+	for fl in $rdir/trans/*; do
+	   if [ -d $fl ]; then
+	       fLang=`echo $fl|sed "s:$rdir/trans/::"`
+	       for f in $rdir/trans/$fLang/*; do
+	           fpath=`echo $f|sed "s:$rdir/trans/$fLang::"`   
+	           xml=`echo $fpath| cut -f2 -d-`
+	           project=`echo $fpath | sed "s:-.*::g;s:_:/:g"`
+	           [ -d $basedir/$project ] && resetProject $project
+	        done
+	       fi
+	   fi
+	done
+
 	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
@@ -257,6 +269,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
       sed -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
 	  -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
+	  -e "s/# CONFIG_MAPPHONE_EDISON is not set/CONFIG_MAPPHONE_EDISON=y/g" \
 	  -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_OCE_defconfig
   fi
 
@@ -318,17 +331,22 @@ if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/an
 fi
 
 ####Translation#################
-
+python scripts/mTrans.py
 #translation file must name as: ####_####_###-#####.xml
-for f in $rdir/patchs/trans/*; do
-   fpath=`echo $f|sed "s:$rdir/patchs/trans/::"`
-   xml=`echo $fpath| cut -f2 -d-`
-   project=`echo $fpath | sed "s:-.*::g;s:_:/:g"`
-   if [ -d $basedir/$project ]; then
-      [ -d $basedir/$project/res/values-zh-rCN ] || mkdir -p $basedir/$project/res/values-zh-rCN
-      cp $f $basedir/$project/res/values-zh-rCN/$xml
-   fi
-done
+#for fl in $rdir/trans/*; do
+#   if [ -d $fl ]; then
+#       fLang=`echo $fl|sed "s:$rdir/trans/::"`
+#       for f in $rdir/trans/$fLang/*; do
+#           fpath=`echo $f|sed "s:$rdir/trans/$fLang::"`   
+#           xml=`echo $fpath| cut -f2 -d-`
+#           project=`echo $fpath | sed "s:-.*::g;s:_:/:g"`
+#           if [ -d $basedir/$project ]; then
+#              [ -d $basedir/$project/res/values-$fLang ] || mkdir -p $basedir/$project/res/values-$fLang
+#              cp $f $basedir/$project/res/values-$fLang/$xml
+#        done
+#       fi
+#   fi
+#done
 
 ####some patchs###########
 
