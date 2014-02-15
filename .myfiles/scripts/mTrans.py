@@ -10,16 +10,15 @@ modWriteTrans=2
 
 rdir=os.path.dirname(os.path.abspath(sys.argv[0]))
 basedir=os.path.abspath(rdir+"/../..")
-dictdir=basedir+"/.myfiles/trans"
+dictdir=os.path.abspath(rdir+"/../trans")
 
+file_log=open(dictdir+"/log.txt","w")
 bLine=re.compile("[\r\n]*\s*[\r\n]")
-#print "argv:",sys.argv," argc:",len(sys.argv)
 mode=0
 
 #####function mTrans###########
 def mTrans(xmlfile,xmldict,output):
    baseXMLname=os.path.abspath(xmlfile).replace(basedir+"/","")
-   
    try:
         tree = ET.parse(xmlfile) 
         root = tree.getroot() 
@@ -62,8 +61,10 @@ def mTrans(xmlfile,xmldict,output):
                         child_of_root.tail=bLine.sub("\r\n",child_of_root.tail)
                         if printedHead == 0:
                                    print "\n",baseXMLname,":\n===================="
+                                   print >> file_log, "\n",baseXMLname,":\n===================="
                                    printedHead = 1
                         print  "[X] ",child_of_root.attrib['name'], child_of_root.text
+                        print >> file_log,  "[X] ",child_of_root.attrib['name'], child_of_root.text
                     else:
                         root.remove(child_of_root)
            pos+=1
@@ -94,8 +95,10 @@ def mTrans(xmlfile,xmldict,output):
                     child_of_root.tail=bLine.sub("\r\n",child_of_root.tail)
                     if printedHead == 0:
                           print "\n",baseXMLname,":\n===================="
+                          print >> file_log, "\n",baseXMLname,":\n===================="
                           printedHead = 1
                     print  "[X] ",child_of_root.attrib['name'], child_of_root.text
+                    print >> file_log, "[X] ",child_of_root.attrib['name'], child_of_root.text
                else:
                     root1.remove(child_of_root)
            pos+=1
