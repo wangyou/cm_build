@@ -104,10 +104,10 @@ addRemote()
 resetProject()
 {
 	if [ $# -lt 1 ]; then return 1; fi
-	if [ ! -d $1 ]; then return 1; fi
+	if [ ! -d $basedir/$1 ]; then return 1; fi
 #	echo "reset project: $1"
 	curdir=`pwd`
-	cd $1
+	cd $basedir/$1
 	remote=`git branch -r | grep  "\->" | sed "s/.*->//g;s/ $//g;s/^ //g;s/\/.*//g"`
 	branch=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
 	if echo $branch | grep -q "(" ; then 
@@ -191,10 +191,12 @@ if [ "$mode" = "r" ]; then
 	   if [ -d $fl ]; then
 	       fLang=`echo $fl|sed "s:$rdir/trans/::"`
 	       for f in $rdir/trans/$fLang/*; do
-	           fpath=`echo $f|sed "s:$rdir/trans/$fLang::"`   
-	           xml=`echo $fpath| cut -f2 -d-`
-	           project=`echo $fpath | sed "s:-.*::g;s:_:/:g"`
-	           [ -d $basedir/$project ] && resetProject $project
+		   if [ -f $f ]; then
+	               fpath=`echo $f|sed "s:$rdir/trans/$fLang::"`   
+	               xml=`echo $fpath| cut -f2 -d-`
+	               project=`echo $fpath | sed "s:-.*::g;s:_:/:g;s:^/::"`
+	               [ -d $basedir/$project ] && resetProject $project
+		   fi
 	        done
 	   fi
 	done
