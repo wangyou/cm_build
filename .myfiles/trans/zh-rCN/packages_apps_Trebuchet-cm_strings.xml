@@ -34,4 +34,15 @@
     <string name="google_title" translatable="false">Google</string>
     <string name="all_apps_cling_cm">自定义抽屉</string>
     <string name="all_apps_cling_summary">点击页面指示器查看更多设置</string>
+    <string name="chooser_wallpaper" translatable="false">""</string>
+    <string name="folder_cling_move_item" translatable="false">""</string>
+    <string name="group_wallpapers" translatable="false">""</string>
+    <string name="menu_add" translatable="false">""</string>
+    <string name="menu_help" translatable="false">""</string>
+    <string name="menu_manage_apps" translatable="false">""</string>
+    <string name="menu_notifications" translatable="false">""</string>
+    <string name="menu_search" translatable="false">""</string>
+    <string name="menu_settings" translatable="false">""</string>
+    <string name="menu_wallpaper" translatable="false">""</string>
+    <string name="workspace_cling_open_all_apps" translatable="false">""</string>
 </resources>
