@@ -118,7 +118,7 @@ if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; t
 fi
 if [ -d out/target/product/$device/ ]; then
   cd out/target/product/$device
-  ls -t cm-*.zip 2>/dev/null | awk '{if(NR>3){print $0}}' |xargs rm -rf 
+  ls -t cm-*.zip 2>/dev/null | awk '{if(NR>4){print $0}}' |xargs rm -rf 
   cd $TOP
 fi
 rm -f out/target/product/$device/system/build.prop
