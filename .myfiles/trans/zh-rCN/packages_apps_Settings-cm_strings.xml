@@ -738,4 +738,6 @@
     <string name="app_ops_reset_counters">重置 允许/拒绝 计数器</string>
     <string name="app_ops_reset_confirm_title">确认计数器重置</string>
     <string name="app_ops_reset_confirm_mesg">确定要重置隐私保护的计数器吗 ?</string>
+    <string name="edge_gesture_service_title">阻止手势触摸事件</string>
+    <string name="edge_gesture_service_summary">不为导航栏和状态栏手势发送触摸事件</string>
 </resources>
