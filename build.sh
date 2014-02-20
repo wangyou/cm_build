@@ -5,7 +5,7 @@ branch=cm-11.0
 ScriptName=`basename $0`
 rdir=`dirname $0`
 [ "$rdir" != "." ] && cd $rdir
-TOP=`pwd`
+basedir=`pwd`
 
 
 KERNELOPT=""
@@ -24,6 +24,8 @@ lastKernel=""
 if [ -f .lastBuild ]; then
    lastDevice=`grep device: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
    opKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+   cmKernelVersion=`grep cmKernelVersion: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+   jbxKernelVersion=`grep jbxKernelVersion: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`  
    [ -z $opKernel ] && opKernel="cm"
    lastKernel=$opKernel
 fi
@@ -36,8 +38,8 @@ for op in $*;do
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
 	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
-	rm -rf $TOP/vendor/motorola/jordan-common
-	[ -d  $TOP/vendor/moto/jordan-common ] && cp -r $TOP/vendor/moto/jordan-common $TOP/vendor/motorola/jordan-common
+	rm -rf $basedir/vendor/motorola/jordan-common
+	[ -d  $basedir/vendor/moto/jordan-common ] && cp -r $basedir/vendor/moto/jordan-common $basedir/vendor/motorola/jordan-common
    elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44" -o "$op" = "cm" ]; then
 	opKernel="$op"
    elif [ "${op:0:2}" = "-j" ]; then
@@ -97,29 +99,29 @@ echo "opKernel: $opKernel">>.lastBuild
 ######generate projects's last 5 logs########
 echo "Generating projects's last 5 logs..."
 PROJECTLIST=$rdir/.repo/project.list
-OUTLOG=$TOP/out/target/product/$device/system/etc/ChangeLog-5.log
-[ -d $TOP/out/target/product/$device/system/etc/ ] || mkdir -p $TOP/out/target/product/$device/system/etc/
+OUTLOG=$basedir/out/target/product/$device/system/etc/ChangeLog-5.log
+[ -d $basedir/out/target/product/$device/system/etc/ ] || mkdir -p $basedir/out/target/product/$device/system/etc/
 rm -f $OUTLOG
 touch $OUTLOG
 while read project
 do
-	cd $TOP/$project
+	cd $basedir/$project
 	echo $project: >>$OUTLOG
 	git log -5 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
 	echo -e "\n">>$OUTLOG
 done < $PROJECTLIST
-cd $TOP
+cd $basedir
 
 ########Delete old files#############################
 if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
   cd out/target/product/$device/obj/PACKAGING/target_files_intermediates
   ls -t  | awk '{if(NR>2){print $0}}' | xargs rm -rf 
-  cd $TOP
+  cd $basedir
 fi
 if [ -d out/target/product/$device/ ]; then
   cd out/target/product/$device
   ls -t cm-*.zip 2>/dev/null | awk '{if(NR>4){print $0}}' |xargs rm -rf 
-  cd $TOP
+  cd $basedir
 fi
 rm -f out/target/product/$device/system/build.prop
 [ _"$opKernel" != _"$lastKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ
@@ -139,9 +141,10 @@ case "$opKernel" in
 esac
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
+         [ ! -z $jbxKernelVersion ] &&  echo $jbxKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
 	LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
   		        TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
-
+        jbxKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
 		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
@@ -156,7 +159,9 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x" ] && [ "
 	fi
 
 elif [ "$opKernel" = "cm" ]; then
+        [ ! -z $cmKernelVersion ] && echo $cmKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
 	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
+        cmKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
 
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
@@ -175,6 +180,8 @@ fi
 
 [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
 
+[ ! -z $cmKernelVersion ] && echo "cmKernelVersion: $cmKernelVersion">>.lastBuild
+[ ! -z $jbxKernelVersion ] && echo "jbxKernelVersion: $jbxKernelVersion">>.lastBuild
 
 rm -f out/target/product/$device/cm_$device-ota-*.zip
 rm -f out/target/product/$device/cm-*.zip.md5sum
