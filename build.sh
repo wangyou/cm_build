@@ -124,7 +124,8 @@ if [ -d out/target/product/$device/ ]; then
   cd $basedir
 fi
 rm -f out/target/product/$device/system/build.prop
-[ _"$opKernel" != _"$lastKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ
+[ _"$opKernel" != _"$lastKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
+[ -d $basedir/out/target/product/edison/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/edison/obj/KERNEL_OBJ
 
 #############lunch######################
 lunch cm_$device-userdebug 
