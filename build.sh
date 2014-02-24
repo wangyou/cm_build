@@ -40,7 +40,7 @@ for op in $*;do
 	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
 	rm -rf $basedir/vendor/motorola/jordan-common
 	[ -d  $basedir/vendor/moto/jordan-common ] && cp -r $basedir/vendor/moto/jordan-common $basedir/vendor/motorola/jordan-common
-   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44" -o "$op" = "cm" ]; then
+   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "j3072" -o "$op" = "cm" ]; then
 	opKernel="$op"
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
@@ -137,11 +137,12 @@ export CM_EXTRAVERSION=NX111
 case "$opKernel" in
       "j44" ) 
 		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX44;;
-      "jbx" | "j30x" )
+      "jbx" | "j30x" | "j3072" )
 		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX;;
 esac
 
-if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x" ] && [ "$device" = "edison" -o "$device" = "spyder" ]; then
+if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$opKernel" = "j3072" ] \
+   && [ "$device" = "edison" -o "$device" = "spyder" ]; then
          [ ! -z $jbxKernelVersion ] &&  echo $jbxKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
 	LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
   		        TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  

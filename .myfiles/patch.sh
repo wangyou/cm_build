@@ -131,7 +131,7 @@ for op in $*;do
 	device="edison"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
-   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44" -o "$op" = "cm" ]; then
+   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "j3072" -o "$op" = "cm" ]; then
 	opKernel="$op"
    elif [ "$op" = "-ku" ]; then
 	kernelUpdate=0
@@ -152,6 +152,7 @@ basedir=`dirname $rdir`
 case "$opKernel" in
       "j44" ) kbranch=JBX_4.4;;
       "jbx"|"j30x")kbranch=JBX_30X;;
+      "j3072" )kbranch=JBX_3072;;
       *)kbranch=$branch;;
 esac
 
@@ -238,7 +239,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	cd $rdir
    fi
    
-  if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" ]; then
+  if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44"  -o "$op" = "j3072" ]; then
   	if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         	cd $basedir/device/motorola/omap4-common
