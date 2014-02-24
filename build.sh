@@ -1,6 +1,8 @@
 reset
 compile_user=NX111
 branch=cm-11.0
+KernelBranches=("cm-11.0" "JBX_4.4" "JBX_30X" "JBX_3072")
+KernelOpts=("cm" "j44" "j30x" "j3072")
 
 ScriptName=`basename $0`
 rdir=`dirname $0`
@@ -31,10 +33,8 @@ if [ -f .lastBuild ]; then
 fi
 
 for op in $*;do
-   if [ "$op" = "spyder" ]; then
+   if [ "$op" = "spyder" -o "$op" = "edison" ]; then
 	device="$op"
-   elif [ "$op" = "edison" ]; then
-	device="edison"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
 	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
@@ -50,7 +50,7 @@ for op in $*;do
 	keepPatch=0
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
-   elif [ "${op:0:1}" = "-" ]; then
+   elif [ "$op" = "-cleanall" -o "$op" = "-init" -o "$op" = "-sync"  ]; then
 	mode="${op#-*}"
    elif [ "${op:0:4}" = "mod=" ]; then
 	mod="${op#mod=*}"
@@ -77,14 +77,25 @@ if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 fi
 
 if [ "$mode" = "sync" ]; then
+    if [ -d  kernel/motorola/omap4-common ]; then
+        cd kernel/motorola/omap4-common
+        kbranch=`git branch | grep "\*" |cut -f2 -d" "`
+        sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" \
+            -i $basedir/.repo/local_manifests/local_manifest.xml
+        cd $basedir
+    fi
     while true 
     do 
 	if repo sync; then
+		for kop in ${KernelOpts[@]}; do 
+			.myfiles/patch.sh $device -kbranch  $kop -kuo
+ 		done
 		echo "sync successed!"
 		break
 		exit
 	fi
     done
+    exit
 fi
 
 . build/envsetup.sh

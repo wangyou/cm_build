@@ -4,7 +4,7 @@ branch=cm-11.0
 mode=""
 oldupdate=1
 releaseKernel=1
-kernelUpdate=1
+kernelUpdate=0
 #### functions ############
 
 #newBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch> [checkout]
@@ -45,7 +45,9 @@ addBranch()
 	
 	if ! git branch | grep -wq "$2"; then
 		echo "Create branch $2..."
-		git checkout $2
+		git checkout --orphan $2
+		git rm -rf . >/dev/null
+                git pull github $2
 	fi
 	
  	if [ _$3 = _checkout ]; then
@@ -125,17 +127,17 @@ resetProject()
 
 ### parse params #########
 for op in $*;do 
-   if [ "$op" = "spyder" ]; then
+   if [ "$op" = "spyder" -o "$op" = "edison" ]; then
    	device="$op"
-   elif [ "$op" = "edison" ]; then
-	device="edison"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
    elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "j3072" -o "$op" = "cm" ]; then
 	opKernel="$op"
    elif [ "$op" = "-ku" ]; then
-	kernelUpdate=0
-   elif [ "${op:0:1}" = "-" ]; then
+	kernelUpdate=1
+   elif [ "$op" = "-kuo" ]; then
+	kernelUpdate=2
+   elif [ "$op" = "-r" -o "$op" = "-kbranch" ]; then
 	mode="${op#-*}"
    elif [ "$op" = "old" ]; then
 	oldupdate=1
@@ -147,12 +149,12 @@ cdir=`pwd`
 rdir=`cd \`dirname $0\`;pwd`
 
 basedir=`dirname $rdir`
-[ -s $basedir/.device ] && lastDevice=`cat $basedir/.device`
+[ -s $basedir/.lastBuild ] && lastDevice=`grep device: $basedir/.lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
 
 case "$opKernel" in
       "j44" ) kbranch=JBX_4.4;;
-      "jbx"|"j30x")kbranch=JBX_30X;;
-      "j3072" )kbranch=JBX_3072;;
+      "j30x")kbranch=JBX_30X;;
+      "jbx"|"j3072" )kbranch=JBX_3072;;
       *)kbranch=$branch;;
 esac
 
@@ -215,7 +217,8 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
     cd $basedir/hardware/ril;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
     cd $basedir/bootable/recovery;		[ _`git branch | grep "\*" |cut -f2 -d" "` = _twrp2.7 ] && git checkout $branch;
 
-
+### if not kernel branch switch start ####
+ if [ "$mode" != "kbranch" ]; then
    ### patch for apns-conf #########
    if [ -f $basedir/device/motorola/edison/apns-conf.xml ]; then
 	sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" \
@@ -246,14 +249,18 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
         	patch -N -p1 < $rdir/patchs/device_omap4-common.diff
         	cd $rdir
   	fi
-
   fi
+
+ fi
+### if not kernel branch switch end ####
+
+
   echo "Use $opKernel $kbranch kernel ..."
   cd $basedir/kernel/motorola/omap4-common
   oldBranch=`git branch | grep "\*" |cut -f2 -d" "`
   addBranch $basedir/kernel/motorola/omap4-common $kbranch
   checkoutBranch $basedir/kernel/motorola/omap4-common $kbranch
-  if [ -f $basedir/.lastBuild ]; then
+  if [ -f $basedir/.lastBuild ] && [ "$mode" != "kbranch" ]; then
 	sed -e "s/opKernel:.*/opKernel: $opKernel/" -i $basedir/.lastBuild
   else
 	echo "opKernel: $opKernel" > $basedir/.lastBuild
@@ -265,9 +272,18 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   addRemote cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
   addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
   
-  [ $kernelUpdate -eq 0 ] && repo sync -q .
+  if [ $kernelUpdate -eq 1 ]; then
+      repo sync  .
+  elif [ $kernelUpdate -eq 2 ] ; then
+     repo sync  .
+     if [ $opKernel = "cm" ]; then
+	git pull cm $kbranch
+     elif echo $kbranch | grep -q JBX ; then
+	git pull jbx $kbranch
+     fi
+  fi
 
-  if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" ]; then
+  if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" -o "$op" = "j3072" ] && [ "$mode" != "kbranch" ] ; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
       sed -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
 	  -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
@@ -313,6 +329,8 @@ elif [ "$device" = "mb526" ]; then
 	cd $rdir
   fi
 fi
+
+[ "$mode" = "kbranch" ] && exit
 
 #### LOG for KERNEL ##########
 sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/system/core/include/cutils/klog.h
