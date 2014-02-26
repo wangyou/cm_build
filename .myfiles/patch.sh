@@ -153,8 +153,8 @@ basedir=`dirname $rdir`
 
 case "$opKernel" in
       "j44" ) kbranch=JBX_4.4;;
-      "j30x")kbranch=JBX_30X;;
-      "jbx"|"j3072" )kbranch=JBX_3072;;
+      "jbx"|"j30x")kbranch=JBX_30X;;
+      "j3072" )kbranch=JBX_3072;;
       *)kbranch=$branch;;
 esac
 
