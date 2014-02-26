@@ -50,6 +50,8 @@ for op in $*;do
 	keepPatch=0
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
+   elif [  "$op" = "-cleanall" -o "$op" = "-init" -o "$op" = "sync"  ]; then
+        mode=$op
    elif [ "$op" = "-cleanall" -o "$op" = "-init" -o "$op" = "-sync"  ]; then
 	mode="${op#-*}"
    elif [ "${op:0:4}" = "mod=" ]; then
