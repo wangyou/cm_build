@@ -385,3 +385,5 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 	patch -N -p1 < $rdir/patchs/batteryProperties.diff
 	cd $rdir
    fi
+
+   sed -e "/OMX_FreeBuffer for buffer header %p successful/d" -i $basedir/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
