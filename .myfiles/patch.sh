@@ -346,27 +346,12 @@ if [ $oldupdate -eq 1 ]; then
 fi
 
 
-if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 
-   sed -e "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
-fi
+#if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 
+#   sed -e "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
+#fi
 
 ####Translation#################
 python $rdir/scripts/mTrans.py -wt >/dev/null
-#translation file must name as: ####_####_###-#####.xml
-#for fl in $rdir/trans/*; do
-#   if [ -d $fl ]; then
-#       fLang=`echo $fl|sed "s:$rdir/trans/::"`
-#       for f in $rdir/trans/$fLang/*; do
-#           fpath=`echo $f|sed "s:$rdir/trans/$fLang::"`   
-#           xml=`echo $fpath| cut -f2 -d-`
-#           project=`echo $fpath | sed "s:-.*::g;s:_:/:g"`
-#           if [ -d $basedir/$project ]; then
-#              [ -d $basedir/$project/res/values-$fLang ] || mkdir -p $basedir/$project/res/values-$fLang
-#              cp $f $basedir/$project/res/values-$fLang/$xml
-#        done
-#       fi
-#   fi
-#done
 
 ####some patchs###########
 
