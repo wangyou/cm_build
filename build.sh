@@ -156,9 +156,12 @@ esac
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$opKernel" = "j3072" ] \
    && [ "$device" = "edison" -o "$device" = "spyder" ]; then
+	[ "$device" = "edison" ] && kernel_config=mapphone_OCEdison_defconfig
+	[ "$device" = "spyder" ] && kernel_config=mapphone_OCE_defconfig
+
          [ ! -z $jbxKernelVersion ] &&  echo $jbxKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
 	LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
-  		        TARGET_KERNEL_CONFIG=mapphone_OCE_defconfig  
+  		        TARGET_KERNEL_CONFIG=${kernel_config}  
         jbxKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/

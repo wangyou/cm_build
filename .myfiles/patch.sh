@@ -285,10 +285,14 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 
   if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" -o "$op" = "j3072" ] && [ "$mode" != "kbranch" ] ; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
-      sed -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
-	  -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
+
+     [ "$device" = "edison" ] && kernel_config=mapphone_OCEdison_defconfig
+     [ "$device" = "spyder" ] && kernel_config=mapphone_OCE_defconfig
+     [ -f $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} ] &&\
+      sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
 	  -e "s/# CONFIG_MAPPHONE_EDISON is not set/CONFIG_MAPPHONE_EDISON=y/g" \
-	  -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_OCE_defconfig
+	  -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
+	  -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" 
   fi
 
   cd $basedir
@@ -345,10 +349,6 @@ if [ $oldupdate -eq 1 ]; then
 	sed -e "/use_set_metadata=1/d" -i $basedir/build/core/Makefile
 fi
 
-
-#if grep -q "^#CONFIG_IEEE80211R=y" $basedir/external/wpa_supplicant_8/hostapd/android.config; then 
-#   sed -e "s/^#\(CONFIG_IEEE80211R=y\)/\1/g" -i $basedir/external/wpa_supplicant_8/hostapd/android.config
-#fi
 
 ####Translation#################
 python $rdir/scripts/mTrans.py -wt >/dev/null
