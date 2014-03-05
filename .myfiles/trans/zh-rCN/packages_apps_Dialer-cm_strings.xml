@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
     <string name="call_log_stats_title">统计</string>
-    <string name="callStatsDetailTitle">通话统计详情</string>
+    <string name="callStatsDetailTitle">Call stat details</string>
     <string name="call_stats">通话统计</string>
     <string name="call_stats_refresh">刷新</string>
     <string name="activity_title_call_stats">通话统计</string>
@@ -32,4 +32,20 @@
     <string name="call_stats_sort_by_count">以通话次数排序</string>
     <string name="menu_add_to_blacklist">添加到黑名单</string>
     <string name="toast_added_to_blacklist">%s 已添加到黑名单。</string>
+<string name="call_log_activity_title_font_family">sans-serif-light</string>
+    <string name="show_all_contacts_title_font_family">sans-serif-light</string>
+    <string name="dialpad_star_number">*</string>
+    <string name="dialpad_pound_number">#</string>
+    <string name="dialpad_0_letters">+</string>
+    <string name="dialpad_2_letters">ABC</string>
+    <string name="dialpad_3_letters">DEF</string>
+    <string name="dialpad_4_letters">GHI</string>
+    <string name="dialpad_5_letters">JKL</string>
+    <string name="dialpad_6_letters">MNO</string>
+    <string name="dialpad_7_letters">PQRS</string>
+    <string name="dialpad_8_letters">TUV</string>
+    <string name="dialpad_9_letters">WXYZ</string>
+    <string name="dialpad_pound_letters" />
+    <string name="dial_conference">电话会议</string>
+    <string name="to_hint">1111:to;sip:abby@example.com:bcc;sip:bill@example.com:cc;</string>
 </resources>

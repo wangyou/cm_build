@@ -2,9 +2,40 @@
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
     
     <string name="incall_call_type_label_forwarded">呼叫转移</string>
-    <string name="card_title_dialing_waiting">呼叫 (等待中\u2026)</string>
+    <string name="card_title_dialing_waiting">Dialing (waiting\u2026)</string>
     <string name="card_title_waiting_call">呼叫等待</string>
     <string name="onscreenBlacklistText">黑名单</string>
     <string name="blacklist_dialog_title">加入黑名单</string>
     <string name="blacklist_dialog_message">从<ns0:g id="number">%s</ns0:g>的呼叫将被阻止</string>
+    <string name="inCallLabel" translate="false">InCallUI</string>
+    <string name="callFailed_dialToUssd">DIAL request modified to USSD request.</string>
+    <string name="callFailed_dialToSs">DIAL request modified to SS request.</string>
+    <string name="callFailed_dialToDial">DIAL request modified to DIAL with different number.</string>
+    <string name="modify_call_prompt_yes">Yes</string>
+    <string name="modify_call_prompt_no">No</string>
+    <string name="modify_call_failure_str">Modify Call request failed\n</string>
+    <string name="modify_call_option_title">Which type of call?</string>
+    <string name="modify_call_option_vt">VT</string>
+    <string name="modify_call_option_vt_tx">Video transmit</string>
+    <string name="modify_call_option_vt_rx">Video receive</string>
+    <string name="modify_call_option_voice">Voice Only</string>
+    <string name="accept_modify_call_request_prompt">Accept modify call request?</string>
+    <string name="upgrade_vt_prompt">Would you like to upgrade the call to video call?</string>
+    <string name="upgrade_vt_tx_prompt">Would you like to upgrade the call to video transmit only call?</string>
+    <string name="upgrade_vt_rx_prompt">Would you like to upgrade the call to video receive only call?</string>
+    <string name="vt_init_fail_str">VT initialization failed. Downgrading call to VoLTE\n</string>
+    <string name="stk_cc_ss_to_dial_error">SS request modified to DIAL request.</string>
+    <string name="stk_cc_ss_to_ussd_error">SS request modified to USSD request.</string>
+    <string name="stk_cc_ss_to_ss_error">SS request modified to new SS request.</string>
+    <string name="onscreenModifyCallText">修改拨号</string>
+    <string name="onscreenAddParticipant">Add Participant</string>
+    <string name="description_target_answer_video">视频回答</string>
+    <string name="description_target_answer_tx_video">TX视频回答</string>
+    <string name="description_target_answer_rx_video">RX视频回答</string>
+    <string name="description_direction_up_right">Up Right</string>
+    <string name="description_direction_up_left">Up Left</string>
+    <string name="description_direction_down_left">Down Left</string>
+    <string name="description_direction_down_right">Down Right</string>
+    <string name="sub_1">SIM 1</string>
+    <string name="sub_2">SIM 2</string>
 </resources>

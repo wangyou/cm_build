@@ -2,7 +2,7 @@
 <resources>
     
     <string name="pref_camera_picturesize_entry_20_7mp">20.7M 像素</string>
-    <string name="pref_camera_picturesize_entry_18mp">18M 像素</string>
+    <string name="pref_camera_picturesize_entry_18mp">18M pixels</string>
     <string name="pref_camera_picturesize_entry_12_8mp">12.8M 像素</string>
     <string name="pref_camera_picturesize_entry_12_7mp">12.7M 像素</string>
     <string name="pref_camera_picturesize_entry_11_5mp">11.5M 像素</string>
@@ -81,7 +81,6 @@
     <string name="pref_camera_coloreffect_entry_point_red_yellow">红黄点</string>
     <string name="pref_camera_coloreffect_entry_cartoonize">卡通</string>
     <string name="pref_camera_burst_title">连拍模式</string>
-    <string name="pref_camera_burst_default" translatable="false">1</string>
     <string name="pref_camera_burst_entry_off">关闭</string>
     <string name="pref_camera_burst_entry_5">5 连拍</string>
     <string name="pref_camera_burst_entry_10">10 连拍</string>
@@ -89,7 +88,6 @@
     <string name="pref_camera_burst_entry_20">20 连拍</string>
     <string name="pref_camera_focustime_title">触摸聚焦</string>
     <string name="pref_camera_focustime_summary">选择触摸聚焦的时间</string>
-    <string name="pref_camera_focustime_default" translatable="false">5000</string>
     <string name="pref_camera_focustime_entry_5">5秒</string>
     <string name="pref_camera_focustime_entry_10">10秒</string>
     <string name="pref_camera_focustime_entry_15">15秒</string>
@@ -99,9 +97,7 @@
     <string name="pref_camera_flashmode_entry_redeye">红眼</string>
     <string name="pref_camera_flashmode_label_redeye">红眼</string>
     <string name="pref_camera_beauty_mode_title">美化模式</string>
-    <string name="pref_camera_beauty_mode_default" translatable="false">关闭</string>
     <string name="pref_camera_slow_shutter_title">慢速快门</string>
-    <string name="pref_camera_slow_shutter_default" translatable="false">关闭慢速快门</string>
     <string name="pref_camera_slow_shutter_entry_off">取消</string>
     <string name="pref_camera_slow_shutter_entry_auto">自动</string>
     <string name="pref_camera_slow_shutter_entry_half_second">1/2 秒</string>
@@ -110,7 +106,6 @@
     <string name="pref_camera_slow_shutter_entry_4s">4 秒</string>
     <string name="pref_camera_slow_shutter_entry_8s">8 秒</string>
     <string name="pref_camera_storage_title">Storage</string>
-    <string name="pref_camera_asd_default" translatable="false">@string/setting_off_value</string>
     <string name="camera_menu_enhance_label">增强</string>
     <string name="camera_menu_slow_shutter_label">慢速快门</string>
     <string name="camera_menu_beauty_mode_label">美化</string>
@@ -118,5 +113,8 @@
     <string name="camera_menu_effects_label">效果</string>
     <string name="camera_menu_asd_label">智能场景</string>
 <string name="pref_camera_power_shutter_title">Power键快门</string>
-    <string name="pref_camera_power_shutter_default" translatable="false">关闭</string>
-</resources>
+    <string name="pref_camera_timer_sound_default">@string/setting_on_value</string>
+    <string name="pref_camera_picturesize_entry_12mp">12M pixels</string>
+    <string name="pref_camera_hdr_default">@string/setting_off_value</string>
+    <string name="pref_camera_hdr_plus_default">@string/setting_off_value</string>
+    </resources>

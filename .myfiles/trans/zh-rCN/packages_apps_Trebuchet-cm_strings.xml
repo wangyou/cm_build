@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
     
-    <string name="cm_application_name" translatable="false">Trebuchet</string>
-    <string name="application_copyright" translatable="false">Copyright \u00A9 2014 The CyanogenMod Project</string>
-    <string name="application_version" translatable="false">1.0</string>
+    <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
     <string name="sort_button_text">排序</string>
     <string name="filter_button_text">过滤</string>
     <string name="default_screen_button_text">默认屏幕</string>
@@ -31,18 +29,8 @@
     <string name="default_iconpack_title">默认图标集</string>
     <string name="icon_packs_title">图标集</string>
     <string name="no_iconpacks_summary">没有安装图标集</string>
-    <string name="google_title" translatable="false">Google</string>
     <string name="all_apps_cling_cm">自定义抽屉</string>
     <string name="all_apps_cling_summary">点击页面指示器查看更多设置</string>
-    <string name="chooser_wallpaper" translatable="false">""</string>
-    <string name="folder_cling_move_item" translatable="false">""</string>
-    <string name="group_wallpapers" translatable="false">""</string>
-    <string name="menu_add" translatable="false">""</string>
-    <string name="menu_help" translatable="false">""</string>
-    <string name="menu_manage_apps" translatable="false">""</string>
-    <string name="menu_notifications" translatable="false">""</string>
-    <string name="menu_search" translatable="false">""</string>
-    <string name="menu_settings" translatable="false">""</string>
-    <string name="menu_wallpaper" translatable="false">""</string>
-    <string name="workspace_cling_open_all_apps" translatable="false">""</string>
-</resources>
+    <string name="dummy_custom_cling_error_message">Error: custom workspace layout passed in but custom cling was not overwritten</string>
+    <string name="debug_memory_activity">* HPROF</string>
+    </resources>

@@ -2,7 +2,7 @@
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
     
     <string name="wifi_setting_countrycode_title">WIFI地区代码</string>
-    <string name="wifi_setting_countrycode_summary">指定WIFI地区代码</string>
+    <string name="wifi_setting_countrycode_summary">Specify the region code for Wi-Fi</string>
     <string name="wifi_setting_countrycode_error">设置地区代码出现问题.</string>
     <string name="wifi_setting_priority_title">WIFI优先级</string>
     <string name="wifi_setting_priority_summary">指定WIFI网络的优先级别</string>
@@ -75,7 +75,6 @@
     <string name="choose_soundtone">选择提示声音</string>
     <string name="choose_ringtone">选择铃声</string>
     <string name="soundtone_title">提示声音</string>
-    <string name="soundtone_summary" translatable="false">""</string>
     <string name="profile_appgroups_title">应用组</string>
     <string name="profile_applist_title">应用</string>
     <string name="profile_new_appgroup">新建应用组</string>
@@ -127,7 +126,6 @@
     <string name="icon_picker_pack_title">图标包</string>
     <string name="display_lights_settings_title">显示 &amp; 指示灯</string>
     <string name="lights_category_title">指示灯</string>
-    <string name="notification_pulse_title">通知指示灯</string>
     <string name="notification_light_general_title">常规</string>
     <string name="notification_light_applist_title">应用</string>
     <string name="notification_light_phonelist_title">电话</string>
@@ -168,10 +166,6 @@
     <string name="battery_light_low_color_title">电量低</string>
     <string name="battery_light_medium_color_title">正在充电</string>
     <string name="battery_light_full_color_title">已充满</string>
-    <string name="lock_pattern_size_3">3x3</string>
-    <string name="lock_pattern_size_4">4x4</string>
-    <string name="lock_pattern_size_5">5x5</string>
-    <string name="lock_pattern_size_6">6x6</string>
     <string name="lockpattern_settings_enable_error_path_title">显示图案错误</string>
     <string name="lockpattern_settings_enable_dots_title">显示图案点</string>
     <string name="screen_security_category">屏幕安全性</string>
@@ -275,7 +269,6 @@
     <string name="auto_brightness_dialog_title">自动亮度级别</string>
     <string name="auto_brightness_level_format"><ns0:g id="level">%1$d</ns0:g> lux</string>
     <string name="auto_brightness_last_level_format"><ns0:g id="level">%1$d</ns0:g> -\n\u221e lux</string>
-    <string name="auto_brightness_brightness_format" translatable="false"><ns0:g id="percent">%s</ns0:g>%%</string>
     <string name="auto_brightness_adjust_button">调整</string>
     <string name="auto_brightness_close_button">关闭</string>
     <string name="auto_brightness_reset_button">重置</string>
@@ -362,7 +355,6 @@
     <string name="mod_version">CyanogenMod 版本</string>
     <string name="mod_version_default">未知</string>
     <string name="build_date">编译日期</string>
-    <string name="build_date_default" translatable="false">2012-01-01-0000</string>
     <string name="cpu_info">处理器</string>
     <string name="mem_info">内存</string>
     <string name="anonymous_statistics_title">CyanogenMod 统计</string>
@@ -373,7 +365,6 @@
 如您想看一个作为被提交数据的实例，请点击预览数据。</string>
     <string name="enable_reporting_title">开启报告</string>
     <string name="preview_data_title">预览数据</string>
-    <string name="preview_data_summary" translatable="false">%s</string>
     <string name="view_stats_title">查看统计</string>
     <string name="anonymous_learn_more">查看更多</string>
     <string name="anonymous_notification_desc">开启或关闭CyanogenMod统计</string>
@@ -392,16 +383,11 @@
     <string name="processor_title">处理器</string>
     <string name="cpu_cur_freq_title">当前 CPU 频率</string>
     <string name="cpu_governors_title">CPU 调节器</string>
-    <string name="cpu_governors_summary" translatable="false">%S</string>
     <string name="cpu_min_freq_title">最低 CPU 频率</string>
-    <string name="cpu_min_freq_summary" translatable="false">%s</string>
     <string name="cpu_max_freq_title">最高 CPU 频率</string>
-    <string name="cpu_max_freq_summary" translatable="false">%s</string>
     <string name="io_scheds_title">I/O 调度器</string>
     <string name="io_sched_title">I/O 调度器</string>
-    <string name="io_sched_summary" translatable="false">%S</string>
     <string name="perf_profile_title">配置</string>
-    <string name="perf_profile_summary" translatable="false">%s</string>
     <string name="memory_management_title">内存管理</string>
     <string name="pref_ksm_title">KSM</string>
     <string name="pref_ksm_summary">KSM 降低系统对内存的要求并提高性能</string>
@@ -741,4 +727,60 @@
     <string name="app_ops_reset_confirm_mesg">确定要重置隐私保护的计数器吗 ?</string>
     <string name="edge_gesture_service_title">阻止手势触摸事件</string>
     <string name="edge_gesture_service_summary">不为导航栏和状态栏手势发送触摸事件</string>
-</resources>
+<string name="debug_intent_sender_label">Debug intent sender</string>
+    <string name="bluetooth_enter_pin_msg_hs">\nType PIN to pair with \u0022<ns0:g id="device_name">%1$s</ns0:g>\u0022. [High Security Enabled: Needs 16 character key] </string>
+    <string name="bluetooth_profile_sap">SIM Access</string>
+    <string name="bluetooth_profile_dun">Dial-up Network Access</string>
+    <string name="bluetooth_sap_profile_summary_connected">Connected to SIM Access Server</string>
+    <string name="bluetooth_dun_profile_summary_connected">Connected to DUN Server</string>
+    <string name="bluetooth_sap_profile_summary_use_for">Use for SIM Access</string>
+    <string name="bluetooth_dun_profile_summary_use_for">Use for Dial-up Network Access</string>
+    <string name="wifi_disabled_association_rejected">Association rejected</string>
+    <string name="wifi_security_short_wep">WEP</string>
+    <string name="wifi_security_short_wpa">WPA</string>
+    <string name="wifi_security_short_wpa2">WPA2</string>
+    <string name="wifi_security_short_wpa_wpa2">WPA/WPA2</string>
+    <string name="wifi_security_short_psk_generic">@string/wifi_security_short_wpa_wpa2</string>
+    <string name="wifi_security_short_eap">802.1x</string>
+    <string name="wifi_security_wep">WEP</string>
+    <string name="wifi_security_wpa">WPA PSK</string>
+    <string name="wifi_security_wpa2">WPA2 PSK</string>
+    <string name="wifi_security_wpa_wpa2">WPA/WPA2 PSK</string>
+    <string name="wifi_security_psk_generic">@string/wifi_security_wpa_wpa2</string>
+    <string name="wifi_security_eap">802.1x EAP</string>
+    <string name="device_additional_status_summary">Phone number, signal, IMEI, etc.</string>
+    <string name="device_additional_status">Additional status info</string>
+    <string name="status_imei">IMEI</string>
+    <string name="status_imei_sv">IMEI SV</string>
+    <string name="testing_sim_toolkit">SIM toolkit</string>
+    <string name="battery_stats_last_duration">@string/menu_stats_last_unplugged</string>
+    <string name="data_usage_tab_slot">SIM </string>
+    <string name="sel_sub_title">Configure Subscriptions </string>
+    <string name="sel_sub_summary">Select the Subscription SUB1, SUB2, etc..</string>
+    <string name="select_subscription">Select Subscription</string>
+    <string name="no_sim_info">SIM card info not available.\nMenu cannot be accessed</string>
+    <string name="subs_settings">SUBS Status</string>
+    <string name="multi_sim_settings_title">Multi Sim Settings</string>
+    <string name="multi_sim_settings_summary">Set up Multi Sim Settings for Voice, Data and SMS</string>
+    <string name="voice_title">Voice/USSD/MMI</string>
+    <string name="voice_summary">Select Subscription for Voice Call</string>
+    <string name="data_title">Data Call</string>
+    <string name="data_summary">Select Subscription for Data Call</string>
+    <string name="sms_title">SMS </string>
+    <string name="sms_summary">Select the Subscription for Sending SMS</string>
+    <string name="set_data_subscription_progress">Set data subscription in progress</string>
+    <string name="set_dds_success">Set data subscription success</string>
+    <string name="set_dds_failed">Error in set data subscription.  Clean up any existing data connection and try again.</string>
+    <string name="set_dds_error">Error in set data subscription.</string>
+    <string name="set_sms_error">Error in set sms subscription. Subscription not active.</string>
+    <string name="set_voice_error">Error in set voice subscription. Subscription not active.</string>
+    <string name="set_priority_sub_error">Error in set priority subscription. Subscription not active.</string>
+    <string name="prompt">Prompt</string>
+    <string name="prompt_user">Prompt User</string>
+    <string name="tune_away_title">Tune Away</string>
+    <string name="tune_away_Default">Disable</string>
+    <string name="tune_away_enabled">TuneAway Enabled!</string>
+    <string name="tune_away_disabled">TuneAway Disabled!</string>
+    <string name="priority_sub_title">Priority Subscription</string>
+    <string name="priority_sub_summary">Select Priority Subscription</string>
+    </resources>

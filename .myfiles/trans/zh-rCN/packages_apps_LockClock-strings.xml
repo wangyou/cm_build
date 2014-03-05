@@ -1,17 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
     
-    <string name="app_name" translatable="false">cLock</string>
     <string name="unknown">未知</string>
-    <string name="cancel">取消</string>
+    <string name="cancel">Cancel</string>
     <string name="loading_indicator">小部件加载中\u2026</string>
     <string name="menu_done">完成</string>
-    <string name="widget_12_hours_format_h" translatable="false">h</string>
-    <string name="widget_12_hours_format_no_ampm_m" translatable="false">:mm</string>
-    <string name="widget_12_hours_format_m" translatable="false">:mm<font size="15">aa</font></string>
-    <string name="widget_24_hours_format_h" translatable="false">kk</string>
-    <string name="widget_24_hours_format_h_api_16" translatable="false">HH</string>
-    <string name="widget_24_hours_format_m" translatable="false">:mm</string>
     <string name="weather_0">龙卷风</string>
     <string name="weather_1">热带风暴</string>
     <string name="weather_2">飓风</string>
@@ -60,8 +53,7 @@
     <string name="weather_45">雷阵雨</string>
     <string name="weather_46">阵雪</string>
     <string name="weather_47">局部雷阵雨</string>
-    <string name="weather_3200" />
-    <string name="weather_kph">公里/小时</string>
+    <string name="weather_kph">kph</string>
     <string name="weather_mph">英里/小时</string>
     <string name="weather_N">北</string>
     <string name="weather_NE">东北</string>
@@ -99,8 +91,7 @@
     <string name="weather_enable">显示天气</string>
     <string name="weather_source_title">天气来源</string>
     <string name="weather_source_yahoo">雅虎天气</string>
-    <string name="weather_source_openweathermap" translatable="false">OpenWeatherMap</string>
-    <string name="weather_use_custom_location">使用自定义的位置</string>
+    <string name="weather_use_custom_location">Use custom location</string>
     <string name="weather_geolocated">使用网络定位</string>
     <string name="weather_custom_location_dialog_title">输入位置</string>
     <string name="weather_custom_location_hint">城市，省份/国家</string>
@@ -165,7 +156,5 @@
     <string name="weather_icon_set_title">图标集</string>
     <string name="weather_icons_standard">彩色</string>
     <string name="weather_icons_monochrome">单色</string>
-    <string name="weather_icons_vclouds" translatable="false">VClouds</string>
-    <string name="icon_set_selection_get_more">获取更多\u2026</string>
-<string name="icon_set_store_filter" translatable="false">Chronus Weather Icons</string>
-</resources>
+    <string name="icon_set_selection_get_more">更多\u2026</string>
+    </resources>
