@@ -295,6 +295,13 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
 	  -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" 
   fi
 
+  #some patch for jbx kernel
+  if  grep -q "^#if defined(CONFIG_MAPPHONE_EDISON) || defined(CONFIG_MAPPHONE_TARGA)" \
+            $basedir/kernel/motorola/omap4-common/arch/arm/mach-omap2/sr_device.c; then
+      patch -p1 -N < $rdir/patchs/kernel/jbx-kernel_sr-device.diff
+  fi
+
+
   cd $basedir
   echo "Process kernel ended."
 
