@@ -42,12 +42,12 @@ def mTrans(xmlfile,xmldict,output):
         tree2 = ET.parse(xmlout)
         root2 = tree2.getroot() 
    except:
-        print
+        pass
 
    xmlname=os.path.basename(xmlfile)
    if xmlname[0:3] == "cm_" :
         bbxml=xmlname.replace("cm_","")
-         if os.path.exists(os.path.dirname(xmlfile)+"/"+bbxml):
+        if os.path.exists(os.path.dirname(xmlfile)+"/"+bbxml):
             tree0=ET.parse(os.path.dirname(xmlfile)+"/"+bbxml)
             root0=tree0.getroot()
             for item in root0:
@@ -57,24 +57,33 @@ def mTrans(xmlfile,xmldict,output):
                         root.append(item)
                 except:
                     pass
-
         if os.path.exists(os.path.dirname(xmlout)+"/"+bbxml):
             tree3=ET.parse(os.path.dirname(xmlout)+"/"+bbxml)
             root3=tree3.getroot()
-            if root2 is None:
-                root2=root3
-            else:
-                for item in root3:
-                    try:
-                        elem=root2.find(".//*[@name='"+item.attrib['name']+"']")
-                        if elem is None:
-                            root2.append(item)        
-                    except:
-                        pass
+
    printedHead=0
-   if os.path.basename(xmlfile).find("string") != -1:
-       pos=0
-       for child_of_root in root:
+   pos=0
+   rootlen=len(root)
+   while True:
+           try:
+                 child_of_root=root[pos]
+           except:
+               break
+
+           if child_of_root is None:
+              pos+=1
+              continue
+           
+           if child_of_root.attrib.has_key("translatable") and (child_of_root.attrib['translatable'] == 'false'):
+               root.remove(child_of_root)
+               continue
+
+           if not root3 is None:
+               elem3 = root3.find(".//*[@name='"+child_of_root.attrib['name']+"']")
+               if not elem3 is None:
+                   root.remove(child_of_root)
+                   continue
+
            try:
                elem = root1.find(".//*[@name='"+child_of_root.attrib['name']+"']")
            except:
@@ -83,7 +92,10 @@ def mTrans(xmlfile,xmldict,output):
            if not elem is None:
                root.remove(child_of_root);
                elem.tail=bLine.sub("\r\n",elem.tail)
-               root.insert(pos,elem)
+               if not (elem.attrib.has_key("translatable") and (elem.attrib['translatable']== 'false')):
+                   root.insert(pos,elem)
+                   pos+=1
+               continue
            else:
                try:
                   elem2=root2.find(".//*[@name='"+child_of_root.attrib['name']+"']")
@@ -93,7 +105,10 @@ def mTrans(xmlfile,xmldict,output):
                if not elem2 is None:
                     root.remove(child_of_root);
                     elem2.tail=bLine.sub("\r\n",elem2.tail)
-                    root.insert(pos,elem2)
+                    if not (elem2.attrib.has_key("translatable") and (elem2.attrib['translatable']== 'false')):
+                        root.insert(pos,elem2)
+                        pos+=1
+                    continue
                else:
                     if not child_of_root is None:
                         try:
@@ -106,67 +121,21 @@ def mTrans(xmlfile,xmldict,output):
                             print >> file_log,  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip("\r\n\t ")
                         except:
                             root.remove(child_of_root)
+                            continue
                     else:
                         root.remove(child_of_root)
+                        continue
            pos+=1          
-       if mode & modWriteTrans:
+   if mode & modWriteTrans:
            tree.write(output,encoding="utf-8",xml_declaration=True) 
-       if mode & modRefreshDict:
+   if mode & modRefreshDict:
            tree.write(xmldict,encoding="UTF-8",xml_declaration=True) 
-       else:
+   else:
            if not os.path.exists(os.path.dirname(xmldict)+"/out"):
               os.mkdir(os.path.dirname(xmldict)+"/out")
            ndict=os.path.dirname(xmldict)+"/out/"+os.path.basename(xmldict)
            tree.write(ndict,encoding="UTF-8",xml_declaration=True) 
 
-   else :
-       pos=0
-       for child_of_root in root:
-           try:
-               elem = root1.find(".//*[@name='"+child_of_root.attrib['name']+"']")
-           except:
-               elem = None
-
-           if not elem is None:
-               root.remove(child_of_root);
-               elem.tail=bLine.sub("\r\n",elem.tail)
-               root.insert(pos,elem)
-           else:
-               try:
-                  elem2=root2.find(".//*[@name='"+child_of_root.attrib['name']+"']")
-               except:
-                  elem2=None
-
-               if not elem2 is None:
-                    root.remove(child_of_root);
-                    elem2.tail=bLine.sub("\r\n",elem2.tail)
-                    root.insert(pos,elem2)
-               else:
-                    if not child_of_root is None:
-                        try:
-                            child_of_root.tail=bLine.sub("\r\n",child_of_root.tail)
-                            if printedHead == 0:
-                                   print "\n",baseXMLname,":\n===================="
-                                   print >> file_log, "\n",baseXMLname,":\n===================="
-                                   printedHead = 1
-                            print  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip("\r\n\t ")
-                            print >> file_log,  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip("\r\n\t ")
-                        except:
-                            pass
-                    else:
-                        root.remove(child_of_root)
-           pos+=1
-       if mode & modWriteTrans:
-           tree.write(output,encoding="utf-8",xml_declaration=True) 
-       if mode & modRefreshDict:
-           tree.write(xmldict,encoding="UTF-8",xml_declaration=True) 
-       else:
-           if not os.path.exists(os.path.dirname(xmldict)+"/out"):
-              os.mkdir(os.path.dirname(xmldict)+"/out")
-           ndict=os.path.dirname(xmldict)+"/out/"+os.path.basename(xmldict)
-           tree.write(ndict,encoding="UTF-8",xml_declaration=True) 
-
-      
    return 0
 
 ###############main#############3
