@@ -17,6 +17,21 @@ bLine=re.compile("[\r\n]*\s*[\r\n]")
 mode=0
 
 #####function mTrans###########
+def indent(elem, level=0):
+    i = "\n" + level*"  "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
+
 def mTrans(xmlfile,xmldict,output):
    tree=None
    tree0=None
@@ -117,15 +132,17 @@ def mTrans(xmlfile,xmldict,output):
                                    print "\n",baseXMLname,":\n===================="
                                    print >> file_log, "\n",baseXMLname,":\n===================="
                                    printedHead = 1
-                            print  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip("\r\n\t ")
-                            print >> file_log,  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip("\r\n\t ")
+                            print  "[X] ",child_of_root.attrib['name'], child_of_root.text
+                            print >> file_log,  "[X] ",child_of_root.attrib['name'], child_of_root.text
                         except:
                             root.remove(child_of_root)
                             continue
                     else:
                         root.remove(child_of_root)
                         continue
-           pos+=1          
+           pos+=1 
+ 
+   indent(root)        
    if mode & modWriteTrans:
            tree.write(output,encoding="utf-8",xml_declaration=True) 
    if mode & modRefreshDict:
