@@ -110,9 +110,9 @@ echo "device: $device">.lastBuild
 echo "opKernel: $opKernel">>.lastBuild
 
 ######generate projects's last 5 logs########
-echo "Generating projects's last 5 logs..."
+echo "Generating projects's snapshot logs..."
 PROJECTLIST=$rdir/.repo/project.list
-OUTLOG=$basedir/out/target/product/$device/system/etc/ChangeLog-5.log
+OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
 [ -d $basedir/out/target/product/$device/system/etc/ ] || mkdir -p $basedir/out/target/product/$device/system/etc/
 rm -f $OUTLOG
 touch $OUTLOG
