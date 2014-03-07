@@ -17,15 +17,16 @@ bLine=re.compile("[\r\n]*\s*[\r\n]")
 mode=0
 
 #####function mTrans###########
-def indent(elem, level=0):
+def indent(elem,recursive=True,level=0):
     i = "\n" + level*"  "
-    if len(elem):
+    if not elem is None:
         if not elem.text or not elem.text.strip():
             elem.text = i + "  "
         if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-        for elem in elem:
-            indent(elem, level+1)
+            elem.tail = i 
+        if recursive:
+            for elem in elem:
+                indent(elem,True,level+1)
         if not elem.tail or not elem.tail.strip():
             elem.tail = i
     else:
@@ -76,6 +77,7 @@ def mTrans(xmlfile,xmldict,output):
             tree3=ET.parse(os.path.dirname(xmlout)+"/"+bbxml)
             root3=tree3.getroot()
 
+   indent(root,False)
    printedHead=0
    pos=0
    rootlen=len(root)
@@ -84,33 +86,37 @@ def mTrans(xmlfile,xmldict,output):
                  child_of_root=root[pos]
            except:
                break
+           
+           removed=False
 
            if child_of_root is None:
               pos+=1
               continue
-           
-           if child_of_root.attrib.has_key("translatable") and (child_of_root.attrib['translatable'] == 'false'):
+
+           ####not translate items#########
+           if child_of_root.attrib.has_key("translatable") and (child_of_root.attrib['translatable'] == 'false') or child_of_root.attrib.has_key("translate") and (child_of_root.attrib['translate'] == 'false') :
                root.remove(child_of_root)
                continue
 
+           #### in un-prefix cm_ xml
            if not root3 is None:
                elem3 = root3.find(".//*[@name='"+child_of_root.attrib['name']+"']")
                if not elem3 is None:
                    root.remove(child_of_root)
                    continue
 
+           #### in dictionary
            try:
                elem = root1.find(".//*[@name='"+child_of_root.attrib['name']+"']")
            except:
                elem = None
-
+    
            if not elem is None:
                root.remove(child_of_root);
-               elem.tail=bLine.sub("\r\n",elem.tail)
-               if not (elem.attrib.has_key("translatable") and (elem.attrib['translatable']== 'false')):
+               removed=True
+               if not (elem.attrib.has_key("translatable") and (elem.attrib['translatable'] == 'false') or elem.attrib.has_key("translate") and (elem.attrib['translate'] == 'false')):
+                   removed=False
                    root.insert(pos,elem)
-                   pos+=1
-               continue
            else:
                try:
                   elem2=root2.find(".//*[@name='"+child_of_root.attrib['name']+"']")
@@ -119,30 +125,31 @@ def mTrans(xmlfile,xmldict,output):
 
                if not elem2 is None:
                     root.remove(child_of_root);
-                    elem2.tail=bLine.sub("\r\n",elem2.tail)
-                    if not (elem2.attrib.has_key("translatable") and (elem2.attrib['translatable']== 'false')):
+                    removed=True
+                    if not (elem2.attrib.has_key("translatable") and (elem2.attrib['translatable']== 'false') or elem2.attrib.has_key("translate") and (elem2.attrib['translate']== 'false')):
+                        removed=False
                         root.insert(pos,elem2)
-                        pos+=1
-                    continue
                else:
                     if not child_of_root is None:
                         try:
-                            child_of_root.tail=bLine.sub("\r\n",child_of_root.tail)
                             if printedHead == 0:
                                    print "\n",baseXMLname,":\n===================="
                                    print >> file_log, "\n",baseXMLname,":\n===================="
                                    printedHead = 1
-                            print  "[X] ",child_of_root.attrib['name'], child_of_root.text
-                            print >> file_log,  "[X] ",child_of_root.attrib['name'], child_of_root.text
+                            print  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
+                            print >> file_log,  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
                         except:
-                            root.remove(child_of_root)
-                            continue
+                            pass
                     else:
                         root.remove(child_of_root)
-                        continue
-           pos+=1 
- 
-   indent(root)        
+                        removed=True
+           if not removed:
+                indent(root[pos],True,1)
+                pos+=1 
+   try:
+       root[pos-1].tail="\n"
+   except:
+       pass
    if mode & modWriteTrans:
            tree.write(output,encoding="utf-8",xml_declaration=True) 
    if mode & modRefreshDict:
@@ -167,6 +174,8 @@ for op in sys.argv:
     elif op[0] != '-' and pos > 0:
         opf.append(op)
         j+=1
+    elif op == '|':
+        break
     pos+=1
 
 if j<3:
