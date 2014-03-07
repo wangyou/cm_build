@@ -30,7 +30,7 @@
   <string name="no_iconpacks_summary">没有安装图标集</string>
   <string name="all_apps_cling_cm">自定义抽屉</string>
   <string name="all_apps_cling_summary">点击页面指示器查看更多设置</string>
-  <string name="dummy_custom_cling_error_message">错误: 定制工作区布局已通过但定制磁贴不能重写</string>
+  <string name="dummy_custom_cling_error_message">错误: 定制工作区布局已通过但定制磁贴不能覆盖</string>
   <add-resource name="default_folder_name" type="string" />
   <string name="debug_memory_activity">* HPROF</string>
 </resources>

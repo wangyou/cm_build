@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
   <string name="wifi_setting_countrycode_title">WIFI地区代码</string>
-  <string name="wifi_setting_countrycode_summary">Specify the region code for Wi-Fi</string>
+  <string name="wifi_setting_countrycode_summary">为Wi-Fi指定区域代码</string>
   <string name="wifi_setting_countrycode_error">设置地区代码出现问题.</string>
   <string name="wifi_setting_priority_title">WIFI优先级</string>
   <string name="wifi_setting_priority_summary">指定WIFI网络的优先级别</string>
@@ -747,17 +747,17 @@
     <ns0:g id="default_date_format">MM/dd/yyyy</ns0:g>
   </string>
   <string name="intent_sender_data_label">
-    <ns0:g id="data">Data:</ns0:g>
+    <ns0:g id="data">数据:</ns0:g>
   </string>
-  <string name="debug_intent_sender_label">Debug intent sender</string>
-  <string name="bluetooth_enter_pin_msg_hs">\nType PIN to pair with \u0022<ns0:g id="device_name">%1$s</ns0:g>\u0022. [High Security Enabled: Needs 16 character key] </string>
-  <string name="bluetooth_profile_sap">SIM Access</string>
-  <string name="bluetooth_profile_dun">Dial-up Network Access</string>
-  <string name="bluetooth_sap_profile_summary_connected">Connected to SIM Access Server</string>
-  <string name="bluetooth_dun_profile_summary_connected">Connected to DUN Server</string>
-  <string name="bluetooth_sap_profile_summary_use_for">Use for SIM Access</string>
-  <string name="bluetooth_dun_profile_summary_use_for">Use for Dial-up Network Access</string>
-  <string name="wifi_disabled_association_rejected">Association rejected</string>
+  <string name="debug_intent_sender_label">调试发送器</string>
+  <string name="bluetooth_enter_pin_msg_hs">\n输入PIN \u0022<ns0:g id="device_name">%1$s</ns0:g>\u0022. [高级安全启用: 需要16个字符] </string>
+  <string name="bluetooth_profile_sap">SIM 存取</string>
+  <string name="bluetooth_profile_dun">拨号网络存取</string>
+  <string name="bluetooth_sap_profile_summary_connected">连接到SIM存取服务器</string>
+  <string name="bluetooth_dun_profile_summary_connected">连接到DUN服务器</string>
+  <string name="bluetooth_sap_profile_summary_use_for">SIM存取使用</string>
+  <string name="bluetooth_dun_profile_summary_use_for">拨号网络存取使用</string>
+  <string name="wifi_disabled_association_rejected">关联被拒绝</string>
   <string name="wifi_security_short_wep">WEP</string>
   <string name="wifi_security_short_wpa">WPA</string>
   <string name="wifi_security_short_wpa2">WPA2</string>
@@ -770,8 +770,8 @@
   <string name="wifi_security_wpa_wpa2">WPA/WPA2 PSK</string>
   <string name="wifi_security_psk_generic">@string/wifi_security_wpa_wpa2</string>
   <string name="wifi_security_eap">802.1x EAP</string>
-  <string name="device_additional_status_summary">Phone number, signal, IMEI, etc.</string>
-  <string name="device_additional_status">Additional status info</string>
+  <string name="device_additional_status_summary">电话号码, 信号, IMEI, ...</string>
+  <string name="device_additional_status">更多状态信息</string>
   <string name="status_imei">IMEI</string>
   <string name="status_imei_sv">IMEI SV</string>
   <string name="lockpattern_need_to_unlock_footer" />
@@ -782,38 +782,38 @@
   <string name="service_process_name">
     <ns0:g id="process">%1$s</ns0:g>
   </string>
-  <string name="testing_sim_toolkit">SIM toolkit</string>
+  <string name="testing_sim_toolkit">SIM 工具箱</string>
   <string name="battery_stats_last_duration">@string/menu_stats_last_unplugged</string>
   <string name="sync_item_title">
     <ns0:g example="Calendar" id="authority">%s</ns0:g>
   </string>
   <string name="data_usage_tab_slot">SIM </string>
-  <string name="sel_sub_title">Configure Subscriptions </string>
-  <string name="sel_sub_summary">Select the Subscription SUB1, SUB2, etc..</string>
-  <string name="select_subscription">Select Subscription</string>
-  <string name="no_sim_info">SIM card info not available.\nMenu cannot be accessed</string>
-  <string name="subs_settings">SUBS Status</string>
-  <string name="multi_sim_settings_title">Multi Sim Settings</string>
-  <string name="multi_sim_settings_summary">Set up Multi Sim Settings for Voice, Data and SMS</string>
-  <string name="voice_title">Voice/USSD/MMI</string>
-  <string name="voice_summary">Select Subscription for Voice Call</string>
-  <string name="data_title">Data Call</string>
-  <string name="data_summary">Select Subscription for Data Call</string>
-  <string name="sms_title">SMS </string>
-  <string name="sms_summary">Select the Subscription for Sending SMS</string>
-  <string name="set_data_subscription_progress">Set data subscription in progress</string>
-  <string name="set_dds_success">Set data subscription success</string>
-  <string name="set_dds_failed">Error in set data subscription.  Clean up any existing data connection and try again.</string>
-  <string name="set_dds_error">Error in set data subscription.</string>
-  <string name="set_sms_error">Error in set sms subscription. Subscription not active.</string>
-  <string name="set_voice_error">Error in set voice subscription. Subscription not active.</string>
-  <string name="set_priority_sub_error">Error in set priority subscription. Subscription not active.</string>
-  <string name="prompt">Prompt</string>
-  <string name="prompt_user">Prompt User</string>
+  <string name="sel_sub_title">配置订阅</string>
+  <string name="sel_sub_summary">选择订阅SUB1, SUB2, ...</string>
+  <string name="select_subscription">选择订阅</string>
+  <string name="no_sim_info">SIM卡信息不存在.\n菜单不能使用</string>
+  <string name="subs_settings">订阅状态</string>
+  <string name="multi_sim_settings_title">多SIM卡设置</string>
+  <string name="multi_sim_settings_summary">为语音，数据和短信配置多SIM卡设置</string>
+  <string name="voice_title">语音/USSD/MMI</string>
+  <string name="voice_summary">为视频呼叫选择订阅</string>
+  <string name="data_title">数据呼叫</string>
+  <string name="data_summary">为数据呼叫选择订阅</string>
+  <string name="sms_title">短信</string>
+  <string name="sms_summary">为发送短信选择订阅</string>
+  <string name="set_data_subscription_progress">正在设置数据订阅</string>
+  <string name="set_dds_success">设置数据订阅成功</string>
+  <string name="set_dds_failed">设置数据订阅失败.  关闭所有数据连接后再试.</string>
+  <string name="set_dds_error">设置数据订阅失败.</string>
+  <string name="set_sms_error">设置短信订阅失败. 订阅未启用.</string>
+  <string name="set_voice_error">设置语音订阅失败. 订阅未启用.</string>
+  <string name="set_priority_sub_error">设置订阅优先级失败. 订阅未启用.</string>
+  <string name="prompt">提示</string>
+  <string name="prompt_user">提示用户</string>
   <string name="tune_away_title">Tune Away</string>
-  <string name="tune_away_Default">Disable</string>
-  <string name="tune_away_enabled">TuneAway Enabled!</string>
-  <string name="tune_away_disabled">TuneAway Disabled!</string>
-  <string name="priority_sub_title">Priority Subscription</string>
-  <string name="priority_sub_summary">Select Priority Subscription</string>
+  <string name="tune_away_Default">禁用</string>
+  <string name="tune_away_enabled">TuneAway 已启用!</string>
+  <string name="tune_away_disabled">TuneAway 已禁用!</string>
+  <string name="priority_sub_title">订阅优先级</string>
+  <string name="priority_sub_summary">选择订阅优先级</string>
 </resources>

@@ -135,9 +135,9 @@
     <item>@string/app_ops_categories_bootup</item>
   </string-array>
   <string-array name="app_ops_permissions">
-    <item>Allowed</item>
-    <item>Denied</item>
-    <item>Always ask</item>
+    <item>允许</item>
+    <item>禁止</item>
+    <item>总是询问</item>
   </string-array>
   <string-array name="tts_rate_values">
     <item>60</item>
@@ -189,8 +189,8 @@
     <item>2</item>
   </string-array>
   <string-array name="multi_sim_entries">
-    <item> Subscription 1 </item>
-    <item> Subscription 2 </item>
-    <item> Subscription 3 </item>
+    <item> 订阅 1 </item>
+    <item> 订阅 2 </item>
+    <item> 订阅 3 </item>
   </string-array>
 </resources>
