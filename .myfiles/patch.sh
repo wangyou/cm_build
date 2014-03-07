@@ -185,6 +185,7 @@ if [ "$mode" = "r" ]; then
         resetProject frameworks/native
         resetProject frameworks/av
 	resetProject packages/services/Telephony
+        resetProject packages/apps/Settings
 	resetProject external/wpa_supplicant_8
 	resetProject vendor/motorola
 	resetProject kernel/motorola/omap4-common
@@ -377,5 +378,17 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 	patch -N -p1 < $rdir/patchs/batteryProperties.diff
 	cd $rdir
    fi
+   
+   ## remove cmupdater ##
+   if grep -q "removePreferenceIfPackageNotInstalled(findPreference(KEY_CM_UPDATES));" \
+           $basedir/packages/apps/Settings/src/com/android/settings/DeviceInfoSettings.java; then
+       cd $basedir/packages/apps/Settings
+       patch -p1 <$rdir/patchs/cmupdater.diff
+       cd $rdir
+   fi
+   sed -e "/CMUpdater/d" -i $basedir/vendor/cm/config/common.mk
 
    sed -e "/OMX_FreeBuffer for buffer header %p successful/d" -i $basedir/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
+
+###  fix for compile error ##########
+

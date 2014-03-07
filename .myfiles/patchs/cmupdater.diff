@@ -1,0 +1,49 @@
+commit 540ff2bcdaecaa34e5475996d171b986e7095e3c
+Author: nx111 <gd.zhangdz@gmail.com>
+Date:   Fri Mar 7 23:29:59 2014 +0800
+
+    add snapshot
+    
+    Change-Id: I8143bc9e77c5bc6cfd1c042dc04c3a7509d0ba9b
+
+diff --git a/res/xml/device_info_settings.xml b/res/xml/device_info_settings.xml
+index 51a6e2a..783f22c 100644
+--- a/res/xml/device_info_settings.xml
++++ b/res/xml/device_info_settings.xml
+@@ -42,15 +42,6 @@
+                     android:targetClass="com.android.settings.deviceinfo.Status" />
+         </PreferenceScreen>
+ 
+-        <!-- CyanogenMod Updates -->
+-        <PreferenceScreen android:key="cm_updates"
+-                android:title="@string/cmupdate_settings_title" 
+-                android:summary="@string/cmupdate_settings_summary">
+-            <intent android:action="android.intent.action.MAIN"
+-                    android:targetPackage="com.cyanogenmod.updater"
+-                    android:targetClass="com.cyanogenmod.updater.UpdatesSettings" />
+-        </PreferenceScreen>
+-
+         <!-- Anonymous statistics - (CMStats) -->
+         <PreferenceScreen
+             android:key="cmstats"
+         <!-- Legal Information -->
+         <PreferenceScreen
+                 android:key="container"
+diff --git a/src/com/android/settings/DeviceInfoSettings.java b/src/com/android/settings/DeviceInfoSettings.java
+index 7e9da61..ff80e77 100644
+--- a/src/com/android/settings/DeviceInfoSettings.java
++++ b/src/com/android/settings/DeviceInfoSettings.java
+@@ -126,13 +126,6 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
+         String cpuInfo = getCPUInfo();
+         String memInfo = getMemInfo();
+ 
+-        // Only the owner should see the Updater settings, if it exists
+-        if (UserHandle.myUserId() == UserHandle.USER_OWNER) {
+-            removePreferenceIfPackageNotInstalled(findPreference(KEY_CM_UPDATES));
+-        } else {
+-            getPreferenceScreen().removePreference(findPreference(KEY_CM_UPDATES));
+-        }
+-
+         if (cpuInfo != null) {
+             setStringSummary(KEY_DEVICE_CPU, cpuInfo);
+         } else {

@@ -816,4 +816,6 @@
   <string name="tune_away_disabled">TuneAway 已禁用!</string>
   <string name="priority_sub_title">订阅优先级</string>
   <string name="priority_sub_summary">选择订阅优先级</string>
+  <string name="snapshot_title">项目快照</string>
+  <string name="snapshot_error">不能打开项目快照</string>
 </resources>
