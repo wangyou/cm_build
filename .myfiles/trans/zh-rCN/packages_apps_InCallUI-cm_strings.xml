@@ -6,7 +6,6 @@
   <string name="onscreenBlacklistText">黑名单</string>
   <string name="blacklist_dialog_title">加入黑名单</string>
   <string name="blacklist_dialog_message">从<ns0:g id="number">%s</ns0:g>的呼叫将被阻止</string>
-  <string name="inCallLabel" translate="false">InCallUI</string>
   <string name="callFailed_dialToUssd">拨号请求更改为USSD请求.</string>
   <string name="callFailed_dialToSs">拨号请求更改为SS请求.</string>
   <string name="callFailed_dialToDial">拨号请求更改为呼叫其他号码.</string>

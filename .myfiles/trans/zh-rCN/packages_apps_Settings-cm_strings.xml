@@ -266,10 +266,8 @@
   <string name="auto_brightness_twilight_adjustment">根据日光或灯光调节亮度</string>
   <string name="light_sensor_current_value">目前光线传感器值：<ns0:g id="light_level">%d</ns0:g> lux</string>
   <string name="auto_brightness_dialog_title">自动亮度级别</string>
-  <string name="auto_brightness_level_format">
-    <ns0:g id="level">%1$d</ns0:g> lux</string>
-  <string name="auto_brightness_last_level_format">
-    <ns0:g id="level">%1$d</ns0:g> -\n\u221e lux</string>
+  <string name="auto_brightness_level_format"><ns0:g id="level">%1$d</ns0:g> lux</string>
+  <string name="auto_brightness_last_level_format"><ns0:g id="level">%1$d</ns0:g> -\n\u221e lux</string>
   <string name="auto_brightness_adjust_button">调整</string>
   <string name="auto_brightness_close_button">关闭</string>
   <string name="auto_brightness_reset_button">重置</string>
@@ -287,8 +285,7 @@
   <string name="auto_brightness_preview">预览</string>
   <string name="auto_brightness_preview_dialog_title">亮度曲线</string>
   <string name="auto_brightness_help_dialog_title">帮助</string>
-  <string name="auto_brightness_help_text">
-    <b>亮度是怎么被计算的？</b>
+  <string name="auto_brightness_help_text"><b>亮度是怎么被计算的？</b>
 \n\n
 亮度曲线是通过在选定的<i>控制点</i>上进行<i>三次样条插
 值</i>而计算出的。这并不是一个设定了环境亮度范围内，屏
@@ -711,25 +708,105 @@
   <string name="stylus_app_not_installed">%s 未安装</string>
   <string name="ime_switcher_notify">选择器通知</string>
   <string name="ime_switcher_notify_summary">显示输入法选择器通知</string>
+  <string name="app_ops_summaries_coarse_location">大致位置</string>
+  <string name="app_ops_summaries_fine location">精确位置</string>
+  <string name="app_ops_summaries_gps">GPS</string>
+  <string name="app_ops_summaries_vibrate">震动</string>
+  <string name="app_ops_summaries_read_contacts">读取联系人</string>
+  <string name="app_ops_summaries_modify_contacts">修改联系人</string>
+  <string name="app_ops_summaries_read_call_log">读取通话记录</string>
+  <string name="app_ops_summaries_modify_call_log">修改通话记录</string>
+  <string name="app_ops_summaries_read_calendar">读取日历</string>
+  <string name="app_ops_summaries_modify_calendar">修改日历</string>
+  <string name="app_ops_summaries_wifi_scan">WIFI扫描</string>
+  <string name="app_ops_summaries_notification">通知</string>
+  <string name="app_ops_summaries_cell_scan">信号扫描</string>
+  <string name="app_ops_summaries_call_phone">呼叫电话</string>
+  <string name="app_ops_summaries_read_sms">读短信</string>
+  <string name="app_ops_summaries_write_sms">写短信</string>
+  <string name="app_ops_summaries_receive_sms">收短信</string>
+  <string name="app_ops_summaries_receive_emergency_sms">收紧急短信</string>
+  <string name="app_ops_summaries_receive_mms">收彩信</string>
+  <string name="app_ops_summaries_receive_wap_push">收WAP推送</string>
+  <string name="app_ops_summaries_send_sms">发短信</string>
+  <string name="app_ops_summaries_read_icc_sms">读ICC短信</string>
+  <string name="app_ops_summaries_write_icc_sms">写ICC短信</string>
+  <string name="app_ops_summaries_modify_settings">修改设置</string>
+  <string name="app_ops_summaries_draw_on_top">顶部绘制</string>
+  <string name="app_ops_summaries_access_notifications">存取通知</string>
+  <string name="app_ops_summaries_camera">相机</string>
+  <string name="app_ops_summaries_record_audio">录音</string>
+  <string name="app_ops_summaries_play_audio">放音</string>
+  <string name="app_ops_summaries_read_clipboard">读取剪贴板</string>
+  <string name="app_ops_summaries_modify_clipboard">修改剪贴板</string>
+  <string name="app_ops_summaries_media_buttons">媒体按钮</string>
+  <string name="app_ops_summaries_audio_focus">声音聚焦</string>
+  <string name="app_ops_summaries_master_volume">主音量</string>
+  <string name="app_ops_summaries_voice_volume">话音音量</string>
+  <string name="app_ops_summaries_ring_volume">铃声音量</string>
+  <string name="app_ops_summaries_media_volume">媒体音量</string>
+  <string name="app_ops_summaries_alarm_volume">闹钟音量</string>
+  <string name="app_ops_summaries_notification_volume">通知音量</string>
+  <string name="app_ops_summaries_bluetooth_volume">蓝牙音量</string>
+  <string name="app_ops_summaries_keep_awake">保持唤醒</string>
+  <string name="app_ops_summaries_monitor_location">监测位置</string>
+  <string name="app_ops_summaries_monitor_high_power_location">监测位置(低电耗)</string>
   <string name="app_ops_summaries_wifi_change">WIFI设置改变</string>
-  <string name="app_ops_labels_wifi_change">WiFi设置改变</string>
   <string name="app_ops_summaries_bluetooth_change">蓝牙设置改变</string>
-  <string name="app_ops_labels_bluetooth_change">蓝牙设置改变</string>
   <string name="app_ops_summaries_data_change">数据设置改变</string>
-  <string name="app_ops_labels_data_change">数据设置改变</string>
   <string name="app_ops_summaries_alarm_wakeup">唤醒</string>
-  <string name="app_ops_labels_alarm_wakeup">唤醒</string>
+  <string name="app_ops_summaries_send_mms">发彩信</string>
+  <string name="app_ops_summaries_read_mms">读彩信</string>
+  <string name="app_ops_summaries_write_mms">写彩信</string>
   <string name="app_ops_summaries_auto_start">自动启动</string>
+  <string name="app_ops_labels_location">位置</string>
+  <string name="app_ops_labels_vibrate">震动</string>
+  <string name="app_ops_labels_read_contacts">读取联系人</string>
+  <string name="app_ops_labels_modify_contacts">修改联系人</string>
+  <string name="app_ops_labels_read_call_log">读取通话记录</string>
+  <string name="app_ops_labels_modify_call_log">修改通话记录</string>
+  <string name="app_ops_labels_read_calendar">读取日历</string>
+  <string name="app_ops_labels_modify_calendar">修改日历</string>
+  <string name="app_ops_labels_notification_toast">通知/祝贺</string>
+  <string name="app_ops_labels_call_phone">呼叫电话</string>
+  <string name="app_ops_labels_read_sms_db">读短信DB</string>
+  <string name="app_ops_labels_write_sms_db">写短信DB</string>
+  <string name="app_ops_labels_receive_sms">接收短信</string>
+  <string name="app_ops_labels_receive_mms">接收彩信</string>
+  <string name="app_ops_labels_send_sms">发送短信</string>
+  <string name="app_ops_labels_modify_settings">修改设置</string>
+  <string name="app_ops_labels_draw_on_top">顶部绘制</string>
+  <string name="app_ops_labels_access_notifications">存取通知</string>
+  <string name="app_ops_labels_camera">相机</string>
+  <string name="app_ops_labels_record_audio">录音</string>
+  <string name="app_ops_labels_play_audio">放音</string>
+  <string name="app_ops_labels_read_clipboard">读取剪贴板</string>
+  <string name="app_ops_labels_modify_clipboard">修改剪贴板</string>
+  <string name="app_ops_labels_media_buttons">媒体按钮</string>
+  <string name="app_ops_labels_audio_focus">声音聚焦</string>
+  <string name="app_ops_labels_master_volume">主音量</string>
+  <string name="app_ops_labels_voice_volume">话音音量</string>
+  <string name="app_ops_labels_ring_volume">铃声音量</string>
+  <string name="app_ops_labels_media_volume">媒体音量</string>
+  <string name="app_ops_labels_alarm_volume">闹钟音量</string>
+  <string name="app_ops_labels_notification_volume">通知音量</string>
+  <string name="app_ops_labels_bluetooth_volume">蓝牙音量</string>
+  <string name="app_ops_labels_keep_awake">保持唤醒</string>
+  <string name="app_ops_labels_wifi_change">WiFi设置改变</string>
+  <string name="app_ops_labels_bluetooth_change">蓝牙设置改变</string>
+  <string name="app_ops_labels_data_change">数据设置改变</string>
+  <string name="app_ops_labels_alarm_wakeup">唤醒</string>
+  <string name="app_ops_labels_send_mms">发彩信</string>
+  <string name="app_ops_labels_read_mms">读彩信</string>
+  <string name="app_ops_labels_write_mms">写彩信</string>
   <string name="app_ops_labels_auto_start">自动启动</string>
-  <string name="app_ops_summaries_send_mms">send MMS</string>
-  <string name="app_ops_labels_send_mms">Send MMS</string>
-  <string name="app_ops_summaries_read_mms">read MMS</string>
-  <string name="app_ops_labels_read_mms">Read MMS</string>
-  <string name="app_ops_summaries_write_mms">write MMS</string>
-  <string name="app_ops_labels_write_mms">Write MMS</string>
+  <string name="app_ops_categories_location">位置</string>
+  <string name="app_ops_categories_personal">个人</string>
+  <string name="app_ops_categories_messaging">消息</string>
+  <string name="app_ops_categories_media">媒体</string>
+  <string name="app_ops_categories_device">设备</string>
   <string name="app_ops_categories_bootup">启动</string>
-  <string name="app_ops_entry_summary">
-    <ns0:g id="op">%1$s</ns0:g> (已使用 <ns0:g id="count">%2$s</ns0:g>)</string>
+  <string name="app_ops_entry_summary"><ns0:g id="op">%1$s</ns0:g> (已使用 <ns0:g id="count">%2$s</ns0:g>)</string>
   <string name="app_ops_allowed_count">允许 <ns0:g example="2 times" id="count">%s</ns0:g>
   </string>
   <string name="app_ops_ignored_count">拒绝 <ns0:g example="2 times" id="count">%s</ns0:g>
@@ -743,11 +820,10 @@
   <string name="app_ops_reset_confirm_mesg">确定要重置隐私保护的计数器吗 ?</string>
   <string name="edge_gesture_service_title">阻止手势触摸事件</string>
   <string name="edge_gesture_service_summary">不为导航栏和状态栏手势发送触摸事件</string>
-  <string name="default_date_format">
-    <ns0:g id="default_date_format">MM/dd/yyyy</ns0:g>
+  <string name="font_size_preview_text">Servez à ce monsieur une bière et des kiwis.</string>
+  <string name="default_date_format"><ns0:g id="default_date_format">MM/dd/yyyy</ns0:g>
   </string>
-  <string name="intent_sender_data_label">
-    <ns0:g id="data">数据:</ns0:g>
+  <string name="intent_sender_data_label"><ns0:g id="data">数据:</ns0:g>
   </string>
   <string name="debug_intent_sender_label">调试发送器</string>
   <string name="bluetooth_enter_pin_msg_hs">\n输入PIN \u0022<ns0:g id="device_name">%1$s</ns0:g>\u0022. [高级安全启用: 需要16个字符] </string>
@@ -776,16 +852,13 @@
   <string name="status_imei_sv">IMEI SV</string>
   <string name="lockpattern_need_to_unlock_footer" />
   <string name="lockpattern_need_to_unlock_wrong_footer" />
-  <string name="service_client_name">
-    <ns0:g id="client_name">%1$s</ns0:g>
+  <string name="service_client_name"><ns0:g id="client_name">%1$s</ns0:g>
   </string>
-  <string name="service_process_name">
-    <ns0:g id="process">%1$s</ns0:g>
+  <string name="service_process_name"><ns0:g id="process">%1$s</ns0:g>
   </string>
   <string name="testing_sim_toolkit">SIM 工具箱</string>
   <string name="battery_stats_last_duration">@string/menu_stats_last_unplugged</string>
-  <string name="sync_item_title">
-    <ns0:g example="Calendar" id="authority">%s</ns0:g>
+  <string name="sync_item_title"><ns0:g example="Calendar" id="authority">%s</ns0:g>
   </string>
   <string name="data_usage_tab_slot">SIM </string>
   <string name="sel_sub_title">配置订阅</string>
@@ -816,6 +889,4 @@
   <string name="tune_away_disabled">TuneAway 已禁用!</string>
   <string name="priority_sub_title">订阅优先级</string>
   <string name="priority_sub_summary">选择订阅优先级</string>
-  <string name="snapshot_title">项目快照</string>
-  <string name="snapshot_error">不能打开项目快照</string>
 </resources>

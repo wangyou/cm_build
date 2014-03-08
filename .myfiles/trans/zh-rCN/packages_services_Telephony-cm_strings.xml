@@ -28,8 +28,7 @@
   <string name="blacklist_call_notification">阻挡了 %s 的来电</string>
   <string name="blacklist_call_notification_private_number">阻挡了一个私人号码的来电</string>
   <string name="blacklist_call_notification_unknown_number">阻挡了未知号码 %s</string>
-  <string name="blacklist_call_notification_multiple">
-    <ns0:g id="count">%d</ns0:g> 个来电被阻挡</string>
+  <string name="blacklist_call_notification_multiple"><ns0:g id="count">%d</ns0:g> 个来电被阻挡</string>
   <string name="blacklist_message_notification">来自于 %s 的信息已被阻止</string>
   <string name="blacklist_message_notification_private_number">阻止来自于私人号码的信息</string>
   <string name="blacklist_message_notification_unknown_number">来自于未知号码 %s 的信息已阻止</string>
