@@ -12,7 +12,7 @@ rdir=os.path.dirname(os.path.abspath(sys.argv[0]))
 basedir=os.path.abspath(rdir+"/../..")
 dictdir=os.path.abspath(rdir+"/../trans")
 
-file_log=open(dictdir+"/log.txt","w")
+file_log=None
 bLine=re.compile("[\r\n]*\s*[\r\n]")
 mode=0
 
@@ -23,7 +23,7 @@ def indent(elem,recursive=True,level=0):
         if not elem.text or not elem.text.strip():
             if level == 0:
                elem.text = i + "  "
-            else:
+            elif not elem.text is None:
                elem.text = elem.text.strip()
         if not elem.tail or not elem.tail.strip():
             elem.tail = i 
@@ -135,6 +135,8 @@ def mTrans(xmlfile,xmldict,output):
                else:
                     if not child_of_root is None:
                         try:
+                            if file_log is None:
+                                file_log=open(dictdir+"/log.txt","w")
                             if printedHead == 0:
                                    print "\n",baseXMLname,":\n===================="
                                    print >> file_log, "\n",baseXMLname,":\n===================="
