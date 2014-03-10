@@ -31,8 +31,8 @@
   <string name="quick_settings_usb_tether_off_label">断开</string>
   <string name="quick_settings_usb_tether_connected_label">网络共享 关闭</string>
   <string name="quick_settings_usb_tether_on_label">网络共享</string>
-  <string name="quick_settings_wifiap">Wi-Fi AP</string>
-  <string name="quick_settings_wifiap_off">Wi-Fi AP 关闭</string>
+  <string name="quick_settings_wifiap">WIFI AP</string>
+  <string name="quick_settings_wifiap_off">WIFI AP 关闭</string>
   <string name="quick_settings_quiethours">安静时段</string>
   <string name="quick_settings_quiethours_off">安静时段 关闭</string>
   <string name="quick_settings_lte">LTE</string>
@@ -59,6 +59,6 @@
   <string name="screenshot_delete_action">删除</string>
   <string name="screenshot_delete_confirmation">截图已删除.</string>
   <string name="accessibility_desc_add_quick_settings">增加快速设置.</string>
-  <string name="accessibility_battery_level">Battery <ns0:g id="number">%d</ns0:g> percent.</string>
+  <string name="accessibility_battery_level">电池 <ns0:g id="number">%d</ns0:g> %.</string>
   <string name="battery_meter_very_low_overlay_symbol">!</string>
 </resources>

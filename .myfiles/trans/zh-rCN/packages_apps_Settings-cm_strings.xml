@@ -266,8 +266,10 @@
   <string name="auto_brightness_twilight_adjustment">根据日光或灯光调节亮度</string>
   <string name="light_sensor_current_value">目前光线传感器值：<ns0:g id="light_level">%d</ns0:g> lux</string>
   <string name="auto_brightness_dialog_title">自动亮度级别</string>
-  <string name="auto_brightness_level_format"><ns0:g id="level">%1$d</ns0:g> lux</string>
-  <string name="auto_brightness_last_level_format"><ns0:g id="level">%1$d</ns0:g> -\n\u221e lux</string>
+  <string name="auto_brightness_level_format">
+    <ns0:g id="level">%1$d</ns0:g> lux</string>
+  <string name="auto_brightness_last_level_format">
+    <ns0:g id="level">%1$d</ns0:g> -\n\u221e lux</string>
   <string name="auto_brightness_adjust_button">调整</string>
   <string name="auto_brightness_close_button">关闭</string>
   <string name="auto_brightness_reset_button">重置</string>
@@ -285,7 +287,8 @@
   <string name="auto_brightness_preview">预览</string>
   <string name="auto_brightness_preview_dialog_title">亮度曲线</string>
   <string name="auto_brightness_help_dialog_title">帮助</string>
-  <string name="auto_brightness_help_text"><b>亮度是怎么被计算的？</b>
+  <string name="auto_brightness_help_text">
+    <b>亮度是怎么被计算的？</b>
 \n\n
 亮度曲线是通过在选定的<i>控制点</i>上进行<i>三次样条插
 值</i>而计算出的。这并不是一个设定了环境亮度范围内，屏
@@ -709,7 +712,7 @@
   <string name="ime_switcher_notify">选择器通知</string>
   <string name="ime_switcher_notify_summary">显示输入法选择器通知</string>
   <string name="app_ops_summaries_coarse_location">大致位置</string>
-  <string name="app_ops_summaries_fine location">精确位置</string>
+  <string name="app_ops_summaries_fine_location">精确位置</string>
   <string name="app_ops_summaries_gps">GPS</string>
   <string name="app_ops_summaries_vibrate">震动</string>
   <string name="app_ops_summaries_read_contacts">读取联系人</string>
@@ -806,7 +809,8 @@
   <string name="app_ops_categories_media">媒体</string>
   <string name="app_ops_categories_device">设备</string>
   <string name="app_ops_categories_bootup">启动</string>
-  <string name="app_ops_entry_summary"><ns0:g id="op">%1$s</ns0:g> (已使用 <ns0:g id="count">%2$s</ns0:g>)</string>
+  <string name="app_ops_entry_summary">
+    <ns0:g id="op">%1$s</ns0:g> (已使用 <ns0:g id="count">%2$s</ns0:g>)</string>
   <string name="app_ops_allowed_count">允许 <ns0:g example="2 times" id="count">%s</ns0:g>
   </string>
   <string name="app_ops_ignored_count">拒绝 <ns0:g example="2 times" id="count">%s</ns0:g>
@@ -821,9 +825,11 @@
   <string name="edge_gesture_service_title">阻止手势触摸事件</string>
   <string name="edge_gesture_service_summary">不为导航栏和状态栏手势发送触摸事件</string>
   <string name="font_size_preview_text">Servez à ce monsieur une bière et des kiwis.</string>
-  <string name="default_date_format"><ns0:g id="default_date_format">MM/dd/yyyy</ns0:g>
+  <string name="default_date_format">
+    <ns0:g id="default_date_format">MM/dd/yyyy</ns0:g>
   </string>
-  <string name="intent_sender_data_label"><ns0:g id="data">数据:</ns0:g>
+  <string name="intent_sender_data_label">
+    <ns0:g id="data">数据:</ns0:g>
   </string>
   <string name="debug_intent_sender_label">调试发送器</string>
   <string name="bluetooth_enter_pin_msg_hs">\n输入PIN \u0022<ns0:g id="device_name">%1$s</ns0:g>\u0022. [高级安全启用: 需要16个字符] </string>
@@ -852,13 +858,16 @@
   <string name="status_imei_sv">IMEI SV</string>
   <string name="lockpattern_need_to_unlock_footer" />
   <string name="lockpattern_need_to_unlock_wrong_footer" />
-  <string name="service_client_name"><ns0:g id="client_name">%1$s</ns0:g>
+  <string name="service_client_name">
+    <ns0:g id="client_name">%1$s</ns0:g>
   </string>
-  <string name="service_process_name"><ns0:g id="process">%1$s</ns0:g>
+  <string name="service_process_name">
+    <ns0:g id="process">%1$s</ns0:g>
   </string>
   <string name="testing_sim_toolkit">SIM 工具箱</string>
   <string name="battery_stats_last_duration">@string/menu_stats_last_unplugged</string>
-  <string name="sync_item_title"><ns0:g example="Calendar" id="authority">%s</ns0:g>
+  <string name="sync_item_title">
+    <ns0:g example="Calendar" id="authority">%s</ns0:g>
   </string>
   <string name="data_usage_tab_slot">SIM </string>
   <string name="sel_sub_title">配置订阅</string>

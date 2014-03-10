@@ -26,7 +26,7 @@
   <string name="stk_cc_ss_to_ussd_error">SS请求改为USSD请求.</string>
   <string name="stk_cc_ss_to_ss_error">SS请求改为新的SS请求.</string>
   <string name="onscreenModifyCallText">修改拨号</string>
-  <string name="onscreenAddParticipant">Add Participant</string>
+  <string name="onscreenAddParticipant">添加参与者</string>
   <string name="description_target_answer_video">视频回答</string>
   <string name="description_target_answer_tx_video">TX视频回答</string>
   <string name="description_target_answer_rx_video">RX视频回答</string>

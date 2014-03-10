@@ -28,7 +28,8 @@
   <string name="blacklist_call_notification">阻挡了 %s 的来电</string>
   <string name="blacklist_call_notification_private_number">阻挡了一个私人号码的来电</string>
   <string name="blacklist_call_notification_unknown_number">阻挡了未知号码 %s</string>
-  <string name="blacklist_call_notification_multiple"><ns0:g id="count">%d</ns0:g> 个来电被阻挡</string>
+  <string name="blacklist_call_notification_multiple">
+    <ns0:g id="count">%d</ns0:g> 个来电被阻挡</string>
   <string name="blacklist_message_notification">来自于 %s 的信息已被阻止</string>
   <string name="blacklist_message_notification_private_number">阻止来自于私人号码的信息</string>
   <string name="blacklist_message_notification_unknown_number">来自于未知号码 %s 的信息已阻止</string>
@@ -43,6 +44,15 @@
   <string name="phone_number_summary">设定电话号码</string>
   <string name="noise_suppression_title">噪音抑制</string>
   <string name="noise_suppression_summary">启用噪音抑制</string>
+  <string name="preferred_network_mode_td_scdma_only">TD-SCDMA</string>
+  <string name="preferred_network_mode_global">全球</string>
+  <string name="preferred_network_mode_evdo_only">EvDo</string>
+  <string name="preferred_network_mode_cdma_without_evdo">CDMA w/o EvDo</string>
+  <string name="preferred_network_mode_cdma_evdo_auto">CDMA/EvDo 自动</string>
+  <string name="preferred_network_mode_gsm_wcdma_auto">GSM/WCDMA 自动</string>
+  <string name="preferred_network_mode_wcdma_only">WCDMA</string>
+  <string name="preferred_network_mode_gsm_only">GSM</string>
+  <string name="preferred_network_mode_gsm_wcdma_preferred">GSM/WCDMA首选</string>
   <string name="label_nsdp">SIM卡网络区域解锁PIN</string>
   <string name="label_cdp">SIM卡厂商解锁PIN</string>
   <string name="label_spdp">SIM卡运营商解锁PIN</string>
@@ -90,7 +100,7 @@
   <string name="stk_cc_ss_to_dial_error">SS请求更改为DIAL请求.</string>
   <string name="stk_cc_ss_to_ussd_error">SS请求更改为USSD请求.</string>
   <string name="stk_cc_ss_to_ss_error">SS请求更改为新的SS请求.</string>
-  <string name="preferred_network_mode_td_scdma_only_summary">首选网络模式: TD-SCDMA only</string>
+  <string name="preferred_network_mode_td_scdma_only_summary">首选网络模式: TD-SCDMA</string>
   <string name="preferred_network_mode_td_scdma_wcdma_summary">首选网络模式: TD-SCDMA / WCDMA</string>
   <string name="preferred_network_mode_td_scdma_lte_summary">首选网络模式: TD-SCDMA / LTE</string>
   <string name="preferred_network_mode_td_scdma_gsm_summary">首选网络模式: TD-SCDMA / GSM</string>
@@ -105,7 +115,7 @@
   <string name="network_manage_settings">网络设置</string>
   <string name="title_data_settings">数据设置</string>
   <string name="summary_manage_subscriptions">管理每个订阅的网络设置</string>
-  <string name="call_ind_services">Call Independent Services</string>
+  <string name="call_ind_services">呼叫分离服务</string>
   <string name="callind_multi_sim">订阅设置</string>
   <string name="callind">通话特性设置</string>
   <string name="sub1">订阅 1</string>
