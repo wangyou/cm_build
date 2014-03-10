@@ -37,6 +37,7 @@ def indent(elem,recursive=True,level=0):
             elem.tail = i
 
 def mTrans(xmlfile,xmldict,output):
+   global file_log
    tree=None
    tree0=None
    tree1=None
