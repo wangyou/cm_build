@@ -21,7 +21,7 @@ def indent(elem,recursive=True,level=0):
     i = "\n" + level*"  "
     if not elem is None:
         if not elem.text or not elem.text.strip():
-            if level == 0:
+            if level==0 or len(elem)>0 and not elem.attrib is None and elem.attrib.has_key('name'):
                elem.text = i + "  "
             elif not elem.text is None:
                elem.text = elem.text.strip()
