@@ -1,0 +1,60 @@
+commit 5167cd440b69551421ef57fa5d61f33a944b37a3
+Author: nx111 <gd.zhangdz@gmail.com>
+Date:   Mon Feb 24 13:49:48 2014 +0800
+
+    omap: panel: Fix firstboot logic
+    
+    Change-Id: I3613a198a9672fbeb71b5f0fbfe33302a98a5f3b
+
+diff --git a/drivers/video/omap2/displays/panel-mapphone.c b/drivers/video/omap2/displays/panel-mapphone.c
+index 30e6a9f..49eaca3 100644
+--- a/drivers/video/omap2/displays/panel-mapphone.c
++++ b/drivers/video/omap2/displays/panel-mapphone.c
+@@ -3778,11 +3778,7 @@ static void set_default_panel_init_state(struct omap_dss_device *dssdev)
+ }
+ static int mapphone_panel_power_on(struct omap_dss_device *dssdev)
+ {
+-#ifdef CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT
+-	static bool first_boot = false;
+-#else
+ 	static bool first_boot = true;
+-#endif
+ 	struct mapphone_data *mp_data = dev_get_drvdata(&dssdev->dev);
+ 	int ret;
+ 	u8 power_mode = 0;
+@@ -3811,6 +3807,20 @@ static int mapphone_panel_power_on(struct omap_dss_device *dssdev)
+ 		goto err0;
+ 	}
+ 
++#ifdef CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT
++	static bool skip_first_boot = true;
++#else
++	static bool skip_first_boot = false;
++#endif
++
++	if ((skip_first_boot || !first_boot) && !dssdev->phy.dsi.d2l_use_ulps) {
++		if (dssdev->platform_enable) {
++			ret = dssdev->platform_enable(dssdev);
++			if (ret)
++				goto err0;
++		}
++	}
++
+ #ifdef CONFIG_FB_OMAP_BOOTLOADER_INIT
+ 	if (first_boot) {
+ 		/*
+@@ -3841,14 +3851,6 @@ static int mapphone_panel_power_on(struct omap_dss_device *dssdev)
+ 	}
+ #endif
+ 
+-	if (!first_boot && !dssdev->phy.dsi.d2l_use_ulps) {
+-		if (dssdev->platform_enable) {
+-			ret = dssdev->platform_enable(dssdev);
+-			if (ret)
+-				goto err0;
+-		}
+-	}
+-
+ 	mapphone_hw_reset(dssdev);
+ 
+ 	omapdss_dsi_vc_enable_hs(dssdev, dsi_vc_cmd, false);

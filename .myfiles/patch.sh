@@ -300,12 +300,16 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
           -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
   fi
 
-  #some patch for jbx kernel
+  #some patch for kernel
   if  grep -q "^#if defined(CONFIG_MAPPHONE_EDISON) || defined(CONFIG_MAPPHONE_TARGA)" \
             $basedir/kernel/motorola/omap4-common/arch/arm/mach-omap2/sr_device.c; then
-      patch -p1 -N < $rdir/patchs/kernel/jbx-kernel_sr-device.diff
+      patch -p1 -N < $rdir/patchs/kernel/jbx_sr-device.diff
   fi
 
+  if ! grep -q "static bool skip_first_boot = true" \
+     $basedir/kernel/motorola/omap4-common/drivers/video/omap2/displays/panel-mapphone.c; then
+     patch -p1 -N < $rdir/patchs/kernel/first_boot.diff
+  fi
 
   cd $basedir
   echo "Process kernel ended."
