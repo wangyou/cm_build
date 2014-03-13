@@ -398,5 +398,14 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
    sed -e "/OMX_FreeBuffer for buffer header %p successful/d" -i $basedir/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
 
+   ## fix media_profiles.xml for HFR encode
+   if grep -q "maxHFRFrameWidth" $basedir/frameworks/av/media/libmedia/MediaProfiles.cpp; then
+      if ! grep -q "maxHFRFrameWidth" $basedir/device/motorola/$device/media_profiles.xml; then
+         cd $basedir/device/motorola/$device
+         patch -p1 < $rdir/patchs/media_profiles.diff
+         cd $rdir
+      fi
+   fi
+
 ###  fix for compile error ##########
 
