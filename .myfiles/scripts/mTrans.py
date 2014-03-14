@@ -20,10 +20,12 @@ mode=0
 def indent(elem,recursive=True,level=0):
     i = "\n" + level*"  "
     if not elem is None:
+        if not elem.attrib is None and elem.attrib.has_key("msgid"):
+               elem.attrib.pop("msgid",None)
         if not elem.text or not elem.text.strip():
             if level==0 or len(elem)>0 and not elem.attrib is None and elem.attrib.has_key('name'):
                elem.text = i + "  "
-            elif not elem.text is None:
+        elif not elem.text is None:
                elem.text = elem.text.strip()
         if not elem.tail or not elem.tail.strip():
             elem.tail = i 
@@ -36,7 +38,37 @@ def indent(elem,recursive=True,level=0):
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
 
-def mTrans(xmlfile,xmldict,output):
+def findItem(root,elem,lang="",ignoreProduct=False):
+     if elem is None:
+        return elem
+     if elem.attrib is None:
+        return None
+     if elem.attrib.has_key('name'):
+        founds=root.findall(".//*[@name='"+elem.attrib['name']+"']")
+        defaultItemStr=""
+        defaultItemType=""
+        for founditem in founds:
+            if elem.attrib.has_key("product"):
+               if not founditem is None and not founditem.attrib is None:
+                  if defaultItemStr == "" and ignoreProduct==True:
+                      defaultItemStr=ET.tostring(founditem,'utf-8')
+                      defaultItemType=founditem.attrib["product"]
+                  if elem.attrib['product'] == founditem.attrib['product']:
+                      return founditem
+            else:
+               if not founditem is None:
+                  return founditem
+     if defaultItemStr != "":
+         if defaultItemType == 'tablet' and lang=='zh-rCN':
+              itemstr=defaultItemStr.replace("平板电脑","手机")
+         elif  defaultItemType == 'default' and lang=='zh-rCN':
+              itemstr=defaultItemStr.replace("手机","平板电脑")
+         newitem=ET.fromstring(itemstr.replace("product=\""+defaultItemType+"\"","product=\""+elem.attrib['product']+"\""))
+         return newitem
+
+     return None
+                
+def mTrans(xmlfile,xmldict,xmlout):
    global file_log
    tree=None
    tree0=None
@@ -52,6 +84,12 @@ def mTrans(xmlfile,xmldict,output):
    root4=None
 
    baseXMLname=os.path.abspath(xmlfile).replace(basedir+"/","")
+   langstr=os.path.basename(os.path.dirname(xmlout))
+   if langstr[0:7] == 'values-':
+       lang=langstr[7:]
+   else:
+       lang=""
+
    try:
         tree = ET.parse(xmlfile) 
         root = tree.getroot() 
@@ -74,7 +112,7 @@ def mTrans(xmlfile,xmldict,output):
             root0=tree0.getroot()
             for item in root0:
                 try:
-                    elem=root.find(".//*[@name='"+item.attrib['name']+"']")
+                    elem=findItem(root,item,lang)
                     if elem is None:
                         root.append(item)
                 except:
@@ -96,7 +134,7 @@ def mTrans(xmlfile,xmldict,output):
            else:
                for item in root4:
                    try:
-                       elem=root3.find(".//*[@name='"+item.attrib['name']+"']")
+                       elem=findItem(root3,item,lang)
                        if elem is None:
                            root3.append(item)
                    except:
@@ -110,7 +148,7 @@ def mTrans(xmlfile,xmldict,output):
             root0=tree0.getroot()
             for item in root0:
                 try:
-                    elem=root1.find(".//*[@name='"+item.attrib['name']+"']")
+                    elem=findItem(root1,item,lang)
                     if elem is None:
                         root1.append(item)
                 except:
@@ -140,14 +178,14 @@ def mTrans(xmlfile,xmldict,output):
 
            #### in un-prefix cm_ xml
            if not root3 is None:
-               elem3 = root3.find(".//*[@name='"+child_of_root.attrib['name']+"']")
+               elem3 = findItem(root3,child_of_root,lang)
                if not elem3 is None:
                    root.remove(child_of_root)
                    continue
 
            #### in dictionary
            try:
-               elem = root1.find(".//*[@name='"+child_of_root.attrib['name']+"']")
+               elem = findItem(root1,child_of_root,lang,ignoreProduct=True)
            except:
                elem = None
     
@@ -159,7 +197,7 @@ def mTrans(xmlfile,xmldict,output):
                    root.insert(pos,elem)
            else:
                try:
-                  elem2=root2.find(".//*[@name='"+child_of_root.attrib['name']+"']")
+                  elem2=findItem(root2,child_of_root,lang,ignoreProduct=True)
                except:
                   elem2=None
 
