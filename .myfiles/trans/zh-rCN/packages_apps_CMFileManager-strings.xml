@@ -19,7 +19,7 @@
   <string name="overwrite">覆盖</string>
   <string name="select">选择</string>
   <string name="root_directory_name">&lt;根目录&gt;</string>
-  <string name="search_result_name">搜索: <ns0:g id="terms">%1$s</ns0:g>
+  <string name="search_result_name">搜索:<ns0:g id="terms">%1$s</ns0:g>
   </string>
   <string name="loading_message">读取中\u2026</string>
   <string name="cancelled_message">已取消.</string>
@@ -32,8 +32,7 @@
   <string name="confirm_overwrite">确认覆盖</string>
   <string name="confirm_deletion">确认删除</string>
   <string name="msgs_change_to_prompt_access_mode_title">确认切换</string>
-  <string name="msgs_change_to_prompt_access_mode_msg">
-    无法在 Root 访问模式下运行. 正在切换至安全模式.\n\n应用此更改?</string>
+  <string name="msgs_change_to_prompt_access_mode_msg">无法在 Root 访问模式下运行. 正在切换至安全模式.\n\n应用此更改?</string>
   <string name="msgs_cant_create_console">无法得到运行需要的权限.</string>
   <string name="msgs_privileged_console_alloc_failed">无法在 Root 访问模式下运行. 正在切换至安全模式.</string>
   <string name="msgs_settings_save_failure">设置无法被应用与保存.</string>
@@ -51,12 +50,10 @@
   <string name="msgs_read_only_filesystem">只读文件系统. 请在再次尝试操作之前使用读写模式挂载文件系统.</string>
   <string name="msgs_illegal_argument">非法参数. 调用失败.</string>
   <string name="msgs_unresolved_inconsistencies">此操作不被允许，因为它会产生不一致性.</string>
-  <string name="msgs_operation_not_allowed_in_current_directory">
-    此操作在当前所在的文件夹是不被允许的.\n\n目标文件夹不能为来源文件夹或来源的子文件夹</string>
+  <string name="msgs_operation_not_allowed_in_current_directory">此操作在当前所在的文件夹是不被允许的.\n\n目标文件夹不能为来源文件夹或来源的子文件夹</string>
   <string name="msgs_push_again_to_exit">再次点击即可退出.</string>
   <string name="msgs_not_registered_app">没有任何与此类型文件关联的程序.</string>
-  <string name="msgs_overwrite_files">
-    有些文件在目标文件夹内已存在.\n\n是否覆盖?</string>
+  <string name="msgs_overwrite_files">有些文件在目标文件夹内已存在.\n\n是否覆盖?</string>
   <string name="msgs_action_association_failed">程序与操作的关联失败.</string>
   <string name="advise_insufficient_permissions">此操作需要提升权限.\n\n
     您想切换至超级用户访问模式吗?</string>
@@ -142,9 +139,9 @@
   <string name="search_voice_hint">说出您的搜索内容</string>
   <string name="search_error_msg">搜索时发生了错误. 未找到任何结果.</string>
   <string name="search_no_results_msg">未找到任何结果.</string>
-  <string name="search_found_items_in_directory">在 <ns0:g id="path">%2$s</ns0:g> 内<ns0:g id="items">%1$s</ns0:g>
+  <string name="search_found_items_in_directory">在<ns0:g id="path">%2$s</ns0:g> 内<ns0:g id="items">%1$s</ns0:g>
   </string>
-  <string name="search_terms">&lt;b&gt;关键词:&lt;/b&gt; <ns0:g id="terms">%1$s</ns0:g>
+  <string name="search_terms">&lt;b&gt;关键词:&lt;/b&gt;<ns0:g id="terms">%1$s</ns0:g>
   </string>
   <string name="search_few_characters_title">确认搜索</string>
   <string name="search_few_characters_msg">有些关键词包涵了过少的字符. 此操作可能会花费较长的时间与较多的系统资源.\n\n您确定要继续吗?</string>
@@ -189,35 +186,25 @@
   </string>
   <string name="waiting_dialog_msg">正在执行操作\u2026</string>
   <string name="waiting_dialog_copying_title">正在复制\u2026</string>
-  <string name="waiting_dialog_copying_msg">
-    &lt;b&gt;从&lt;/b&gt; <ns0:g id="from">%1$s</ns0:g>&lt;br/&gt;
+  <string name="waiting_dialog_copying_msg">&lt;b&gt;从&lt;/b&gt;<ns0:g id="from">%1$s</ns0:g>&lt;br/&gt;
     &lt;b&gt;到&lt;/b&gt; <ns0:g id="to">%2$s</ns0:g>
   </string>
   <string name="waiting_dialog_moving_title">正在移动\u2026</string>
-  <string name="waiting_dialog_moving_msg">
-    &lt;b&gt;从&lt;/b&gt; <ns0:g id="from">%1$s</ns0:g>&lt;br/&gt;
+  <string name="waiting_dialog_moving_msg">&lt;b&gt;从&lt;/b&gt;<ns0:g id="from">%1$s</ns0:g>&lt;br/&gt;
     &lt;b&gt;到&lt;/b&gt; <ns0:g id="to">%2$s</ns0:g>
   </string>
   <string name="waiting_dialog_deleting_title">正在删除\u2026</string>
-  <string name="waiting_dialog_deleting_msg">
-    &lt;b&gt;文件&lt;/b&gt; <ns0:g id="file">%1$s</ns0:g>
+  <string name="waiting_dialog_deleting_msg">&lt;b&gt;文件&lt;/b&gt;<ns0:g id="file">%1$s</ns0:g>
   </string>
   <string name="waiting_dialog_extracting_title">正在解压\u2026</string>
-  <string name="waiting_dialog_extracting_msg">
-    &lt;b&gt;File&lt;/b&gt; <ns0:g id="file">%1$s</ns0:g>
+  <string name="waiting_dialog_extracting_msg">&lt;b&gt;File&lt;/b&gt;<ns0:g id="file">%1$s</ns0:g>
   </string>
   <string name="waiting_dialog_compressing_title">正在压缩\u2026</string>
-  <string name="waiting_dialog_compressing_msg">
-    &lt;b&gt;文件&lt;/b&gt; <ns0:g id="file">%1$s</ns0:g>
+  <string name="waiting_dialog_compressing_msg">&lt;b&gt;文件&lt;/b&gt;<ns0:g id="file">%1$s</ns0:g>
   </string>
-  <string name="waiting_dialog_analizing_msg">
-    &lt;b&gt;正在分析\u2026&lt;/b&gt;</string>
-  <string name="msgs_extracting_success">
-    解压操作成功. 数据已被解压到:
-    <ns0:g id="destination">%1$s</ns0:g>.</string>
-  <string name="msgs_compressing_success">
-    压缩操作成功. 数据已被压缩到:
-    <ns0:g id="destination">%1$s</ns0:g>.</string>
+  <string name="waiting_dialog_analizing_msg">&lt;b&gt;正在分析\u2026&lt;/b&gt;</string>
+  <string name="msgs_extracting_success">解压操作成功. 数据已被解压到:<ns0:g id="destination">%1$s</ns0:g>.</string>
+  <string name="msgs_compressing_success">压缩操作成功. 数据已被压缩到:<ns0:g id="destination">%1$s</ns0:g>.</string>
   <string name="actions_dialog_title">操作</string>
   <string name="actions_menu_properties_current_folder">属性</string>
   <string name="actions_menu_refresh">刷新</string>
@@ -247,8 +234,7 @@
   <string name="actions_menu_add_shortcut">添加快捷方式</string>
   <string name="actions_menu_open_parent_folder">打开父目录</string>
   <string name="actions_menu_compute_checksum">计算校验和</string>
-  <string name="actions_ask_undone_operation_msg">
-    此操作无法撤销. 您确定要继续?</string>
+  <string name="actions_ask_undone_operation_msg">此操作无法撤销. 您确定要继续?</string>
   <string name="input_name_dialog_label">名称:</string>
   <string name="input_name_dialog_message_empty_name">名称不能为空.</string>
   <string name="input_name_dialog_message_invalid_path_name">无效的名称. 名称中不能包涵以下字符: \'<ns0:g id="invalid_characters">%1$s</ns0:g>\'.</string>
@@ -279,7 +265,7 @@
   <string name="filetime_format_mode_ddMMyyyy_HHmmss">日/月/年 时:分:秒</string>
   <string name="filetime_format_mode_MMddyyyy_HHmmss">月/日/年 时:分:秒</string>
   <string name="filetime_format_mode_yyyyMMdd_HHmmss">年-月-日 时:分:秒</string>
-  <string name="selection_folders_and_files">已选择 <ns0:g id="folders">%1$s</ns0:g> 个文件夹和 <ns0:g id="files">%2$s</ns0:g> 个文件.</string>
+  <string name="selection_folders_and_files">已选择<ns0:g id="folders">%1$s</ns0:g> 个文件夹和 <ns0:g id="files">%2$s</ns0:g> 个文件.</string>
   <string name="category_system">系统</string>
   <string name="category_app">程序</string>
   <string name="category_binary">二进制</string>
@@ -312,7 +298,7 @@
   <string name="pref_case_sensitive_sort_summary">导航或排列搜索结果时区分大小写</string>
   <string name="pref_filetime_format_mode">时间/日期格式</string>
   <string name="pref_disk_usage_warning_level">磁盘使用警告</string>
-  <string formatted="false" name="pref_disk_usage_warning_level_summary">当磁盘使用量到达百分之 <ns0:g id="level">%1$s</ns0:g> 的可用空间时, 在磁盘使用小部件中显示不同的颜色</string>
+  <string formatted="false" name="pref_disk_usage_warning_level_summary">当磁盘使用量到达百分之<ns0:g id="level">%1$s</ns0:g> 的可用空间时, 在磁盘使用小部件中显示不同的颜色</string>
   <string name="pref_compute_folder_statistics">计算文件夹统计数据</string>
   <string name="pref_compute_folder_statistics_on">警告! 文件夹统计数据的计将算会花费较长的时间与较多的系统资源</string>
   <string name="pref_display_thumbs">预览</string>
@@ -383,8 +369,7 @@
       您确定要继续吗?</string>
   <string name="changelog_title">更改记录</string>
   <string name="welcome_title">欢迎</string>
-  <string name="welcome_msg">
-    欢迎您使用 CyanogenMod 文件管理器.
+  <string name="welcome_msg">欢迎您使用 CyanogenMod 文件管理器.
     \n\n本程序将会允许您浏览设备的文件系统并做出可能导致损伤的操作. 为了避免损伤, 此程序默认将会在低权限与安全的模式下开始运行.
     \n\n您可以通过设置切换到高级并拥有完全控制的模式. 确保操作不会损坏系统与它的安全性将是您的责任.
     \n\nCyanogenMod 团队.\n</string>

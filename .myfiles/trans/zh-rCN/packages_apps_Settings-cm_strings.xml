@@ -279,7 +279,7 @@
   <string name="auto_brightness_backlight">屏幕亮度 (%)</string>
   <string name="auto_brightness_reset_dialog_title">重置级别?</string>
   <string name="auto_brightness_reset_confirmation">所有亮度级别都将被还原为默认值。</string>
-  <string name="auto_brightness_split_lux_format">分离位置(在 <ns0:g id="min">%1$d</ns0:g> 到 <ns0:g id="max">%2$d</ns0:g> lux 之间选择)</string>
+  <string name="auto_brightness_split_lux_format">分离位置(在<ns0:g id="min">%1$d</ns0:g> 到 <ns0:g id="max">%2$d</ns0:g> lux 之间选择)</string>
   <string name="auto_brightness_level_options">亮度级别选项</string>
   <string name="auto_brightness_menu_edit">编辑</string>
   <string name="auto_brightness_menu_split">分离</string>
@@ -465,7 +465,7 @@
   <string name="color_blue_title">蓝</string>
   <string name="gamma_tuning_title_head">伽玛校准</string>
   <string name="gamma_tuning_summary_head">调整伽玛值</string>
-  <string name="gamma_tuning_control_set_header">组 <ns0:g id="index">%d</ns0:g>
+  <string name="gamma_tuning_control_set_header">组<ns0:g id="index">%d</ns0:g>
   </string>
   <string name="gamma_tuning_contrast">对比度</string>
   <string name="gamma_tuning_brightness">亮度</string>
@@ -648,7 +648,7 @@
   <string name="backlight_timeout_title">背光超时</string>
   <string name="backlight_timeout_unlimited">从不关闭</string>
   <string name="backlight_summary_disabled">禁用</string>
-  <string name="backlight_summary_enabled_with_timeout">保持背光灯 <ns0:g id="timeout">%s</ns0:g>
+  <string name="backlight_summary_enabled_with_timeout">保持背光灯<ns0:g id="timeout">%s</ns0:g>
   </string>
   <string name="backlight_summary_enabled">启用</string>
   <string name="accessibility_home_button_answers_call_prerefence_title">Home键接听电话</string>
@@ -811,11 +811,11 @@
   <string name="app_ops_categories_bootup">启动</string>
   <string name="app_ops_entry_summary">
     <ns0:g id="op">%1$s</ns0:g> (已使用 <ns0:g id="count">%2$s</ns0:g>)</string>
-  <string name="app_ops_allowed_count">允许 <ns0:g example="2 times" id="count">%s</ns0:g>
+  <string name="app_ops_allowed_count">允许<ns0:g example="2 times" id="count">%s</ns0:g>
   </string>
-  <string name="app_ops_ignored_count">拒绝 <ns0:g example="2 times" id="count">%s</ns0:g>
+  <string name="app_ops_ignored_count">拒绝<ns0:g example="2 times" id="count">%s</ns0:g>
   </string>
-  <string name="app_ops_both_count">允许 <ns0:g id="count">%1$s</ns0:g>, 拒绝 <ns0:g id="count">%2$s</ns0:g>
+  <string name="app_ops_both_count">允许<ns0:g id="count">%1$s</ns0:g>, 拒绝 <ns0:g id="count">%2$s</ns0:g>
   </string>
   <string name="app_ops_show_user_apps">显示用户应用</string>
   <string name="app_ops_show_system_apps">显示内置应用</string>
