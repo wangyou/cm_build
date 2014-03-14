@@ -43,11 +43,13 @@ def mTrans(xmlfile,xmldict,output):
    tree1=None
    tree2=None
    tree3=None
+   tree4=None
    root=None
    root0=None
    root1=None
    root2=None
    root3=None
+   root4=None
 
    baseXMLname=os.path.abspath(xmlfile).replace(basedir+"/","")
    try:
@@ -80,6 +82,40 @@ def mTrans(xmlfile,xmldict,output):
         if os.path.exists(os.path.dirname(xmlout)+"/"+bbxml):
             tree3=ET.parse(os.path.dirname(xmlout)+"/"+bbxml)
             root3=tree3.getroot()
+        bdictname=os.path.basename(xmldict).split("-")[len(f.split("-"))-1]
+        bdictprefix=os.path.basename(xmldict).replace(bdictname,"")[:-1]
+        if mode & modRefreshDict:
+            ndict=os.path.dirname(xmldict)+"/"+bdictprefix+"-"+bbxml
+        else:
+            ndict=os.path.dirname(xmldict)+"/out/"+bdictprefix+"-"+bbxml
+        if os.path.exists(ndict):
+           tree4=ET.parse(ndict)
+           root4=tree4.getroot()
+           if root3 is None:
+               root3=root4
+           else:
+               for item in root4:
+                   try:
+                       elem=root3.find(".//*[@name='"+item.attrib['name']+"']")
+                       if elem is None:
+                           root3.append(item)
+                   except:
+                       pass
+   else:
+        bdictname=os.path.basename(xmldict).split("-")[len(f.split("-"))-1]
+        bdictprefix=os.path.basename(xmldict).replace(bdictname,"")[:-1]
+        ndict=os.path.dirname(xmldict)+"/"+bdictprefix+"-cm_"+bdictname
+        if os.path.exists(ndict):
+            tree0=ET.parse(ndict)
+            root0=tree0.getroot()
+            for item in root0:
+                try:
+                    elem=root1.find(".//*[@name='"+item.attrib['name']+"']")
+                    if elem is None:
+                        root1.append(item)
+                except:
+                    pass
+
 
    indent(root,False)
    printedHead=0
@@ -134,7 +170,7 @@ def mTrans(xmlfile,xmldict,output):
                         removed=False
                         root.insert(pos,elem2)
                else:
-                    if not child_of_root is None:
+                    if not child_of_root is None and child_of_root.attrib.has_key("name"):
                         try:
                             if file_log is None:
                                 file_log=open(dictdir+"/log.txt","w")
@@ -185,12 +221,26 @@ for op in sys.argv:
     pos+=1
 
 if j<3:
-    for s in os.listdir(dictdir):
+    files=os.listdir(dictdir)
+    for s in files:
         langName=s
         if os.path.isdir(dictdir+"/"+s):
-             for f in os.listdir(dictdir+"/"+s):
+             dictlist=os.listdir(dictdir+"/"+s)
+             for f in dictlist:
+                  xmlname=f.split("-")[len(f.split("-"))-1]
+                  xmlprefix=f.replace(xmlname,"")[:-1]
+                  if xmlname[0:3] != "cm_" and os.path.isfile(f):
+                       try:
+                          cmpos=dictlist.index(xmlprefix+"-cm_"+xmlname)
+                          mypos=dictlist.index(f)
+                          if cmpos > mypos:
+                              dictlist[mypos]=dictlist[cmpos]
+                              dictlist[cmpos]=f
+                       except:
+                          pass 
+             for f in dictlist:
                  xmlname=f.split("-")[len(f.split("-"))-1]
-                 project=f.split("-")[0].replace("_","/")
+                 project=f.replace(xmlname,"")[:-1].replace("_","/")
                  xmlfile=basedir+"/"+project+"/res/values/"+xmlname
                  xmldict=dictdir+"/"+s+"/"+f
                  xmlout= basedir+"/"+project+"/res/values-"+langName+"/"+xmlname
