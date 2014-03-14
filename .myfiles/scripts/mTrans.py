@@ -231,7 +231,7 @@ def mTrans(xmlfile,xmldict,xmlout):
    except:
        pass
    if mode & modWriteTrans:
-           tree.write(output,encoding="utf-8",xml_declaration=True) 
+           tree.write(xmlout,encoding="utf-8",xml_declaration=True) 
    if mode & modRefreshDict:
            tree.write(xmldict,encoding="UTF-8",xml_declaration=True) 
    else:
