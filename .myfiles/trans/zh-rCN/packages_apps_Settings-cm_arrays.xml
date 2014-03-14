@@ -26,6 +26,20 @@
     <item>15 秒 | 1 分钟 | 5 分钟</item>
     <item>30 秒 | 2 分钟 | 5 分钟</item>
   </string-array>
+  <string-array name="data_usage_cycle_length">
+    <item>每天</item>
+    <item>每周</item>
+    <item>每月</item>
+  </string-array>
+  <string-array name="data_usage_cycle_weekdays">
+    <item>星期日</item>
+    <item>星期一</item>
+    <item>星期二</item>
+    <item>星期三</item>
+    <item>星期四</item>
+    <item>星期五</item>
+    <item>星期六</item>
+  </string-array>
   <string-array name="app_ops_permissions">
     <item>允许</item>
     <item>禁止</item>
