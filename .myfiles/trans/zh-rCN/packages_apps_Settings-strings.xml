@@ -7,8 +7,8 @@
   <string name="deny">"拒绝"</string>
   <string name="device_info_default">"未知"</string>
   <plurals name="show_dev_countdown">
-    <item quantity="one">"只需<ns0:g id="STEP_COUNT">%1$d</ns0:g> 步操作即可进入开发者模式。"</item>
-    <item quantity="other">"只需<ns0:g id="STEP_COUNT">%1$d</ns0:g> 步操作即可进入开发者模式。"</item>
+    <item quantity="one">"只需<ns0:g id="STEP_COUNT">"%1$d"</ns0:g> 步操作即可进入开发者模式。"</item>
+    <item quantity="other">"只需<ns0:g id="STEP_COUNT">"%1$d"</ns0:g> 步操作即可进入开发者模式。"</item>
   </plurals>
   <string name="show_dev_on">"您现在处于开发者模式！"</string>
   <string name="show_dev_already">"您已处于开发者模式，无需进行此操作。"</string>
@@ -49,16 +49,16 @@
   <string name="radioInfo_lac">"LAC"</string>
   <string name="radioInfo_cid">"CID"</string>
   <string name="sdcard_unmount" product="nosdcard">"卸载 USB 存储设备"</string>
-  <string name="sdcard_unmount" product="default">卸载SD卡</string>
+  <string name="sdcard_unmount" product="default">"卸载SD卡"</string>
   <string name="sdcard_format" product="nosdcard">"格式化 USB 存储设备"</string>
-  <string name="sdcard_format" product="default">格式化SD卡</string>
+  <string name="sdcard_format" product="default">"格式化SD卡"</string>
   <string name="small_font">"小"</string>
   <string name="medium_font">"中"</string>
   <string name="large_font">"大"</string>
-  <string name="font_size_preview_text">Servez à ce monsieur une bière et des kiwis.</string>
+  <string name="font_size_preview_text">"Servez à ce monsieur une bière et des kiwis."</string>
   <string name="font_size_save">"确定"</string>
   <string name="sdcard_setting" product="nosdcard">"USB 存储设备"</string>
-  <string name="sdcard_setting" product="default">SD卡</string>
+  <string name="sdcard_setting" product="default">"SD卡"</string>
   <string name="battery_info_status_label">"电池状态："</string>
   <string name="battery_info_power_label">"是否已插电："</string>
   <string name="battery_info_scale_label">"电池电量："</string>
@@ -95,7 +95,7 @@
   <string name="battery_info_health_unspecified_failure">"未知错误"</string>
   <string name="battery_info_health_cold">"电量低"</string>
   <string name="bluetooth">"蓝牙"</string>
-  <string name="bluetooth_is_discoverable">"附近所有蓝牙设备均可检测到此设备（<ns0:g id="DISCOVERABLE_TIME_PERIOD">%1$s</ns0:g>）"</string>
+  <string name="bluetooth_is_discoverable">"附近所有蓝牙设备均可检测到此设备（<ns0:g id="DISCOVERABLE_TIME_PERIOD">"%1$s"</ns0:g>）"</string>
   <string name="bluetooth_is_discoverable_always">"附近所有蓝牙设备均可检测到此设备"</string>
   <string name="bluetooth_not_visible_to_other_devices">"其他蓝牙设备检测不到此设备"</string>
   <string name="bluetooth_only_visible_to_paired_devices">"已配对的设备可检测到此设备"</string>
@@ -112,9 +112,9 @@
   <string name="bluetooth_rename_device" product="default">"重命名手机"</string>
   <string name="bluetooth_rename_button">"重命名"</string>
   <string name="bluetooth_disconnect_title">"断开连接？"</string>
-  <string name="bluetooth_disconnect_all_profiles">"此操作将会断开您与以下设备的连接：&lt;br&gt;&lt;b&gt;<ns0:g id="DEVICE_NAME">%1$s</ns0:g>&lt;/b&gt;"</string>
+  <string name="bluetooth_disconnect_all_profiles">"此操作将会断开您与以下设备的连接：&lt;br&gt;&lt;b&gt;<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>&lt;/b&gt;"</string>
   <string name="bluetooth_disable_profile_title">"要停用配置文件吗？"</string>
-  <string name="bluetooth_disable_profile_message">"此操作将停用：&lt;br&gt;&lt;b&gt;<ns0:g id="PROFILE_NAME">%1$s</ns0:g>&lt;/b&gt;&lt;br&gt;&lt;br&gt;来自：&lt;br&gt;&lt;b&gt;<ns0:g id="DEVICE_NAME">%2$s</ns0:g>&lt;/b&gt;"</string>
+  <string name="bluetooth_disable_profile_message">"此操作将停用：&lt;br&gt;&lt;b&gt;<ns0:g id="PROFILE_NAME">"%1$s"</ns0:g>&lt;/b&gt;&lt;br&gt;&lt;br&gt;来自：&lt;br&gt;&lt;b&gt;<ns0:g id="DEVICE_NAME">"%2$s"</ns0:g>&lt;/b&gt;"</string>
   <string name="bluetooth_connected">"已连接"</string>
   <string name="bluetooth_connected_no_headset">"已连接（无手机）"</string>
   <string name="bluetooth_connected_no_a2dp">"已连接（无媒体）"</string>
@@ -130,25 +130,25 @@
   <string name="bluetooth_no_devices_found">"未在附近找到蓝牙设备。"</string>
   <string name="bluetooth_notif_ticker">"蓝牙配对请求"</string>
   <string name="bluetooth_notif_title">"配对请求"</string>
-  <string name="bluetooth_notif_message">"触摸可与<ns0:g id="DEVICE_NAME">%1$s</ns0:g>配对。"</string>
+  <string name="bluetooth_notif_message">"触摸可与<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>配对。"</string>
   <string name="bluetooth_show_received_files">"显示接收到的文件"</string>
   <string name="device_picker">"蓝牙设备选择器"</string>
   <string name="bluetooth_permission_request">"蓝牙权限请求"</string>
   <string name="bluetooth_ask_enablement">"某个应用想要打开蓝牙。"</string>
-  <string name="bluetooth_ask_discovery" product="tablet">"某个应用想让其他蓝牙设备在<ns0:g id="TIMEOUT">%1$d</ns0:g> 秒内可检测到您的平板电脑。"</string>
-  <string name="bluetooth_ask_discovery" product="default">"某个应用想让其他蓝牙设备在<ns0:g id="TIMEOUT">%1$d</ns0:g> 秒内可检测到您的手机。"</string>
+  <string name="bluetooth_ask_discovery" product="tablet">"某个应用想让其他蓝牙设备在<ns0:g id="TIMEOUT">"%1$d"</ns0:g> 秒内可检测到您的平板电脑。"</string>
+  <string name="bluetooth_ask_discovery" product="default">"某个应用想让其他蓝牙设备在<ns0:g id="TIMEOUT">"%1$d"</ns0:g> 秒内可检测到您的手机。"</string>
   <string name="bluetooth_ask_lasting_discovery" product="tablet">"某个应用想让其他蓝牙设备检测到您的平板电脑。之后，您可以在“蓝牙”设置中更改此设置。"</string>
   <string name="bluetooth_ask_lasting_discovery" product="default">"某个应用想让其他蓝牙设备检测到您的手机。之后，您可以在“蓝牙”设置中更改此设置。"</string>
-  <string name="bluetooth_ask_enablement_and_discovery" product="tablet">"某个应用想要打开蓝牙，以便其他设备在<ns0:g id="TIMEOUT">%1$d</ns0:g> 秒内可检测到您的平板电脑。"</string>
-  <string name="bluetooth_ask_enablement_and_discovery" product="default">"某个应用想要打开蓝牙，以便其他设备在<ns0:g id="TIMEOUT">%1$d</ns0:g> 秒内可检测到您的手机。"</string>
+  <string name="bluetooth_ask_enablement_and_discovery" product="tablet">"某个应用想要打开蓝牙，以便其他设备在<ns0:g id="TIMEOUT">"%1$d"</ns0:g> 秒内可检测到您的平板电脑。"</string>
+  <string name="bluetooth_ask_enablement_and_discovery" product="default">"某个应用想要打开蓝牙，以便其他设备在<ns0:g id="TIMEOUT">"%1$d"</ns0:g> 秒内可检测到您的手机。"</string>
   <string name="bluetooth_ask_enablement_and_lasting_discovery" product="tablet">"某个应用想要打开蓝牙，以便其他设备可检测到您的平板电脑。之后，您可以在“蓝牙”设置中更改此设置。"</string>
   <string name="bluetooth_ask_enablement_and_lasting_discovery" product="default">"某个应用想要打开蓝牙，以便其他设备可检测到您的手机。之后，您可以在“蓝牙”设置中更改此设置。"</string>
   <string name="bluetooth_turning_on">"正在打开蓝牙..."</string>
   <string name="bluetooth_turning_off">"正在关闭蓝牙…"</string>
   <string name="bluetooth_auto_connect">"自动连接"</string>
   <string name="bluetooth_connection_permission_request">"蓝牙连接请求"</string>
-  <string name="bluetooth_connection_notif_message">"触摸可连接到“<ns0:g id="DEVICE_NAME">%1$s</ns0:g>”。"</string>
-  <string name="bluetooth_connection_dialog_text">"要连接到“<ns0:g id="DEVICE_NAME">%1$s</ns0:g>”吗？"</string>
+  <string name="bluetooth_connection_notif_message">"触摸可连接到“<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>”。"</string>
+  <string name="bluetooth_connection_dialog_text">"要连接到“<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>”吗？"</string>
   <string name="bluetooth_phonebook_request">"电话簿权限申请"</string>
   <string name="bluetooth_pb_acceptance_dialog_text">"%1$s想访问您的联系人信息和通话记录。要向%2$s授予访问权限吗？"</string>
   <string name="bluetooth_remember_choice">"不要再询问"</string>
@@ -158,18 +158,18 @@
   <string name="date_and_time">"日期和时间设置"</string>
   <string name="choose_timezone">"选择时区"</string>
   <string name="default_date_format">
-    <ns0:g id="default_date_format">MM/dd/yyyy</ns0:g>
+    <ns0:g id="default_date_format">"MM/dd/yyyy"</ns0:g>
   </string>
-  <string name="normal_date_format">"所在区域 (<ns0:g id="DATE">%s</ns0:g>)"</string>
+  <string name="normal_date_format">"所在区域 (<ns0:g id="DATE">"%s"</ns0:g>)"</string>
   <string name="display_preview_label">"预览:"</string>
   <string name="display_font_size_label">"字号："</string>
   <string name="intent_sender_data_label">
-    <ns0:g id="data">数据:</ns0:g>
+    <ns0:g id="data">"数据:"</ns0:g>
   </string>
-  <string name="intent_sender_sendbroadcast_text">"发送<ns0:g id="BROADCAST">广播</ns0:g>"</string>
-  <string name="intent_sender_action_label">"<ns0:g id="ACTION">动作</ns0:g>:"</string>
-  <string name="intent_sender_startactivity_text">"启动<ns0:g id="ACTIVITY">活动</ns0:g>"</string>
-  <string name="intent_sender_resource_label">"<ns0:g id="RESOURCE">资源</ns0:g>:"</string>
+  <string name="intent_sender_sendbroadcast_text">"发送<ns0:g id="BROADCAST">"广播"</ns0:g>"</string>
+  <string name="intent_sender_action_label">"<ns0:g id="ACTION">"动作"</ns0:g>:"</string>
+  <string name="intent_sender_startactivity_text">"启动<ns0:g id="ACTIVITY">"活动"</ns0:g>"</string>
+  <string name="intent_sender_resource_label">"<ns0:g id="RESOURCE">"资源"</ns0:g>:"</string>
   <string name="intent_sender_account_label">"帐户:"</string>
   <string name="proxy_settings_title">"代理"</string>
   <string name="proxy_clear_text">"清除"</string>
@@ -230,31 +230,31 @@
   <string name="sdcard_settings_screen_mass_storage_text">"启用 USB 大容量存储设备"</string>
   <string name="sdcard_settings_total_bytes_label">"总字节数："</string>
   <string name="sdcard_settings_not_present_status" product="nosdcard">"未装载 USB 存储设备。"</string>
-  <string name="sdcard_settings_not_present_status" product="default">未挂载SD卡.</string>
+  <string name="sdcard_settings_not_present_status" product="default">"未挂载SD卡."</string>
   <string name="sdcard_settings_available_bytes_label">"可用的字节数："</string>
   <string name="sdcard_settings_mass_storage_status" product="nosdcard">"计算机正将 USB 存储设备用作大容量存储设备。"</string>
-  <string name="sdcard_settings_mass_storage_status" product="default">正在将SD卡用作大容量存储设备.</string>
+  <string name="sdcard_settings_mass_storage_status" product="default">"正在将SD卡用作大容量存储设备."</string>
   <string name="sdcard_settings_unmounted_status" product="nosdcard">"现在可以安全地移除该 USB 存储设备了。"</string>
-  <string name="sdcard_settings_unmounted_status" product="default">现在可以安全拔出SD卡了.</string>
+  <string name="sdcard_settings_unmounted_status" product="default">"现在可以安全拔出SD卡了."</string>
   <string name="sdcard_settings_bad_removal_status" product="nosdcard">"USB 存储设备仍在使用中便被移除！"</string>
-  <string name="sdcard_settings_bad_removal_status" product="default">SD卡仍在使用中便被拔出!</string>
+  <string name="sdcard_settings_bad_removal_status" product="default">"SD卡仍在使用中便被拔出!"</string>
   <string name="sdcard_settings_used_bytes_label">"已使用的字节数："</string>
   <string name="sdcard_settings_scanning_status" product="nosdcard">"正在扫描 USB 存储设备中的媒体..."</string>
-  <string name="sdcard_settings_scanning_status" product="default">正在扫描SD卡中的媒体\u2026</string>
+  <string name="sdcard_settings_scanning_status" product="default">"正在扫描SD卡中的媒体\u2026"</string>
   <string name="sdcard_settings_read_only_status" product="nosdcard">"已将 USB 存储设备装载为只读设备。"</string>
-  <string name="sdcard_settings_read_only_status" product="default">已将SD卡挂载为只读设备.</string>
+  <string name="sdcard_settings_read_only_status" product="default">"已将SD卡挂载为只读设备."</string>
   <string name="skip_label">"跳过"</string>
   <string name="next_label">"下一步"</string>
   <string name="language_picker_title">"语言"</string>
   <string name="activity_picker_label">"选择活动"</string>
-  <string name="debug_intent_sender_label">调试发送</string>
+  <string name="debug_intent_sender_label">"调试发送"</string>
   <string name="device_info_label">"设备信息"</string>
   <string name="battery_info_label">"电池信息"</string>
   <string name="display_label">"屏幕"</string>
   <string name="phone_info_label" product="tablet">"平板电脑信息"</string>
   <string name="phone_info_label" product="default">"手机信息"</string>
   <string name="sd_card_settings_label" product="nosdcard">"USB 存储设备"</string>
-  <string name="sd_card_settings_label" product="default">SD卡</string>
+  <string name="sd_card_settings_label" product="default">"SD卡"</string>
   <string name="proxy_settings_label">"代理设置"</string>
   <string name="cancel">"取消"</string>
   <string name="settings_label">"设置"</string>
@@ -297,7 +297,7 @@
   <string name="biometric_weak_liveliness_title">"真人判断"</string>
   <string name="biometric_weak_liveliness_summary">"解锁时需要眨眼"</string>
   <string name="lock_after_timeout">"自动锁定"</string>
-  <string name="lock_after_timeout_summary">"休眠<ns0:g id="TIMEOUT_STRING">%1$s</ns0:g>后"</string>
+  <string name="lock_after_timeout_summary">"休眠<ns0:g id="TIMEOUT_STRING">"%1$s"</ns0:g>后"</string>
   <string name="show_owner_info_on_lockscreen_label">"在锁定屏幕上显示机主信息"</string>
   <string name="owner_info_settings_title">"机主信息"</string>
   <string name="security_enable_widgets_title">"启用小部件"</string>
@@ -331,9 +331,9 @@
   <string name="crypt_keeper_final_desc" product="tablet">"加密操作无法撤消，如果您中断该过程，则会丢失数据。加密过程需要 1 小时或更长时间，在此期间，平板电脑会重新启动数次。"</string>
   <string name="crypt_keeper_final_desc" product="default">"加密操作无法撤消，如果您中断该过程，则会丢失数据。加密过程需要 1 小时或更长时间，在此期间，手机会重新启动数次。"</string>
   <string name="crypt_keeper_setup_title">"正在加密"</string>
-  <string name="crypt_keeper_setup_description" product="tablet">"正在加密您的平板电脑（已完成<ns0:g id="PERCENT">^1</ns0:g>%），请耐心等待。"</string>
-  <string name="crypt_keeper_setup_description" product="default">"正在加密您的手机（已完成<ns0:g id="PERCENT">^1</ns0:g>%），请耐心等待。"</string>
-  <string name="crypt_keeper_cooldown">"<ns0:g id="DELAY">^1</ns0:g> 秒后重试。"</string>
+  <string name="crypt_keeper_setup_description" product="tablet">"正在加密您的平板电脑（已完成<ns0:g id="PERCENT">"^1"</ns0:g>%），请耐心等待。"</string>
+  <string name="crypt_keeper_setup_description" product="default">"正在加密您的手机（已完成<ns0:g id="PERCENT">"^1"</ns0:g>%），请耐心等待。"</string>
+  <string name="crypt_keeper_cooldown">"<ns0:g id="DELAY">"^1"</ns0:g> 秒后重试。"</string>
   <string name="crypt_keeper_enter_password">"键入密码"</string>
   <string name="crypt_keeper_failed_title">"加密失败"</string>
   <string name="crypt_keeper_failed_summary" product="tablet">"加密过程中断，无法完成。因此，您已无法再使用平板电脑上的数据。\n\n要继续使用您的平板电脑，您需要恢复出厂设置。恢复出厂设置后对平板电脑进行设置时，您可以将之前备份到 Google 帐户的所有数据恢复到平板电脑中。"</string>
@@ -376,8 +376,8 @@
   <string name="lockpassword_pin_too_short">"PIN 至少应为 %d 位"</string>
   <string name="lockpassword_press_continue">"完成后触摸“继续”"</string>
   <string name="lockpassword_continue_label">"继续"</string>
-  <string name="lockpassword_password_too_long">"密码必须少于<ns0:g id="NUMBER">%d</ns0:g> 个字符。"</string>
-  <string name="lockpassword_pin_too_long">"PIN 必须少于<ns0:g id="NUMBER">%d</ns0:g> 位数。"</string>
+  <string name="lockpassword_password_too_long">"密码必须少于<ns0:g id="NUMBER">"%d"</ns0:g> 个字符。"</string>
+  <string name="lockpassword_pin_too_long">"PIN 必须少于<ns0:g id="NUMBER">"%d"</ns0:g> 位数。"</string>
   <string name="lockpassword_pin_contains_non_digits">"PIN 只能包含 0-9 的数字。"</string>
   <string name="lockpassword_pin_recently_used">"设备管理员不允许使用最近用过的 PIN。"</string>
   <string name="lockpassword_illegal_character">"密码包含非法字符。"</string>
@@ -424,40 +424,40 @@
     <item quantity="other">"%d个应用可以读取通知"</item>
   </plurals>
   <string name="no_notification_listeners">"未安装任何通知侦听器。"</string>
-  <string name="notification_listener_security_warning_title">"要启用“<ns0:g id="SERVICE">%1$s</ns0:g>”吗？"</string>
-  <string name="notification_listener_security_warning_summary">"“<ns0:g id="NOTIFICATION_LISTENER_NAME">%1$s</ns0:g>”将可读取系统或任何已安装应用发布的任何通知（可能包括联系人姓名和别人发送给您的消息文字等个人信息），还将可以关闭这些通知或触摸其中的操作按钮。"</string>
+  <string name="notification_listener_security_warning_title">"要启用“<ns0:g id="SERVICE">"%1$s"</ns0:g>”吗？"</string>
+  <string name="notification_listener_security_warning_summary">"“<ns0:g id="NOTIFICATION_LISTENER_NAME">"%1$s"</ns0:g>”将可读取系统或任何已安装应用发布的任何通知（可能包括联系人姓名和别人发送给您的消息文字等个人信息），还将可以关闭这些通知或触摸其中的操作按钮。"</string>
   <string name="bluetooth_quick_toggle_title">"蓝牙"</string>
   <string name="bluetooth_quick_toggle_summary">"打开蓝牙"</string>
   <string name="bluetooth_settings">"蓝牙"</string>
   <string name="bluetooth_settings_title">"蓝牙"</string>
   <string name="bluetooth_settings_summary">"管理连接、设置设备名称和可检测性"</string>
   <string name="bluetooth_pairing_request">"蓝牙配对请求"</string>
-  <string name="bluetooth_enter_pin_msg">"要与<ns0:g id="BOLD_0">&lt;br&gt;&lt;b&gt;</ns0:g>
-    <ns0:g id="DEVICE_NAME">%1$s</ns0:g>
-    <ns0:g id="END_BOLD">&lt;/b&gt;&lt;br&gt;&lt;br&gt;</ns0:g> 设备配对，请键入该设备所需的 PIN："</string>
-  <string name="bluetooth_enter_pin_msg_hs">\nType PIN to pair with \u0022<ns0:g id="device_name">%1$s</ns0:g>\u0022. [High Security Enabled: Needs 16 character key] </string>
-  <string name="bluetooth_enter_passkey_msg">"要与<ns0:g id="BOLD_0">&lt;br&gt;&lt;b&gt;</ns0:g>
-    <ns0:g id="DEVICE_NAME">%1$s</ns0:g>
-    <ns0:g id="END_BOLD">&lt;/b&gt;&lt;br&gt;&lt;br&gt;</ns0:g> 设备配对，请键入该设备所需的配对密钥："</string>
+  <string name="bluetooth_enter_pin_msg">"要与<ns0:g id="BOLD_0">"&lt;br&gt;&lt;b&gt;"</ns0:g>
+    <ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>
+    <ns0:g id="END_BOLD">"&lt;/b&gt;&lt;br&gt;&lt;br&gt;"</ns0:g> 设备配对，请键入该设备所需的 PIN："</string>
+  <string name="bluetooth_enter_pin_msg_hs">"\nType PIN to pair with \u0022"<ns0:g id="device_name">"%1$s"</ns0:g>\u0022. [High Security Enabled: Needs 16 character key] </string>
+  <string name="bluetooth_enter_passkey_msg">"要与<ns0:g id="BOLD_0">"&lt;br&gt;&lt;b&gt;"</ns0:g>
+    <ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>
+    <ns0:g id="END_BOLD">"&lt;/b&gt;&lt;br&gt;&lt;br&gt;"</ns0:g> 设备配对，请键入该设备所需的配对密钥："</string>
   <string name="bluetooth_enable_alphanumeric_pin">"PIN 由字母或符号组成"</string>
   <string name="bluetooth_pin_values_hint">"通常为 0000 或 1234"</string>
   <string name="bluetooth_enter_pin_other_device">"您可能还需要在另一台设备上输入此 PIN。"</string>
   <string name="bluetooth_enter_passkey_other_device">"您可能还需要在另一台设备上输入此密钥。"</string>
-  <string name="bluetooth_confirm_passkey_msg">"要与以下设备配对：&lt;br&gt;&lt;b&gt;<ns0:g id="DEVICE_NAME">%1$s</ns0:g>&lt;/b&gt;&lt;br&gt;&lt;br&gt;请确保其显示的配对密钥为：&lt;br&gt;&lt;b&gt;<ns0:g id="PASSKEY">%2$s</ns0:g>&lt;/b&gt;"</string>
-  <string name="bluetooth_incoming_pairing_msg">"来自：&lt;br&gt;&lt;b&gt;<ns0:g id="DEVICE_NAME">%1$s</ns0:g>&lt;/b&gt;&lt;br&gt;&lt;br&gt;要与此设备配对吗？"</string>
-  <string name="bluetooth_display_passkey_pin_msg">"要与<ns0:g id="BOLD1_0">&lt;br&gt;&lt;b&gt;</ns0:g>
-    <ns0:g id="DEVICE_NAME">%1$s</ns0:g>
-    <ns0:g id="END_BOLD1">&lt;/b&gt;&lt;br&gt;&lt;br&gt;</ns0:g> 设备配对，请在该设备上键入：<ns0:g id="BOLD2_1">&lt;br&gt;&lt;b&gt;</ns0:g>
-    <ns0:g id="PASSKEY">%2$s</ns0:g>
-    <ns0:g id="END_BOLD2">&lt;/b&gt;</ns0:g>，然后按回车键。"</string>
+  <string name="bluetooth_confirm_passkey_msg">"要与以下设备配对：&lt;br&gt;&lt;b&gt;<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>&lt;/b&gt;&lt;br&gt;&lt;br&gt;请确保其显示的配对密钥为：&lt;br&gt;&lt;b&gt;<ns0:g id="PASSKEY">"%2$s"</ns0:g>&lt;/b&gt;"</string>
+  <string name="bluetooth_incoming_pairing_msg">"来自：&lt;br&gt;&lt;b&gt;<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>&lt;/b&gt;&lt;br&gt;&lt;br&gt;要与此设备配对吗？"</string>
+  <string name="bluetooth_display_passkey_pin_msg">"要与<ns0:g id="BOLD1_0">"&lt;br&gt;&lt;b&gt;"</ns0:g>
+    <ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>
+    <ns0:g id="END_BOLD1">"&lt;/b&gt;&lt;br&gt;&lt;br&gt;"</ns0:g> 设备配对，请在该设备上键入：<ns0:g id="BOLD2_1">"&lt;br&gt;&lt;b&gt;"</ns0:g>
+    <ns0:g id="PASSKEY">"%2$s"</ns0:g>
+    <ns0:g id="END_BOLD2">"&lt;/b&gt;"</ns0:g>，然后按回车键。"</string>
   <string name="bluetooth_pairing_accept">"配对"</string>
   <string name="bluetooth_pairing_decline">"取消"</string>
   <string name="bluetooth_error_title" />
-  <string name="bluetooth_pairing_error_message">"无法与“<ns0:g id="DEVICE_NAME">%1$s</ns0:g>”进行配对。"</string>
-  <string name="bluetooth_pairing_pin_error_message">"PIN 或配对密钥不正确，无法与“<ns0:g id="DEVICE_NAME">%1$s</ns0:g>”配对。"</string>
-  <string name="bluetooth_pairing_device_down_error_message">"无法与“<ns0:g id="DEVICE_NAME">%1$s</ns0:g>”进行通信。"</string>
-  <string name="bluetooth_pairing_rejected_error_message">"<ns0:g id="DEVICE_NAME">%1$s</ns0:g> 已拒绝配对。"</string>
-  <string name="bluetooth_connecting_error_message">"无法连接到<ns0:g id="DEVICE_NAME">%1$s</ns0:g>。"</string>
+  <string name="bluetooth_pairing_error_message">"无法与“<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>”进行配对。"</string>
+  <string name="bluetooth_pairing_pin_error_message">"PIN 或配对密钥不正确，无法与“<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>”配对。"</string>
+  <string name="bluetooth_pairing_device_down_error_message">"无法与“<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>”进行通信。"</string>
+  <string name="bluetooth_pairing_rejected_error_message">"<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g> 已拒绝配对。"</string>
+  <string name="bluetooth_connecting_error_message">"无法连接到<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>。"</string>
   <string name="bluetooth_preference_scan_title">"扫描查找设备"</string>
   <string name="bluetooth_search_for_devices">"搜索设备"</string>
   <string name="bluetooth_searching_for_devices">"正在搜索..."</string>
@@ -481,14 +481,14 @@
   <string name="bluetooth_profile_pan">"互联网访问"</string>
   <string name="bluetooth_profile_pan_nap">"互联网连接共享"</string>
   <string name="bluetooth_profile_map">"消息权限"</string>
-  <string name="bluetooth_profile_sap">SIM访问</string>
-  <string name="bluetooth_profile_dun">拨号网络访问</string>
-  <string name="bluetooth_disconnect_a2dp_profile">"<ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与媒体音频断开连接。"</string>
-  <string name="bluetooth_disconnect_headset_profile">"<ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与免提音频断开连接。"</string>
-  <string name="bluetooth_disconnect_hid_profile">"<ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与输入设备断开连接。"</string>
-  <string name="bluetooth_disconnect_pan_user_profile">"将断开<ns0:g id="DEVICE_NAME">%1$s</ns0:g> 的互联网访问。"</string>
-  <string name="bluetooth_disconnect_pan_nap_profile" product="tablet">"<ns0:g id="DEVICE_NAME">%1$s</ns0:g> 将断开而不再共享该平板电脑的互联网连接。"</string>
-  <string name="bluetooth_disconnect_pan_nap_profile" product="default">"<ns0:g id="DEVICE_NAME">%1$s</ns0:g> 将断开而不再共享该手机的互联网连接。"</string>
+  <string name="bluetooth_profile_sap">"SIM访问"</string>
+  <string name="bluetooth_profile_dun">"拨号网络访问"</string>
+  <string name="bluetooth_disconnect_a2dp_profile">"<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>将与媒体音频断开连接。"</string>
+  <string name="bluetooth_disconnect_headset_profile">"<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>将与免提音频断开连接。"</string>
+  <string name="bluetooth_disconnect_hid_profile">"<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>将与输入设备断开连接。"</string>
+  <string name="bluetooth_disconnect_pan_user_profile">"将断开<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g> 的互联网访问。"</string>
+  <string name="bluetooth_disconnect_pan_nap_profile" product="tablet">"<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g> 将断开而不再共享该平板电脑的互联网连接。"</string>
+  <string name="bluetooth_disconnect_pan_nap_profile" product="default">"<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g> 将断开而不再共享该手机的互联网连接。"</string>
   <string name="bluetooth_device_advanced_title">"已配对的蓝牙设备"</string>
   <string name="bluetooth_device_advanced_online_mode_title">"连接"</string>
   <string name="bluetooth_device_advanced_online_mode_summary">"连接到蓝牙设备"</string>
@@ -499,8 +499,8 @@
   <string name="bluetooth_headset_profile_summary_connected">"已连接到手机音频"</string>
   <string name="bluetooth_opp_profile_summary_connected">"已连接到文件传输服务器"</string>
   <string name="bluetooth_map_profile_summary_connected">"已连接到地图"</string>
-  <string name="bluetooth_sap_profile_summary_connected">连接到SIM访问服务器</string>
-  <string name="bluetooth_dun_profile_summary_connected">连接到DUN服务器</string>
+  <string name="bluetooth_sap_profile_summary_connected">"连接到SIM访问服务器"</string>
+  <string name="bluetooth_dun_profile_summary_connected">"连接到DUN服务器"</string>
   <string name="bluetooth_opp_profile_summary_not_connected">"未连接到文件传输服务器"</string>
   <string name="bluetooth_hid_profile_summary_connected">"已连接到输入设备"</string>
   <string name="bluetooth_pan_user_profile_summary_connected">"连接到设备以访问互联网"</string>
@@ -508,8 +508,8 @@
   <string name="bluetooth_a2dp_profile_summary_use_for">"用于媒体音频"</string>
   <string name="bluetooth_headset_profile_summary_use_for">"用于手机音频"</string>
   <string name="bluetooth_opp_profile_summary_use_for">"用于文件传输"</string>
-  <string name="bluetooth_sap_profile_summary_use_for">用于SIM访问</string>
-  <string name="bluetooth_dun_profile_summary_use_for">用于拨号网络访问</string>
+  <string name="bluetooth_sap_profile_summary_use_for">"用于SIM访问"</string>
+  <string name="bluetooth_dun_profile_summary_use_for">"用于拨号网络访问"</string>
   <string name="bluetooth_hid_profile_summary_use_for">"用于输入"</string>
   <string name="bluetooth_pan_profile_summary_use_for">"用于访问互联网"</string>
   <string name="bluetooth_map_profile_summary_use_for">"用于地图"</string>
@@ -589,9 +589,9 @@
   <string name="wifi_wps_setup_title">"WLAN 保护设置"</string>
   <string name="wifi_wps_setup_msg">"正在启动 WPS..."</string>
   <string name="wifi_wps_onstart_pbc">"请按下您路由器上的 WLAN 保护设置按钮，它可能会标为“WPS”或包含此符号："</string>
-  <string name="wifi_wps_onstart_pin">"请在 WLAN 路由器上输入 PIN<ns0:g id="NUMBER">%1$s</ns0:g>。设置过程最多可能需要两分钟时间就能完成。"</string>
+  <string name="wifi_wps_onstart_pin">"请在 WLAN 路由器上输入 PIN<ns0:g id="NUMBER">"%1$s"</ns0:g>。设置过程最多可能需要两分钟时间就能完成。"</string>
   <string name="wifi_wps_complete">"WPS 已成功启动。正在连接网络..."</string>
-  <string name="wifi_wps_connected">"已连接到 WLAN 网络“<ns0:g id="NETWORK_NAME">%s</ns0:g>”"</string>
+  <string name="wifi_wps_connected">"已连接到 WLAN 网络“<ns0:g id="NETWORK_NAME">"%s"</ns0:g>”"</string>
   <string name="wifi_wps_in_progress">"正在设置 WPS，此过程最多可能需要两分钟时间才能完成。"</string>
   <string name="wifi_wps_failed_generic">"WPS 未能成功启动。请过几分钟后重试。"</string>
   <string name="wifi_wps_failed_wep">"无线路由器安全设置 (WEP) 不受支持"</string>
@@ -620,26 +620,24 @@
   <string name="wifi_disabled_generic">"未启用"</string>
   <string name="wifi_disabled_network_failure">"已停用（互联网连接状况不佳）"</string>
   <string name="wifi_disabled_password_failure">"身份验证出现问题"</string>
-  <string name="wifi_disabled_association_rejected">Association rejected</string>
+  <string name="wifi_disabled_association_rejected">"Association rejected"</string>
   <string name="wifi_not_in_range">"不在范围内"</string>
   <string name="wifi_wps_available_first_item">"可使用 WPS"</string>
   <string name="wifi_wps_available_second_item">" （可使用 WPS）"</string>
-  <string name="wifi_secured_first_item">"通过<ns0:g id="WIFI_SECURITY_SHORT">%1$s</ns0:g> 进行保护"</string>
-  <string name="wifi_secured_second_item">"，通过<ns0:g id="WIFI_SECURITY_SHORT">%1$s</ns0:g> 进行保护"</string>
-  <string name="wifi_security_short_wep">WEP</string>
-  <string name="wifi_security_short_wpa">WPA</string>
-  <string name="wifi_security_short_wpa2">WPA2</string>
-  <string name="wifi_security_short_wpa_wpa2">WPA/WPA2</string>
-  <string name="wifi_security_short_psk_generic">@string/wifi_security_short_wpa_wpa2</string>
-  <string name="wifi_security_short_eap">802.1x</string>
+  <string name="wifi_secured_first_item">"通过<ns0:g id="WIFI_SECURITY_SHORT">"%1$s"</ns0:g> 进行保护"</string>
+  <string name="wifi_secured_second_item">"，通过<ns0:g id="WIFI_SECURITY_SHORT">"%1$s"</ns0:g> 进行保护"</string>
+  <string name="wifi_security_short_wep">"WEP"</string>
+  <string name="wifi_security_short_wpa">"WPA"</string>
+  <string name="wifi_security_short_wpa2">"WPA2"</string>
+  <string name="wifi_security_short_wpa_wpa2">"WPA/WPA2"</string>
+  <string name="wifi_security_short_eap">"802.1x"</string>
   <string name="wifi_security_none">"无"</string>
-  <string name="wifi_security_wep">WEP</string>
-  <string name="wifi_security_wpa">WPA PSK</string>
-  <string name="wifi_security_wpa2">WPA2 PSK</string>
-  <string name="wifi_security_wpa_wpa2">WPA/WPA2 PSK</string>
-  <string name="wifi_security_psk_generic">@string/wifi_security_wpa_wpa2</string>
-  <string name="wifi_security_eap">802.1x EAP</string>
-  <string name="wifi_scan_always_turnon_message">"为了提高位置信息精确度以及其他目的，“<ns0:g id="APP_NAME">%1$s</ns0:g>”请求启用网络扫描功能（在关闭了 WLAN  时也可进行扫描）。\n\n是否对所有需要进行扫描的应用批准这项请求？"</string>
+  <string name="wifi_security_wep">"WEP"</string>
+  <string name="wifi_security_wpa">"WPA PSK"</string>
+  <string name="wifi_security_wpa2">"WPA2 PSK"</string>
+  <string name="wifi_security_wpa_wpa2">"WPA/WPA2 PSK"</string>
+  <string name="wifi_security_eap">"802.1x EAP"</string>
+  <string name="wifi_scan_always_turnon_message">"为了提高位置信息精确度以及其他目的，“<ns0:g id="APP_NAME">"%1$s"</ns0:g>”请求启用网络扫描功能（在关闭了 WLAN  时也可进行扫描）。\n\n是否对所有需要进行扫描的应用批准这项请求？"</string>
   <string name="wifi_scan_always_confirm_allow">"允许"</string>
   <string name="wifi_scan_always_confirm_deny">"拒绝"</string>
   <string name="wifi_connect">"连接"</string>
@@ -685,19 +683,19 @@
   <string name="wifi_p2p_failed_connect_message">"无法连接。"</string>
   <string name="wifi_p2p_failed_rename_message">"无法重命名设备。"</string>
   <string name="wifi_p2p_disconnect_title">"断开连接？"</string>
-  <string name="wifi_p2p_disconnect_message">"如果断开连接，您与<ns0:g id="PEER_NAME">%1$s</ns0:g>的连接将中断。"</string>
-  <string name="wifi_p2p_disconnect_multiple_message">"如果断开连接，您与<ns0:g id="PEER_NAME">%1$s</ns0:g>和另外 <ns0:g id="PEER_COUNT">%2$s</ns0:g> 台设备的连接将中断。"</string>
+  <string name="wifi_p2p_disconnect_message">"如果断开连接，您与<ns0:g id="PEER_NAME">"%1$s"</ns0:g>的连接将中断。"</string>
+  <string name="wifi_p2p_disconnect_multiple_message">"如果断开连接，您与<ns0:g id="PEER_NAME">"%1$s"</ns0:g>和另外 <ns0:g id="PEER_COUNT">"%2$s"</ns0:g> 台设备的连接将中断。"</string>
   <string name="wifi_p2p_cancel_connect_title">"取消邀请？"</string>
-  <string name="wifi_p2p_cancel_connect_message">"要取消连接<ns0:g id="PEER_NAME">%1$s</ns0:g>的邀请吗？"</string>
+  <string name="wifi_p2p_cancel_connect_message">"要取消连接<ns0:g id="PEER_NAME">"%1$s"</ns0:g>的邀请吗？"</string>
   <string name="wifi_p2p_delete_group_message">"取消保存此群组？"</string>
   <string name="wifi_tether_checkbox_text">"便携式 WLAN 热点"</string>
   <string name="wifi_tether_starting">"正在打开热点..."</string>
   <string name="wifi_tether_stopping">"正在关闭热点..."</string>
-  <string name="wifi_tether_enabled_subtext">"便携式热点<ns0:g id="NETWORK_SSID">%1$s</ns0:g> 已启用"</string>
+  <string name="wifi_tether_enabled_subtext">"便携式热点<ns0:g id="NETWORK_SSID">"%1$s"</ns0:g> 已启用"</string>
   <string name="wifi_tether_failed_subtext">"便携式 WLAN 热点错误"</string>
   <string name="wifi_tether_configure_ap_text">"设置 WLAN 热点"</string>
-  <string name="wifi_tether_configure_subtext">"<ns0:g id="NETWORK_SSID">%1$s</ns0:g>
-    <ns0:g id="NETWORK_SECURITY">%2$s</ns0:g>便携式 WLAN 热点"</string>
+  <string name="wifi_tether_configure_subtext">"<ns0:g id="NETWORK_SSID">"%1$s"</ns0:g>
+    <ns0:g id="NETWORK_SECURITY">"%2$s"</ns0:g>便携式 WLAN 热点"</string>
   <string name="wifi_tether_configure_ssid_default">"Android 热点"</string>
   <string name="home_settings">"主屏幕"</string>
   <string name="display_settings_title">"显示"</string>
@@ -760,7 +758,7 @@
   <string name="brightness">"亮度"</string>
   <string name="brightness_summary">"调整屏幕亮度"</string>
   <string name="screen_timeout">"休眠"</string>
-  <string name="screen_timeout_summary">"无操作<ns0:g id="TIMEOUT_DESCRIPTION">%1$s</ns0:g>后"</string>
+  <string name="screen_timeout_summary">"无操作<ns0:g id="TIMEOUT_DESCRIPTION">"%1$s"</ns0:g>后"</string>
   <string name="wallpaper_settings_title">"壁纸"</string>
   <string name="wallpaper_settings_fragment_title">"选择壁纸来源"</string>
   <string name="screensaver_settings_title">"互动屏保"</string>
@@ -801,8 +799,8 @@
   <string name="sim_enter_cancel">"取消"</string>
   <string name="wrong_pin_code_pukked">"SIM 卡 PIN 码不正确，您现在必须联系运营商为您解锁设备。"</string>
   <plurals name="wrong_pin_code">
-    <item quantity="one">"SIM 卡 PIN 码不正确，您还有<ns0:g id="NUMBER">%d</ns0:g>次尝试机会。如果仍然失败，则必须联系运营商帮您解锁设备。"</item>
-    <item quantity="other">"SIM 卡 PIN 码不正确，您还有<ns0:g id="NUMBER">%d</ns0:g>次尝试机会。"</item>
+    <item quantity="one">"SIM 卡 PIN 码不正确，您还有<ns0:g id="NUMBER">"%d"</ns0:g>次尝试机会。如果仍然失败，则必须联系运营商帮您解锁设备。"</item>
+    <item quantity="other">"SIM 卡 PIN 码不正确，您还有<ns0:g id="NUMBER">"%d"</ns0:g>次尝试机会。"</item>
   </plurals>
   <string name="pin_failed">"SIM 卡 PIN 码操作失败！"</string>
   <string name="device_info_settings" product="tablet">"平板电脑状态"</string>
@@ -821,14 +819,14 @@
   <string name="device_status">"状态信息"</string>
   <string name="device_status_summary" product="tablet">"电池状态、网络状态和其他信息"</string>
   <string name="device_status_summary" product="default">"电池状态、网络状态和其他信息"</string>
-  <string name="device_additional_status_summary">电话号码, 信号, IMEI, 等.</string>
-  <string name="device_additional_status">更多状态信息</string>
+  <string name="device_additional_status_summary">"电话号码, 信号, IMEI, 等."</string>
+  <string name="device_additional_status">"更多状态信息"</string>
   <string name="storage_settings">"存储"</string>
   <string name="storage_settings_title">"存储设置"</string>
   <string name="storage_settings_summary" product="nosdcard">"卸载 USB 存储设备，查看可用存储设备"</string>
-  <string name="storage_settings_summary" product="default">卸载SD卡, 查看可用存储设备</string>
-  <string name="status_imei">IMEI</string>
-  <string name="status_imei_sv">IMEI SV</string>
+  <string name="storage_settings_summary" product="default">"卸载SD卡, 查看可用存储设备"</string>
+  <string name="status_imei">"IMEI"</string>
+  <string name="status_imei_sv">"IMEI SV"</string>
   <string name="status_number" product="tablet">"移动目录编号 (MDN)"</string>
   <string name="status_number" product="default">"移动目录编号 (MDN)"</string>
   <string name="status_min_number">"MIN"</string>
@@ -851,7 +849,7 @@
   <string name="status_awake_time">"唤醒时间"</string>
   <string name="internal_memory">"内部存储空间"</string>
   <string name="sd_memory" product="nosdcard">"USB 存储设备"</string>
-  <string name="sd_memory" product="default">SD卡</string>
+  <string name="sd_memory" product="default">"SD卡"</string>
   <string name="memory_available">"可用空间"</string>
   <string name="memory_available_read_only">"可用空间（只读）"</string>
   <string name="memory_size">"总容量"</string>
@@ -864,32 +862,32 @@
   <string name="memory_media_misc_usage">"其他"</string>
   <string name="memory_media_cache_usage">"缓存数据"</string>
   <string name="sd_eject" product="nosdcard">"卸载共享存储设备"</string>
-  <string name="sd_eject" product="default">卸载SD卡</string>
+  <string name="sd_eject" product="default">"卸载SD卡"</string>
   <string name="sd_eject_summary" product="nosdcard">"卸载内部 USB 存储设备"</string>
-  <string name="sd_eject_summary" product="default">卸载SD卡以便安全拔出</string>
+  <string name="sd_eject_summary" product="default">"卸载SD卡以便安全拔出"</string>
   <string name="sd_insert_summary" product="nosdcard">"插入要装载的 USB 存储设备"</string>
-  <string name="sd_insert_summary" product="default">插入要挂载的SD卡</string>
+  <string name="sd_insert_summary" product="default">"插入要挂载的SD卡"</string>
   <string name="sd_mount" product="nosdcard">"装载 USB 存储设备"</string>
-  <string name="sd_mount" product="default">挂载SD卡</string>
+  <string name="sd_mount" product="default">"挂载SD卡"</string>
   <string name="sd_mount_summary" product="nosdcard" />
   <string name="sd_mount_summary" product="default" />
   <string name="sd_format" product="nosdcard">"格式化 USB 存储设备"</string>
-  <string name="sd_format" product="default">格式化SD卡</string>
+  <string name="sd_format" product="default">"格式化SD卡"</string>
   <string name="sd_format_summary" product="nosdcard">"清除内部 USB 存储设备中的全部数据，例如音乐和照片"</string>
-  <string name="sd_format_summary" product="default">清除SD卡中的全部数据, 例如音乐和照片</string>
+  <string name="sd_format_summary" product="default">"清除SD卡中的全部数据, 例如音乐和照片"</string>
   <string name="memory_clear_cache_title">"是否清除缓存数据？"</string>
   <string name="memory_clear_cache_message">"此操作会清除所有应用的缓存数据。"</string>
   <string name="mtp_ptp_mode_summary">"MTP 或 PTP 功能已启用"</string>
   <string name="dlg_confirm_unmount_title" product="nosdcard">"要卸载 USB 存储设备吗？"</string>
-  <string name="dlg_confirm_unmount_title" product="default">要卸载SD卡吗?</string>
+  <string name="dlg_confirm_unmount_title" product="default">"要卸载SD卡吗?"</string>
   <string name="dlg_confirm_unmount_text" product="nosdcard">"如果卸载该 USB 存储设备，您当前使用的某些应用会停止运行，并且在您重新装载该设备前可能都无法使用。"</string>
-  <string name="dlg_confirm_unmount_text" product="default">I"如果卸载该 SD卡，您当前使用的某些应用会停止运行，并且在您重新装载该设备前可能都无法使用。"</string>
+  <string name="dlg_confirm_unmount_text" product="default">"I"如果卸载该 SD卡，您当前使用的某些应用会停止运行，并且在您重新装载该设备前可能都无法使用。""</string>
   <string name="dlg_error_unmount_title" product="nosdcard" />
   <string name="dlg_error_unmount_title" product="default" />
   <string name="dlg_error_unmount_text" product="nosdcard">"无法卸载 USB 存储设备，请稍后重试。"</string>
   <string name="dlg_error_unmount_text" product="default">"无法卸载 SD卡，请稍后重试。"</string>
   <string name="unmount_inform_text" product="nosdcard">"系统将会卸载 USB 存储设备。"</string>
-  <string name="unmount_inform_text" product="default">SD卡将被卸载.</string>
+  <string name="unmount_inform_text" product="default">"SD卡将被卸载."</string>
   <string name="sd_ejecting_title">"正在卸载"</string>
   <string name="sd_ejecting_summary">"正在卸载"</string>
   <string name="storage_low_title">"存储空间不足"</string>
@@ -953,16 +951,16 @@
   </string>
   <string name="master_clear_desc" product="default">"此操作会清除您手机"<b>"内存设备"</b>"中的所有数据，包括：\n\n"<li>"您的 Google 帐户"</li>\n<li>"系统及应用数据和设置"</li>\n<li>"已下载的应用"</li>
   </string>
-  <string name="master_clear_accounts" product="default">\n\n"目前，您已登录以下帐户：\n"</string>
+  <string name="master_clear_accounts" product="default">"\n\n"目前，您已登录以下帐户：\n""</string>
   <string name="master_clear_desc_also_erases_external">
     <li>"音乐"</li>\n<li>"照片"</li>\n<li>"其他的用户数据"</li>
   </string>
-  <string name="master_clear_desc_erase_external_storage" product="nosdcard">\n\n"要清除音乐、照片和其他用户数据，请清空该 "<b>"USB 存储设备"</b>"。"</string>
-  <string name="master_clear_desc_erase_external_storage" product="default">\n\n要清除音乐、照片和其他用户数据，请清空该<b>SD卡</b>。</string>
+  <string name="master_clear_desc_erase_external_storage" product="nosdcard">"\n\n"要清除音乐、照片和其他用户数据，请清空该 ""<b>"USB 存储设备"</b>"。"</string>
+  <string name="master_clear_desc_erase_external_storage" product="default">"\n\n要清除音乐、照片和其他用户数据，请清空该"<b>"SD卡"</b>。</string>
   <string name="erase_external_storage" product="nosdcard">"格式化 USB 存储设备"</string>
-  <string name="erase_external_storage" product="default">格式化SD卡</string>
+  <string name="erase_external_storage" product="default">"格式化SD卡"</string>
   <string name="erase_external_storage_description" product="nosdcard">"清除该内部 USB 存储设备中的全部数据，例如音乐或照片"</string>
-  <string name="erase_external_storage_description" product="default">清除该SD卡中的全部数据，例如音乐或照</string>
+  <string name="erase_external_storage_description" product="default">"清除该SD卡中的全部数据，例如音乐或照"</string>
   <string name="master_clear_button_text" product="tablet">"重置平板电脑"</string>
   <string name="master_clear_button_text" product="default">"重置手机"</string>
   <string name="master_clear_final_desc">"要清除所有个人信息和下载的应用吗？请注意，此操作无法撤消！"</string>
@@ -972,19 +970,19 @@
   <string name="master_clear_failed">"“系统清除”服务不可用，因此未执行重置操作。"</string>
   <string name="master_clear_confirm_title">"要重置吗？"</string>
   <string name="media_format_title" product="nosdcard">"格式化 USB 存储设备"</string>
-  <string name="media_format_title" product="default">格式化SD卡</string>
+  <string name="media_format_title" product="default">"格式化SD卡"</string>
   <string name="media_format_summary" product="nosdcard">"清除 USB 存储设备中的全部数据"</string>
-  <string name="media_format_summary" product="default">清除SD卡中的全部数据</string>
+  <string name="media_format_summary" product="default">"清除SD卡中的全部数据"</string>
   <string name="media_format_desc" product="nosdcard">"要清空所有 USB 存储设备吗？如果这样做，您会丢失其中存储的"<b>"全部"</b>"数据！"</string>
-  <string name="media_format_desc" product="default">要清空所有 SD卡吗？如果这样做，您会丢失其中存储的<b>全部</b>数据！</string>
+  <string name="media_format_desc" product="default">"要清空所有 SD卡吗？如果这样做，您会丢失其中存储的"<b>"全部"</b>数据！</string>
   <string name="media_format_button_text" product="nosdcard">"格式化 USB 存储设备"</string>
-  <string name="media_format_button_text" product="default">格式化SD卡</string>
+  <string name="media_format_button_text" product="default">"格式化SD卡"</string>
   <string name="media_format_final_desc" product="nosdcard">"要清空 USB 存储设备（此操作会删除其中存储的全部文件）吗？请注意，此操作无法撤消！"</string>
-  <string name="media_format_final_desc" product="default">要清空 SD卡（此操作会删除其中存储的全部文件）吗？请注意，此操作无法撤消！</string>
+  <string name="media_format_final_desc" product="default">"要清空 SD卡（此操作会删除其中存储的全部文件）吗？请注意，此操作无法撤消！"</string>
   <string name="media_format_final_button_text">"清除全部内容"</string>
   <string name="media_format_gesture_prompt">"绘制您的解锁图案"</string>
   <string name="media_format_gesture_explanation" product="nosdcard">"您需要绘制解锁图案以确认要清空 USB 存储设备。"</string>
-  <string name="media_format_gesture_explanation" product="default">Y您需要绘制解锁图案以确认要清空 SD卡.</string>
+  <string name="media_format_gesture_explanation" product="default">"Y您需要绘制解锁图案以确认要清空 SD卡."</string>
   <string name="call_settings_title">"通话设置"</string>
   <string name="call_settings_summary">"设置语音信箱、来电转接、来电等待和本机号码显示"</string>
   <string name="tether_settings_title_usb">"USB 共享网络"</string>
@@ -1004,20 +1002,20 @@
   <string name="bluetooth_tethering_available_subtext" product="default">"共享该手机的互联网连接"</string>
   <string name="bluetooth_tethering_device_connected_subtext" product="tablet">"将该平板电脑的互联网连接与 1 台设备共享"</string>
   <string name="bluetooth_tethering_device_connected_subtext" product="default">"将该手机的互联网连接与 1 台设备共享"</string>
-  <string name="bluetooth_tethering_devices_connected_subtext" product="tablet">"将该平板电脑的互联网连接与<ns0:g id="CONNECTEDDEVICECOUNT">%1$d</ns0:g> 台设备共享"</string>
-  <string name="bluetooth_tethering_devices_connected_subtext" product="default">"将该手机的互联网连接与<ns0:g id="CONNECTEDDEVICECOUNT">%1$d</ns0:g> 台设备共享"</string>
+  <string name="bluetooth_tethering_devices_connected_subtext" product="tablet">"将该平板电脑的互联网连接与<ns0:g id="CONNECTEDDEVICECOUNT">"%1$d"</ns0:g> 台设备共享"</string>
+  <string name="bluetooth_tethering_devices_connected_subtext" product="default">"将该手机的互联网连接与<ns0:g id="CONNECTEDDEVICECOUNT">"%1$d"</ns0:g> 台设备共享"</string>
   <string name="bluetooth_tethering_off_subtext" product="tablet">"不共享该平板电脑的互联网连接"</string>
   <string name="bluetooth_tethering_off_subtext" product="default">"不共享该手机的互联网连接"</string>
   <string name="bluetooth_tethering_errored_subtext">"未共享网络"</string>
-  <string name="bluetooth_tethering_overflow_error">"无法与<ns0:g id="MAXCONNECTION">%1$d</ns0:g> 台以上的设备共享网络。"</string>
-  <string name="bluetooth_untether_blank">"即将断开与<ns0:g id="DEVICE_NAME">%1$s</ns0:g>的网络共享。"</string>
+  <string name="bluetooth_tethering_overflow_error">"无法与<ns0:g id="MAXCONNECTION">"%1$d"</ns0:g> 台以上的设备共享网络。"</string>
+  <string name="bluetooth_untether_blank">"即将断开与<ns0:g id="DEVICE_NAME">"%1$s"</ns0:g>的网络共享。"</string>
   <string name="tethering_help_button_text">"帮助"</string>
   <string name="network_settings_title">"移动网络"</string>
   <string name="manage_mobile_plan_title">"手机套餐"</string>
   <string name="sms_application_title">"默认短信应用"</string>
   <string name="sms_change_default_dialog_title">"要更改短信应用吗？"</string>
-  <string name="sms_change_default_dialog_text">"要使用“<ns0:g id="NEW_APP">%s</ns0:g>”（取代“<ns0:g id="CURRENT_APP">%s</ns0:g>”）作为您的短信应用吗？"</string>
-  <string name="sms_change_default_no_previous_dialog_text">"要使用“<ns0:g id="NEW_APP">%s</ns0:g>”作为您的短信应用吗？"</string>
+  <string name="sms_change_default_dialog_text">"要使用“<ns0:g id="NEW_APP">"%s"</ns0:g>”（取代“<ns0:g id="CURRENT_APP">"%s"</ns0:g>”）作为您的短信应用吗？"</string>
+  <string name="sms_change_default_no_previous_dialog_text">"要使用“<ns0:g id="NEW_APP">"%s"</ns0:g>”作为您的短信应用吗？"</string>
   <string name="mobile_unknown_sim_operator">"未知的 SIM 运营商"</string>
   <string name="mobile_no_provisioning_url">"%1$s没有已知的配置网站"</string>
   <string name="mobile_insert_sim_card">"请插入 SIM 卡，然后重新启动"</string>
@@ -1090,7 +1088,7 @@
   <string name="lockpattern_recording_intro_header">"绘制解锁图案"</string>
   <string name="lockpattern_recording_intro_footer">"按 MENU 获得帮助。"</string>
   <string name="lockpattern_recording_inprogress">"完成后松开手指"</string>
-  <string name="lockpattern_recording_incorrect_too_short">"至少需连接<ns0:g id="NUMBER">%d</ns0:g>个点，请重试。"</string>
+  <string name="lockpattern_recording_incorrect_too_short">"至少需连接<ns0:g id="NUMBER">"%d"</ns0:g>个点，请重试。"</string>
   <string name="lockpattern_pattern_entered_header">"图案已记录"</string>
   <string name="lockpattern_need_to_confirm">"再次绘制图案进行确认"</string>
   <string name="lockpattern_pattern_confirmed_header">"您的新解锁图案"</string>
@@ -1108,7 +1106,7 @@
   <string name="lockpattern_settings_change_lock_pattern">"更改解锁图案"</string>
   <string name="lockpattern_settings_help_how_to_record">"如何绘制解锁图案"</string>
   <string name="lockpattern_too_many_failed_confirmation_attempts_header">"错误的尝试次数过多！"</string>
-  <string name="lockpattern_too_many_failed_confirmation_attempts_footer">"<ns0:g id="NUMBER">%d</ns0:g> 秒后重试。"</string>
+  <string name="lockpattern_too_many_failed_confirmation_attempts_footer">"<ns0:g id="NUMBER">"%d"</ns0:g> 秒后重试。"</string>
   <string name="activity_not_found">"您的手机上未安装相应应用。"</string>
   <string name="manageapplications_settings_title">"管理应用"</string>
   <string name="manageapplications_settings_summary">"管理和删除已安装的应用"</string>
@@ -1139,7 +1137,7 @@
   <string name="external_code_size_label">"USB 存储（应用）"</string>
   <string name="data_size_label">"数据"</string>
   <string name="external_data_size_label" product="nosdcard">"USB 存储（数据）"</string>
-  <string name="external_data_size_label" product="default">SD卡</string>
+  <string name="external_data_size_label" product="default">"SD卡"</string>
   <string name="uninstall_text">"卸载"</string>
   <string name="uninstall_all_users_text">"为所有用户卸载"</string>
   <string name="install_text">"安装"</string>
@@ -1171,13 +1169,13 @@
   <string name="filter_apps_third_party">"已下载"</string>
   <string name="filter_apps_running">"正在运行"</string>
   <string name="filter_apps_onsdcard" product="nosdcard">"USB 存储设备"</string>
-  <string name="filter_apps_onsdcard" product="default">SD卡</string>
+  <string name="filter_apps_onsdcard" product="default">"SD卡"</string>
   <string name="disabled">"未启用"</string>
   <string name="not_installed">"未安装"</string>
   <string name="no_applications">"无应用。"</string>
   <string name="internal_storage">"内部存储空间"</string>
   <string name="sd_card_storage" product="nosdcard">"USB 存储设备"</string>
-  <string name="sd_card_storage" product="default">SD卡存储</string>
+  <string name="sd_card_storage" product="default">"SD卡存储"</string>
   <string name="recompute_size">"正在重新计算大小..."</string>
   <string name="clear_data_dlg_title">"要删除应用数据吗？"</string>
   <string name="clear_data_dlg_text">"系统会永久删除此应用的所有数据。删除的内容包括所有文件、设置、帐户、数据库等。"</string>
@@ -1192,23 +1190,23 @@
   <string name="clear_failed_dlg_text">"无法清除应用数据。"</string>
   <string name="security_settings_desc" product="tablet">"此应用有权访问您平板电脑上的以下内容："</string>
   <string name="security_settings_desc" product="default">"此应用有权访问您手机上的以下内容："</string>
-  <string name="security_settings_desc_multi" product="tablet">"此应用可访问您平板电脑上的以下内容。为了提高性能和减少内存使用量，<ns0:g id="BASE_APP_NAME">%1$s</ns0:g>可获得其中的部分权限，因为它与<ns0:g id="ADDITIONAL_APPS_LIST">%2$s</ns0:g>运行在同一进程中。"</string>
-  <string name="security_settings_desc_multi" product="default">"此应用可访问您手机上的以下内容。为了提高性能和减少内存使用量，<ns0:g id="BASE_APP_NAME">%1$s</ns0:g>可获得其中的部分权限，因为它与<ns0:g id="ADDITIONAL_APPS_LIST">%2$s</ns0:g>运行在同一进程中。"</string>
-  <string name="join_two_items">"<ns0:g id="FIRST_ITEM">%1$s</ns0:g>和<ns0:g id="SECOND_ITEM">%2$s</ns0:g>"</string>
-  <string name="join_many_items_last">"<ns0:g id="ALL_BUT_LAST_ITEM">%1$s</ns0:g>和<ns0:g id="LAST_ITEM_0">%2$s</ns0:g>"</string>
-  <string name="join_many_items_first">"<ns0:g id="FIRST_ITEM">%1$s</ns0:g>、<ns0:g id="ALL_BUT_FIRST_AND_LAST_ITEM">%2$s</ns0:g>"</string>
-  <string name="join_many_items_middle">"<ns0:g id="ADDED_ITEM">%1$s</ns0:g>、<ns0:g id="REST_OF_ITEMS">%2$s</ns0:g>"</string>
+  <string name="security_settings_desc_multi" product="tablet">"此应用可访问您平板电脑上的以下内容。为了提高性能和减少内存使用量，<ns0:g id="BASE_APP_NAME">"%1$s"</ns0:g>可获得其中的部分权限，因为它与<ns0:g id="ADDITIONAL_APPS_LIST">"%2$s"</ns0:g>运行在同一进程中。"</string>
+  <string name="security_settings_desc_multi" product="default">"此应用可访问您手机上的以下内容。为了提高性能和减少内存使用量，<ns0:g id="BASE_APP_NAME">"%1$s"</ns0:g>可获得其中的部分权限，因为它与<ns0:g id="ADDITIONAL_APPS_LIST">"%2$s"</ns0:g>运行在同一进程中。"</string>
+  <string name="join_two_items">"<ns0:g id="FIRST_ITEM">"%1$s"</ns0:g>和<ns0:g id="SECOND_ITEM">"%2$s"</ns0:g>"</string>
+  <string name="join_many_items_last">"<ns0:g id="ALL_BUT_LAST_ITEM">"%1$s"</ns0:g>和<ns0:g id="LAST_ITEM_0">"%2$s"</ns0:g>"</string>
+  <string name="join_many_items_first">"<ns0:g id="FIRST_ITEM">"%1$s"</ns0:g>、<ns0:g id="ALL_BUT_FIRST_AND_LAST_ITEM">"%2$s"</ns0:g>"</string>
+  <string name="join_many_items_middle">"<ns0:g id="ADDED_ITEM">"%1$s"</ns0:g>、<ns0:g id="REST_OF_ITEMS">"%2$s"</ns0:g>"</string>
   <string name="security_settings_billing_desc">"使用此应用可能会产生费用："</string>
   <string name="security_settings_premium_sms_desc">"发送付费短信"</string>
   <string name="computing_size">"正在计算..."</string>
   <string name="invalid_size_value">"无法计算包的大小。"</string>
   <string name="empty_list_msg">"未安装任何第三方应用。"</string>
-  <string name="version_text">"版本<ns0:g id="VERSION_NUM">%1$s</ns0:g>"</string>
+  <string name="version_text">"版本<ns0:g id="VERSION_NUM">"%1$s"</ns0:g>"</string>
   <string name="move_app">"移动"</string>
   <string name="move_app_to_internal" product="tablet">"移至平板电脑"</string>
   <string name="move_app_to_internal" product="default">"移至手机"</string>
   <string name="move_app_to_sdcard" product="nosdcard">"移至 USB 存储设备"</string>
-  <string name="move_app_to_sdcard" product="default">移至SD卡</string>
+  <string name="move_app_to_sdcard" product="default">"移至SD卡"</string>
   <string name="moving">"正在移动"</string>
   <string name="insufficient_storage">"存储空间不足。"</string>
   <string name="does_not_exist">"应用不存在。"</string>
@@ -1218,7 +1216,7 @@
   <string name="force_stop_dlg_title">"要强行停止吗？"</string>
   <string name="force_stop_dlg_text">"强行停止某个应用可能会导致其出现异常。"</string>
   <string name="move_app_failed_dlg_title" />
-  <string name="move_app_failed_dlg_text">"无法移动应用。<ns0:g id="REASON">%1$s</ns0:g>"</string>
+  <string name="move_app_failed_dlg_text">"无法移动应用。<ns0:g id="REASON">"%1$s"</ns0:g>"</string>
   <string name="app_install_location_title">"首选安装位置"</string>
   <string name="app_install_location_summary">"更改安装新应用时使用的首选安装位置"</string>
   <string name="app_disable_dlg_title">"要停用内置应用吗？"</string>
@@ -1239,20 +1237,20 @@
   <string name="no_running_services">"当前未运行任何服务。"</string>
   <string name="service_started_by_app">"已由应用启动。"</string>
   <string name="service_client_name">
-    <ns0:g id="client_name">%1$s</ns0:g>
+    <ns0:g id="client_name">"%1$s"</ns0:g>
   </string>
-  <string name="service_background_processes">"可用：<ns0:g id="MEMORY">%1$s</ns0:g>"</string>
-  <string name="service_foreground_processes">"已用：<ns0:g id="MEMORY">%1$s</ns0:g>"</string>
+  <string name="service_background_processes">"可用：<ns0:g id="MEMORY">"%1$s"</ns0:g>"</string>
+  <string name="service_foreground_processes">"已用：<ns0:g id="MEMORY">"%1$s"</ns0:g>"</string>
   <string name="memory">"RAM"</string>
   <string name="service_process_name">
-    <ns0:g id="process">%1$s</ns0:g>
+    <ns0:g id="process">"%1$s"</ns0:g>
   </string>
-  <string name="running_process_item_user_label">"用户：<ns0:g id="USER_NAME">%1$s</ns0:g>"</string>
+  <string name="running_process_item_user_label">"用户：<ns0:g id="USER_NAME">"%1$s"</ns0:g>"</string>
   <string name="running_process_item_removed_user_label">"已删除用户"</string>
-  <string name="running_processes_item_description_s_s">"<ns0:g id="NUMPROCESS">%1$d</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">%2$d</ns0:g> 个服务"</string>
-  <string name="running_processes_item_description_s_p">"<ns0:g id="NUMPROCESS">%1$d</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">%2$d</ns0:g> 个服务"</string>
-  <string name="running_processes_item_description_p_s">"<ns0:g id="NUMPROCESS">%1$d</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">%2$d</ns0:g> 个服务"</string>
-  <string name="running_processes_item_description_p_p">"<ns0:g id="NUMPROCESS">%1$d</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">%2$d</ns0:g> 个服务"</string>
+  <string name="running_processes_item_description_s_s">"<ns0:g id="NUMPROCESS">"%1$d"</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">"%2$d"</ns0:g> 个服务"</string>
+  <string name="running_processes_item_description_s_p">"<ns0:g id="NUMPROCESS">"%1$d"</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">"%2$d"</ns0:g> 个服务"</string>
+  <string name="running_processes_item_description_p_s">"<ns0:g id="NUMPROCESS">"%1$d"</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">"%2$d"</ns0:g> 个服务"</string>
+  <string name="running_processes_item_description_p_p">"<ns0:g id="NUMPROCESS">"%1$d"</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">"%2$d"</ns0:g> 个服务"</string>
   <string name="runningservicedetails_settings_title">"正在运行的应用"</string>
   <string name="no_services">"无活动服务"</string>
   <string name="runningservicedetails_services_title">"服务"</string>
@@ -1262,10 +1260,10 @@
   <string name="service_stop_description">"此服务由其应用启动。停止服务可能会导致应用无法运行。"</string>
   <string name="heavy_weight_stop_description">"无法安全地停止该应用。如果强行停止，可能会导致您目前的部分工作内容丢失。"</string>
   <string name="background_process_stop_description">"这是旧应用进程，仍在运行，以备不时之需。通常不建议停止。"</string>
-  <string name="service_manage_description">"目前正在使用“<ns0:g id="CLIENT_NAME">%1$s</ns0:g>”。触摸“设置”可以对其进行控制。"</string>
+  <string name="service_manage_description">"目前正在使用“<ns0:g id="CLIENT_NAME">"%1$s"</ns0:g>”。触摸“设置”可以对其进行控制。"</string>
   <string name="main_running_process_description">"正在使用的主要进程。"</string>
-  <string name="process_service_in_use_description">"正在使用服务<ns0:g id="COMP_NAME">%1$s</ns0:g>。"</string>
-  <string name="process_provider_in_use_description">"正在使用提供商<ns0:g id="COMP_NAME">%1$s</ns0:g>。"</string>
+  <string name="process_service_in_use_description">"正在使用服务<ns0:g id="COMP_NAME">"%1$s"</ns0:g>。"</string>
+  <string name="process_provider_in_use_description">"正在使用提供商<ns0:g id="COMP_NAME">"%1$s"</ns0:g>。"</string>
   <string name="runningservicedetails_stop_dlg_title">"要停止系统服务吗？"</string>
   <string name="runningservicedetails_stop_dlg_text" product="tablet">"如果停止此服务，您平板电脑上的某些功能也将随之停止工作，并在您将平板电脑关机然后再重新打开后才能使用。"</string>
   <string name="runningservicedetails_stop_dlg_text" product="default">"如果停止此服务，您手机上的某些功能也将随之停止工作，并在您将手机关机然后再重新打开后才能使用。"</string>
@@ -1283,11 +1281,11 @@
   <string name="hardkeyboard_category">"物理键盘设置"</string>
   <string name="auto_punctuate_summary">"按空格键两次可插入句号"</string>
   <string name="show_password">"显示密码"</string>
-  <string name="ime_security_warning">"此输入法可能会收集您输入的所有内容，包括密码和信用卡号等个人数据。它来自“<ns0:g id="IME_APPLICATION_NAME">%1$s</ns0:g>”应用。要使用此输入法吗？"</string>
-  <string name="spellchecker_security_warning">"此拼写检查工具可能会收集您键入的所有文字，包括密码和信用卡号等个人数据。它源自应用“<ns0:g id="SPELLCHECKER_APPLICATION_NAME">%1$s</ns0:g>”。要使用此拼写检查工具吗？"</string>
+  <string name="ime_security_warning">"此输入法可能会收集您输入的所有内容，包括密码和信用卡号等个人数据。它来自“<ns0:g id="IME_APPLICATION_NAME">"%1$s"</ns0:g>”应用。要使用此输入法吗？"</string>
+  <string name="spellchecker_security_warning">"此拼写检查工具可能会收集您键入的所有文字，包括密码和信用卡号等个人数据。它源自应用“<ns0:g id="SPELLCHECKER_APPLICATION_NAME">"%1$s"</ns0:g>”。要使用此拼写检查工具吗？"</string>
   <string name="spellchecker_quick_settings">"设置"</string>
   <string name="spellchecker_language">"语言"</string>
-  <string name="failed_to_open_app_settings_toast">"无法打开<ns0:g id="SPELL_APPLICATION_NAME">%1$s</ns0:g> 的设置"</string>
+  <string name="failed_to_open_app_settings_toast">"无法打开<ns0:g id="SPELL_APPLICATION_NAME">"%1$s"</ns0:g> 的设置"</string>
   <string name="pointer_settings_category">"鼠标/触控板"</string>
   <string name="pointer_speed">"指针速度"</string>
   <string name="game_controller_settings_category">"游戏控制器"</string>
@@ -1321,14 +1319,14 @@
   <string name="testing_phone_info" product="tablet">"平板电脑信息"</string>
   <string name="testing_phone_info" product="default">"手机信息"</string>
   <string name="testing_battery_info">"电池信息"</string>
-  <string name="testing_sim_toolkit">SIM工具箱</string>
+  <string name="testing_sim_toolkit">"SIM工具箱"</string>
   <string name="quick_launch_title">"快速启动"</string>
   <string name="quick_launch_summary">"设置启动应用的键盘快捷键"</string>
   <string name="quick_launch_assign_application">"分配给应用"</string>
   <string name="quick_launch_no_shortcut">"无快捷键"</string>
-  <string name="quick_launch_shortcut">"搜索 +<ns0:g id="SHORTCUT_LETTER">%1$s</ns0:g>"</string>
+  <string name="quick_launch_shortcut">"搜索 +<ns0:g id="SHORTCUT_LETTER">"%1$s"</ns0:g>"</string>
   <string name="quick_launch_clear_dialog_title">"清除"</string>
-  <string name="quick_launch_clear_dialog_message">"会清除快捷键<ns0:g id="SHORTCUT_LETTER">%1$s</ns0:g>（<ns0:g id="APPLICATION_NAME">%2$s</ns0:g>）。"</string>
+  <string name="quick_launch_clear_dialog_message">"会清除快捷键<ns0:g id="SHORTCUT_LETTER">"%1$s"</ns0:g>（<ns0:g id="APPLICATION_NAME">"%2$s"</ns0:g>）。"</string>
   <string name="quick_launch_clear_ok_button">"确定"</string>
   <string name="quick_launch_clear_cancel_button">"取消"</string>
   <string name="quick_launch_display_mode_applications">"应用"</string>
@@ -1345,7 +1343,7 @@
   <string name="input_method_settings_button">"设置"</string>
   <string name="active_input_method_subtypes">"有效的输入法"</string>
   <string name="use_system_language_to_select_input_method_subtypes">"使用系统语言"</string>
-  <string name="input_methods_settings_label_format">"<ns0:g id="IME_NAME">%1$s</ns0:g> 设置"</string>
+  <string name="input_methods_settings_label_format">"<ns0:g id="IME_NAME">"%1$s"</ns0:g> 设置"</string>
   <string name="input_methods_and_subtype_enabler_title">"选择有效的输入法"</string>
   <string name="onscreen_keyboard_settings_summary">"屏幕键盘设置"</string>
   <string name="builtin_keyboard_settings_title">"物理键盘"</string>
@@ -1364,7 +1362,7 @@
   <string name="bt_hci_snoop_log_summary">"捕获单个文件中的所有蓝牙 HCI 包"</string>
   <string name="select_runtime_title">"选择运行环境"</string>
   <string name="select_runtime_dialog_title">"选择运行环境"</string>
-  <string name="select_runtime_warning_message">"要重新启动以将运行环境从“<ns0:g id="OLD">%1$s</ns0:g>”改为“<ns0:g id="NEW">%2$s</ns0:g>”吗？"</string>
+  <string name="select_runtime_warning_message">"要重新启动以将运行环境从“<ns0:g id="OLD">"%1$s"</ns0:g>”改为“<ns0:g id="NEW">"%2$s"</ns0:g>”吗？"</string>
   <string name="wifi_display_certification">"无线显示认证"</string>
   <string name="wifi_display_certification_summary">"显示无线显示认证选项"</string>
   <string name="allow_mock_location">"允许模拟位置"</string>
@@ -1380,24 +1378,24 @@
   <string name="enforce_read_external_summary" product="nosdcard">"应用必须申请读取 USB 存储设备的权限"</string>
   <string name="enforce_read_external_confirm_title" product="nosdcard">"要对 USB 存储设备进行读写保护吗？"</string>
   <string name="enforce_read_external_confirm_message" product="nosdcard">"如果 USB 存储设备受到读写保护，则应用必须申请相关权限才能读取外部存储设备中的数据。\n\n某些应用需要其开发者更新之后才能正常使用。"</string>
-  <string name="enforce_read_external_title" product="default">SD卡保护</string>
-  <string name="enforce_read_external_summary" product="default">应用不许申请读取SD卡的权限</string>
-  <string name="enforce_read_external_confirm_title" product="default">要保护SD卡吗?</string>
-  <string name="enforce_read_external_confirm_message" product="default">如果 SD卡受到读写保护，则应用必须申请相关权限才能读取SD卡中的数据。\n\n某些应用需要其开发者更新之后才能正常使用。</string>
+  <string name="enforce_read_external_title" product="default">"SD卡保护"</string>
+  <string name="enforce_read_external_summary" product="default">"应用不许申请读取SD卡的权限"</string>
+  <string name="enforce_read_external_confirm_title" product="default">"要保护SD卡吗?"</string>
+  <string name="enforce_read_external_confirm_message" product="default">"如果 SD卡受到读写保护，则应用必须申请相关权限才能读取SD卡中的数据。\n\n某些应用需要其开发者更新之后才能正常使用。"</string>
   <string name="enable_terminal_title">"本地终端"</string>
   <string name="enable_terminal_summary">"启用终端应用，以便在本地访问 Shell"</string>
   <string name="gadget_picker_title">"选择小工具"</string>
   <string name="widget_picker_title">"选择小部件"</string>
   <string name="allow_bind_app_widget_activity_allow_bind_title">"是否允许该应用创建小部件并查看其数据？"</string>
-  <string name="allow_bind_app_widget_activity_allow_bind">"当您创建小部件后，“<ns0:g id="WIDGET_HOST_NAME">%1$s</ns0:g>”将能查看其显示的所有数据。"</string>
-  <string name="allow_bind_app_widget_activity_always_allow_bind">"始终允许“<ns0:g id="WIDGET_HOST_NAME">%1$s</ns0:g>”创建小部件并查看其数据"</string>
-  <string name="battery_history_days">"<ns0:g id="DAYS">%1$d</ns0:g> 天 <ns0:g id="HOURS">%2$d</ns0:g> 小时 <ns0:g id="MINUTES">%3$d</ns0:g> 分 <ns0:g id="SECONDS">%4$d</ns0:g> 秒"</string>
-  <string name="battery_history_hours">"<ns0:g id="HOURS">%1$d</ns0:g> 小时 <ns0:g id="MINUTES">%2$d</ns0:g> 分 <ns0:g id="SECONDS">%3$d</ns0:g> 秒"</string>
-  <string name="battery_history_minutes">"<ns0:g id="MINUTES">%1$d</ns0:g> 分 <ns0:g id="SECONDS">%2$d</ns0:g> 秒"</string>
-  <string name="battery_history_seconds">"<ns0:g id="SECONDS">%1$d</ns0:g> 秒"</string>
-  <string name="battery_history_days_no_seconds">"<ns0:g id="DAYS">%1$d</ns0:g>天<ns0:g id="HOURS">%2$d</ns0:g>小时<ns0:g id="MINUTES">%3$d</ns0:g>分钟"</string>
-  <string name="battery_history_hours_no_seconds">"<ns0:g id="HOURS">%1$d</ns0:g>小时<ns0:g id="MINUTES">%2$d</ns0:g>分钟"</string>
-  <string name="battery_history_minutes_no_seconds">"<ns0:g id="MINUTES">%1$d</ns0:g>分钟"</string>
+  <string name="allow_bind_app_widget_activity_allow_bind">"当您创建小部件后，“<ns0:g id="WIDGET_HOST_NAME">"%1$s"</ns0:g>”将能查看其显示的所有数据。"</string>
+  <string name="allow_bind_app_widget_activity_always_allow_bind">"始终允许“<ns0:g id="WIDGET_HOST_NAME">"%1$s"</ns0:g>”创建小部件并查看其数据"</string>
+  <string name="battery_history_days">"<ns0:g id="DAYS">"%1$d"</ns0:g> 天 <ns0:g id="HOURS">"%2$d"</ns0:g> 小时 <ns0:g id="MINUTES">"%3$d"</ns0:g> 分 <ns0:g id="SECONDS">"%4$d"</ns0:g> 秒"</string>
+  <string name="battery_history_hours">"<ns0:g id="HOURS">"%1$d"</ns0:g> 小时 <ns0:g id="MINUTES">"%2$d"</ns0:g> 分 <ns0:g id="SECONDS">"%3$d"</ns0:g> 秒"</string>
+  <string name="battery_history_minutes">"<ns0:g id="MINUTES">"%1$d"</ns0:g> 分 <ns0:g id="SECONDS">"%2$d"</ns0:g> 秒"</string>
+  <string name="battery_history_seconds">"<ns0:g id="SECONDS">"%1$d"</ns0:g> 秒"</string>
+  <string name="battery_history_days_no_seconds">"<ns0:g id="DAYS">"%1$d"</ns0:g>天<ns0:g id="HOURS">"%2$d"</ns0:g>小时<ns0:g id="MINUTES">"%3$d"</ns0:g>分钟"</string>
+  <string name="battery_history_hours_no_seconds">"<ns0:g id="HOURS">"%1$d"</ns0:g>小时<ns0:g id="MINUTES">"%2$d"</ns0:g>分钟"</string>
+  <string name="battery_history_minutes_no_seconds">"<ns0:g id="MINUTES">"%1$d"</ns0:g>分钟"</string>
   <string name="usage_stats_label">"使用情况统计数据"</string>
   <string name="testing_usage_stats">"使用情况统计数据"</string>
   <string name="display_order_text">"排序方式："</string>
@@ -1451,12 +1449,12 @@
   <string name="color_cyan">"青色"</string>
   <string name="color_yellow">"黄色"</string>
   <string name="color_magenta">"紫红色"</string>
-  <string name="enable_service_title">"要启用<ns0:g id="SERVICE">%1$s</ns0:g>吗？"</string>
-  <string name="capabilities_list_title">"<ns0:g id="SERVICE">%1$s</ns0:g>需要："</string>
+  <string name="enable_service_title">"要启用<ns0:g id="SERVICE">"%1$s"</ns0:g>吗？"</string>
+  <string name="capabilities_list_title">"<ns0:g id="SERVICE">"%1$s"</ns0:g>需要："</string>
   <string name="capability_title_receiveAccessibilityEvents">"监测您的操作"</string>
   <string name="capability_desc_receiveAccessibilityEvents">"在您与应用互动时接收通知。"</string>
-  <string name="disable_service_title">"要停用<ns0:g id="SERVICE">%1$s</ns0:g>吗？"</string>
-  <string name="disable_service_message">"触摸“确定”将会停用<ns0:g id="SERVICE">%1$s</ns0:g>。"</string>
+  <string name="disable_service_title">"要停用<ns0:g id="SERVICE">"%1$s"</ns0:g>吗？"</string>
+  <string name="disable_service_message">"触摸“确定”将会停用<ns0:g id="SERVICE">"%1$s"</ns0:g>。"</string>
   <string name="accessibility_no_services_installed">"未安装任何服务"</string>
   <string name="accessibility_service_no_apps_title">"需要屏幕阅读器吗？"</string>
   <string name="accessibility_service_no_apps_message">"“话语提示”可提供语音反馈以帮助盲人和有视力障碍的用户。您要通过 Play 商店免费安装该服务吗？"</string>
@@ -1464,7 +1462,7 @@
   <string name="settings_button">"设置"</string>
   <string name="print_settings">"打印"</string>
   <string name="print_settings_title">"打印服务"</string>
-  <string name="print_service_security_warning_title">"要使用<ns0:g id="SERVICE">%1$s</ns0:g>吗？"</string>
+  <string name="print_service_security_warning_title">"要使用<ns0:g id="SERVICE">"%1$s"</ns0:g>吗？"</string>
   <string name="print_service_security_warning_summary">"您的文档可能会经由一个或多个服务器发送至打印机。"</string>
   <string name="print_no_services_installed">"未安装任何服务"</string>
   <string name="print_no_printers_found">"找不到打印机"</string>
@@ -1481,37 +1479,36 @@
   <string name="print_print_job">"打印作业"</string>
   <string name="print_restart">"重新开始"</string>
   <string name="print_cancel">"取消"</string>
-  <string name="print_job_summary">"<ns0:g id="PRINTER">%1$s</ns0:g>\n<ns0:g id="TIME">%2$s</ns0:g>"</string>
-  <string name="print_printing_state_title_template">"正在打印“<ns0:g id="PRINT_JOB_NAME">%1$s</ns0:g>”"</string>
-  <string name="print_cancelling_state_title_template">"正在取消打印“<ns0:g id="PRINT_JOB_NAME">%1$s</ns0:g>”"</string>
-  <string name="print_failed_state_title_template">"打印机在打印“<ns0:g id="PRINT_JOB_NAME">%1$s</ns0:g>”时出错"</string>
-  <string name="print_blocked_state_title_template">"打印机拒绝打印“<ns0:g id="PRINT_JOB_NAME">%1$s</ns0:g>”"</string>
+  <string name="print_job_summary">"<ns0:g id="PRINTER">"%1$s"</ns0:g>\n<ns0:g id="TIME">"%2$s"</ns0:g>"</string>
+  <string name="print_printing_state_title_template">"正在打印“<ns0:g id="PRINT_JOB_NAME">"%1$s"</ns0:g>”"</string>
+  <string name="print_cancelling_state_title_template">"正在取消打印“<ns0:g id="PRINT_JOB_NAME">"%1$s"</ns0:g>”"</string>
+  <string name="print_failed_state_title_template">"打印机在打印“<ns0:g id="PRINT_JOB_NAME">"%1$s"</ns0:g>”时出错"</string>
+  <string name="print_blocked_state_title_template">"打印机拒绝打印“<ns0:g id="PRINT_JOB_NAME">"%1$s"</ns0:g>”"</string>
   <string name="print_search_box_shown_utterance">"搜索框已显示"</string>
   <string name="print_search_box_hidden_utterance">"搜索框已隐藏"</string>
   <plurals name="print_search_result_count_utterance">
-    <item quantity="one">"找到<ns0:g id="COUNT">%1$s</ns0:g>台打印机"</item>
-    <item quantity="other">"找到<ns0:g id="COUNT">%1$s</ns0:g>台打印机"</item>
+    <item quantity="one">"找到<ns0:g id="COUNT">"%1$s"</ns0:g>台打印机"</item>
+    <item quantity="other">"找到<ns0:g id="COUNT">"%1$s"</ns0:g>台打印机"</item>
   </plurals>
   <string name="power_usage_summary_title">"电池"</string>
   <string name="power_usage_summary">"耗电情况"</string>
   <string name="power_usage_not_available">"无法获取电池使用数据。"</string>
-  <string name="power_usage_level_and_status">"<ns0:g id="LEVEL">%1$s</ns0:g> - <ns0:g id="STATUS">%2$s</ns0:g>"</string>
+  <string name="power_usage_level_and_status">"<ns0:g id="LEVEL">"%1$s"</ns0:g> - <ns0:g id="STATUS">"%2$s"</ns0:g>"</string>
   <string name="battery_since_unplugged">"拔下电源后的电量消耗情况"</string>
   <string name="battery_since_reset">"重置后的电量消耗情况"</string>
-  <string name="battery_stats_on_battery">"电池已用时间：<ns0:g id="TIME">%1$s</ns0:g>"</string>
-  <string name="battery_stats_duration">"拔下电源后已过<ns0:g id="TIME">%1$s</ns0:g>"</string>
+  <string name="battery_stats_on_battery">"电池已用时间：<ns0:g id="TIME">"%1$s"</ns0:g>"</string>
+  <string name="battery_stats_duration">"拔下电源后已过<ns0:g id="TIME">"%1$s"</ns0:g>"</string>
   <string name="battery_stats_charging_label">"正在充电"</string>
   <string name="battery_stats_screen_on_label">"屏幕已开启"</string>
   <string name="battery_stats_gps_on_label">"GPS 已启用"</string>
   <string name="battery_stats_wifi_running_label">"WLAN"</string>
   <string name="battery_stats_wake_lock_label">"唤醒"</string>
   <string name="battery_stats_phone_signal_label">"移动网络信号"</string>
-  <string name="battery_stats_last_duration">@string/menu_stats_last_unplugged</string>
   <string name="awake">"设备唤醒时间"</string>
   <string name="wifi_on_time">"WLAN 开启时间"</string>
   <string name="bluetooth_on_time">"WLAN 开启时间"</string>
-  <string name="usage_name_percent">"<ns0:g id="NAME">%1$s</ns0:g> - <ns0:g id="NUMBER">%2$s</ns0:g>
-    <ns0:g id="PERCENT">%%</ns0:g>"</string>
+  <string name="usage_name_percent">"<ns0:g id="NAME">"%1$s"</ns0:g> - <ns0:g id="NUMBER">"%2$s"</ns0:g>
+    <ns0:g id="PERCENT">"%%"</ns0:g>"</string>
   <string name="history_details_title">"历史记录详细信息"</string>
   <string name="details_title">"使用详情"</string>
   <string name="details_subtitle">"详细使用情况"</string>
@@ -1562,8 +1559,8 @@
   <string name="battery_sugg_apps_gps">"选择“耗电量低”模式"</string>
   <string name="battery_sugg_apps_settings">"该应用中可能提供了用于减少耗电量的设置"</string>
   <string name="battery_desc_users">"用户所耗电量"</string>
-  <string name="menu_stats_unplugged">"拔下电源后已过<ns0:g id="UNPLUGGED">%1$s</ns0:g>"</string>
-  <string name="menu_stats_last_unplugged">"上次拔下电源<ns0:g id="UNPLUGGED">%1$s</ns0:g> 时"</string>
+  <string name="menu_stats_unplugged">"拔下电源后已过<ns0:g id="UNPLUGGED">"%1$s"</ns0:g>"</string>
+  <string name="menu_stats_last_unplugged">"上次拔下电源<ns0:g id="UNPLUGGED">"%1$s"</ns0:g> 时"</string>
   <string name="menu_stats_total">"总使用量"</string>
   <string name="menu_stats_refresh">"刷新"</string>
   <string name="process_kernel_label">"Android OS"</string>
@@ -1571,11 +1568,11 @@
   <string name="process_stats_summary_title">"进程统计信息"</string>
   <string name="process_stats_summary">"运行中进程的相关技术统计信息"</string>
   <string name="app_memory_use">"内存用量"</string>
-  <string name="process_stats_total_duration">"<ns0:g id="TYPE">%1$s</ns0:g>应用<ns0:g id="TIME">%2$s</ns0:g>内的统计信息"</string>
+  <string name="process_stats_total_duration">"<ns0:g id="TYPE">"%1$s"</ns0:g>应用<ns0:g id="TIME">"%2$s"</ns0:g>内的统计信息"</string>
   <string name="process_stats_type_background">"后台"</string>
   <string name="process_stats_type_foreground">"前台"</string>
   <string name="process_stats_type_cached">"缓存"</string>
-  <string name="process_stats_memory_status">"设备内存当前状态：<ns0:g id="MEMSTATE">%1$s</ns0:g>"</string>
+  <string name="process_stats_memory_status">"设备内存当前状态：<ns0:g id="MEMSTATE">"%1$s"</ns0:g>"</string>
   <string name="process_stats_avg_ram_use">"RAM 平均使用率"</string>
   <string name="process_stats_max_ram_use">"RAM 最高使用率"</string>
   <string name="process_stats_run_time">"运行时间"</string>
@@ -1598,7 +1595,7 @@
   <string name="voice_category">"语音"</string>
   <string name="recognizer_title">"语音识别程序"</string>
   <string name="recognizer_settings_title">"语音搜索"</string>
-  <string name="recognizer_settings_summary">"“<ns0:g id="RECOGNIZER_NAME">%s</ns0:g>”的设置"</string>
+  <string name="recognizer_settings_summary">"“<ns0:g id="RECOGNIZER_NAME">"%s"</ns0:g>”的设置"</string>
   <string name="tts_settings">"文字转语音设置"</string>
   <string name="tts_settings_title">"文字转语音 (TTS) 输出"</string>
   <string name="use_default_tts_settings_title">"总是使用我的设置"</string>
@@ -1622,20 +1619,20 @@
   <string name="tts_engine_error">"您选择的引擎无法运行。"</string>
   <string name="tts_engine_error_config">"配置"</string>
   <string name="tts_engine_error_reselect">"选择其他引擎"</string>
-  <string name="tts_engine_security_warning">"此语音合成引擎能够收集语音中出现的所有信息，包括密码和信用卡号码之类的个人数据。此功能由<ns0:g id="TTS_PLUGIN_ENGINE_NAME">%s</ns0:g> 引擎提供。是否启用此语音合成引擎？"</string>
+  <string name="tts_engine_security_warning">"此语音合成引擎能够收集语音中出现的所有信息，包括密码和信用卡号码之类的个人数据。此功能由<ns0:g id="TTS_PLUGIN_ENGINE_NAME">"%s"</ns0:g> 引擎提供。是否启用此语音合成引擎？"</string>
   <string name="tts_engine_network_required">"您必须连接到网络才能使用文字转语音功能输出这种语言。"</string>
   <string name="tts_default_sample_string">"这是语音合成示例"</string>
   <string name="tts_status_title">"默认语言状态"</string>
-  <string name="tts_status_ok">"完全支持<ns0:g id="LOCALE">%1$s</ns0:g>"</string>
-  <string name="tts_status_requires_network">"只有在连接到网络的情况下，才支持<ns0:g id="LOCALE">%1$s</ns0:g>"</string>
-  <string name="tts_status_not_supported">"不支持<ns0:g id="LOCALE">%1$s</ns0:g>"</string>
+  <string name="tts_status_ok">"完全支持<ns0:g id="LOCALE">"%1$s"</ns0:g>"</string>
+  <string name="tts_status_requires_network">"只有在连接到网络的情况下，才支持<ns0:g id="LOCALE">"%1$s"</ns0:g>"</string>
+  <string name="tts_status_not_supported">"不支持<ns0:g id="LOCALE">"%1$s"</ns0:g>"</string>
   <string name="tts_status_checking">"正在检查…"</string>
   <string name="tts_engines_section">"引擎"</string>
-  <string name="tts_engine_name_settings">"<ns0:g id="TTS_PLUGIN_ENGINE_NAME">%s</ns0:g>设置"</string>
-  <string name="tts_engine_name_is_enabled_summary">"已启用<ns0:g id="TTS_PLUGIN_ENGINE_NAME">%s</ns0:g>"</string>
-  <string name="tts_engine_name_is_disabled_summary">"未启用<ns0:g id="TTS_PLUGIN_ENGINE_NAME">%s</ns0:g>"</string>
+  <string name="tts_engine_name_settings">"<ns0:g id="TTS_PLUGIN_ENGINE_NAME">"%s"</ns0:g>设置"</string>
+  <string name="tts_engine_name_is_enabled_summary">"已启用<ns0:g id="TTS_PLUGIN_ENGINE_NAME">"%s"</ns0:g>"</string>
+  <string name="tts_engine_name_is_disabled_summary">"未启用<ns0:g id="TTS_PLUGIN_ENGINE_NAME">"%s"</ns0:g>"</string>
   <string name="tts_engine_settings_section">"引擎设置"</string>
-  <string name="tts_engine_settings_title">"“<ns0:g id="TTS_ENGINE_NAME">%s</ns0:g>”的设置"</string>
+  <string name="tts_engine_settings_title">"“<ns0:g id="TTS_ENGINE_NAME">"%s"</ns0:g>”的设置"</string>
   <string name="pico_languages_and_voices">"语言和语音"</string>
   <string name="pico_installed">"已安装"</string>
   <string name="pico_not_installed">"未安装"</string>
@@ -1649,8 +1646,8 @@
   <string name="gadget_title">"电量控制"</string>
   <string name="gadget_toggle_wifi">"正在更新 WLAN 设置"</string>
   <string name="gadget_toggle_bluetooth">"正在更新蓝牙设置"</string>
-  <string name="gadget_state_template">"<ns0:g id="ID_1">%1$s</ns0:g>
-    <ns0:g id="ID_2">%2$s</ns0:g>"</string>
+  <string name="gadget_state_template">"<ns0:g id="ID_1">"%1$s"</ns0:g>
+    <ns0:g id="ID_2">"%2$s"</ns0:g>"</string>
   <string name="gadget_state_on">"开启"</string>
   <string name="gadget_state_off">"关闭"</string>
   <string name="gadget_state_turning_on">"正在开启"</string>
@@ -1659,7 +1656,7 @@
   <string name="gadget_bluetooth">"蓝牙"</string>
   <string name="gadget_location">"位置信息"</string>
   <string name="gadget_sync">"同步"</string>
-  <string name="gadget_brightness_template">"亮度<ns0:g id="ID_1">%1$s</ns0:g>"</string>
+  <string name="gadget_brightness_template">"亮度<ns0:g id="ID_1">"%1$s"</ns0:g>"</string>
   <string name="gadget_brightness_state_auto">"自动"</string>
   <string name="gadget_brightness_state_full">"最亮"</string>
   <string name="gadget_brightness_state_half">"一半"</string>
@@ -1667,9 +1664,9 @@
   <string name="vpn_settings_title">"VPN"</string>
   <string name="credentials_title">"凭据存储"</string>
   <string name="credentials_install" product="nosdcard">"从存储设备安装"</string>
-  <string name="credentials_install" product="default">从SD卡安装</string>
+  <string name="credentials_install" product="default">"从SD卡安装"</string>
   <string name="credentials_install_summary" product="nosdcard">"从存储设备安装证书"</string>
-  <string name="credentials_install_summary" product="default">从SD卡安装证书</string>
+  <string name="credentials_install_summary" product="default">"从SD卡安装证书"</string>
   <string name="credentials_reset">"清除凭据"</string>
   <string name="credentials_reset_summary">"删除所有证书"</string>
   <string name="trusted_credentials">"受信任的凭据"</string>
@@ -1686,7 +1683,7 @@
   <string name="credentials_password_too_short">"密码至少应包含 8 个字符。"</string>
   <string name="credentials_wrong_password">"密码不正确。"</string>
   <string name="credentials_reset_warning">"密码不正确。您还可以重试一次，如果输入的密码仍不正确，系统将删除凭据存储。"</string>
-  <string name="credentials_reset_warning_plural">"密码不正确。您还可以重试<ns0:g id="NUMBER">%1$d</ns0:g> 次，如果输入的密码仍不正确，系统将删除凭据存储。"</string>
+  <string name="credentials_reset_warning_plural">"密码不正确。您还可以重试<ns0:g id="NUMBER">"%1$d"</ns0:g> 次，如果输入的密码仍不正确，系统将删除凭据存储。"</string>
   <string name="credentials_erased">"凭据存储已删除。"</string>
   <string name="credentials_not_erased">"系统无法清除凭据存储。"</string>
   <string name="credentials_enabled">"凭证存储已启用。"</string>
@@ -1719,17 +1716,17 @@
   <string name="add_device_admin_msg">"要激活设备管理器吗？"</string>
   <string name="add_device_admin">"激活"</string>
   <string name="device_admin_add_title">"设备管理器"</string>
-  <string name="device_admin_warning">"激活此管理器可允许应用“<ns0:g id="APP_NAME">%1$s</ns0:g>”执行以下操作："</string>
-  <string name="device_admin_status">"此管理器已激活，允许应用“<ns0:g id="APP_NAME">%1$s</ns0:g>”执行以下操作："</string>
+  <string name="device_admin_warning">"激活此管理器可允许应用“<ns0:g id="APP_NAME">"%1$s"</ns0:g>”执行以下操作："</string>
+  <string name="device_admin_status">"此管理器已激活，允许应用“<ns0:g id="APP_NAME">"%1$s"</ns0:g>”执行以下操作："</string>
   <string name="untitled_apn">"未命名"</string>
   <string name="sound_category_sound_title">"常规"</string>
   <string name="sound_category_notification_title">"通知"</string>
   <string name="sound_category_call_ringtone_vibrate_title">"来电铃声和振动"</string>
   <string name="sound_category_system_title">"系统"</string>
   <string name="wifi_setup_title">"WLAN 设置"</string>
-  <string name="wifi_setup_title_editing_network">"连接到 WLAN 网络“<ns0:g id="NETWORK_NAME">%s</ns0:g>”"</string>
-  <string name="wifi_setup_title_connecting_network">"正在连接到 WLAN 网络“<ns0:g id="NETWORK_NAME">%s</ns0:g>”…"</string>
-  <string name="wifi_setup_title_connected_network">"已连接到 WLAN 网络“<ns0:g id="NETWORK_NAME">%s</ns0:g>”"</string>
+  <string name="wifi_setup_title_editing_network">"连接到 WLAN 网络“<ns0:g id="NETWORK_NAME">"%s"</ns0:g>”"</string>
+  <string name="wifi_setup_title_connecting_network">"正在连接到 WLAN 网络“<ns0:g id="NETWORK_NAME">"%s"</ns0:g>”…"</string>
+  <string name="wifi_setup_title_connected_network">"已连接到 WLAN 网络“<ns0:g id="NETWORK_NAME">"%s"</ns0:g>”"</string>
   <string name="wifi_setup_title_add_network">"添加网络"</string>
   <string name="wifi_setup_not_connected">"未连接"</string>
   <string name="wifi_setup_add_network">"添加网络"</string>
@@ -1770,13 +1767,13 @@
   <string name="sync_enabled">"同步功能已开启"</string>
   <string name="sync_disabled">"同步功能已关闭"</string>
   <string name="sync_error">"同步出错"</string>
-  <string name="last_synced">"上次同步时间：<ns0:g id="LAST_SYNC_TIME">%1$s</ns0:g>"</string>
+  <string name="last_synced">"上次同步时间：<ns0:g id="LAST_SYNC_TIME">"%1$s"</ns0:g>"</string>
   <string name="sync_in_progress">"正在同步…"</string>
   <string name="settings_backup">"备份设置"</string>
   <string name="settings_backup_summary">"备份我的设置"</string>
   <string name="sync_menu_sync_now">"立即同步"</string>
   <string name="sync_menu_sync_cancel">"取消同步"</string>
-  <string name="sync_one_time_sync">"触摸可立即同步（<ns0:g id="LAST_SYNC_TIME">%1$s</ns0:g>）"</string>
+  <string name="sync_one_time_sync">"触摸可立即同步（<ns0:g id="LAST_SYNC_TIME">"%1$s"</ns0:g>）"</string>
   <string name="sync_gmail">"Gmail"</string>
   <string name="sync_calendar">"日历"</string>
   <string name="sync_contacts">"联系人"</string>
@@ -1796,7 +1793,7 @@
   <string name="remove_account_failed" product="default">"某些应用需要使用此帐户。您只有将手机重置为出厂默认设置（此操作会删除您的所有个人数据），才能删除此帐户。您可以通过“设置”&gt;“备份和重置 ”执行此操作。"</string>
   <string name="provider_label">"推送订阅"</string>
   <string name="sync_item_title">
-    <ns0:g example="Calendar" id="authority">%s</ns0:g>
+    <ns0:g example="Calendar" id="authority">"%s"</ns0:g>
   </string>
   <string name="cant_sync_dialog_title">"无法手动同步"</string>
   <string name="cant_sync_dialog_message">"目前，此条目的同步功能已停用。要更改此设置，请暂时启用后台数据和自动同步功能。"</string>
@@ -1806,15 +1803,15 @@
   <string name="try_again">"请重试。"</string>
   <string name="delete">"删除"</string>
   <string name="misc_files">"其他文件"</string>
-  <string name="misc_files_selected_count">"已选择<ns0:g id="NUMBER">%1$d</ns0:g> 个，共 <ns0:g id="TOTAL">%2$d</ns0:g> 个"</string>
-  <string name="misc_files_selected_count_bytes">"<ns0:g id="NUMBER">%1$s</ns0:g>，共 <ns0:g id="TOTAL">%2$s</ns0:g>"</string>
+  <string name="misc_files_selected_count">"已选择<ns0:g id="NUMBER">"%1$d"</ns0:g> 个，共 <ns0:g id="TOTAL">"%2$d"</ns0:g> 个"</string>
+  <string name="misc_files_selected_count_bytes">"<ns0:g id="NUMBER">"%1$s"</ns0:g>，共 <ns0:g id="TOTAL">"%2$s"</ns0:g>"</string>
   <string name="select_all">"全选"</string>
   <string name="hdcp_checking_title">"HDCP 检查"</string>
   <string name="hdcp_checking_dialog_title">"设置 HDCP 检查行为"</string>
   <string name="debug_debugging_category">"调试"</string>
   <string name="debug_app">"选择调试应用"</string>
   <string name="debug_app_not_set">"未设置任何调试应用"</string>
-  <string name="debug_app_set">"调试应用：<ns0:g id="APP_NAME">%1$s</ns0:g>"</string>
+  <string name="debug_app_set">"调试应用：<ns0:g id="APP_NAME">"%1$s"</ns0:g>"</string>
   <string name="select_application">"选择应用"</string>
   <string name="no_application">"无"</string>
   <string name="wait_for_debugger">"等待调试器"</string>
@@ -1884,7 +1881,7 @@
   <string name="data_usage_tab_wifi">"WLAN"</string>
   <string name="data_usage_tab_ethernet">"以太网"</string>
   <string name="data_usage_tab_mobile">"移动"</string>
-  <string name="data_usage_tab_slot">SIM</string>
+  <string name="data_usage_tab_slot">"SIM"</string>
   <string name="data_usage_tab_4g">"4G"</string>
   <string name="data_usage_tab_3g">"2G-3G"</string>
   <string name="data_usage_list_mobile">"移动网络"</string>
@@ -1917,17 +1914,17 @@
   <string name="data_usage_restrict_background_multiuser" product="tablet">"如果您限制在后台使用移动数据网络，则在未连接到 WLAN 网络时，部分应用和服务将会无法运行。\n\n此设置会影响这台平板电脑上的所有用户。"</string>
   <string name="data_usage_restrict_background_multiuser" product="default">"如果您限制在后台使用移动数据网络，则在未连接到 WLAN 网络时，部分应用和服务将会无法运行。\n\n此设置会影响这台手机上的所有用户。"</string>
   <string name="data_usage_sweep_warning">
-    <font size="21">"<ns0:g id="NUMBER">^1</ns0:g>"</font>" "<font size="9">"<ns0:g id="UNIT">^2</ns0:g>"</font>\n<font size="12">"警告"</font>
+    <font size="21">"<ns0:g id="NUMBER">"^1"</ns0:g>"</font>" "<font size="9">"<ns0:g id="UNIT">"^2"</ns0:g>"</font>\n<font size="12">"警告"</font>
   </string>
   <string name="data_usage_sweep_limit">
-    <font size="21">"<ns0:g id="NUMBER">^1</ns0:g>"</font>" "<font size="9">"<ns0:g id="UNIT">^2</ns0:g>"</font>\n<font size="12">"限制"</font>
+    <font size="21">"<ns0:g id="NUMBER">"^1"</ns0:g>"</font>" "<font size="9">"<ns0:g id="UNIT">"^2"</ns0:g>"</font>\n<font size="12">"限制"</font>
   </string>
   <string name="data_usage_uninstalled_apps">"已删除的应用"</string>
   <string name="data_usage_uninstalled_apps_users">"已删除的应用和用户"</string>
-  <string name="data_usage_received_sent">"已接收<ns0:g id="RECEIVED">%1$s</ns0:g>，已发送 <ns0:g id="SENT">%2$s</ns0:g>"</string>
-  <string name="data_usage_total_during_range">"<ns0:g id="RANGE">%2$s</ns0:g>：已使用约 <ns0:g id="TOTAL">%1$s</ns0:g>。"</string>
-  <string name="data_usage_total_during_range_mobile" product="tablet">"<ns0:g id="RANGE">%2$s</ns0:g>：已使用约 <ns0:g id="TOTAL">%1$s</ns0:g>，由您的平板电脑计算得出。您的运营商对于流量的计算方法可能有所不同。"</string>
-  <string name="data_usage_total_during_range_mobile" product="default">"<ns0:g id="RANGE">%2$s</ns0:g>：已使用约 <ns0:g id="TOTAL">%1$s</ns0:g>，由您的手机计算得出。您的运营商对于流量的计算方法可能有所不同。"</string>
+  <string name="data_usage_received_sent">"已接收<ns0:g id="RECEIVED">"%1$s"</ns0:g>，已发送 <ns0:g id="SENT">"%2$s"</ns0:g>"</string>
+  <string name="data_usage_total_during_range">"<ns0:g id="RANGE">"%2$s"</ns0:g>：已使用约 <ns0:g id="TOTAL">"%1$s"</ns0:g>。"</string>
+  <string name="data_usage_total_during_range_mobile" product="tablet">"<ns0:g id="RANGE">"%2$s"</ns0:g>：已使用约 <ns0:g id="TOTAL">"%1$s"</ns0:g>，由您的平板电脑计算得出。您的运营商对于流量的计算方法可能有所不同。"</string>
+  <string name="data_usage_total_during_range_mobile" product="default">"<ns0:g id="RANGE">"%2$s"</ns0:g>：已使用约 <ns0:g id="TOTAL">"%1$s"</ns0:g>，由您的手机计算得出。您的运营商对于流量的计算方法可能有所不同。"</string>
   <string name="data_usage_metered_title">"移动热点"</string>
   <string name="data_usage_metered_body">"选择属于移动热点的 WLAN 网络。这样可限制应用在后台使用这些网络。应用在使用这些网络下载较大的文件时，还可能会发出警告。"</string>
   <string name="data_usage_metered_mobile">"移动网络"</string>
@@ -1959,7 +1956,7 @@
   <string name="vpn_save">"保存"</string>
   <string name="vpn_connect">"连接"</string>
   <string name="vpn_edit">"编辑 VPN 配置文件"</string>
-  <string name="vpn_connect_to">"连接到<ns0:g id="PROFILE">%s</ns0:g>"</string>
+  <string name="vpn_connect_to">"连接到<ns0:g id="PROFILE">"%s"</ns0:g>"</string>
   <string name="vpn_title">"VPN"</string>
   <string name="vpn_create">"添加 VPN 配置文件"</string>
   <string name="vpn_menu_edit">"修改配置文件"</string>
@@ -1984,29 +1981,29 @@
   <string name="confirm_new_backup_pw_prompt">"在此重新键入新的完整备份密码"</string>
   <string name="backup_pw_set_button_text">"设置备份密码"</string>
   <string name="backup_pw_cancel_button_text">"取消"</string>
-  <string name="percentage">"<ns0:g id="NUMBER">%d</ns0:g>%%"</string>
-  <string name="sel_sub_title">设置订阅</string>
-  <string name="sel_sub_summary">选择订阅 SUB1, SUB2, etc..</string>
-  <string name="select_subscription">选择订阅</string>
-  <string name="no_sim_info">SIM卡信息不可用.\n菜单不能使用</string>
-  <string name="subs_settings">订阅状态</string>
-  <string name="multi_sim_settings_title">多SIM卡设置</string>
-  <string name="multi_sim_settings_summary">为通话，数据和短信设置多个SIM卡</string>
-  <string name="voice_title">Voice/USSD/MMI</string>
-  <string name="voice_summary">为语音通话设置订阅</string>
-  <string name="data_title">数据通信</string>
-  <string name="data_summary">为数据通信设置订阅</string>
-  <string name="sms_title">短信</string>
-  <string name="sms_summary">为短信发送设置订阅</string>
-  <string name="set_data_subscription_progress">正在设置数据通信订阅</string>
-  <string name="set_dds_success">设置数据通信订阅成功</string>
-  <string name="set_dds_failed">设置数据订阅出错,清除所有数据连接后重试.</string>
-  <string name="set_dds_error">设置数据订阅出错.</string>
-  <string name="set_sms_error">设置短信订阅出错. 订阅未启用.</string>
-  <string name="set_voice_error">设置语音订阅出错. 订阅未启用.</string>
-  <string name="set_priority_sub_error">设置优先级订阅出错. 定于未启用.</string>
-  <string name="prompt">提示</string>
-  <string name="prompt_user">提示用户</string>
+  <string name="percentage">"<ns0:g id="NUMBER">"%d"</ns0:g>%%"</string>
+  <string name="sel_sub_title">"设置订阅"</string>
+  <string name="sel_sub_summary">"选择订阅 SUB1, SUB2, etc.."</string>
+  <string name="select_subscription">"选择订阅"</string>
+  <string name="no_sim_info">"SIM卡信息不可用.\n菜单不能使用"</string>
+  <string name="subs_settings">"订阅状态"</string>
+  <string name="multi_sim_settings_title">"多SIM卡设置"</string>
+  <string name="multi_sim_settings_summary">"为通话，数据和短信设置多个SIM卡"</string>
+  <string name="voice_title">"Voice/USSD/MMI"</string>
+  <string name="voice_summary">"为语音通话设置订阅"</string>
+  <string name="data_title">"数据通信"</string>
+  <string name="data_summary">"为数据通信设置订阅"</string>
+  <string name="sms_title">"短信"</string>
+  <string name="sms_summary">"为短信发送设置订阅"</string>
+  <string name="set_data_subscription_progress">"正在设置数据通信订阅"</string>
+  <string name="set_dds_success">"设置数据通信订阅成功"</string>
+  <string name="set_dds_failed">"设置数据订阅出错,清除所有数据连接后重试."</string>
+  <string name="set_dds_error">"设置数据订阅出错."</string>
+  <string name="set_sms_error">"设置短信订阅出错. 订阅未启用."</string>
+  <string name="set_voice_error">"设置语音订阅出错. 订阅未启用."</string>
+  <string name="set_priority_sub_error">"设置优先级订阅出错. 定于未启用."</string>
+  <string name="prompt">"提示"</string>
+  <string name="prompt_user">"提示用户"</string>
   <string name="additional_system_update_settings_list_item_title">"其他系统更新"</string>
   <string name="selinux_status_disabled">"未启用"</string>
   <string name="selinux_status_permissive">"启用"</string>
@@ -2014,15 +2011,15 @@
   <string name="ssl_ca_cert_warning">"网络可能会受到监控"</string>
   <string name="done_button">"完成"</string>
   <string name="ssl_ca_cert_dialog_title">"网络监控"</string>
-  <string name="ssl_ca_cert_info_message">"此设备由以下企业域管理：\n<ns0:g id="MANAGING_DOMAIN">%s</ns0:g>\n\n您的管理员可以监控您的网络活动，包括收发电子邮件、使用应用和浏览安全网站。\n\n如要了解详情，请与您的管理员联系。"</string>
+  <string name="ssl_ca_cert_info_message">"此设备由以下企业域管理：\n<ns0:g id="MANAGING_DOMAIN">"%s"</ns0:g>\n\n您的管理员可以监控您的网络活动，包括收发电子邮件、使用应用和浏览安全网站。\n\n如要了解详情，请与您的管理员联系。"</string>
   <string name="ssl_ca_cert_warning_message">"第三方可以监控您的网络活动，包括收发电子邮件、使用应用和浏览安全网站。\n\n如果您在设备上安装受信任的凭据，就可能出现这种情况。"</string>
   <string name="ssl_ca_cert_settings_button">"查看受信任的凭据"</string>
-  <string name="tune_away_title">Tune Away</string>
-  <string name="tune_away_Default">停用</string>
-  <string name="tune_away_enabled">TuneAway 启用!</string>
-  <string name="tune_away_disabled">TuneAway 停用!</string>
-  <string name="priority_sub_title">优先级订阅</string>
-  <string name="priority_sub_summary">选择优先级订阅</string>
+  <string name="tune_away_title">"Tune Away"</string>
+  <string name="tune_away_Default">"停用"</string>
+  <string name="tune_away_enabled">"TuneAway 启用!"</string>
+  <string name="tune_away_disabled">"TuneAway 停用!"</string>
+  <string name="priority_sub_title">"优先级订阅"</string>
+  <string name="priority_sub_summary">"选择优先级订阅"</string>
   <string name="user_settings_title">"用户"</string>
   <string name="user_list_title">"用户和个人资料"</string>
   <string name="user_add_user_menu">"添加用户或个人资料"</string>
@@ -2032,7 +2029,7 @@
   <string name="user_summary_not_set_up">"未设置"</string>
   <string name="user_summary_restricted_not_set_up">"未设置 - 受限个人资料"</string>
   <string name="user_owner">"机主"</string>
-  <string name="user_you">"您（<ns0:g id="NAME">%s</ns0:g>）"</string>
+  <string name="user_you">"您（<ns0:g id="NAME">"%s"</ns0:g>）"</string>
   <string name="user_nickname">"昵称"</string>
   <string name="user_add_user_type_title">"添加"</string>
   <string name="user_add_user_item_summary">"用户拥有个人专属的应用和内容"</string>
@@ -2050,7 +2047,7 @@
   <string name="user_cannot_manage_message" product="tablet">"只有平板电脑的拥有者可以管理用户。"</string>
   <string name="user_cannot_manage_message" product="default">"只有手机的拥有者可以管理用户。"</string>
   <string name="user_cannot_add_accounts_message">"受限个人资料无法添加帐户"</string>
-  <string name="user_remove_user_menu">"将<ns0:g id="USER_NAME">%1$s</ns0:g>从此设备中删除"</string>
+  <string name="user_remove_user_menu">"将<ns0:g id="USER_NAME">"%1$s"</ns0:g>从此设备中删除"</string>
   <string name="user_new_user_name">"新用户"</string>
   <string name="user_new_profile_name">"新的个人资料"</string>
   <string name="user_confirm_remove_self_title">"是否删除自己？"</string>
@@ -2079,8 +2076,8 @@
   <string name="nfc_payment_learn_more">"了解详情"</string>
   <string name="nfc_payment_menu_item_add_service">"查找应用"</string>
   <string name="nfc_payment_set_default_label">"要设为您的偏好设置吗？"</string>
-  <string name="nfc_payment_set_default">"触碰付款时一律使用“<ns0:g id="APP">%1$s</ns0:g>”吗？"</string>
-  <string name="nfc_payment_set_default_instead_of">"触碰付款时一律使用“<ns0:g id="APP_0">%1$s</ns0:g>”（而非“<ns0:g id="APP_1">%2$s</ns0:g>”）吗？"</string>
+  <string name="nfc_payment_set_default">"触碰付款时一律使用“<ns0:g id="APP">"%1$s"</ns0:g>”吗？"</string>
+  <string name="nfc_payment_set_default_instead_of">"触碰付款时一律使用“<ns0:g id="APP_0">"%1$s"</ns0:g>”（而非“<ns0:g id="APP_1">"%2$s"</ns0:g>”）吗？"</string>
   <string name="restriction_settings_title">"限制"</string>
   <string name="restriction_menu_reset">"取消限制"</string>
   <string name="restriction_menu_change_pin">"更改 PIN 码"</string>
@@ -2092,7 +2089,7 @@
   <string name="user_restrictions_title">"应用和内容限制"</string>
   <string name="user_rename">"重命名"</string>
   <string name="app_restrictions_custom_label">"设置应用限制"</string>
-  <string name="user_restrictions_controlled_by">"受“<ns0:g id="APP">%1$s</ns0:g>”控制"</string>
+  <string name="user_restrictions_controlled_by">"受“<ns0:g id="APP">"%1$s"</ns0:g>”控制"</string>
   <string name="app_not_supported_in_limited">"受限个人资料无法使用此应用"</string>
   <string name="app_sees_restricted_accounts">"此应用可使用您的帐户"</string>
   <string name="restriction_wifi_config_title">"WLAN 和移动网络"</string>
