@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
   <plurals name="backlight_timeout_time">
-    <item quantity="one"><ns0:g id="seconds">"%d"</ns0:g> 秒</item>
-    <item quantity="other"><ns0:g id="seconds">"%d"</ns0:g> 秒</item>
+    <item quantity="one"><ns0:g id="seconds">%d</ns0:g> 秒</item>
+    <item quantity="other"><ns0:g id="seconds">%d</ns0:g> 秒</item>
   </plurals>
   <plurals name="app_ops_count">
-    <item quantity="one">"一次"</item>
-    <item quantity="other">"%d 次"</item>
+    <item quantity="one">一次</item>
+    <item quantity="other">%d 次</item>
   </plurals>
 </resources>
