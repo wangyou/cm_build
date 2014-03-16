@@ -4,6 +4,7 @@ from xml.etree import ElementTree as ET
 import sys
 import os
 import re
+import time
 
 modRefreshDict=1
 modWriteTrans=2
@@ -27,8 +28,8 @@ def indent(elem,recursive=True,level=0):
                elem.text = i + "  "
         elif not elem.text is None:
                elem.text = elem.text.strip()
-               if elem.text[0] != '"':
-                   elem.text = '"'+elem.text+'"'
+               if elem.text[0] == '"' and elem.text[-1]=='"':
+                   elem.text = elem.text[1:-1]
         if not elem.tail or not elem.tail.strip():
             elem.tail = i 
         if recursive:
@@ -219,6 +220,7 @@ def mTrans(xmlfile,xmldict,xmlout):
                                 file_log=open(dictdir+"/log.txt","w")
                             if printedHead == 0:
                                    print "\n",baseXMLname,":\n===================="
+                                   print >> file_log, "Generate:",time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
                                    print >> file_log, "\n",baseXMLname,":\n===================="
                                    printedHead = 1
                             print  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
