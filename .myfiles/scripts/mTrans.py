@@ -27,6 +27,8 @@ def indent(elem,recursive=True,level=0):
                elem.text = i + "  "
         elif not elem.text is None:
                elem.text = elem.text.strip()
+               if elem.text[0] != '"':
+                   elem.text = '"'+elem.text+'"'
         if not elem.tail or not elem.tail.strip():
             elem.tail = i 
         if recursive:
@@ -172,7 +174,10 @@ def mTrans(xmlfile,xmldict,xmlout):
               continue
 
            ####not translate items#########
-           if child_of_root.attrib.has_key("translatable") and (child_of_root.attrib['translatable'] == 'false') or child_of_root.attrib.has_key("translate") and (child_of_root.attrib['translate'] == 'false') :
+           if child_of_root.attrib.has_key("translatable") and (child_of_root.attrib['translatable'] == 'false') or child_of_root.attrib.has_key("translate") and (child_of_root.attrib['translate'] == 'false'):
+               root.remove(child_of_root)
+               continue
+           if not child_of_root.text is None and (not child_of_root.text == "") and (not child_of_root.text.strip() == "") and child_of_root.text.strip()[0] == '@':
                root.remove(child_of_root)
                continue
 
