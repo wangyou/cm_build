@@ -127,7 +127,7 @@ resetProject()
 
 ### parse params #########
 for op in $*;do 
-   if [ "$op" = "spyder" -o "$op" = "edison" ]; then
+   if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa" ]; then
    	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
@@ -209,7 +209,7 @@ if [ "$mode" = "r" ]; then
 	exit
 fi
 
-if [ "$device" = "edison" -o "$device" = "spyder" ]; then
+if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
     cd $basedir/frameworks/av; 			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
     cd $basedir/frameworks/base; 		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
     cd $basedir/frameworks/native; 		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
@@ -287,14 +287,26 @@ if [ "$device" = "edison" -o "$device" = "spyder" ]; then
   if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" -o "$op" = "j3072" ] && [ "$mode" != "kbranch" ] ; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
 
-     [ "$device" = "edison" ] && kernel_config=mapphone_OCEdison_defconfig
-     [ "$device" = "spyder" ] && kernel_config=mapphone_OCE_defconfig
-     [ -f $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} ] &&\
-      sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
-	  -e "s/# CONFIG_MAPPHONE_EDISON is not set/CONFIG_MAPPHONE_EDISON=y/g" \
-	  -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
-	  -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
-          -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
+     if  [ -f $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} ] ; then
+         if [ "$device" == "edison" ]; then
+            sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
+   	        -e "s/# CONFIG_MAPPHONE_EDISON is not set/CONFIG_MAPPHONE_EDISON=y/g" \
+	        -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
+	        -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
+                -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
+         elif [ "$device" == "targa" ]; then
+            sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
+   	        -e "s/# CONFIG_MAPPHONE_TARGA is not set/CONFIG_MAPPHONE_TARGA=y/g" \
+	        -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
+	        -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
+                -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
+         else
+            sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
+	        -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
+	        -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
+                -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
+         fi
+
   elif [ "$opKernel" = "cm" ]; then
       sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig \
           -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"

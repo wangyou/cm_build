@@ -33,7 +33,7 @@ if [ -f .lastBuild ]; then
 fi
 
 for op in $*;do
-   if [ "$op" = "spyder" -o "$op" = "edison" ]; then
+   if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa" ]; then
 	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
@@ -105,6 +105,13 @@ fi
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
+export kernel_config=mapphone_OCE_defconfig
+if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
+   [ "$device" = "edison" ] && export kernel_config=mapphone_OCE_defconfig
+   [ "$device" = "spyder" ] && export kernel_config=mapphone_OCE_defconfig
+   [ "$device" = "targa" ] && export kernel_config=mapphone_OCE_defconfig
+fi
+
 .myfiles/patch.sh $device -$mode $oldupdate $moreopt $opKernel
 echo "device: $device">.lastBuild
 echo "opKernel: $opKernel">>.lastBuild
@@ -155,9 +162,7 @@ case "$opKernel" in
 esac
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$opKernel" = "j3072" ] \
-   && [ "$device" = "edison" -o "$device" = "spyder" ]; then
-	[ "$device" = "edison" ] && kernel_config=mapphone_OCEdison_defconfig
-	[ "$device" = "spyder" ] && kernel_config=mapphone_OCE_defconfig
+   && [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 
          [ ! -z $jbxKernelVersion ] &&  echo $jbxKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
 	LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
