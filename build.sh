@@ -105,11 +105,13 @@ fi
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
-export kernel_config=mapphone_OCE_defconfig
-if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
-   [ "$device" = "edison" ] && export kernel_config=mapphone_OCE_defconfig
-   [ "$device" = "spyder" ] && export kernel_config=mapphone_OCE_defconfig
-   [ "$device" = "targa" ] && export kernel_config=mapphone_OCE_defconfig
+if [ "${opKernel:0:1}" = "j" ]; then
+    export kernel_config=mapphone_OCE_defconfig
+    if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
+       [ "$device" = "edison" ] && export kernel_config=mapphone_OCE_defconfig
+       [ "$device" = "spyder" ] && export kernel_config=mapphone_OCEdison_defconfig
+       [ "$device" = "targa" ] && export kernel_config=mapphone_OCETarga_defconfig
+    fi
 fi
 
 .myfiles/patch.sh $device -$mode $oldupdate $moreopt $opKernel

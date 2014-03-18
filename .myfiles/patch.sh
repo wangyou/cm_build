@@ -287,16 +287,19 @@ if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
   if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" -o "$op" = "j3072" ] && [ "$mode" != "kbranch" ] ; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
 
+     [ "${kernel_config}" = "" ] && kernel_config=mapphone_OCE_defconfig
      if  [ -f $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} ] ; then
-         if [ "$device" == "edison" ]; then
+         if [ "$device" = "edison" ]; then
             sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
    	        -e "s/# CONFIG_MAPPHONE_EDISON is not set/CONFIG_MAPPHONE_EDISON=y/g" \
+                -e "s/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT=y/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT is not set/g" \
 	        -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
 	        -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
-         elif [ "$device" == "targa" ]; then
+         elif [ "$device" = "targa" ]; then
             sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
    	        -e "s/# CONFIG_MAPPHONE_TARGA is not set/CONFIG_MAPPHONE_TARGA=y/g" \
+                -e "s/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT=y/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT is not set/g" \
 	        -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
 	        -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
@@ -306,7 +309,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 	        -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
          fi
-
+     fi
   elif [ "$opKernel" = "cm" ]; then
       sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig \
           -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
