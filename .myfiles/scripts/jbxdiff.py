@@ -27,7 +27,7 @@ while line:
 
 fOCE.close()
 
-print "\n"
+#print "\n=========== Added in Edison ================="
 fEdison= open(confdir+"mapphone_OCEdison_defconfig")
 line = fEdison.readline() 
 while line:
@@ -40,15 +40,15 @@ while line:
     if config.has_key(key) and config[key]==value:
        del(config[key])
     elif config.has_key(key) and config[key] != value:
-       print key+" = "+config[key]+"\t=>"+value
+       print "  "+key+" = "+config[key]+"\t=>"+value
        config[key]=key
     elif not value is None:
-       print key+" = "+value
-       config[key]=value  
-    line = fEdison.readline()
-    
+       print "+ "+key+" = "+value
+#       config[key]=value  
+    line = fEdison.readline()    
 fEdison.close()
-print "\n=========== ALL DIFFRENT CONFIGS ================="
+
+#print "\n=========== Removed in Edison ================="
 for (k,v) in config.items():
-    print "%s="% k,v
+    print "- %s="% k,v
 
