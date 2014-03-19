@@ -292,14 +292,17 @@ if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
          if [ "$device" = "edison" ]; then
             sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
    	        -e "s/# CONFIG_MAPPHONE_EDISON is not set/CONFIG_MAPPHONE_EDISON=y/g" \
-                -e "s/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT=y/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT is not set/g" \
+                -e "s/# CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT is not set/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT=y/g" \
+                -e "s/# CONFIG_DPLL is not set/CONFIG_DPLL=y/g" \
+                -e "s/# CONFIG_OMAP4_DPLL_CASCADING is not set/CONFIG_OMAP4_DPLL_CASCADING=y/g" \
+                -e "s/# CONFIG_OMAP4_ONLY_OMAP4430_DPLL_CASCADING is not set/CONFIG_OMAP4_ONLY_OMAP4430_DPLL_CASCADING=y/g" \
 	        -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
 	        -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
          elif [ "$device" = "targa" ]; then
             sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
    	        -e "s/# CONFIG_MAPPHONE_TARGA is not set/CONFIG_MAPPHONE_TARGA=y/g" \
-                -e "s/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT=y/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT is not set/g" \
+#                -e "s/CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT=y/# CONFIG_PANEL_MAPPHONE_SKIP_FIRSTBOOT is not set/g" \
 	        -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
 	        -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
