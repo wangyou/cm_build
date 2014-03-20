@@ -108,8 +108,8 @@ cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | 
 if [ "${opKernel:0:1}" = "j" ]; then
     export kernel_config=mapphone_OCE_defconfig
     if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
-       [ "$device" = "edison" ] && export kernel_config=mapphone_OCE_defconfig
-       [ "$device" = "spyder" ] && export kernel_config=mapphone_OCEdison_defconfig
+       [ "$device" = "edison" ] && export kernel_config=mapphone_OCEdison_defconfig
+       [ "$device" = "spyder" ] && export kernel_config=mapphone_OCE_defconfig
        [ "$device" = "targa" ] && export kernel_config=mapphone_OCETarga_defconfig
     fi
 fi
@@ -118,7 +118,7 @@ fi
 echo "device: $device">.lastBuild
 echo "opKernel: $opKernel">>.lastBuild
 
-######generate projects's last 5 logs########
+######generate projects's last 10 logs########
 echo "Generating projects's snapshot logs..."
 PROJECTLIST=$rdir/.repo/project.list
 OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
@@ -129,7 +129,7 @@ while read project
 do
 	cd $basedir/$project
 	echo $project: >>$OUTLOG
-	git log -5 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
+	git log -10 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
 	echo -e "\n">>$OUTLOG
 done < $PROJECTLIST
 cd $basedir

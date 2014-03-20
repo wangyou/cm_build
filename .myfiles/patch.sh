@@ -316,15 +316,15 @@ if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
   fi
 
   #some patch for kernel
-  if  grep -q "^#if defined(CONFIG_MAPPHONE_EDISON) || defined(CONFIG_MAPPHONE_TARGA)" \
-            $basedir/kernel/motorola/omap4-common/arch/arm/mach-omap2/sr_device.c; then
-      patch -p1 -N < $rdir/patchs/kernel/jbx_sr-device.diff
-  fi
+#  if  grep -q "^#if defined(CONFIG_MAPPHONE_EDISON) || defined(CONFIG_MAPPHONE_TARGA)" \
+#            $basedir/kernel/motorola/omap4-common/arch/arm/mach-omap2/sr_device.c; then
+#      patch -p1 -N < $rdir/patchs/kernel/jbx_sr-device.diff
+#  fi
 
-  if ! grep -q "static bool skip_first_boot = true" \
-     $basedir/kernel/motorola/omap4-common/drivers/video/omap2/displays/panel-mapphone.c; then
-     patch -p1 -N < $rdir/patchs/kernel/first_boot.diff
-  fi
+#  if ! grep -q "static bool skip_first_boot = true" \
+#     $basedir/kernel/motorola/omap4-common/drivers/video/omap2/displays/panel-mapphone.c; then
+#     patch -p1 -N < $rdir/patchs/kernel/first_boot.diff
+#  fi
 
   cd $basedir
   echo "Process kernel ended."
