@@ -20,6 +20,7 @@ oldupdate="old"
 keepPatch=1
 kernelzip=1
 moreopt=""
+nomake=1
 
 lastDevice="edison"
 lastKernel=""
@@ -48,6 +49,8 @@ for op in $*;do
 	kernelzip=0
    elif [ "${op}" = "-k" ]; then
 	keepPatch=0
+   elif [ "$op" = "-nomake" ]; then
+        nomake=0
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
    elif [  "$op" = "-cleanall" -o "$op" = "-init" -o "$op" = "sync"  ]; then
@@ -100,7 +103,7 @@ if [ "$mode" = "sync" ]; then
     exit
 fi
 
-. build/envsetup.sh
+[ $nomake -ne 0 -o "$device" != "$lastDevice" ] && . build/envsetup.sh
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
@@ -114,43 +117,46 @@ if [ "${opKernel:0:1}" = "j" ]; then
     fi
 fi
 
-.myfiles/patch.sh $device -$mode $oldupdate $moreopt $opKernel
-echo "device: $device">.lastBuild
-echo "opKernel: $opKernel">>.lastBuild
+if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
+   .myfiles/patch.sh $device -$mode $oldupdate $moreopt $opKernel
+   echo "device: $device">.lastBuild
+   echo "opKernel: $opKernel">>.lastBuild
 
-######generate projects's last 10 logs########
-echo "Generating projects's snapshot logs..."
-PROJECTLIST=$rdir/.repo/project.list
-OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
-[ -d $basedir/out/target/product/$device/system/etc/ ] || mkdir -p $basedir/out/target/product/$device/system/etc/
-rm -f $OUTLOG
-touch $OUTLOG
-while read project
-do
+    ######generate projects's last 10 logs########
+    echo "Generating projects's snapshot logs..."
+    PROJECTLIST=$rdir/.repo/project.list
+    OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
+    [ -d $basedir/out/target/product/$device/system/etc/ ] || mkdir -p $basedir/out/target/product/$device/system/etc/
+    rm -f $OUTLOG
+    touch $OUTLOG
+    while read project
+    do
 	cd $basedir/$project
 	echo $project: >>$OUTLOG
 	git log -10 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
 	echo -e "\n">>$OUTLOG
-done < $PROJECTLIST
-cd $basedir
+    done < $PROJECTLIST
+    cd $basedir
 
-########Delete old files#############################
-if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
-  cd out/target/product/$device/obj/PACKAGING/target_files_intermediates
-  ls -t  | awk '{if(NR>2){print $0}}' | xargs rm -rf 
-  cd $basedir
-fi
-if [ -d out/target/product/$device/ ]; then
-  cd out/target/product/$device
-  ls -t cm-*.zip 2>/dev/null | awk '{if(NR>4){print $0}}' |xargs rm -rf 
-  cd $basedir
-fi
-rm -f out/target/product/$device/system/build.prop
-[ _"$opKernel" != _"$lastKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
-[ -d $basedir/out/target/product/edison/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/edison/obj/KERNEL_OBJ
+    ########Delete old files#############################
+    if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
+       cd out/target/product/$device/obj/PACKAGING/target_files_intermediates
+       ls -t  | awk '{if(NR>2){print $0}}' | xargs rm -rf 
+       cd $basedir
+    fi
+    if [ -d out/target/product/$device/ ]; then
+       cd out/target/product/$device
+       ls -t cm-*.zip 2>/dev/null | awk '{if(NR>4){print $0}}' |xargs rm -rf 
+       cd $basedir
+    fi
+    rm -f out/target/product/$device/system/build.prop
+    [ _"$opKernel" != _"$lastKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
+    [ -d $basedir/out/target/product/edison/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/edison/obj/KERNEL_OBJ
 
-#############lunch######################
-lunch cm_$device-userdebug 
+    #############lunch######################
+    lunch cm_$device-userdebug 
+
+fi
 
 ########## MAKE #########################
 export CM_BUILDTYPE=NIGHTLY
@@ -166,10 +172,12 @@ esac
 if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$opKernel" = "j3072" ] \
    && [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 
-         [ ! -z $jbxKernelVersion ] &&  echo $jbxKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
-	LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
+        if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
+            [ ! -z $jbxKernelVersion ] &&  echo $jbxKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
+	    LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
   		        TARGET_KERNEL_CONFIG=${kernel_config}  
-        jbxKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
+            jbxKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
+        fi
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
 		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
@@ -184,10 +192,11 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$op
 	fi
 
 elif [ "$opKernel" = "cm" ]; then
-        [ ! -z $cmKernelVersion ] && echo $cmKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
-	LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
-        cmKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
-
+        if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
+            [ ! -z $cmKernelVersion ] && echo $cmKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
+	    LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
+            cmKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
+        fi
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
 		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
@@ -203,10 +212,12 @@ elif [ "$opKernel" = "cm" ]; then
 
 fi
 
-[ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
+if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
+   [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
 
-[ ! -z $cmKernelVersion ] && echo "cmKernelVersion: $cmKernelVersion">>.lastBuild
-[ ! -z $jbxKernelVersion ] && echo "jbxKernelVersion: $jbxKernelVersion">>.lastBuild
+   [ ! -z $cmKernelVersion ] && echo "cmKernelVersion: $cmKernelVersion">>.lastBuild
+   [ ! -z $jbxKernelVersion ] && echo "jbxKernelVersion: $jbxKernelVersion">>.lastBuild
 
-rm -f out/target/product/$device/cm_$device-ota-*.zip
-rm -f out/target/product/$device/cm-*.zip.md5sum
+   rm -f out/target/product/$device/cm_$device-ota-*.zip
+   rm -f out/target/product/$device/cm-*.zip.md5sum
+fi
