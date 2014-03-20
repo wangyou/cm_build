@@ -14,6 +14,7 @@ fOCE = open(confdir+"mapphone_OCE_defconfig")
 line = fOCE.readline()  
 config={}          
 while line:
+  try:
     line=line.split("#")[0].strip()
     if line is None or line == "":
         line = fOCE.readline()
@@ -22,8 +23,10 @@ while line:
     value=line.split("=")[1]
     if not key is None and key != "":
         config[key]=value
-#        print key+" = "+value
-    line = fOCE.readline()
+  except:
+    pass
+
+  line = fOCE.readline()
 
 fOCE.close()
 
@@ -31,6 +34,7 @@ fOCE.close()
 fEdison= open(confdir+"mapphone_OCEdison_defconfig")
 line = fEdison.readline() 
 while line:
+  try:
     line=line.split("#")[0].strip()
     if line is None or line == "":
         line = fEdison.readline()
@@ -44,8 +48,9 @@ while line:
        config[key]=key
     elif not value is None:
        print "+ "+key+" = "+value
-#       config[key]=value  
-    line = fEdison.readline()    
+  except:
+    pass
+  line = fEdison.readline()    
 fEdison.close()
 
 #print "\n=========== Removed in Edison ================="
