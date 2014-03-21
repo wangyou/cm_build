@@ -53,6 +53,17 @@
   <string name="preferred_network_mode_wcdma_only">WCDMA</string>
   <string name="preferred_network_mode_gsm_only">GSM</string>
   <string name="preferred_network_mode_gsm_wcdma_preferred">GSM/WCDMA首选</string>
+  <string name="number_lookup">号码查找</string>
+  <string name="enable_forward_lookup_title">正向查找</string>
+  <string name="enable_forward_lookup_summary">在电话中搜索时显示最近位置</string>
+  <string name="enable_people_lookup_title">人员查找</string>
+  <string name="enable_people_lookup_summary">在电话中搜索人员时显示在线结果</string>
+  <string name="enable_reverse_lookup_title">反向查找</string>
+  <string name="enable_reverse_lookup_summary">查找未知号码来电的人员或位置信息</string>
+  <string name="choose_lookup_providers">选择查找提供者</string>
+  <string name="choose_forward_lookup_provider_title">选择正向查找提供者</string>
+  <string name="choose_people_lookup_provider_title">选择人员查找提供者</string>
+  <string name="choose_reverse_lookup_provider_title">选择反向查找提供者</string>
   <string name="label_nsdp">SIM卡网络区域解锁PIN</string>
   <string name="label_cdp">SIM卡厂商解锁PIN</string>
   <string name="label_spdp">SIM卡运营商解锁PIN</string>

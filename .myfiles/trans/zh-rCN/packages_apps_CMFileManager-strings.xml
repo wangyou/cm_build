@@ -313,6 +313,8 @@
   <string name="pref_access_mode_prompt_summary">用户提示模式\n\n程序目前有完全访问文件系统的权限, 但会在执行任何需要特权的操作前提示用户.</string>
   <string name="pref_access_mode_root">超级用户访问模式</string>
   <string name="pref_access_mode_root_summary">超级用户访问模式\n\n警告! 此模式将允许可能导致系统损伤的操作. 您需要确认自己操作的安全性.</string>
+  <string name="pref_restrict_secondary_users_access_title">限制用户存取</string>
+  <string name="pref_restrict_secondary_users_access_summary">限制第二用户存取整个系统</string>
   <string name="pref_search_results_category">结果</string>
   <string name="pref_show_relevance_widget">显示相关部件</string>
   <string name="pref_highlight_terms">高亮搜索关键词</string>

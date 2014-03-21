@@ -34,6 +34,8 @@
   <string name="call_stats_sort_by_count">以通话次数排序</string>
   <string name="menu_add_to_blacklist">添加到黑名单</string>
   <string name="toast_added_to_blacklist">%s 已添加到黑名单。</string>
+  <string name="nearby_places">附近位置</string>
+  <string name="people">联系人</string>
   <string name="call_log_activity_title_font_family">sans-serif-light</string>
   <string name="show_all_contacts_title_font_family">sans-serif-light</string>
   <string name="dialpad_star_number">*</string>
