@@ -221,6 +221,7 @@ def mTrans(xmlfile,xmldict,xmlout):
                             if printedHead == 0:
                                    print "\n",baseXMLname,":\n===================="
                                    print >> file_log, "Generate:",time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+                                   print >> file_log, "#####################################"
                                    print >> file_log, "\n",baseXMLname,":\n===================="
                                    printedHead = 1
                             print  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
