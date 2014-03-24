@@ -828,4 +828,5 @@
   <string name="data_usage_lengths_spinner_subtitle">周期长度:</string>
   <string name="disable_navkeys_title">开启屏幕导航栏</string>
   <string name="disable_navkeys_summary">开启屏幕导航栏并禁用硬件按钮</string>
+  <string name="accessibility_sync_in_progress">正在同步中.</string>
 </resources>
