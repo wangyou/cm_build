@@ -2,7 +2,7 @@ reset
 compile_user=NX111
 branch=cm-11.0
 KernelBranches=("cm-11.0" "JBX_4.4" "JBX_30X" "JBX_3072")
-KernelOpts=("cm" "j44" "j30x" "j3072")
+KernelOpts=("cm" "j44" "j30x" "jhdmi")
 
 ScriptName=`basename $0`
 rdir=`dirname $0`
@@ -41,7 +41,7 @@ for op in $*;do
 	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
 	rm -rf $basedir/vendor/motorola/jordan-common
 	[ -d  $basedir/vendor/moto/jordan-common ] && cp -r $basedir/vendor/moto/jordan-common $basedir/vendor/motorola/jordan-common
-   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "j3072" -o "$op" = "cm" ]; then
+   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "jhdmi" -o "$op" = "cm" ]; then
 	opKernel="$op"
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
@@ -165,11 +165,11 @@ export CM_EXTRAVERSION=NX111
 case "$opKernel" in
       "j44" ) 
 		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX44;;
-      "jbx" | "j30x" | "j3072" )
+      "jbx" | "j30x" | "jhdmi" )
 		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX;;
 esac
 
-if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$opKernel" = "j3072" ] \
+if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$opKernel" = "jhdmi" ] \
    && [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
