@@ -1,0 +1,45 @@
+commit fe3c9edc37ab7303b6db4bb38fcb05b2df12a555
+Author: nx111 <gd.zhangdz@gmail.com>
+Date:   Mon Mar 24 18:56:13 2014 +0800
+
+    cpufreq: insert governor by order
+    
+    Change-Id: I928c0713557bc8a2458ac15995ab9d825d856aca
+
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index af9f83c..d4ef806 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -1597,6 +1597,8 @@ static int __cpufreq_governor(struct cpufreq_policy *policy,
+ int cpufreq_register_governor(struct cpufreq_governor *governor)
+ {
+ 	int err;
++        struct cpufreq_governor *t, *found;
++        struct list_head *last;
+ 
+ 	if (!governor)
+ 		return -EINVAL;
+@@ -1604,9 +1606,21 @@ int cpufreq_register_governor(struct cpufreq_governor *governor)
+ 	mutex_lock(&cpufreq_governor_mutex);
+ 
+ 	err = -EBUSY;
+-	if (__find_governor(governor->name) == NULL) {
++        last=&cpufreq_governor_list;
++        found=NULL;
++	list_for_each_entry(t, &cpufreq_governor_list, governor_list){
++                if (0 <= strnicmp(governor->name,  t->name, CPUFREQ_NAME_LEN))
++                    last=&t->governor_list;
++
++		if (!strnicmp(governor->name, t->name, CPUFREQ_NAME_LEN)){
++                        found=t;
++			break;
++                }
++        }
++
++	if (found == NULL) {
+ 		err = 0;
+-		list_add(&governor->governor_list, &cpufreq_governor_list);
++		list_add(&governor->governor_list, last);
+ 	}
+ 
+ 	mutex_unlock(&cpufreq_governor_mutex);
