@@ -154,7 +154,7 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
     [ -d $basedir/out/target/product/edison/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/edison/obj/KERNEL_OBJ
 
     #############lunch######################
-    lunch cm_$device-userdebug 
+    lunch cm_$device-userdebug >/dev/null
 
 fi
 
