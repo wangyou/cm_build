@@ -28,11 +28,9 @@ done
 [ -f $edir/delete-list.txt ] &&
 	sed -e "/\/system\/app\/Calendar\.apk/d" -i $edir/delete-list.txt
 [ -f $edir/gapps-list.txt ] &&
-	sed -e "/\/system\\app\\GoogleCalendar\.apk/d" \
-	    -e "/\/system\\app\\PlayGames\.apk/d" \
+	sed -e "/\/system\\app\\PlayGames\.apk/d" \
 	    -e "/\/system\\app\\Books\.apk/d" \
 	    -e "/\/system\\app\\Magazines\.apk/d" \
-	    -e "/\/system\\app\\CalendarGoogle\.apk/d" \
             -e "/\/system\\priv-app\\SetupWizard\.apk/d" \
 	    -i $edir/gapps-list.txt
 [ -f $edir/system/addon.d/70-gapps.sh ] &&
@@ -40,11 +38,11 @@ done
 	    -i $edir/system/addon.d/70-gapps.sh
 
 #rm -f $edir/system/app/GoogleHome.apk
-rm -f $edir/system/app/GoogleCalendar.apk
+#rm -f $edir/system/app/GoogleCalendar.apk
 rm -f $edir/system/app/PlayGames.apk
 rm -f $edir/system/app/Books.apk
 rm -f $edir/system/app/Magazines.apk
-rm -f $edir/system/app/CalendarGoogle.apk
+#rm -f $edir/system/app/CalendarGoogle.apk
 rm -f $edir/system/priv-app/SetupWizard.apk
 
 if [ -f $edir/system/etc/g.prop ]; then
