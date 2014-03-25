@@ -187,7 +187,7 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$op
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../JBX-Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
+		zip -r "../Kernel-JBX-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
 		cd $curdir
 	fi
 
@@ -206,7 +206,7 @@ elif [ "$opKernel" = "cm" ]; then
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../Kernel-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
+		zip -r "../Kernel-CM-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
 		cd $curdir
 	fi
 
