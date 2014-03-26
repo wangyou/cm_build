@@ -833,8 +833,8 @@
   <string name="storage_settings_summary" product="default">卸载SD卡, 查看可用存储设备</string>
   <string name="status_imei">IMEI</string>
   <string name="status_imei_sv">IMEI SV</string>
-  <string name="status_number" product="tablet">移动目录编号 (MDN)</string>
-  <string name="status_number" product="default">移动目录编号 (MDN)</string>
+  <string name="status_number" product="tablet">移动用户号码</string>
+  <string name="status_number" product="default">移动电话号码</string>
   <string name="status_min_number">MIN</string>
   <string name="status_msid_number">MSID</string>
   <string name="status_prl_version">PRL 版本</string>
