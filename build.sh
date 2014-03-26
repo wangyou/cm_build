@@ -1,8 +1,8 @@
 reset
 compile_user=NX111
 branch=cm-11.0
-KernelBranches=("cm-11.0" "JBX_4.4" "JBX_30X" "JBX_3072")
-KernelOpts=("cm" "j44" "j30x" "jhdmi")
+export KernelBranches=("cm-11.0" "JBX_4.4" "JBX_30X" "JBX_HDMI")
+export KernelOpts=("cm" "j44" "j30x" "jhdmi")
 
 ScriptName=`basename $0`
 rdir=`dirname $0`
