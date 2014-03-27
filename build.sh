@@ -1,8 +1,27 @@
 reset
 compile_user=NX111
 branch=cm-11.0
-export KernelBranches=("cm-11.0" "JBX_4.4" "JBX_30X" "JBX_HDMI")
-export KernelOpts=("cm" "j44" "j30x" "jhdmi")
+
+KernelBranches=("cm-11.0" "JBX_HDMI" "JBX_4.4" "JBX_30X" "JBX_HDMI")
+KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi")
+
+#############################################################
+## function to get kernel branch name from kernel options
+##############################################################
+getKernelBranchName()
+{
+	[ "$1" = "" ] && return 
+	i=0
+        for e in ${KernelOpts[@]}; do
+		if [ "$e" = "$1" -a "$e" != "" ]; then
+			echo  ${KernelBranches[$i]}
+			return
+		fi
+		i=$((i+1))
+	done
+	return 1
+}
+#############################################################
 
 ScriptName=`basename $0`
 rdir=`dirname $0`
@@ -162,12 +181,9 @@ fi
 export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
-case "$opKernel" in
-      "j44" ) 
-		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX44;;
-      "jbx" | "j30x" | "jhdmi" )
-		export CM_EXTRAVERSION=${CM_EXTRAVERSION}_JBX;;
-esac
+KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_\.]//g"`
+
+[ "${opKernel:0:1}" = "j" ] && export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
 
 if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$opKernel" = "jhdmi" ] \
    && [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
@@ -187,7 +203,7 @@ if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$op
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../Kernel-JBX-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
+		zip -r "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
 		cd $curdir
 	fi
 
@@ -206,7 +222,7 @@ elif [ "$opKernel" = "cm" ]; then
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../Kernel-CM-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
+		zip -r "../Kernel-CM11-$device-$(date +"%Y-%m-%d").zip" * >/dev/null
 		cd $curdir
 	fi
 

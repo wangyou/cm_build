@@ -5,7 +5,27 @@ mode=""
 oldupdate=1
 releaseKernel=1
 kernelUpdate=0
-#### functions ############
+opKernel=cm
+
+KernelBranches=("cm-11.0" "JBX_HDMI" "JBX_4.4" "JBX_30X" "JBX_HDMI")
+KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi")
+
+#############################################################
+## function to get kernel branch name from kernel options
+##############################################################
+getKernelBranchName()
+{
+	[ "$1" = "" ] && return 
+	i=0
+        for e in ${KernelOpts[@]}; do
+		if [ "$e" = "$1" -a "$e" != "" ]; then
+			echo  ${KernelBranches[$i]}
+			return
+		fi
+		i=$((i+1))
+	done
+	return 1
+}
 
 #newBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch> [checkout]
 newBranch()
@@ -125,6 +145,8 @@ resetProject()
 	cd $curdir
 }
 
+############################################################################
+
 ### parse params #########
 for op in $*;do 
    if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa" ]; then
@@ -151,12 +173,7 @@ rdir=`cd \`dirname $0\`;pwd`
 basedir=`dirname $rdir`
 [ -s $basedir/.lastBuild ] && lastDevice=`grep device: $basedir/.lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
 
-case "$opKernel" in
-      "j44" ) kbranch=JBX_4.4;;
-      "jbx"|"j30x")kbranch=JBX_30X;;
-      "jhdmi" )kbranch=JBX_HDMI;;
-      *)kbranch=$branch;;
-esac
+kbranch=`getKernelBranchName $opKernel`
 
 ## local_manifest.xml   ####
 if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
