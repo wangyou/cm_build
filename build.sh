@@ -181,9 +181,11 @@ fi
 export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
-KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_\.]//g"`
-
-[ "${opKernel:0:1}" = "j" ] && export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
+if [ "${opKernel:0:1}" = "j" ]; then
+	KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_\.]//g"`
+	[ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
+   	export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
+fi
 
 if [ "${opKernel:0:1}" = "j" ] \
    && [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
