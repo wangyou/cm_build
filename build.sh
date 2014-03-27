@@ -185,7 +185,7 @@ KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_\.]//g"`
 
 [ "${opKernel:0:1}" = "j" ] && export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
 
-if [ "$opKernel" = "jbx" -o "$opKernel" = "j44" -o "$opKernel" = "j30x"  -o "$opKernel" = "jhdmi" ] \
+if [ "${opKernel:0:1}" = "j" ] \
    && [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then

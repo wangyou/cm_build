@@ -260,7 +260,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 	cd $rdir
    fi
    
-  if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44"  -o "$op" = "jhdmi" ]; then
+  if [ "${opKernel:0:1}" = "j" ]; then
   	if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         	cd $basedir/device/motorola/omap4-common
@@ -301,7 +301,7 @@ if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
      fi
   fi
 
-  if [ "$opKernel" = "jbx" -o "$opKernel" = "j30x"  -o "$op" = "j44" -o "$op" = "jhdmi" ] && [ "$mode" != "kbranch" ] ; then
+  if [ "${opKernel:0:1}" = "j" ] && [ "$mode" != "kbranch" ] ; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
 
      [ "${kernel_config}" = "" ] && kernel_config=mapphone_OCE_defconfig
