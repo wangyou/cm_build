@@ -21,6 +21,6 @@
 
 <!-- packages -->
 <remove-project name="CyanogenMod/android_packages_apps_Calendar" />
-<project path="packages/apps/Calendar"        name="nx111/android_packages_apps_Calendar" remote="github" revision="cm-11.0"/>
+<project name="nx111/android_packages_apps_Calendar" path="packages/apps/Calendar"  remote="github" revision="cm-11.0"/>
 
 </manifest>
