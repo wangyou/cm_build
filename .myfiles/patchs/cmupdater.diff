@@ -30,10 +30,10 @@ index 51a6e2a..783f22c 100644
          <PreferenceScreen
                  android:key="container"
 diff --git a/src/com/android/settings/DeviceInfoSettings.java b/src/com/android/settings/DeviceInfoSettings.java
-index ef37807..ef18537 100644
+index 39bcecd..7208315 100644
 --- a/src/com/android/settings/DeviceInfoSettings.java
 +++ b/src/com/android/settings/DeviceInfoSettings.java
-@@ -128,13 +128,6 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
+@@ -130,13 +130,6 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
          String cpuInfo = getCPUInfo();
          String memInfo = getMemInfo();
  
