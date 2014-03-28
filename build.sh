@@ -27,7 +27,7 @@ ScriptName=`basename $0`
 rdir=`dirname $0`
 [ "$rdir" != "." ] && cd $rdir
 basedir=`pwd`
-
+rm -f .lastBuild.tmp
 
 KERNELOPT=""
 device=edison
@@ -149,8 +149,8 @@ fi
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    .myfiles/patch.sh $device -$mode $oldupdate $moreopt $opKernel
-   echo "device: $device">.lastBuild
-   echo "opKernel: $opKernel">>.lastBuild
+   echo "device: $device">.lastBuild.tmp
+   echo "opKernel: $opKernel">>.lastBuild.tmp
 
     ######generate projects's last 10 logs########
     echo "Generating projects's snapshot logs..."
@@ -257,10 +257,10 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 	kbccount=`echo ${KernelBranches[$j]} | sed -e "s/[\._-]//g"`_CCNUM
 	tempvalue=${!kbccount}
 	if [ ! -z "$tempvalue" -a "$tempvalue" != "0" ]; then
-		echo ${kbccount}:$tempvalue >> .lastBuild
+		echo ${kbccount}:$tempvalue >> .lastBuild.tmp
 	fi
    done
-
+   mv .lastBuild.tmp .lastBuild
    rm -f out/target/product/$device/cm_$device-ota-*.zip
    rm -f out/target/product/$device/cm-*.zip.md5sum
 fi
