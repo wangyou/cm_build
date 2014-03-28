@@ -46,8 +46,19 @@ lastKernel=""
 if [ -f .lastBuild ]; then
    lastDevice=`grep device: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
    opKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
-   cmKernelVersion=`grep cmKernelVersion: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
-   jbxKernelVersion=`grep jbxKernelVersion: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`  
+   for((i=0;i<${#KernelBranches[@]};i++)) do
+        for((j=0;j<$i;j++)) do
+		[ "${KernelBranches[$i]}" = "${KernelBranches[$j]}" ] && break
+	done
+	if [ $j -lt $i ]; then
+		continue
+	fi
+	kbccount=`echo ${KernelBranches[$j]} | sed -e "s/[\._-]//g"`_CCNUM
+	tempvalue=`grep ${kbccount}: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+	if [ ! -z "$tempvalue" ]; then
+		eval $"$kbccount"=$tempvalue
+	fi
+   done
    [ -z $opKernel ] && opKernel="cm"
    lastKernel=$opKernel
 fi
@@ -182,19 +193,21 @@ export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
 if [ "${opKernel:0:1}" = "j" ]; then
-	KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_\.]//g"`
+	KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
 	[ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
    	export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
 fi
+
+KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
+[ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
 if [ "${opKernel:0:1}" = "j" ] \
    && [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-            [ ! -z $jbxKernelVersion ] &&  echo $jbxKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
+            [ ! -z "${!KBCCOUNT}" ] &&  echo ${!KBCCOUNT} > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
   		        TARGET_KERNEL_CONFIG=${kernel_config}  
-            jbxKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
         fi
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
@@ -211,9 +224,8 @@ if [ "${opKernel:0:1}" = "j" ] \
 
 elif [ "$opKernel" = "cm" ]; then
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-            [ ! -z $cmKernelVersion ] && echo $cmKernelVersion > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
+            [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
-            cmKernelVersion=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
         fi
 	if [ $kernelzip -eq 0 ]; then
 		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
@@ -233,8 +245,21 @@ fi
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
 
-   [ ! -z $cmKernelVersion ] && echo "cmKernelVersion: $cmKernelVersion">>.lastBuild
-   [ ! -z $jbxKernelVersion ] && echo "jbxKernelVersion: $jbxKernelVersion">>.lastBuild
+   eval $"$KBCCOUNT"=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
+
+   for((i=0;i<${#KernelBranches[@]};i++)) do
+        for((j=0;j<$i;j++)) do
+		[ "${KernelBranches[$i]}" = "${KernelBranches[$j]}" ] && break
+	done
+	if [ $j -lt $i ]; then
+		continue
+	fi
+	kbccount=`echo ${KernelBranches[$j]} | sed -e "s/[\._-]//g"`_CCNUM
+	tempvalue=${!kbccount}
+	if [ ! -z "$tempvalue" -a "$tempvalue" != "0" ]; then
+		echo ${kbccount}:$tempvalue >> .lastBuild
+	fi
+   done
 
    rm -f out/target/product/$device/cm_$device-ota-*.zip
    rm -f out/target/product/$device/cm-*.zip.md5sum
