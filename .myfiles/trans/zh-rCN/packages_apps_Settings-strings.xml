@@ -640,12 +640,6 @@
   <string name="wifi_scan_always_turnon_message">"为了提高位置信息精确度以及其他目的，“<ns0:g id="APP_NAME">%1$s</ns0:g>”请求启用网络扫描功能（在关闭了 WLAN  时也可进行扫描）。\n\n是否对所有需要进行扫描的应用批准这项请求？"</string>
   <string name="wifi_scan_always_confirm_allow">允许</string>
   <string name="wifi_scan_always_confirm_deny">拒绝</string>
-  <string name="wifi_mode">模式</string>
-  <string name="wifi_mode_ibss">Ad-Hoc (IBSS) 网络</string>
-  <string name="wifi_mode_ibss_short">Ad-Hoc</string>
-  <string name="wifi_ibss_freq_title">频道 / 频率</string>
-  <string name="wifi_channel">频道</string>
-  <string name="wifi_mhz">MHz</string>
   <string name="wifi_connect">连接</string>
   <string name="wifi_failed_connect_message">无法连接网络</string>
   <string name="wifi_forget">取消保存</string>
@@ -762,6 +756,8 @@
   <string name="accelerometer_summary_off" product="tablet">旋转平板电脑时自动切换浏览模式</string>
   <string name="accelerometer_summary_off" product="default">旋转手机时自动切换浏览模式</string>
   <string name="brightness">亮度</string>
+  <string name="screencolor">Screen color</string>
+  <string name="custom_screencolor">Custom screen color</string>
   <string name="brightness_summary">调整屏幕亮度</string>
   <string name="screen_timeout">休眠</string>
   <string name="screen_timeout_summary">"无操作<ns0:g id="TIMEOUT_DESCRIPTION">%1$s</ns0:g>后"</string>
@@ -1378,6 +1374,8 @@
   <string name="adb_keys_warning_message">是否针对您之前授权的所有计算机撤消 USB 调试的访问权限？</string>
   <string name="dev_settings_warning_title">允许开发设置？</string>
   <string name="dev_settings_warning_message">这些设置仅适用于开发工作。一旦启用，会导致您的设备以及设备上的应用崩溃或出现异常。</string>
+  <string name="enable_quickboot_title">Enable QuickBoot mode</string>
+  <string name="enable_quickboot_summary">Put device into QuickBoot mode instead of normal power off.</string>
   <string name="verify_apps_over_usb_title">通过 USB 验证应用</string>
   <string name="verify_apps_over_usb_summary">通过 ADB/ADT 检查安装的应用是否存在有害行为。</string>
   <string name="enforce_read_external_title" product="nosdcard">对 USB 存储设备进行读写保护</string>
@@ -2021,7 +2019,6 @@
   <string name="ssl_ca_cert_warning_message">第三方可以监控您的网络活动，包括收发电子邮件、使用应用和浏览安全网站。\n\n如果您在设备上安装受信任的凭据，就可能出现这种情况。</string>
   <string name="ssl_ca_cert_settings_button">查看受信任的凭据</string>
   <string name="tune_away_title">Tune Away</string>
-  <string name="tune_away_Default">停用</string>
   <string name="tune_away_enabled">TuneAway 启用!</string>
   <string name="tune_away_disabled">TuneAway 停用!</string>
   <string name="priority_sub_title">优先级订阅</string>
@@ -2113,4 +2110,20 @@
   <string name="user_image_take_photo">拍照</string>
   <string name="user_image_choose_photo">从图库中选择照片</string>
   <string name="regulatory_info_text" />
+  <string name="screencolor_save">保存</string>
+  <string name="screencolor_cancel">放弃</string>
+  <string name="previous_str">前一个</string>
+  <string name="new_str">新建</string>
+  <string name="restore_preview">查看默认图片</string>
+  <string name="selectnewfile_menu">从图库查看新图片</string>
+  <string name="selectfile_menu">从图库查看图片</string>
+  <string name="restore_default_str">重置</string>
+  <string name="hue_str">色度:<ns0:g id="hue_value">%1$s</ns0:g>
+  </string>
+  <string name="saturation_str">饱和度:<ns0:g id="saturation_value">%1$s</ns0:g>
+  </string>
+  <string name="contrast_str">对比度:<ns0:g id="contrast_value">%1$s</ns0:g>
+  </string>
+  <string name="intensity_str">亮度:<ns0:g id="intensity_str_value">%1$s</ns0:g>
+  </string>
 </resources>
