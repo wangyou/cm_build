@@ -2,8 +2,8 @@ reset
 compile_user=NX111
 branch=cm-11.0
 
-KernelBranches=("cm-11.0" "JBX_HDMI" "JBX_4.4" "JBX_30X" "JBX_HDMI")
-KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi")
+KernelBranches=("cm-11.0" "JBX_HDMI" "JBX_4.4" "JBX_30X" "JBX_HDMI" "cm-11.0")
+KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi" "jordan")
 
 #############################################################
 ## function to get kernel branch name from kernel options
@@ -42,25 +42,28 @@ moreopt=""
 nomake=1
 
 lastDevice="edison"
-lastKernel=""
+lastOpKernel=""
 if [ -f .lastBuild ]; then
    lastDevice=`grep device: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
-   opKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+   lastOpKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
    for((i=0;i<${#KernelBranches[@]};i++)) do
+	elemI=${KernelBranches[$i]}
+	[ "${KernelOpts[$i]}" = "jordan" ] && elemI="JORDAN"
         for((j=0;j<$i;j++)) do
-		[ "${KernelBranches[$i]}" = "${KernelBranches[$j]}" ] && break
+		elemJ=${KernelBranches[$j]}
+		[ "${KernelOpts[$j]}" = "jordan" ] && elemJ="JORDAN"
+		[ "$elemI" = "$elemJ" ] && break
 	done
 	if [ $j -lt $i ]; then
 		continue
 	fi
-	kbccount=`echo ${KernelBranches[$j]} | sed -e "s/[\._-]//g"`_CCNUM
+	kbccount=`echo $elemI | sed -e "s/[\._-]//g"`_CCNUM
 	tempvalue=`grep ${kbccount}: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
 	if [ ! -z "$tempvalue" ]; then
 		eval $"$kbccount"=$tempvalue
 	fi
    done
-   [ -z $opKernel ] && opKernel="cm"
-   lastKernel=$opKernel
+   [ -z $lastOpKernel ] && lastOpKernel="cm"
 fi
 
 for op in $*;do
@@ -68,7 +71,7 @@ for op in $*;do
 	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
-	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/jordan"
+	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/mb526"
 	rm -rf $basedir/vendor/motorola/jordan-common
 	[ -d  $basedir/vendor/moto/jordan-common ] && cp -r $basedir/vendor/moto/jordan-common $basedir/vendor/motorola/jordan-common
    elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "jhdmi" -o "$op" = "cm" ]; then
@@ -95,6 +98,8 @@ for op in $*;do
 	moreopt="$moreopt $op"
    fi
 done
+
+[ "$device" = "mb526" ] && opKernel="cm"
 
 if [ "$mode" = "cleanall" ]; then
     for f in * .*; do
@@ -133,17 +138,20 @@ if [ "$mode" = "sync" ]; then
     exit
 fi
 
-[ $nomake -ne 0 -o "$device" != "$lastDevice" ] && . build/envsetup.sh
+echo "Starting ............."
+[ $nomake -ne 0 -o "$device" != "$lastDevice" ] && . build/envsetup.sh > /dev/null
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 if [ "${opKernel:0:1}" = "j" ]; then
     export kernel_config=mapphone_OCE_defconfig
-    if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
-       [ "$device" = "edison" ] && export kernel_config=mapphone_OCEdison_defconfig
-       [ "$device" = "spyder" ] && export kernel_config=mapphone_OCE_defconfig
-       [ "$device" = "targa" ] && export kernel_config=mapphone_OCETarga_defconfig
+    if [ "$device" = "edison" ]; then
+	export kernel_config=mapphone_OCEdison_defconfig
+    elif [ "$device" = "targa" ]; then
+	export kernel_config=mapphone_OCETarga_defconfig
+    elif [ "$device" != "mb526" ]; then
+	export kernel_config=mapphone_OCE_defconfig
     fi
 fi
 
@@ -180,8 +188,8 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
        cd $basedir
     fi
     rm -f out/target/product/$device/system/build.prop
-    [ _"$opKernel" != _"$lastKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
-    [ -d $basedir/out/target/product/edison/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/edison/obj/KERNEL_OBJ
+    [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
+    [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
 
     #############lunch######################
     lunch cm_$device-userdebug >/dev/null
@@ -192,20 +200,20 @@ fi
 export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
-if [ "${opKernel:0:1}" = "j" ]; then
+if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 	KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
 	[ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
    	export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
 fi
 
-KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
+[ "$device" != "mb526" ] && KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
+[ "$device" != "mb526" ] || KBCCOUNT=JORDAN_CCNUM
 [ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
-if [ "${opKernel:0:1}" = "j" ] \
-   && [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
+if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-            [ ! -z "${!KBCCOUNT}" ] &&  echo ${!KBCCOUNT} > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
+            [ ! -z "${!KBCCOUNT}" ] &&  echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
   		        TARGET_KERNEL_CONFIG=${kernel_config}  
         fi
@@ -224,7 +232,7 @@ if [ "${opKernel:0:1}" = "j" ] \
 
 elif [ "$opKernel" = "cm" ]; then
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-            [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version
+            [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
         fi
 	if [ $kernelzip -eq 0 ]; then
@@ -245,16 +253,20 @@ fi
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
 
-   eval $"$KBCCOUNT"=`cat $basedir/out/target/product/edison/obj/KERNEL_OBJ/.version`
+   eval $"$KBCCOUNT"=`cat $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version`
 
    for((i=0;i<${#KernelBranches[@]};i++)) do
+	elemI=${KernelBranches[$i]}
+	[ "${KernelOpts[$i]}" = "jordan" ] && elemI="JORDAN"
         for((j=0;j<$i;j++)) do
-		[ "${KernelBranches[$i]}" = "${KernelBranches[$j]}" ] && break
+		elemJ=${KernelBranches[$j]}
+		[ "${KernelOpts[$j]}" = "jordan" ] && elemJ="JORDAN"
+		[ "$elemI" = "$elemJ" ] && break
 	done
 	if [ $j -lt $i ]; then
 		continue
 	fi
-	kbccount=`echo ${KernelBranches[$j]} | sed -e "s/[\._-]//g"`_CCNUM
+	kbccount=`echo $elemI | sed -e "s/[\._-]//g"`_CCNUM
 	tempvalue=${!kbccount}
 	if [ ! -z "$tempvalue" -a "$tempvalue" != "0" ]; then
 		echo ${kbccount}:$tempvalue >> .lastBuild.tmp

@@ -1,4 +1,3 @@
-device=edison
 branch=cm-11.0
 
 mode=""
@@ -7,8 +6,8 @@ releaseKernel=1
 kernelUpdate=0
 opKernel=cm
 
-KernelBranches=("cm-11.0" "JBX_HDMI" "JBX_4.4" "JBX_30X" "JBX_HDMI")
-KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi")
+KernelBranches=("cm-11.0" "JBX_HDMI" "JBX_4.4" "JBX_30X" "JBX_HDMI" "cm-11.0")
+KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi" "jordan")
 
 #############################################################
 ## function to get kernel branch name from kernel options
@@ -30,7 +29,7 @@ getKernelBranchName()
 #newBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch> [checkout]
 newBranch()
 {
-	curdir=`pwd`
+	local curdir=`pwd`
 	if [ $# -lt 5 ]; then return 1;fi
 	[ -d $1 ] || mkdir -p $1
 	cd $1
@@ -58,7 +57,7 @@ newBranch()
 #addBranch <dir> <localBranchName>  [checkout]
 addBranch()
 {
-	curdir=`pwd`
+	local curdir=`pwd`
 	if [ $# -lt 2 ]; then return 1;fi
 	[ -d $1 ] || return 1
 	cd $1
@@ -84,7 +83,7 @@ addBranch()
 #checkoutBranch <dir> <branchName>
 checkoutBranch()
 {
-	curdir=`pwd`
+	local curdir=`pwd`
 	if [ $# -lt 2 ]; then return 1;fi
 	[ -d $1 ] || return 1
 	cd $1
@@ -99,7 +98,7 @@ checkoutBranch()
 #updateBranch <dir> <localBranch> <remoteName> <remoteBranch>
 updateBranch()
 {
-	curdir=`pwd`
+	local curdir=`pwd`
 	if [ $# -lt 4 ]; then return 1;fi
 	[ -d $1 ] || mkdir -p $1
 	cd $1
@@ -113,7 +112,7 @@ updateBranch()
 #addRemote <dir> <remoteName> <remote.git>
 addRemote()
 {
-	curdir=`pwd`
+	local curdir=`pwd`
 	if [ $# -lt 3 ]; then return 1; fi
 	if [ ! -d $1  ]; then return 1; fi
 	if [ $curdir = $1 ]; then return 0; fi
@@ -128,15 +127,15 @@ resetProject()
 	if [ $# -lt 1 ]; then return 1; fi
 	if [ ! -d $basedir/$1 ]; then return 1; fi
 #	echo "reset project: $1"
-	curdir=`pwd`
+	local curdir=`pwd`
 	cd $basedir/$1
-	remote=`git branch -r | grep  "\->" | sed "s/.*->//g;s/ $//g;s/^ //g;s/\/.*//g"`
-	branch=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
+	local remote=`git branch -r | grep  "\->" | sed "s/.*->//g;s/ $//g;s/^ //g;s/\/.*//g"`
+	local branch=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
 	if echo $branch | grep -q "(" ; then 
 		branch=""
 	fi
-	git clean -f >/dev/null
-	git stash >/dev/null
+	git clean -f > /dev/null
+	git stash > /dev/null
 #	if [ "$branch" = "" ]; then
 #		git rebase -f >/dev/null
 #	else
@@ -145,6 +144,17 @@ resetProject()
 	cd $curdir
 }
 
+reset_for_manifest()
+{
+    cd $basedir/frameworks/av; 			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
+    cd $basedir/frameworks/base; 		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
+    cd $basedir/frameworks/native; 		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
+    cd $basedir/frameworks/opt/telephony;	[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
+    cd $basedir/system/core;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
+    cd $basedir/hardware/ril;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
+    cd $basedir/hardware/ti/wlan;		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
+    cd $basedir/bootable/recovery;		[ _`git branch | grep "\*" |cut -f2 -d" "` = _twrp ] && git checkout -f $branch;
+}
 ############################################################################
 
 ### parse params #########
@@ -153,6 +163,7 @@ for op in $*;do
    	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
+	opKernel="jordan"
    elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "jhdmi" -o "$op" = "cm" ]; then
 	opKernel="$op"
    elif [ "$op" = "-ku" ]; then
@@ -167,12 +178,26 @@ for op in $*;do
 	oldupdate=0
    fi
 done
+
+
 cdir=`pwd`
 rdir=`cd \`dirname $0\`;pwd`
 
 basedir=`dirname $rdir`
-[ -s $basedir/.lastBuild ] && lastDevice=`grep device: $basedir/.lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+if [ -s $basedir/.lastBuild ]; then
+   lastDevice=`grep device: $basedir/.lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+   lastOpKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+fi
 
+[ -z "$device" ] && device=$lastDevice
+[ -z "$opKernel" ] && opKernel=$lastOpKernel
+
+if [ "$device" != "mb526" ]; then
+	DeviceDir="device/motorola/$device"
+else
+	DeviceDir="device/moto/$device"
+	opKernel=jordan
+fi
 kbranch=`getKernelBranchName $opKernel`
 
 ## local_manifest.xml   ####
@@ -186,6 +211,8 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
    fi
    if [ _$rdir/local_manifest.xml = _`find $rdir/local_manifest.xml -newer $basedir/.repo/local_manifests/local_manifest.xml` ]; then
    	cp $rdir/local_manifest.xml $basedir/.repo/local_manifests/
+
+       [ "$device" != "mb526" ] && \
 	sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" \
             -i $basedir/.repo/local_manifests/local_manifest.xml
 
@@ -207,6 +234,8 @@ if [ "$mode" = "r" ]; then
 	resetProject vendor/motorola
 	resetProject kernel/motorola/omap4-common
 
+	reset_for_manifest
+
 	#reset that translation local
 	for fl in $rdir/trans/*; do
 	   if [ -d $fl ]; then
@@ -226,29 +255,7 @@ if [ "$mode" = "r" ]; then
 	exit
 fi
 
-if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
-    cd $basedir/frameworks/av; 			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
-    cd $basedir/frameworks/base; 		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
-    cd $basedir/frameworks/native; 		[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
-    cd $basedir/frameworks/opt/telephony;	[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
-    cd $basedir/system/core;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
-    cd $basedir/hardware/ril;			[ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout $branch;
-    cd $basedir/bootable/recovery;		[ _`git branch | grep "\*" |cut -f2 -d" "` = _twrp2.7 ] && git checkout $branch;
-
-### if not kernel branch switch start ####
- if [ "$mode" != "kbranch" ]; then
-   ### patch for apns-conf #########
-   if [ -f $basedir/device/motorola/edison/apns-conf.xml ]; then
-	sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" \
-            -e "s/\"China Mobile\"/\"中国移动\"/g" \
-            -e "s/\"China Mobile MMS\"/\"中国移动彩信\"/g" \
-	    -e "s/\"China Unicom 3G\"/\"中国联通3G\"/g" \
-            -e "s/\"China Unicom MMS\"/\"中国联通彩信\"/g" \
-	    -i $basedir/device/motorola/edison/apns-conf.xml 
-   fi
-
-
-   ### patch for vendor cm  ########
+####### patch for vendor cm  ########
    sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
    sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
    sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
@@ -259,18 +266,33 @@ if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 	patch -N -p1 <$rdir/patchs/vendor_cm.diff
 	cd $rdir
    fi
-   
-  if [ "${opKernel:0:1}" = "j" ]; then
+
+   ### patch for apns-conf #########
+   if [ -f $basedir/$DeviceDir/apns-conf.xml ]; then
+	sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" \
+            -e "s/\"China Mobile\"/\"中国移动\"/g" \
+            -e "s/\"China Mobile MMS\"/\"中国移动彩信\"/g" \
+	    -e "s/\"China Unicom 3G\"/\"中国联通3G\"/g" \
+            -e "s/\"China Unicom MMS\"/\"中国联通彩信\"/g" \
+	    -i $basedir/$DeviceDir/apns-conf.xml 
+   fi
+
+
+########## Device Edison/Spyder/Targa,etc OMAP4-COMMON...#########
+if [ "$device" != "mb526" ]; then
+
+   reset_for_manifest
+
+   ### if not kernel branch switch start ####
+   if ["$mode" != "kbranch" -a "${opKernel:0:1}" = "j" ]; then
   	if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         	cd $basedir/device/motorola/omap4-common
         	patch -N -p1 < $rdir/patchs/device_omap4-common.diff
         	cd $rdir
   	fi
-  fi
-
- fi
-### if not kernel branch switch end ####
+   fi
+   ### if not kernel branch switch end ####
 
 
   echo "Use $opKernel $kbranch kernel ..."
@@ -349,37 +371,39 @@ if [ "$device" = "edison" -o "$device" = "spyder" -o "$device" = "targa" ]; then
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
    cp -r vendor/moto/jordan-common vendor/motorola/jordan-common
-   newBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
-   newBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
-   newBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
-   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch checkout
-   newBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch checkout
-   newBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch checkout
-   newBranch bootable/recovery twrp2.7  twrp https://github.com/TeamWin/Team-Win-Recovery-Project.git twrp2.7 checkout
+#   newBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
+#   newBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
+#   newBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
+#   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch checkout
+#   newBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch checkout
+#   newBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch checkout
+   newBranch bootable/recovery twrp  twrp https://github.com/omnirom/android_bootable_recovery.git android-4.4 checkout
+   newBranch hardware/ti/wlan quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ti_wlan.git $branch checkout
 
    if [ "$mode" = "u" ]; then
-   	updateBranch frameworks/av quarx2k_$branch quarx2k $branch
-   	updateBranch frameworks/base quarx2k_$branch  quarx2k  $branch
-   	updateBranch frameworks/native quarx2k_$branch  quarx2k $branch
-   	updateBranch frameworks/opt/telephony quarx2k_$branch  quarx2k $branch
-   	updateBranch system/core quarx2k_$branch  quarx2k $branch
-   	updateBranch hardware/ril quarx2k_$branch  quarx2k $branch
-	updateBranch bootable/recovery twrp2.7 twrp twrp2.7
+#   	updateBranch frameworks/av quarx2k_$branch quarx2k $branch
+#   	updateBranch frameworks/base quarx2k_$branch  quarx2k  $branch
+#   	updateBranch frameworks/native quarx2k_$branch  quarx2k $branch
+#   	updateBranch frameworks/opt/telephony quarx2k_$branch  quarx2k $branch
+#   	updateBranch system/core quarx2k_$branch  quarx2k $branch
+#   	updateBranch hardware/ril quarx2k_$branch  quarx2k $branch
+	updateBranch hardware/ti/wlan quarx2k_$branch quarx2k $branch
+	updateBranch bootable/recovery twrp twrp android-4.4
    fi
 
    ### patch for vendor cm  ########
-   if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
-        $basedir/vendor/cm/config/common_full.mk; then
-	cd $basedir/vendor/cm
-	patch -N -p1 <$rdir/patchs/vendor_cm_quarx2k.diff
-	cd $rdir
-   fi
-  if grep -q "^\s*<string-array name=\"config_vendorServices\">\s*$" \
-	 $basedir/device/moto/jordan-common/overlay/frameworks/base/core/res/res/values/arrays.xml; then
-	cd $basedir/device/moto/jordan-common
-	patch -N -p1 <$rdir/patchs/jordan-common.diff
-	cd $rdir
-  fi
+#   if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
+#        $basedir/vendor/cm/config/common_full.mk; then
+#	cd $basedir/vendor/cm
+#	patch -N -p1 <$rdir/patchs/vendor_cm_quarx2k.diff
+#	cd $rdir
+#   fi
+#  if grep -q "^\s*<string-array name=\"config_vendorServices\">\s*$" \
+#	 $basedir/device/moto/jordan-common/overlay/frameworks/base/core/res/res/values/arrays.xml; then
+#	cd $basedir/device/moto/jordan-common
+#	patch -N -p1 <$rdir/patchs/jordan-common.diff
+#	cd $rdir
+#  fi
 fi
 
 [ "$mode" = "kbranch" ] && exit
@@ -431,6 +455,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    sed -e "/OMX_FreeBuffer for buffer header %p successful/d" -i $basedir/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
 
    ## fix media_profiles.xml for HFR encode
+   [ "$device" != "mb526" ] && \
    if grep -q "maxHFRFrameWidth" $basedir/frameworks/av/media/libmedia/MediaProfiles.cpp; then
       if ! grep -q "maxHFRFrameWidth" $basedir/device/motorola/$device/media_profiles.xml; then
          cd $basedir/device/motorola/$device

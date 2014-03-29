@@ -10,14 +10,12 @@
 
 
 <!-- Defy -->
-<!--
-<project name="Quarx2k/android_device_moto_mb526" path="device/moto/mb526" remote="github" revision="cm10.2-3.0" />
-<project name="Quarx2k/android_device_moto_jordan-common" path="device/moto/jordan-common" remote="github" revision="cm10.2-3.0" />
-<project name="Quarx2k/jordan-kernel" path="kernel/motorola/jordan" remote="github" revision="p-android-omap3-3.0"  />
-<project path="vendor/moto" name="Quarx2k/proprietary_vendor_motorola" revision="cm10.1-3.0" />
-<project name="Quarx2k/android_external_bootmenu" path="external/bootmenu" remote="github" revision="jellybean" />
--->
-
+<remove-project name="CyanogenMod/android_hardware_ti_omap3" />
+<project name="Quarx2k/proprietary_vendor_motorola" path="vendor/moto" revision="jellybean" />
+<project name="Quarx2k/android_device_moto_jordan-common" path="device/moto/jordan-common" revision="cm11.0-2.6.32" />
+<project name="Quarx2k/android_device_moto_mb526" path="device/moto/mb526" revision="cm11.0-2.6.32" />
+<project name="Quarx2k/jordan-kernel" path="kernel/motorola/mb526" revision="AeroKernel" />
+<project name="CyanogenDefy/android_hardware_ti_omap3-compat" path="hardware/ti/omap3" revision="jellybean" />
 
 <!-- packages -->
 <remove-project name="CyanogenMod/android_packages_apps_Calendar" />
