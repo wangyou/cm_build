@@ -370,7 +370,6 @@ if [ "$device" != "mb526" ]; then
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
-   cp -r vendor/moto/jordan-common vendor/motorola/jordan-common
 #   newBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
 #   newBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
 #   newBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
