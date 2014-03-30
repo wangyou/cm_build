@@ -6,7 +6,7 @@ releaseKernel=1
 kernelUpdate=0
 opKernel=cm
 
-KernelBranches=("cm-11.0" "JBX_HDMI" "JBX_4.4" "JBX_30X" "JBX_HDMI" "cm-11.0")
+KernelBranches=("cm-11.0" "JBX_30X" "JBX_4.4" "JBX_30X" "JBX_HDMI" "cm-11.0")
 KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi" "jordan")
 
 #############################################################
@@ -284,7 +284,7 @@ if [ "$device" != "mb526" ]; then
    reset_for_manifest
 
    ### if not kernel branch switch start ####
-   if ["$mode" != "kbranch" -a "${opKernel:0:1}" = "j" ]; then
+   if [ "$mode" != "kbranch" -a "${opKernel:0:1}" = "j" ]; then
   	if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
         	cd $basedir/device/motorola/omap4-common
