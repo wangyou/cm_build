@@ -352,8 +352,10 @@ if [ "$device" != "mb526" ]; then
      if [ "$device" = "edison" ]; then
 	mkdir -p $basedir/vendor/motorola/edison/proprietary/etc/init.d
 	cp $rdir/patchs/kernel/jbx/80GPU $basedir/vendor/motorola/edison/proprietary/etc/init.d/
-	sed -e "/PRODUCT_COPY_FILES/vendor\/motorola\/edison\/proprietary\/etc\/init.d\/80GPU:system\/etc\/init.d\/80GPU \\" \
-		$basedir/vendor/motorola/edison/edison-vendor-blobs.mk 
+	if ! grep -q "init.d/80GPU" $basedir/vendor/motorola/edison/edison-vendor-blobs.mk ; then
+	    sed -e "/PRODUCT_COPY_FILES/a\    vendor/motorola/edison/proprietary/etc/init.d/80GPU:system/etc/init.d/80GPU \\\\" \
+		-i $basedir/vendor/motorola/edison/edison-vendor-blobs.mk 
+	fi
      fi
 
   elif [ "$opKernel" = "cm" ]; then
