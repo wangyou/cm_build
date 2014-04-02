@@ -218,12 +218,17 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
   		        TARGET_KERNEL_CONFIG=${kernel_config}  
         fi
 	if [ $kernelzip -eq 0 ]; then
-		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
-		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
-		[ -d out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ ] || mkdir -p out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
+		mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
+		mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
+		mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/init.d/
+		mkdir -p out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
 		cp .myfiles/scripts/kernel_zip/* out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/
 		cp -r out/target/product/$device/system/lib/modules/* out/target/product/$device/kernel_zip/rls/system/lib/modules/
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
+
+		[ -f out/target/product/$device/system/etc/init.d/80GPU -a "$device" = "edison" ] && \
+		cp out/target/product/$device/system/etc/init.d/80GPU out/target/product/$device/kernel_zip/rls/system/etc/init.d/
+
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
 		zip -r "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null

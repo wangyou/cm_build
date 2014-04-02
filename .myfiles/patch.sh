@@ -349,6 +349,14 @@ if [ "$device" != "mb526" ]; then
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
          fi
      fi
+     ################# Limit the GPU frequency to 307 mhz for edison at JBX-Kernel ###############
+     if [ "$device" = "edison" ]; then
+	mkdir -p $basedir/vendor/motorola/edison/proprietary/etc/init.d
+	cp $rdir/patchs/kernel/jbx/80GPU $basedir/vendor/motorola/edison/proprietary/etc/init.d/
+	sed -e "/PRODUCT_COPY_FILES/vendor\/motorola\/edison\/proprietary\/etc\/init.d\/80GPU:system\/etc\/init.d\/80GPU \\" \
+		$basedir/vendor/motorola/edison/edison-vendor-blobs.mk 
+     fi
+
   elif [ "$opKernel" = "cm" ]; then
       sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig \
           -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
@@ -357,7 +365,7 @@ if [ "$device" != "mb526" ]; then
   #some patch for kernel
 #  if  grep -q "^#if defined(CONFIG_MAPPHONE_EDISON) || defined(CONFIG_MAPPHONE_TARGA)" \
 #            $basedir/kernel/motorola/omap4-common/arch/arm/mach-omap2/sr_device.c; then
-#      patch -p1 -N < $rdir/patchs/kernel/jbx_sr-device.diff
+#      patch -p1 -N < $rdir/patchs/kernel/jbx/jbx_sr-device.diff
 #  fi
 
 #  if ! grep -q "static bool skip_first_boot = true" \
