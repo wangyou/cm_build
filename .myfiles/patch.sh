@@ -251,7 +251,6 @@ if [ "$mode" = "r" ]; then
 	   fi
 	done
 
-	rm -rf $basedir/vendor/motorola/jordan-common
 	exit
 fi
 

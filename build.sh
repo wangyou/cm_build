@@ -280,4 +280,5 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    mv .lastBuild.tmp .lastBuild
    rm -f out/target/product/$device/cm_$device-ota-*.zip
    rm -f out/target/product/$device/cm-*.zip.md5sum
+   rm -f $basedir/out/target/product/$device/system/etc/init.d/80GPU
 fi
