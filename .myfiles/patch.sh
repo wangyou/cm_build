@@ -470,12 +470,6 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
          cd $rdir
       fi
    fi
-  
-  ## fix RingtonManager ##
-  if grep -q "system/media/audio/ringtones/Sheep.mp3" $basedir/frameworks/base/media/java/android/media/RingtoneManager.java; then
-	cd $basedir/frameworks/base
-	patch -p1 < $rdir/patchs/RingtoneManager.diff
-	cd $rdir
-  fi
+
 ###  fix for compile error ##########
 
