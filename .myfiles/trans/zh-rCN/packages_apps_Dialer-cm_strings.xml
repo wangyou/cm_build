@@ -53,5 +53,4 @@
   <string name="dialpad_star_letters" />
   <string name="dialpad_pound_letters" />
   <string name="dial_conference">电话会议</string>
-  <string name="to_hint">1111:to;sip:abby@example.com:bcc;sip:bill@example.com:cc;</string>
 </resources>
