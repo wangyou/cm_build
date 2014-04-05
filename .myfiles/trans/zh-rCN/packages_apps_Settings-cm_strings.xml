@@ -5,6 +5,9 @@
   <string name="wifi_setting_countrycode_error">设置地区代码出现问题.</string>
   <string name="wifi_setting_priority_title">WIFI优先级</string>
   <string name="wifi_setting_priority_summary">指定WIFI网络的优先级别</string>
+  <string name="change_crypt_password_title">更改密码</string>
+  <string name="change_crypt_password_summary">更改设备加密的密码</string>
+  <string name="encryptionpassword_choose_your_password_header">设置加密密码</string>
   <string name="lock_screen_title">锁屏</string>
   <string name="increasing_ring_title">渐强铃声</string>
   <string name="checkbox_increasing_ring">启用</string>
@@ -397,8 +400,8 @@
   <string name="pref_purgeable_assets_summary">清除位图内存资源可以在系统需要时提供更多的内存 (需要重启)</string>
   <string name="pref_use_16bpp_alpha_title">使用 16 位透明度</string>
   <string name="pref_use_16bpp_alpha_summary">更佳的图形性能，但会降低图像质量以及影响视觉效果 (需要重启)</string>
-  <string name="pref_force_highend_gfx_title">Force high-end graphics</string>
-  <string name="pref_force_highend_gfx_summary">Enables high-end visual effects such as transparent status/navigation bar (requires reboot)</string>
+  <string name="pref_force_highend_gfx_title">强制高级图形</string>
+  <string name="pref_force_highend_gfx_summary">启用高级可视效果，如透明状态栏/导航栏(需要重启)</string>
   <string name="kill_app_longpress_back">使用返回键强制关闭程序</string>
   <string name="kill_app_longpress_back_summary">长按返回键将终止前台应用程序</string>
   <string name="changelog_title">查看更改记录</string>
@@ -836,4 +839,8 @@
   <string name="wifi_ibss_freq_title">频道/频率</string>
   <string name="wifi_channel">频道</string>
   <string name="wifi_mhz">MHz</string>
+  <string name="voice_wakeup_settings_title">语音唤醒</string>
+  <string name="voice_wakeup_retrain_title">训练语音</string>
+  <string name="voice_wakeup_activity_title">激活运行</string>
+  <string name="voice_wakeup_default_activity">Google Now</string>
 </resources>
