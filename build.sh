@@ -231,7 +231,7 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y-%m-%d").zip" * >/dev/null
+		zip -r "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip" * >/dev/null
 		cd $curdir
 	fi
 
@@ -249,7 +249,7 @@ elif [ "$opKernel" = "cm" ]; then
 		cp out/target/product/$device/kernel out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		zip -r "../Kernel-CM11-$device-$(date +"%Y-%m-%d").zip" * >/dev/null
+		zip -r "../Kernel-CM11-$device-$(date +"%Y%m%d").zip" * >/dev/null
 		cd $curdir
 	fi
 
