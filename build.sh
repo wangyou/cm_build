@@ -38,6 +38,7 @@ mkForce=""
 oldupdate="old"
 keepPatch=1
 kernelzip=1
+kernelonly=1
 moreopt=""
 nomake=1
 
@@ -80,6 +81,8 @@ for op in $*;do
 	mkJop=$op
    elif [ "${op}" = "-kernel-zip" ]; then
 	kernelzip=0
+   elif [ "$op" = "-kernel-only" ]; then
+	kernelonly=0
    elif [ "${op}" = "-k" ]; then
 	keepPatch=0
    elif [ "$op" = "-nomake" ]; then
@@ -210,6 +213,7 @@ fi
 [ "$device" != "mb526" ] || KBCCOUNT=JORDAN_CCNUM
 [ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
+[ $kernelonly -eq 0 ] && mod=TARGET_KERNEL_BINARIES
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
