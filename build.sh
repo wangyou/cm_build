@@ -29,6 +29,21 @@ etc/kexec/kernel
 lib/modules/*
 EOF
 }
+
+prepare_kernelzip()
+{
+	rm -rf $basedir/out/target/product/$device/kernel_zip/rls/*
+	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/lib/modules/
+	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/kexec/
+	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
+	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
+	cp -r $basedir/.myfiles/scripts/kernel_zip/META-INF $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/
+	cp -r $basedir/.myfiles/scripts/kernel_zip/utils $basedir/out/target/product/$device/kernel_zip/
+	list_kfiles | while read FILE; do
+		cp -r $basedir/out/target/product/$device/system/$FILE $basedir/out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
+	done
+
+}
 #############################################################
 
 ScriptName=`basename $0`
@@ -230,18 +245,10 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
   		        TARGET_KERNEL_CONFIG=${kernel_config}  
         fi
 	if [ $kernelzip -eq 0 ]; then
-		mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
-		mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
-		mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/init.d/
-		mkdir -p out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
-		cp .myfiles/scripts/kernel_zip/* out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/
-		list_kfiles | while read FILE; do
-			cp -r out/target/product/$device/system/$FILE out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
-		done
-		[ -f out/target/product/$device/system/etc/init.d/80GPU -a "$device" = "edison" ] && \
-		cp out/target/product/$device/system/etc/init.d/80GPU out/target/product/$device/kernel_zip/rls/system/etc/init.d/
-
-		curdir=`pwd`
+		prepare_kernelzip
+		[ -f $basedir/out/target/product/$device/system/etc/init.d/80GPU -a "$device" = "edison" ] && \
+		cp $basedirout/target/product/$device/system/etc/init.d/80GPU $basedirout/target/product/$device/kernel_zip/rls/system/etc/init.d/
+		local curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
 		zip -r "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip" * >/dev/null
 		cd $curdir
@@ -253,13 +260,7 @@ elif [ "$opKernel" = "cm" ]; then
 	    LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
         fi
 	if [ $kernelzip -eq 0 ]; then
-		[ -d out/target/product/$device/kernel_zip/rls/system/lib/modules ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/lib/modules/
-		[ -d out/target/product/$device/kernel_zip/rls/system/etc/kexec ] || mkdir -p out/target/product/$device/kernel_zip/rls/system/etc/kexec/
-		[ -d out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ ] || mkdir -p out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
-		cp .myfiles/scripts/kernel_zip/* out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/
-		list_kfiles | while read FILE; do
-			cp -r out/target/product/$device/system/$FILE out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
-		done
+		prepare_kernelzip
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
 		zip -r "../Kernel-CM11-$device-$(date +"%Y%m%d").zip" * >/dev/null
