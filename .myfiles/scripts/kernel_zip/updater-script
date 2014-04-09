@@ -1,6 +1,7 @@
+mount("ext3", "EMMC", "/dev/block/system", "/system");
+mount("vfat", "EMMC"," "/devices/platform/omap/omap_hsmmc.0/mmc_host/mmc0","/ext");
+
 ui_print("Backing up current Kernel...");
-run_program("/sbin/mount", "/system");
-run_program("/sbin/mount", "/ext");
 run_program("/sbin/mkdir", "-p", "/ext/kernel_backup");
 run_program("/sbin/mkdir", "-p", "/ext/kernel_backup/modules");
 run_program("/sbin/rm", "-rf", "/ext/kernel_backup/*");
@@ -10,9 +11,9 @@ run_program("/sbin/cp", "-f", "/system/etc/kexec/kernel", "/ext/kernel_backup/ke
 ui_print("Backing up modules...");
 run_program("/sbin/cp", "-rf", "/system/lib/modules", "/ext/kernel_backup/");
 run_program("/sbin/cp", "-f", "/ext/kernel_backup/build.prop.bak", "/system/build.prop");
+unmount("/system");
 
-run_program("/sbin/mount", "/system");
-
+mount("ext3", "EMMC", "/dev/block/system", "/system");
 ui_print("Cleaning up...");
 run_program("/sbin/rm", "/system/etc/init.d/01kernel");
 run_program("/sbin/rm", "/system/etc/init.d/60sdche");
@@ -25,7 +26,9 @@ run_program("/sbin/rm", "/system/etc/init.d/71sqloptimize");
 run_program("/sbin/rm", "/system/etc/init.d/S70zipalign");
 run_program("/sbin/rm", "/system/etc/init.d/S99_Battery_Friend");
 run_program("/sbin/rm", "/system/etc/init.d/32netspeed");
+unmount("/system");
 
+mount("ext3", "EMMC", "/dev/block/system", "/system");
 ui_print("installing Kernel...");
 package_extract_dir("system", "/system");
 ui_print(" ");
@@ -35,7 +38,6 @@ set_perm_recursive(0, 0, 0755, 0644, "/system/etc/kexec");
 set_perm_recursive(0, 0, 0755, 0644, "/system/lib/modules");
 
 ui_print(" ");
-unmount("/cache");
-unmount("/data");
 unmount("/system");
+unmount("/ext");
 ui_print("Kernel install finished!");
