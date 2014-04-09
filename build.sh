@@ -6,21 +6,6 @@ KernelBranches=("cm-11.0" "JBX_30X" "JBX_4.4" "JBX_30X" "JBX_HDMI" "cm-11.0")
 KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi" "jordan")
 
 #############################################################
-## function to get kernel branch name from kernel options
-##############################################################
-getKernelBranchName()
-{
-	[ "$1" = "" ] && return 
-	i=0
-        for e in ${KernelOpts[@]}; do
-		if [ "$e" = "$1" -a "$e" != "" ]; then
-			echo  ${KernelBranches[$i]}
-			return
-		fi
-		i=$((i+1))
-	done
-	return 1
-}
 
 list_kfiles()
 {
@@ -36,14 +21,29 @@ prepare_kernelzip()
 	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/lib/modules/
 	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
-	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/ 
-	cp -r $basedir/.myfiles/scripts/kernel_zip/META-INF $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/
-	cp -r $basedir/.myfiles/scripts/kernel_zip/utils $basedir/out/target/product/$device/kernel_zip/
+	cp -r $basedir/.myfiles/scripts/kernel_zip/META-INF $basedir/out/target/product/$device/kernel_zip/rls/
+	cp -r $basedir/.myfiles/scripts/kernel_zip/utils $basedir/out/target/product/$device/kernel_zip/rls/
 	list_kfiles | while read FILE; do
 		cp -r $basedir/out/target/product/$device/system/$FILE $basedir/out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
 	done
 
 }
+
+##############################################################
+getKernelBranchName()
+{
+	[ "$1" = "" ] && return 
+	i=0
+        for e in ${KernelOpts[@]}; do
+		if [ "$e" = "$1" -a "$e" != "" ]; then
+			echo  ${KernelBranches[$i]}
+			return
+		fi
+		i=$((i+1))
+	done
+	return 1
+}
+
 #############################################################
 
 ScriptName=`basename $0`
@@ -247,9 +247,10 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 	if [ $kernelzip -eq 0 ]; then
 		prepare_kernelzip
 		[ -f $basedir/out/target/product/$device/system/etc/init.d/80GPU -a "$device" = "edison" ] && \
-		cp $basedirout/target/product/$device/system/etc/init.d/80GPU $basedirout/target/product/$device/kernel_zip/rls/system/etc/init.d/
-		local curdir=`pwd`
+		cp $basedir/out/target/product/$device/system/etc/init.d/80GPU $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
+		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
+		rm -f "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip"
 		zip -r "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip" * >/dev/null
 		cd $curdir
 	fi
@@ -263,6 +264,7 @@ elif [ "$opKernel" = "cm" ]; then
 		prepare_kernelzip
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
+		rm -f "../Kernel-CM11-$device-$(date +"%Y%m%d").zip"
 		zip -r "../Kernel-CM11-$device-$(date +"%Y%m%d").zip" * >/dev/null
 		cd $curdir
 	fi

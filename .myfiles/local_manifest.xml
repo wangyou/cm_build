@@ -20,4 +20,5 @@
 <remove-project name="CyanogenMod/android_packages_apps_Calendar" />
 <project name="nx111/android_packages_apps_Calendar" path="packages/apps/Calendar"  remote="github" revision="cm-11.0"/>
 <project name="nx111/android_packages_apps_caifatcmd" path="packages/apps/caifatcmd"  remote="github" revision="master"/>
+<project name="amarullz/AROMA-Installer" path="tools/aroma-installer"  remote="github" revision="master"/>
 </manifest>
