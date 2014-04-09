@@ -224,6 +224,7 @@ if [ "$mode" = "r" ]; then
 	resetProject device/motorola/edison
 	resetProject device/motorola/omap4-common
 	resetProject vendor/cm
+	resetProject vendor/motorola
 	resetProject system/core
         resetProject frameworks/base
         resetProject frameworks/native
