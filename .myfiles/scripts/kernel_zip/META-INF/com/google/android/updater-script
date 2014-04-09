@@ -23,7 +23,9 @@ if
       ui_print("@  Backing up current kernel and modules");
 	run_program("/sbin/mkdir", "-p", "/ext/kernel_backup");
 	run_program("/sbin/mkdir", "-p", "/ext/kernel_backup/modules");
-	run_program("/sbin/cp", "-f", "/system/etc/kexec/kernel", "/ext/kernel_backup/kernel.bak");
+	run_program("/sbin/rm", "-rf", "/ext/kernel_backup/*");
+	run_program("/sbin/cp", "-f", "/system/build.prop", "/ext/kernel_backup/build.prop");
+	run_program("/sbin/cp", "-f", "/system/etc/kexec/kernel", "/ext/kernel_backup/kernel");
 	run_program("/sbin/cp", "-rf", "/system/lib/modules", "/ext/kernel_backup/");
 endif;
 set_progress(0.06);
@@ -32,9 +34,9 @@ if
       file_getprop("/tmp/aroma/install.prop","item.1.2") == "1"
     then
       ui_print("@  Restoring prior kernel and modules");
-	run_program("/sbin/cp", "-f", "/ext/kernel_backup/kernel.bak", "/system/etc/kexec/kernel");
+	run_program("/sbin/cp", "-f", "/ext/kernel_backup/kernel", "/system/etc/kexec/kernel");
 	run_program("/sbin/cp", "-rf", "/ext/kernel_backup/modules", "/system/lib/");
-	run_program("/sbin/cp", "-f", "/ext/kernel_backup/build.prop.bak", "/system/build.prop");
+	run_program("/sbin/cp", "-f", "/ext/kernel_backup/build.prop", "/system/build.prop");
 	run_program("/sbin/rm", "/system/etc/init.d/01kernel");
 	run_program("/sbin/rm", "/system/etc/init.d/60sdche");
 	run_program("/sbin/rm", "/system/etc/init.d/00tweaks");
@@ -54,8 +56,6 @@ if
     then
       ui_print("@  Installing Kernel");
 	package_extract_dir("system", "/system");
-	run_program("/sbin/cp", "-f", "/system/build.prop.bak", "/ext/kernel_backup/build.prop.bak");
-	run_program("/sbin/rm", "/system/build.prop.bak");
 	set_progress(0.85);
 endif;
 set_progress(0.14);
