@@ -91,6 +91,7 @@ if [ -f .lastBuild ]; then
 fi
 
 for op in $*;do
+   transop=0
    if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa" ]; then
 	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
@@ -100,29 +101,34 @@ for op in $*;do
 	[ -d  $basedir/vendor/moto/jordan-common ] && cp -r $basedir/vendor/moto/jordan-common $basedir/vendor/motorola/jordan-common
    elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "jhdmi" -o "$op" = "cm" ]; then
 	opKernel="$op"
+	transop=1
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
+	transop=1
    elif [ "${op}" = "-kernel-zip" ]; then
 	kernelzip=0
-   elif [ "$op" = "-kernel-only" ]; then
+	transop=1
+   elif [ "$op" = "-kernel" ]; then
 	kernelonly=0
    elif [ "${op}" = "-k" ]; then
 	keepPatch=0
    elif [ "$op" = "-nomake" ]; then
         nomake=0
+	transop=1
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
-   elif [  "$op" = "-cleanall" -o "$op" = "-init" -o "$op" = "sync"  ]; then
-        mode=$op
+	transop=1
    elif [ "$op" = "-cleanall" -o "$op" = "-init" -o "$op" = "-sync"  ]; then
 	mode="${op#-*}"
+	transop=1
    elif [ "${op:0:4}" = "mod=" ]; then
 	mod="${op#mod=*}"
+	transop=1
    elif [ "$op" = "new" -o "$op" = "old" ]; then
 	oldupdate="$op"
-   else
-	moreopt="$moreopt $op"
+	transop=1
    fi
+   [ $transop -eq 0 ] && moreopt="$moreopt $op"
 done
 
 [ "$device" = "mb526" ] && opKernel="cm"
@@ -182,38 +188,40 @@ if [ "${opKernel:0:1}" = "j" ]; then
 fi
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-   .myfiles/patch.sh $device -$mode $oldupdate $moreopt $opKernel
+   .myfiles/patch.sh $device $moreopt $opKernel
    echo "device: $device">.lastBuild.tmp
    echo "opKernel: $opKernel">>.lastBuild.tmp
 
     ######generate projects's last 10 logs########
-    echo "Generating projects's snapshot logs..."
-    PROJECTLIST=$rdir/.repo/project.list
-    OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
-    [ -d $basedir/out/target/product/$device/system/etc/ ] || mkdir -p $basedir/out/target/product/$device/system/etc/
-    rm -f $OUTLOG
-    touch $OUTLOG
-    while read project
-    do
-	cd $basedir/$project
-	echo $project: >>$OUTLOG
-	git log -10 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
-	echo -e "\n">>$OUTLOG
-    done < $PROJECTLIST
-    cd $basedir
+    if [ $kernelonly -eq 1 ]; then
+    	echo "Generating projects's snapshot logs..."
+    	PROJECTLIST=$rdir/.repo/project.list
+   	 OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
+    	[ -d $basedir/out/target/product/$device/system/etc/ ] || mkdir -p $basedir/out/target/product/$device/system/etc/
+    	rm -f $OUTLOG
+    	touch $OUTLOG
+    	while read project
+   	do
+		cd $basedir/$project
+		echo $project: >>$OUTLOG
+		git log -10 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
+		echo -e "\n">>$OUTLOG
+    	done < $PROJECTLIST
+    	cd $basedir
 
-    ########Delete old files#############################
-    if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
-       cd out/target/product/$device/obj/PACKAGING/target_files_intermediates
-       ls -t  | awk '{if(NR>2){print $0}}' | xargs rm -rf 
-       cd $basedir
+    	########Delete old files#############################
+    	if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
+       		cd out/target/product/$device/obj/PACKAGING/target_files_intermediates
+       		ls -t  | awk '{if(NR>2){print $0}}' | xargs rm -rf 
+       		cd $basedir
+    	fi
+    	if [ -d out/target/product/$device/ ]; then
+       		cd out/target/product/$device
+       		ls -t cm-*.zip 2>/dev/null | awk '{if(NR>4){print $0}}' |xargs rm -rf 
+       		cd $basedir
+    	fi
+    	rm -f out/target/product/$device/system/build.prop
     fi
-    if [ -d out/target/product/$device/ ]; then
-       cd out/target/product/$device
-       ls -t cm-*.zip 2>/dev/null | awk '{if(NR>4){print $0}}' |xargs rm -rf 
-       cd $basedir
-    fi
-    rm -f out/target/product/$device/system/build.prop
     [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
     [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
 
@@ -236,7 +244,7 @@ fi
 [ "$device" != "mb526" ] || KBCCOUNT=JORDAN_CCNUM
 [ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
-[ $kernelonly -eq 0 ] && mod=TARGET_KERNEL_BINARIES
+[ $kernelonly -eq 0 ] && mod=$OUT/boot.img
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
