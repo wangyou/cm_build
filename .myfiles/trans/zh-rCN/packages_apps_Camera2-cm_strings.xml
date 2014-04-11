@@ -112,5 +112,5 @@
   <string name="camera_menu_effects_label">效果</string>
   <string name="camera_menu_asd_label">智能场景</string>
   <string name="pref_camera_power_shutter_title">Power键快门</string>
-  <string name="pref_camera_picturesize_entry_12mp">1200万像素</string>
+  <string name="pref_superzoom_title">高倍变焦</string>
 </resources>

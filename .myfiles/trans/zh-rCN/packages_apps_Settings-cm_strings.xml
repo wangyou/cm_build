@@ -654,6 +654,13 @@
   <string name="backlight_summary_enabled_with_timeout">保持背光灯<ns0:g id="timeout">%s</ns0:g>
   </string>
   <string name="backlight_summary_enabled">启用</string>
+  <string name="lockscreen_background">背景</string>
+  <string name="lockscreen_background_style_title">锁屏背景</string>
+  <string name="background_default">默认背景</string>
+  <string name="background_wallpaper">定制壁纸</string>
+  <string name="background_result_successful">背景已改变</string>
+  <string name="background_result_not_successful">北京未改变</string>
+  <string name="setting_lockscreen_background">应用背景</string>
   <string name="accessibility_home_button_answers_call_prerefence_title">Home键接听电话</string>
   <string name="confirm_delete_apn">此APN将被删除.</string>
   <string name="status_bar_title">状态栏</string>

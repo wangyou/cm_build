@@ -110,9 +110,10 @@ def mTrans(xmlfile,xmldict,xmlout):
    xmlname=os.path.basename(xmlfile)
    if xmlname[0:3] == "cm_" :
         bbxml=xmlname.replace("cm_","")
-        if os.path.exists(os.path.dirname(xmlfile)+"/"+bbxml):
+        if os.path.isfile(os.path.dirname(xmlfile)+"/"+bbxml):     
             tree0=ET.parse(os.path.dirname(xmlfile)+"/"+bbxml)
             root0=tree0.getroot()
+
             for item in root0:
                 try:
                     elem=findItem(root,item,lang)
@@ -120,27 +121,42 @@ def mTrans(xmlfile,xmldict,xmlout):
                         root.append(item)
                 except:
                     pass
-        if os.path.exists(os.path.dirname(xmlout)+"/"+bbxml):
-            tree3=ET.parse(os.path.dirname(xmlout)+"/"+bbxml)
-            root3=tree3.getroot()
-        bdictname=os.path.basename(xmldict).split("-")[len(f.split("-"))-1]
-        bdictprefix=os.path.basename(xmldict).replace(bdictname,"")[:-1]
-        if mode & modRefreshDict:
-            ndict=os.path.dirname(xmldict)+"/"+bdictprefix+"-"+bbxml
-        else:
-            ndict=os.path.dirname(xmldict)+"/out/"+bdictprefix+"-"+bbxml
-        if os.path.exists(ndict):
-           tree4=ET.parse(ndict)
-           root4=tree4.getroot()
-           if root3 is None:
-               root3=root4
-           else:
-               for item in root4:
-                   try:
+
+        files=os.listdir(os.path.dirname(xmlout))
+        for s in files:
+            if s == xmlname or s[s.rindex("."):] != ".xml":
+                continue
+
+
+            tree4=ET.parse(os.path.dirname(xmlout)+"/"+s)
+            root4=tree4.getroot()
+
+            if root3 is None:
+                   root3=root4
+            else:
+                   for item in root4:
+                    try:
+                        elem=findItem(root3,item,lang)
+                        if elem is None:
+                            root3.append(item)
+                    except:
+                        pass
+                    
+            bdictname=os.path.basename(xmldict).split("-")[len(f.split("-"))-1]
+            bdictprefix=os.path.basename(xmldict).replace(bdictname,"")[:-1]
+            if mode & modRefreshDict:
+                   ndict=os.path.dirname(xmldict)+"/"+bdictprefix+"-"+s
+            else:
+                   ndict=os.path.dirname(xmldict)+"/out/"+bdictprefix+"-"+s
+            if os.path.exists(ndict):
+                  tree4=ET.parse(ndict)
+                  root4=tree4.getroot()
+            for item in root4:
+                  try:
                        elem=findItem(root3,item,lang)
                        if elem is None:
-                           root3.append(item)
-                   except:
+                          root3.append(item)
+                  except:
                        pass
    else:
         bdictname=os.path.basename(xmldict).split("-")[len(f.split("-"))-1]
