@@ -29,7 +29,7 @@ getKernelBranchName()
 	i=0
         for e in ${KernelOpts[@]}; do
 		if [ "$e" = "$1" -a "$e" != "" ]; then
-#			echo  ${KernelBranches[$i]}
+			echo  ${KernelBranches[$i]}
 			return
 		fi
 		i=$((i+1))
@@ -306,7 +306,7 @@ if [ "$device" != "mb526" ]; then
    ### if not kernel branch switch end ####
 
 
-  echo "Use $opKernel $kbranch kernel ..."
+  echo "Use $kbranch kernel ..."
   cd $basedir/kernel/motorola/omap4-common
   oldBranch=`git branch | grep "\*" |cut -f2 -d" "`
   addBranch $basedir/kernel/motorola/omap4-common $kbranch

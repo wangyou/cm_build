@@ -182,7 +182,11 @@ if [ "$mode" = "sync" ]; then
 fi
 
 echo "Starting ............."
-[ $nomake -ne 0 -o "$device" != "$lastDevice" ] && . build/envsetup.sh > /dev/null
+if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
+	export USE_CCACHE=1
+	source build/envsetup.sh > /dev/null
+   	lunch cm_$device-userdebug >/dev/null
+fi
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
@@ -236,9 +240,6 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
     [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
     [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
 
-    #############lunch######################
-    lunch cm_$device-userdebug >/dev/null
-
 fi
 
 ########## MAKE #########################
@@ -257,6 +258,8 @@ fi
 
 [ $kernelonly -eq 0 ] && mod=$OUT/boot.img
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
+
+	export BOARD_HAS_SDCARD_INTERNAL=false
 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
             [ ! -z "${!KBCCOUNT}" ] &&  echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
