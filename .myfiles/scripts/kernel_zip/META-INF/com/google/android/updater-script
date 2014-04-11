@@ -26,7 +26,6 @@ if
 	run_program("/sbin/cp", "-f", "/system/build.prop", "/ext/kernel_backup/build.prop");
 	run_program("/sbin/cp", "-f", "/system/etc/kexec/kernel", "/ext/kernel_backup/kernel");
 	run_program("/sbin/cp", "-rf", "/system/lib/modules", "/ext/kernel_backup/");
-	run_program("/sbin/cp", "-f", "/system/lib/libc.so", "/ext/kernel_backup/");
 endif;
 set_progress(0.06);
 
@@ -38,7 +37,6 @@ if
 	delete("/system/etc/kexec/kernel");
 	run_program("/sbin/cp", "-f", "/ext/kernel_backup/kernel", "/system/etc/kexec/kernel");
 	run_program("/sbin/cp", "-rf", "/ext/kernel_backup/modules", "/system/lib/");
-	run_program("/sbin/cp", "-f", "/ext/kernel_backup/libc.so", "/system/lib/");
 	run_program("/sbin/cp", "-f", "/ext/kernel_backup/build.prop", "/system/build.prop");
 	delete("/system/etc/init.d/01kernel");
 	delete("/system/etc/init.d/60sdche");
@@ -71,7 +69,6 @@ set_progress(0.14);
 set_perm_recursive(0, 0, 0775, 0644, "/system/app");
 set_perm_recursive(0, 0, 0755, 0644, "/system/etc/kexec");
 set_perm_recursive(0, 0, 0755, 0644, "/system/lib/modules");
-set_perm(0, 0, 0755, "/system/lib/libc.so");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/etc/init.d");
 set_perm(0, 0, 0755, "/system/etc/init.d");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
