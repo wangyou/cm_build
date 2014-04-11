@@ -2,8 +2,8 @@ reset
 compile_user=NX111
 branch=cm-11.0
 
-KernelBranches=("cm-11.0" "JBX_30X" "JBX_4.4" "JBX_30X" "JBX_HDMI" "cm-11.0")
-KernelOpts=("cm" "jbx" "j44" "j30x" "jhdmi" "jordan")
+KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "test")
+KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "jtest")
 
 #############################################################
 

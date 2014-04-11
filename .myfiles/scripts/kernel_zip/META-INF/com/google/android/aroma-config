@@ -70,7 +70,6 @@ install(
 ini_set("text_next", "Finish");
 viewbox(
     "Installation was successful!",
-    "You are now running <b><#selectbg_g>"+ini_get("rom_name")+"</#></b>.\n\n"+
-    "<b>Have fun with your new custom kernel</b>\n\n",
+    "You are now running <b><#selectbg_g>"+ini_get("rom_name")+"</#></b>.\n\n",
     "@welcome"
 );
