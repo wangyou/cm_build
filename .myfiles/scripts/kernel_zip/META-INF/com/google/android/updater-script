@@ -33,6 +33,8 @@ if
       file_getprop("/tmp/aroma/install.prop","item.1.2") == "1"
     then
       ui_print("@  Restoring prior kernel and modules");
+	delete_recursive("/system/lib/modules");
+	delete("/system/etc/kexec/kernel");
 	run_program("/sbin/cp", "-f", "/ext/kernel_backup/kernel", "/system/etc/kexec/kernel");
 	run_program("/sbin/cp", "-rf", "/ext/kernel_backup/modules", "/system/lib/");
 	run_program("/sbin/cp", "-f", "/ext/kernel_backup/build.prop", "/system/build.prop");
@@ -73,10 +75,6 @@ set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
 set_perm(0, 0, 06755, "/system/xbin/su");
 set_progress(0.97);
-
-# Cleanup a little to avoid Build Version conflicts
-delete("/system/build.prop.bak");
-set_progress(0.99);
 
 # Wipe
 ui_print("Clean up");
