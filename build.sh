@@ -5,6 +5,16 @@ branch=cm-11.0
 KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "test")
 KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "jtest")
 
+isKernelOpt()
+{
+    [ $# -lt 1 ] && return 1
+    for((i=0;i<${#KernelOpts[@]};i++)) do
+        if [ "${KernelOpts[$i]}" = "$1" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
 #############################################################
 
 list_kfiles()
@@ -44,6 +54,7 @@ getKernelBranchName()
 	done
 	return 1
 }
+
 
 #############################################################
 
@@ -100,7 +111,7 @@ for op in $*;do
 	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/mb526"
 	rm -rf $basedir/vendor/motorola/jordan-common
 	[ -d  $basedir/vendor/moto/jordan-common ] && cp -r $basedir/vendor/moto/jordan-common $basedir/vendor/motorola/jordan-common
-   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "jhdmi" -o "$op" = "cm" ]; then
+   elif isKernelOpt $op; then
 	opKernel="$op"
 	transop=1
    elif [ "${op:0:2}" = "-j" ]; then

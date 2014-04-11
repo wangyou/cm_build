@@ -9,6 +9,17 @@ opKernel=cm
 KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "test")
 KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "jtest")
 
+isKernelOpt()
+{
+    [ $# -lt 1 ] && return 1
+    for((i=0;i<${#KernelOpts[@]};i++)) do
+        if [ "${KernelOpts[$i]}" = "$1" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 #############################################################
 ## function to get kernel branch name from kernel options
 ##############################################################
@@ -18,7 +29,7 @@ getKernelBranchName()
 	i=0
         for e in ${KernelOpts[@]}; do
 		if [ "$e" = "$1" -a "$e" != "" ]; then
-			echo  ${KernelBranches[$i]}
+#			echo  ${KernelBranches[$i]}
 			return
 		fi
 		i=$((i+1))
@@ -164,7 +175,7 @@ for op in $*;do
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
 	opKernel="jordan"
-   elif [ "$op" = "jbx" -o "$op" = "j30x"  -o "$op" = "j44"  -o "$op" = "jhdmi" -o "$op" = "cm" ]; then
+   elif isKernelOpt $op; then
 	opKernel="$op"
    elif [ "$op" = "-ku" ]; then
 	kernelUpdate=1
