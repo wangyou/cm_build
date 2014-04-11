@@ -58,18 +58,11 @@ viewbox(
     "@install"
 );
 
-ini_set("text_next", "Next");
+ini_set("text_next", "Finish");
 install(
   "Installing",
   "Flashing <b>"+ini_get("rom_name")+"</b>...\n"+
   "Please Wait...",
   "@install",
-  "Done! Press <b>Next</b> button"
-);
-
-ini_set("text_next", "Finish");
-viewbox(
-    "Installation was successful!",
-    "You are now running <b><#selectbg_g>"+ini_get("rom_name")+"</#></b>.\n\n",
-    "@welcome"
+  "Done! Press <b>Finish</b> button"
 );
