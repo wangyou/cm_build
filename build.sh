@@ -12,6 +12,7 @@ list_kfiles()
 cat <<EOF
 etc/kexec/kernel
 lib/modules/*
+lib/libc.so
 EOF
 }
 
