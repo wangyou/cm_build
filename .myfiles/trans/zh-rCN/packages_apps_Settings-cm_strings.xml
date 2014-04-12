@@ -380,6 +380,13 @@
   <string name="preview_carrier_title">运营商</string>
   <string name="header_category_interface">个性化</string>
   <string name="themes_settings_title">主题</string>
+  <string name="themepacks_settings_title">主题包</string>
+  <string name="styles_settings_title">风格</string>
+  <string name="icons_settings_title">图标</string>
+  <string name="fonts_settings_title">字体</string>
+  <string name="lockscreen_wallpaper_settings_title">锁屏壁纸</string>
+  <string name="bootanim_settings_title">启动动画</string>
+  <string name="soundpack_settings_title">声音包</string>
   <string name="performance_settings_title">性能</string>
   <string name="performance_settings_warning_title">请谨慎处理</string>
   <string name="performance_settings_warning">这些设置完全是用于测试与实验。这里的改变将直接影响系统性能，并可能导致系统不稳定、数据丢失与硬件损伤。\n\n如果您更改了这里的设置，我们请您不要向我们提交错误报告。</string>
@@ -413,6 +420,7 @@
   <string name="cmupdate_settings_summary">检查、查看或安装可用的更新</string>
   <string name="advanced_settings_title">高级</string>
   <string name="development_tools_title">启动开发工具</string>
+  <string name="allow_mock_sms">允许模拟短信</string>
   <string name="privacy_settings_cyanogenmod_title">隐私保护</string>
   <string name="privacy_guard_switch_label">启用隐私保护</string>
   <string name="privacy_guard_dlg_title">启用隐私保护?</string>
@@ -568,6 +576,7 @@
   <string name="lockscreen_buttons_playpause">播放/暂停 音乐</string>
   <string name="lockscreen_buttons_toggle_sound">切换歌曲</string>
   <string name="lockscreen_buttons_sleep">睡眠</string>
+  <string name="lockscreen_enable_modlock_title">定制锁屏界面</string>
   <string name="navigation_bar_category">导航栏</string>
   <string name="navigation_bar_title">按键与布局</string>
   <string name="navigation_bar_left_title">左手模式</string>

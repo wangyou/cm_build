@@ -135,7 +135,6 @@
   <string name="sub2_summary">管理订阅 2</string>
   <string name="sub3">订阅 3</string>
   <string name="sub3_summary">管理订阅 3</string>
-  <string name="prompt">提示</string>
   <string name="prompt_user">提示用户</string>
   <string name="tty_mode_not_allowed_vt_call">视频通话时不能改变TTY模式</string>
   <string name="fdn_service_unavailable">FDN服务不可用.</string>
@@ -186,7 +185,6 @@
   <string name="deleteSimContacts">删除SIM卡联系人</string>
   <string name="editContact">编辑</string>
   <string name="sendSms">发送SMS</string>
-  <string name="delete">删除</string>
   <string name="dial">拨号</string>
   <string name="enterName">姓名:</string>
   <string name="enterNumber">电话号码:</string>
@@ -211,7 +209,6 @@
   <string name="place_a_call3">订阅3</string>
   <string name="count_down">秒:</string>
   <string name="call_number">到:</string>
-  <string name="cancel_call">放弃</string>
   <string name="set_subscription_error_atleast_one">至少选择一个订阅</string>
   <string name="sub_1">订阅1</string>
   <string name="sub_2">订阅2</string>

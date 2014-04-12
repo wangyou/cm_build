@@ -13,7 +13,6 @@
   <string name="modify_call_prompt_no">否</string>
   <string name="modify_call_failure_str">更改呼叫失败\n</string>
   <string name="modify_call_option_title">呼叫类型?</string>
-  <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">视频发送</string>
   <string name="modify_call_option_vt_rx">视频接收</string>
   <string name="modify_call_option_voice">仅语音</string>
