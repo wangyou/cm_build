@@ -240,8 +240,8 @@ def mTrans(xmlfile,xmldict,xmlout):
                                    print >> file_log, "#####################################"
                                    print >> file_log, "\n",baseXMLname,":\n===================="
                                    printedHead = 1
-                            print  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
-                            print >> file_log,  "[X] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
+                            print  "[?] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
+                            print >> file_log,  "[?] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
                         except:
                             pass
                     else:
