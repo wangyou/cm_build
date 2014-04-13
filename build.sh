@@ -149,14 +149,14 @@ if [ "$mode" = "cleanall" ]; then
 	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != ".repo" ] \
 	   && [ "$f" != "." -a "$f" != ".." ] && rm -rf $f
     done
-   exit
+   exit 0
 fi
 
 if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 	repo init -u git://github.com/CyanogenMod/android.git -b $branch
 	repo sync
 	repo start $branch --all
-	exit
+	exit 0
 fi
 
 if [ "$mode" = "sync" ]; then
@@ -175,10 +175,10 @@ if [ "$mode" = "sync" ]; then
  		done
 		echo "sync successed!"
 		break
-		exit
+		exit 0
 	fi
     done
-    exit
+    exit 0
 fi
 
 echo "Starting ............."
@@ -256,6 +256,7 @@ fi
 [ "$device" != "mb526" ] || KBCCOUNT=JORDAN_CCNUM
 [ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
+retcode=1
 [ $kernelonly -eq 0 ] && mod=$OUT/boot.img
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 
@@ -266,7 +267,8 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 	    LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
   		        TARGET_KERNEL_CONFIG=${kernel_config}  
         fi
-	if [ $kernelzip -eq 0 ]; then
+	retcode=$?
+	if [ $retcode -eq 0 -a $kernelzip -eq 0 ]; then
 		prepare_kernelzip
 		[ -f $basedir/out/target/product/$device/system/etc/init.d/80GPU -a "$device" = "edison" ] && \
 		cp $basedir/out/target/product/$device/system/etc/init.d/80GPU $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
@@ -282,7 +284,8 @@ elif [ "$opKernel" = "cm" ]; then
             [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
         fi
-	if [ $kernelzip -eq 0 ]; then
+	retcode=$?
+	if [ $retcode -eq 0 -a $kernelzip -eq 0 ]; then
 		prepare_kernelzip
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
@@ -320,3 +323,4 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    rm -f out/target/product/$device/cm-*.zip.md5sum
    rm -f $basedir/out/target/product/$device/system/etc/init.d/80GPU
 fi
+exit $retcode
