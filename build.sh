@@ -143,7 +143,7 @@ for op in $*;do
 done
 
 [ "$device" = "mb526" ] && opKernel="cm"
-
+[ $kernelonly -eq 0 ] && kernelzip=0
 if [ "$mode" = "cleanall" ]; then
     for f in * .*; do
 	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != ".repo" ] \
