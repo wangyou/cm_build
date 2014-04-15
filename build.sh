@@ -257,7 +257,12 @@ fi
 [ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
 retcode=1
-[ $kernelonly -eq 0 ] && mod=$OUT/boot.img
+OLDPATH=$PATH
+if [ $kernelonly -eq 0 ]; then
+	mod=$OUT/boot.img
+	export PATH=$basedir/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:$PATH
+	export TARGET_KERNEL_CUSTOM_TOOLCHAIN=arm-eabi
+fi
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 
 	export BOARD_HAS_SDCARD_INTERNAL=false
@@ -295,6 +300,8 @@ elif [ "$opKernel" = "cm" ]; then
 	fi
 
 fi
+
+export PATH=$OLDPATH
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
