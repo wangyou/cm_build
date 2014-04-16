@@ -22,6 +22,10 @@ list_kfiles()
 cat <<EOF
 etc/kexec/kernel
 lib/modules/*
+lib/libc.so
+lib/libstdc++.so
+lib/libdl.so
+lib/libm.so
 EOF
 }
 
@@ -34,7 +38,11 @@ prepare_kernelzip()
 	cp -r $basedir/.myfiles/scripts/kernel_zip/META-INF $basedir/out/target/product/$device/kernel_zip/rls/
 	cp -r $basedir/.myfiles/scripts/kernel_zip/utils $basedir/out/target/product/$device/kernel_zip/rls/
 	list_kfiles | while read FILE; do
-		cp -r $basedir/out/target/product/$device/system/$FILE $basedir/out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
+		if [ "$FILE" != "etc/kexec/kernel" ]; then
+			cp -rf $basedir/out/target/product/$device/system/$FILE $basedir/out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
+		else
+			cp -f $basedir/out/target/product/$device/kernel $basedir/out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
+		fi
 	done
 
 }
@@ -260,9 +268,13 @@ retcode=1
 OLDPATH=$PATH
 if [ $kernelonly -eq 0 ]; then
 	mod=$OUT/boot.img
-	export PATH=$basedir/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:$PATH
-	export TARGET_KERNEL_CUSTOM_TOOLCHAIN=arm-eabi
+#	export PATH=$basedir/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:$PATH
+#	export TARGET_KERNEL_CUSTOM_TOOLCHAIN=arm-eabi
 fi
+export ARCH=arm
+export SUBARCH=arm
+export CROSS_COMPILE=arm-eabi-
+
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 
 	export BOARD_HAS_SDCARD_INTERNAL=false

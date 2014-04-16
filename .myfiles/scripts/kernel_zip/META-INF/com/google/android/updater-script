@@ -26,6 +26,10 @@ if
 	run_program("/sbin/cp", "-f", "/system/build.prop", "/ext/kernel_backup/build.prop");
 	run_program("/sbin/cp", "-f", "/system/etc/kexec/kernel", "/ext/kernel_backup/kernel");
 	run_program("/sbin/cp", "-rf", "/system/lib/modules", "/ext/kernel_backup/");
+	run_program("/sbin/cp", "-f", "/system/lib/libc.so", "/ext/kernel_backup/");
+	run_program("/sbin/cp", "-f", "/system/lib/libdl.so", "/ext/kernel_backup/");
+	run_program("/sbin/cp", "-f", "/system/lib/libm.so", "/ext/kernel_backup/");
+	run_program("/sbin/cp", "-f", "/system/lib/libstdc++.so", "/ext/kernel_backup/");
 endif;
 set_progress(0.06);
 
@@ -37,6 +41,7 @@ if
 	delete("/system/etc/kexec/kernel");
 	run_program("/sbin/cp", "-f", "/ext/kernel_backup/kernel", "/system/etc/kexec/kernel");
 	run_program("/sbin/cp", "-rf", "/ext/kernel_backup/modules", "/system/lib/");
+	run_program("/sbin/cp", "f", "/ext/kernel_backup/lib*.so", "/system/lib/");
 	run_program("/sbin/cp", "-f", "/ext/kernel_backup/build.prop", "/system/build.prop");
 	delete("/system/etc/init.d/01kernel");
 	delete("/system/etc/init.d/60sdche");
