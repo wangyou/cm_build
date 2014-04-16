@@ -38,10 +38,10 @@ prepare_kernelzip()
 	cp -r $basedir/.myfiles/scripts/kernel_zip/META-INF $basedir/out/target/product/$device/kernel_zip/rls/
 	cp -r $basedir/.myfiles/scripts/kernel_zip/utils $basedir/out/target/product/$device/kernel_zip/rls/
 	list_kfiles | while read FILE; do
-		if [ "$FILE" != "etc/kexec/kernel" ]; then
-			cp -rf $basedir/out/target/product/$device/system/$FILE $basedir/out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
-		else
+		if echo $FILE | grep -q "kernel"; then
 			cp -f $basedir/out/target/product/$device/kernel $basedir/out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
+		else
+			cp -rf $basedir/out/target/product/$device/system/$FILE $basedir/out/target/product/$device/kernel_zip/rls/system/`dirname $FILE`
 		fi
 	done
 
@@ -265,15 +265,10 @@ fi
 [ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
 retcode=1
-OLDPATH=$PATH
 if [ $kernelonly -eq 0 ]; then
 	mod=$OUT/boot.img
-#	export PATH=$basedir/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:$PATH
-#	export TARGET_KERNEL_CUSTOM_TOOLCHAIN=arm-eabi
+#	export TARGET_KERNEL_CUSTOM_TOOLCHAIN=arm-none-eabi
 fi
-export ARCH=arm
-export SUBARCH=arm
-export CROSS_COMPILE=arm-eabi-
 
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 
@@ -291,8 +286,10 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 		cp $basedir/out/target/product/$device/system/etc/init.d/80GPU $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		rm -f "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip"
-		zip -r "../Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip" * >/dev/null
+        KERNELZIP_NAME=Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip
+        echo "Creating ${KERNELZIP_NAME}..."
+		rm -f "../${KERNELZIP_NAME}"
+		zip -r "../${KERNELZIP_NAME}" * >/dev/null
 		cd $curdir
 	fi
 
@@ -306,14 +303,16 @@ elif [ "$opKernel" = "cm" ]; then
 		prepare_kernelzip
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-		rm -f "../Kernel-CM11-$device-$(date +"%Y%m%d").zip"
-		zip -r "../Kernel-CM11-$device-$(date +"%Y%m%d").zip" * >/dev/null
+        KERNELZIP_NAME=Kernel-CM11-$device-$(date +"%Y%m%d").zip
+        echo "Creating ${KERNELZIP_NAME}..."
+		rm -f "../${KERNELZIP_NAME}"
+		zip -r "../${KERNELZIP_NAME}" * >/dev/null
 		cd $curdir
 	fi
 
 fi
 
-export PATH=$OLDPATH
+export TARGET_KERNEL_CUSTOM_TOOLCHAIN=
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
