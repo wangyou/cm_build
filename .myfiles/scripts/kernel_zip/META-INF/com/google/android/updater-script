@@ -7,6 +7,7 @@ ui_print("Installing Kernel...");
 ui_print("Setting up required tools...");
 package_extract_file("utils/mount", "/tmp/mount");
 set_perm(0, 0, 0755, "/tmp/mount");
+
 ui_print("Mounting Partitions");
 run_program("/tmp/mount", "/system");
 run_program("/tmp/mount", "/ext");
@@ -16,9 +17,9 @@ run_program("/tmp/mount", "/ext");
 #                                                            #
 ##############################################################
 set_progress(0.03);
-if
-      file_getprop("/tmp/aroma/install.prop","item.1.1") == "1"
-    then
+#if
+#      file_getprop("/tmp/aroma/install.prop","item.1.1") == "1"
+#    then
       ui_print("@  Backing up current kernel and modules");
 	delete_recursive("/ext/kernel_backup");
 	run_program("/sbin/mkdir", "-p", "/ext/kernel_backup");
@@ -30,40 +31,40 @@ if
 	run_program("/sbin/cp", "-f", "/system/lib/libdl.so", "/ext/kernel_backup/");
 	run_program("/sbin/cp", "-f", "/system/lib/libm.so", "/ext/kernel_backup/");
 	run_program("/sbin/cp", "-f", "/system/lib/libstdc++.so", "/ext/kernel_backup/");
-endif;
+#endif;
 set_progress(0.06);
 
-if
-      file_getprop("/tmp/aroma/install.prop","item.1.2") == "1"
-    then
-      ui_print("@  Restoring prior kernel and modules");
-	delete_recursive("/system/lib/modules");
-	delete("/system/etc/kexec/kernel");
-	run_program("/sbin/cp", "-f", "/ext/kernel_backup/kernel", "/system/etc/kexec/kernel");
-	run_program("/sbin/cp", "-rf", "/ext/kernel_backup/modules", "/system/lib/");
-	run_program("/sbin/cp", "f", "/ext/kernel_backup/lib*.so", "/system/lib/");
-	run_program("/sbin/cp", "-f", "/ext/kernel_backup/build.prop", "/system/build.prop");
-	delete("/system/etc/init.d/01kernel");
-	delete("/system/etc/init.d/60sdche");
-	delete("/system/etc/init.d/00tweaks");
-	delete("/system/etc/init.d/02kernel_net");
-	delete("/system/etc/init.d/03nmi_watchdog_off");
-	delete("/system/etc/init.d/04kernel_memory");
-	delete("/system/etc/init.d/06Sleepytime");
-	delete("/system/etc/init.d/71sqloptimize");
-	delete("/system/etc/init.d/S70zipalign");
-	delete("/system/etc/init.d/S99_Battery_Friend");
-	delete("/system/etc/init.d/32netspeed");
-endif;
-set_progress(0.13);
+#if
+#      file_getprop("/tmp/aroma/install.prop","item.1.2") == "1"
+#    then
+#      ui_print("@  Restoring prior kernel and modules");
+#	run_program("/system/bin/cp", "-f", "/ext/kernel_backup/kernel", "/system/etc/kexec/kernel");
+#	run_program("/system/bin/cp", "-rf", "/ext/kernel_backup/modules", "/system/lib/");
+#	run_program("/system/bin/cp", "-f", "/ext/kernel_backup/lib*.so", "/system/lib/");
+#	run_program("/system/bin/cp", "-f", "/ext/kernel_backup/build.prop", "/system/build.prop");
+#	delete("/system/etc/init.d/01kernel");
+#	delete("/system/etc/init.d/60sdche");
+#	delete("/system/etc/init.d/00tweaks");
+#	delete("/system/etc/init.d/02kernel_net");
+#	delete("/system/etc/init.d/03nmi_watchdog_off");
+#	delete("/system/etc/init.d/04kernel_memory");
+#	delete("/system/etc/init.d/06Sleepytime");
+#	delete("/system/etc/init.d/71sqloptimize");
+#	delete("/system/etc/init.d/S70zipalign");
+#	delete("/system/etc/init.d/S99_Battery_Friend");
+#	delete("/system/etc/init.d/32netspeed");
+#     	unmount("/system");
+#      	run_program("/tmp/mount", "/system");     
+#endif;
+#set_progress(0.13);
 
-if
-      file_getprop("/tmp/aroma/install.prop","item.1.3") == "1"
-    then
+#if
+#      file_getprop("/tmp/aroma/install.prop","item.1.3") == "1"
+#    then
       ui_print("@  Installing Kernel");
 	package_extract_dir("system", "/system");
 	set_progress(0.85);
-endif;
+#endif;
 set_progress(0.14);
 
 
@@ -72,10 +73,9 @@ set_progress(0.14);
 ##############################################################
 # Permissions
 set_perm_recursive(0, 0, 0775, 0644, "/system/app");
-set_perm_recursive(0, 0, 0755, 0644, "/system/etc/kexec");
-set_perm_recursive(0, 0, 0755, 0644, "/system/lib/modules");
+set_perm_recursive(0, 0, 0755, 0644, "/system/etc");
+set_perm_recursive(0, 0, 0755, 0644, "/system/lib");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/etc/init.d");
-set_perm(0, 0, 0755, "/system/etc/init.d");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
 set_perm(0, 0, 06755, "/system/xbin/su");
