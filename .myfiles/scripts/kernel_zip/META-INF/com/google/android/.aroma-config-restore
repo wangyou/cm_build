@@ -30,21 +30,6 @@ fontresload( "1", "ttf/Roboto-Regular.ttf;ttf/DroidSansFallback.ttf;", "14" ); #
 # ICS Theme
 theme("ics");
 
-checkbox(
-	      "Installation Option",
-	      "Select your preferred option(s)",
-	      "@update",
-	      "install.prop",	  
-
-		#-- Group 1. key = "item.1"
-		"Kernel",			"",		2,	
-				#-- item.1 = 1
-		"Backup current kernel",       "UNPLUG USB CABLE!!! Select this option to backup your current installed Kernel. It will create a backup folder on your sdcard.",1,	
-				#-- item.1 = 2								
-		"Install Kernel", 		"Install the Kernel experience for Motorola phones! (DO NOT SELECT HIS IF YOU WANT TO RESTORE YOUR OLD KERNEL!!)",1		
-);
-
-
 # Installation
 
 ini_set("text_next", "Install now");
