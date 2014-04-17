@@ -38,10 +38,12 @@ checkbox(
 
 		#-- Group 1. key = "item.1"
 		"Kernel",			"",		2,	
-				#-- item.1 = 1
-		"Backup current kernel",       "UNPLUG USB CABLE!!! Select this option to backup your current installed Kernel. It will create a backup folder on your sdcard.",1,	
-				#-- item.1 = 2								
+				#-- item.1 = 1								
 		"Install Kernel", 		"Install the Kernel experience for Motorola phones! (DO NOT SELECT HIS IF YOU WANT TO RESTORE YOUR OLD KERNEL!!)",1		
+				#-- item.1 = 2
+		"Backup  kernel",       "UNPLUG USB CABLE!!! Select this option to backup your current installed Kernel. It will create a backup folder on your sdcard.",1,	
+				#-- item.1 = 3
+		"Restore kernel",      	"Select this option to restore your prior kernel (Must have an exisitng backup)",0,
 );
 
 
