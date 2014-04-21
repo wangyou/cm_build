@@ -135,17 +135,34 @@ addRemote()
 
 resetProject()
 {
-     if [ $# -lt 1 ]; then return 1; fi
-     if [ ! -d $basedir/$1 ]; then return 1; fi
-#     echo "reset project: $1"
+     local var;
+     local project="";
+     local mode="";
+
+     for  var in $*;do 
+          if [ _${var:0:1} = "_-" -a -z "$mode" ]; then
+               mode="${var:1}"
+          elif [ -z "$project" ]; then
+               project=$var
+          fi
+     done
+     if [ -z "$project" ]; then return 1; fi
+     if [ ! -d $basedir/$project ]; then return 1; fi
+#     echo "reset project: $project"
      local curdir=`pwd`
-     cd $basedir/$1
+     cd $basedir/$project
      local remote=`git branch -r | grep  "\->" | sed "s/.*->//g;s/ $//g;s/^ //g;s/\/.*//g"`
      local branch=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
      if echo $branch | grep -q "(" ; then 
           branch=""
      fi
-     git clean -df > /dev/null
+     
+     if [ "$mode" = "keep" ]; then
+          git clean -f > /dev/null
+     else
+          git clean -df > /dev/null
+     fi
+
      git stash > /dev/null
 #     if [ "$branch" = "" ]; then
 #          git rebase -f >/dev/null
@@ -234,8 +251,7 @@ if [ "$mode" = "r" ]; then
      resetProject build
      resetProject device/motorola/edison
      resetProject device/motorola/omap4-common
-     resetProject vendor/cm
-     resetProject vendor/motorola
+     resetProject -keep vendor/cm
      resetProject system/core
      resetProject frameworks/base
      resetProject frameworks/native
