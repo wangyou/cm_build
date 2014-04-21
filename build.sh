@@ -254,6 +254,13 @@ fi
 export CM_BUILDTYPE=NIGHTLY
 export CM_EXTRAVERSION=NX111
 
+if [ ! -f $basedir/Makefile ]; then
+    echo "include build/core/main.mk" > $basedir/Makefile
+elif ! grep -q "build/core/main.mk" $basedir/Makefile; then
+    mv $basedir/Makefile $basedir/Makefile.bak
+    echo "include build/core/main.mk" > $basedir/Makefile
+fi
+
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
 	KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
 	[ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
