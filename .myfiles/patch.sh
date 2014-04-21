@@ -145,7 +145,7 @@ resetProject()
      if echo $branch | grep -q "(" ; then 
           branch=""
      fi
-     git clean -f > /dev/null
+     git clean -df > /dev/null
      git stash > /dev/null
 #     if [ "$branch" = "" ]; then
 #          git rebase -f >/dev/null
