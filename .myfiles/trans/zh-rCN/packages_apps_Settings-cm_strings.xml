@@ -362,6 +362,8 @@
   <string name="build_date">编译日期</string>
   <string name="cpu_info">处理器</string>
   <string name="mem_info">内存</string>
+  <string name="phone_service_state">语音:<ns0:g id="voice_state">%1$s</ns0:g>, 数据: <ns0:g id="data_state">%2$s</ns0:g>
+  </string>
   <string name="anonymous_statistics_title">CyanogenMod 统计</string>
   <string name="anonymous_statistics_summary">开启匿名统计报告以便帮助 CyanogenMod 未来向更好的方向发展</string>
   <string name="anonymous_statistics_warning_title">关于统计</string>
