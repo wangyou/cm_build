@@ -195,6 +195,10 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 	source build/envsetup.sh > /dev/null
    	lunch cm_$device-userdebug >/dev/null
 fi
+if [ "$device" != "$lastDevice" -o "$opKernel" != "$lastOpKernel" ]; then
+	export USE_CCACHE=
+	rm -rf ~/.ccache
+fi
 
 [ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`

@@ -360,8 +360,6 @@ if [ "$device" != "mb526" ]; then
                 -e "s/# CONFIG_MAPPHONE_EDISON is not set/CONFIG_MAPPHONE_EDISON=y/g" \
                 -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
                 -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
-                -e "s/^CONFIG_OMAP_SMARTREFLEX_CUSTOM_SENSOR=y/# CONFIG_OMAP_SMARTREFLEX_CUSTOM_SENSOR is not set/g" \
-                -e "s/^CONFIG_OMAP_OCFREQ_12=y/# CONFIG_OMAP_OCFREQ_12 is not set/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
          elif [ "$device" = "targa" ]; then
             sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
@@ -444,6 +442,9 @@ fi
 
 [ "$mode" = "kbranch" ] && exit
 
+## Not use ccache
+#sed -e "s/ifneq (\$(USE_CCACHE),)/ifneq (\$(USE_CCACHE),\$(USE_CCACHE))/g" -i $basedir/build/core/tasks/kernel.mk
+
 #### LOG for KERNEL ##########
 sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/system/core/include/cutils/klog.h
 
@@ -499,6 +500,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
          cd $rdir
       fi
    fi
+
 
 ###  fix for compile error ##########
 
