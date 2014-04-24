@@ -204,14 +204,16 @@ fi
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 if [ "${opKernel:0:1}" = "j" ]; then
-    export kernel_config=mapphone_OCE_defconfig
+    kernel_config=mapphone_OCE_defconfig
     if [ "$device" = "edison" ]; then
-	export kernel_config=mapphone_OCEdison_defconfig
+	kernel_config=mapphone_OCEdison_defconfig
     elif [ "$device" = "targa" ]; then
-	export kernel_config=mapphone_OCETarga_defconfig
+	kernel_config=mapphone_OCETarga_defconfig
     elif [ "$device" != "mb526" ]; then
-	export kernel_config=mapphone_OCE_defconfig
+	kernel_config=mapphone_OCE_defconfig
     fi
+else
+	kernel_config=mapphone_mmi_defconfig
 fi
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then

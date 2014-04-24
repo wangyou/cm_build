@@ -350,16 +350,26 @@ if [ "$device" != "mb526" ]; then
      fi
   fi
 
+  if [ "${opKernel:0:1}" = "j" ]; then
+      kernel_config=mapphone_OCE_defconfig
+      if [ "$device" = "edison" ]; then
+	  kernel_config=mapphone_OCEdison_defconfig
+      elif [ "$device" = "targa" ]; then
+	  kernel_config=mapphone_OCETarga_defconfig
+      elif [ "$device" != "mb526" ]; then
+	  kernel_config=mapphone_OCE_defconfig
+      fi
+  else
+	kernel_config=mapphone_mmi_defconfig
+  fi
+
   if [ "${opKernel:0:1}" = "j" ] && [ "$mode" != "kbranch" ] ; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
 
-     [ "${kernel_config}" = "" ] && kernel_config=mapphone_OCE_defconfig
      if  [ -f $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} ] ; then
          if [ "$device" = "edison" ]; then
             sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
                 -e "s/# CONFIG_MAPPHONE_EDISON is not set/CONFIG_MAPPHONE_EDISON=y/g" \
-                -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
-                -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
 #            sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
 #                -e "s/^CONFIG_OMAP_SMARTREFLEX_CUSTOM_SENSOR=y/# CONFIG_OMAP_SMARTREFLEX_CUSTOM_SENSOR is not set/g" \
@@ -367,13 +377,9 @@ if [ "$device" != "mb526" ]; then
          elif [ "$device" = "targa" ]; then
             sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
                 -e "s/# CONFIG_MAPPHONE_TARGA is not set/CONFIG_MAPPHONE_TARGA=y/g" \
-                -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
-                -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
          else
             sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} \
-                -e "s/CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE=y/# CONFIG_CPU_FREQ_DEFAULT_GOV_KTOONSERVATIVE is not set/g" \
-                -e "s/# CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX is not set/CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVEX=y/g" \
                 -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
          fi
      fi
