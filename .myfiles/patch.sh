@@ -83,7 +83,7 @@ addBranch()
       if [ _$3 = _checkout ]; then
           if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
               git stash >/dev/null
-              git checkout $2 >/dev/null
+              git checkout $2 >/dev/null 2>/dev/null
           fi
      fi 
 
@@ -101,7 +101,7 @@ checkoutBranch()
 
      if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
           git stash >/dev/null
-          git checkout -f $2 >/dev/null
+          git checkout -f $2 >/dev/null 2>/dev/null
      fi
      cd $curdir
 }
@@ -344,9 +344,9 @@ if [ "$device" != "mb526" ]; then
   elif [ $kernelUpdate -eq 2 ] ; then
      repo sync  .
      if [ $opKernel = "cm" ]; then
-     git pull cm $kbranch
+         git pull cm $kbranch
      elif echo $kbranch | grep -q JBX ; then
-     git pull jbx $kbranch
+         git pull jbx $kbranch
      fi
   fi
 

@@ -29,8 +29,20 @@ fontresload( "1", "ttf/Roboto-Regular.ttf;ttf/DroidSansFallback.ttf;", "14" ); #
 
 # ICS Theme
 theme("ics");
+menubox(
+   "Kernel Installer",
+   "Please select menu below to start Installer",
+   "@update",
+   "menu.prop",
+  #-------------------------+-----------------[ Menubox Items ]-------------------------+---------------#
+  # TITLE                   |  SUBTITLE                                                 |   Item Icons  #
+  #-------------------------+-----------------------------------------------------------+---------------#
+   "Install/backup",       "Install new kernel or backup old kernel",                 "@update",     #-- selected = 1   
+   "Restore",              "Restore kernel backuped in /ext/kernel_backup",           "@install"     #-- selected = 2   
+ );
 
-checkbox(
+if prop("menu.prop","selected")=="1" then
+    checkbox(
 	      "Installation Option",
 	      "Select your preferred option(s)",
 	      "@update",
@@ -39,24 +51,29 @@ checkbox(
 		#-- Group 1. key = "item.1"
 		"Kernel",			"",		2,	
 				#-- item.1.1 = 1								
-		"Install Kernel", 		"Install the Kernel experience for Motorola phones! (DO NOT SELECT HIS IF YOU WANT TO RESTORE YOUR OLD KERNEL!!)",1,	
-				#-- item.1.2 = 1
-		"Backup  kernel",       "UNPLUG USB CABLE!!! Select this option to backup your current installed Kernel. It will create a backup folder on your sdcard.",1,	
-				#-- item.1.3 = 0
-		"Restore kernel",      	"Select this option to restore your prior kernel (Must have an exisitng backup)",0
-);
+		"Install Kernel", 		"Install the Kernel experience for Motorola phones!",    1,	    #-- item.1.2 = 1
+		"Backup  kernel",       "UNPLUG USB CABLE!!! Select this option to backup your current installed Kernel. It will create a backup folder on your sdcard.",   1
+     );
 
+     ini_set("text_next", "Install now");
+     viewbox(
+         "Ready to install",
+         "You are now ready to begin installation.\n\n"+
+         "Press <b>Install now</b> to start.\n\n"+
+         "If you want to review or change any of your installation settings, press <b>Back</b>.",
+         "@install"
+     );
+else
+     ini_set("text_next", "Restore Now");
+     viewbox(
+         "Ready to Restore",
+         "You are now ready to begin Restore.\n\n"+
+         "Press <b>Restore Now</b> to start.\n\n"+
+         "If you want to review or change any of your installation settings, press <b>Back</b>.",
+         "@install"
+     );
 
-# Installation
-
-ini_set("text_next", "Install now");
-viewbox(
-    "Ready to install",
-    "You are now ready to begin installation.\n\n"+
-    "Press <b>Install now</b> to start.\n\n"+
-    "If you want to review or change any of your installation settings, press <b>Back</b>.",
-    "@install"
-);
+endif;
 
 ini_set("text_next", "Finish");
 install(
