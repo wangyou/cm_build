@@ -865,4 +865,5 @@
   <string name="voice_wakeup_retrain_title">训练语音</string>
   <string name="voice_wakeup_activity_title">激活运行</string>
   <string name="voice_wakeup_default_activity">Google Now</string>
+  <string name="sub_no_sim">无SIM卡</string>
 </resources>
