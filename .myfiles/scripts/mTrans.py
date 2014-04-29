@@ -194,7 +194,7 @@ def mTrans(xmlfile,xmldict,xmlout):
            if child_of_root.attrib.has_key("translatable") and (child_of_root.attrib['translatable'] == 'false') or child_of_root.attrib.has_key("translate") and (child_of_root.attrib['translate'] == 'false'):
                root.remove(child_of_root)
                continue
-           if not child_of_root.text is None and (not child_of_root.text == "") and (not child_of_root.text.strip() == "") and child_of_root.text.strip()[0] == '@':
+           if child_of_root.text is None or (not child_of_root.text is None and (not child_of_root.text == "") and (not child_of_root.text.strip() == "") and child_of_root.text.strip()[0] == '@'):
                root.remove(child_of_root)
                continue
 
