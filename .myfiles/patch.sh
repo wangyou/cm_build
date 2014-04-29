@@ -473,13 +473,13 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
 ####some patchs###########
 
-   sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
+#   sed -e "s/if (selinux_check_access(sctx, tctx, class, perm, name) == 0)/if (selinux_check_access(sctx, tctx, class, perm, (void*)name) == 0)/" -i $basedir/system/core/init/property_service.c
 
-   if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
-       cd $basedir/frameworks/base
-       patch -N -p1 < $rdir/patchs/fileutils.diff
-       cd $rdir
-   fi 
+#   if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
+#       cd $basedir/frameworks/base
+#       patch -N -p1 < $rdir/patchs/fileutils.diff
+#       cd $rdir
+#   fi 
 
    ##fix for battery charging over 100%
    if ! grep -q "batteryLevel = mbatteryLevel > 100 ? 100 : mbatteryLevel;" \
