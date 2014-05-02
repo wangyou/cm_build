@@ -273,10 +273,6 @@
   <string name="auto_brightness_twilight_adjustment">根据日光或灯光调节亮度</string>
   <string name="light_sensor_current_value">目前光线传感器值：<ns0:g id="light_level">%d</ns0:g> lux</string>
   <string name="auto_brightness_dialog_title">自动亮度级别</string>
-  <string name="auto_brightness_level_format">
-    <ns0:g id="level">%1$d</ns0:g> lux</string>
-  <string name="auto_brightness_last_level_format">
-    <ns0:g id="level">%1$d</ns0:g> -\n\u221e lux</string>
   <string name="auto_brightness_adjust_button">调整</string>
   <string name="auto_brightness_close_button">关闭</string>
   <string name="auto_brightness_reset_button">重置</string>
@@ -294,30 +290,6 @@
   <string name="auto_brightness_preview">预览</string>
   <string name="auto_brightness_preview_dialog_title">亮度曲线</string>
   <string name="auto_brightness_help_dialog_title">帮助</string>
-  <string name="auto_brightness_help_text">
-    <b>亮度是怎么被计算的？</b>
-\n\n
-亮度曲线是通过在选定的<i>控制点</i>上进行<i>三次样条插
-值</i>而计算出的。这并不是一个设定了环境亮度范围内，屏
-幕亮度就不会改变的计算方式。通过这种特殊方式，环境亮度
-的细微变化将不会导致屏幕亮度的大幅度改变。由于改变控制
-点会导致的结果是难以预测的，我们为您提供了一个计算后的
-曲线预览。\n
-请注意：为了能够清晰的显示各个控制点，预览是使用<i>对数
-刻度</i>绘制的。如果使用的是线性刻度，您将无法明确地区
-分各个控制点，特别是处于范围底部的。
-\n\n
-<b>应该如何去编辑亮度曲线呢？</b>
-\n\n
-在亮度列表里的每一行都对应着一个在亮度曲线上的<i>控制
-点</i>。您可以通过各行的滑块来调整每个点的亮度级别。触
-摸滑块时屏幕的亮度也会做出相应的改变，作为一个亮度级别
-的预览。
-\n
-长按任何一行将显示更多的选项。选择 \'编辑\' 将让您编辑环境亮
-度级别并手动输入所需的屏幕亮度。选择 \'分离\' 将让您把一行分
-离为两行并同时加入更多的控制点。选择 \'移除\' 将移除所选行。
-    </string>
   <string name="auto_brightness_sensitivity_title">调整敏感度</string>
   <string name="auto_brightness_sensitivity_verylow">非常低</string>
   <string name="auto_brightness_sensitivity_low">低</string>
@@ -422,6 +394,7 @@
   <string name="changelog_error">无法读取更改记录</string>
   <string name="changelog_unknown">未知</string>
   <string name="changelog_version">版本</string>
+  <string name="contributor_cloud_title">查看贡献者</string>
   <string name="cmupdate_settings_title">CyanogenMod 更新</string>
   <string name="cmupdate_settings_summary">检查、查看或安装可用的更新</string>
   <string name="advanced_settings_title">高级</string>
@@ -834,8 +807,6 @@
   <string name="app_ops_categories_media">媒体</string>
   <string name="app_ops_categories_device">设备</string>
   <string name="app_ops_categories_bootup">启动</string>
-  <string name="app_ops_entry_summary">
-    <ns0:g id="op">%1$s</ns0:g> (已使用 <ns0:g id="count">%2$s</ns0:g>)</string>
   <string name="app_ops_allowed_count">允许<ns0:g example="2 times" id="count">%s</ns0:g>
   </string>
   <string name="app_ops_ignored_count">拒绝<ns0:g example="2 times" id="count">%s</ns0:g>

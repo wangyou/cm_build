@@ -139,8 +139,6 @@
   <string name="search_voice_hint">说出您的搜索内容</string>
   <string name="search_error_msg">搜索时发生了错误. 未找到任何结果.</string>
   <string name="search_no_results_msg">未找到任何结果.</string>
-  <string name="search_found_items_in_directory">在<ns0:g id="path">%2$s</ns0:g> 内<ns0:g id="items">%1$s</ns0:g>
-  </string>
   <string name="search_terms">&lt;b&gt;关键词:&lt;/b&gt;<ns0:g id="terms">%1$s</ns0:g>
   </string>
   <string name="search_few_characters_title">确认搜索</string>
@@ -178,12 +176,6 @@
   <string name="menu_no_suggestions">没有建议</string>
   <string name="menu_word_wrap">自动换行</string>
   <string name="menu_syntax_highlight">语法高亮</string>
-  <string name="create_copy_regexp">
-    <ns0:g id="name">%1$s</ns0:g> - 副本<ns0:g id="extension">%2$s</ns0:g>
-  </string>
-  <string name="create_new_compress_file_regexp">
-    <ns0:g id="name">%1$s</ns0:g> - 新建<ns0:g id="extension">%2$s</ns0:g>
-  </string>
   <string name="waiting_dialog_msg">正在执行操作\u2026</string>
   <string name="waiting_dialog_copying_title">正在复制\u2026</string>
   <string name="waiting_dialog_copying_msg">&lt;b&gt;从&lt;/b&gt;<ns0:g id="from">%1$s</ns0:g>&lt;br/&gt;
@@ -252,8 +244,6 @@
   <string name="execution_console_script_name_label">脚本:</string>
   <string name="execution_console_script_execution_time_label">时间:</string>
   <string name="execution_console_script_exitcode_label">退出代码:</string>
-  <string name="execution_console_script_execution_time_text">
-    <ns0:g id="seconds">%1$s</ns0:g> 秒</string>
   <string name="compute_checksum_title">计算检验和</string>
   <string name="compute_checksum_filename_label">文件:</string>
   <string name="compute_checksum_computing_checksum_msg">正在计算检验和\u2026</string>
@@ -265,7 +255,6 @@
   <string name="filetime_format_mode_ddMMyyyy_HHmmss">日/月/年 时:分:秒</string>
   <string name="filetime_format_mode_MMddyyyy_HHmmss">月/日/年 时:分:秒</string>
   <string name="filetime_format_mode_yyyyMMdd_HHmmss">年-月-日 时:分:秒</string>
-  <string name="selection_folders_and_files">已选择<ns0:g id="folders">%1$s</ns0:g> 个文件夹和 <ns0:g id="files">%2$s</ns0:g> 个文件.</string>
   <string name="category_system">系统</string>
   <string name="category_app">程序</string>
   <string name="category_binary">二进制</string>

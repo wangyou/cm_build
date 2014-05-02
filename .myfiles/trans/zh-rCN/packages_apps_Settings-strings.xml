@@ -123,7 +123,6 @@
   <string name="bluetooth_disconnected">已断开连接</string>
   <string name="bluetooth_disconnecting">正在断开连接...</string>
   <string name="bluetooth_connecting">正在连接...</string>
-  <string name="bluetooth_unknown" />
   <string name="bluetooth_pairing">正在配对...</string>
   <string name="bluetooth_device">未命名的蓝牙设备</string>
   <string name="progress_scanning">正在搜索</string>
@@ -157,19 +156,11 @@
   <string name="bluetooth_map_acceptance_dialog_text">“%1$s”想要查看您的消息。要向“%2$s”授予权限吗？</string>
   <string name="date_and_time">日期和时间设置</string>
   <string name="choose_timezone">选择时区</string>
-  <string name="default_date_format">
-    <ns0:g id="default_date_format">MM/dd/yyyy</ns0:g>
-  </string>
   <string name="normal_date_format">"所在区域 (<ns0:g id="DATE">%s</ns0:g>)"</string>
   <string name="display_preview_label">预览:</string>
   <string name="display_font_size_label">字号：</string>
-  <string name="intent_sender_data_label">
-    <ns0:g id="data">数据:</ns0:g>
-  </string>
   <string name="intent_sender_sendbroadcast_text">"发送<ns0:g id="BROADCAST">广播</ns0:g>"</string>
-  <string name="intent_sender_action_label"><ns0:g id="ACTION">动作</ns0:g>:"</string>
   <string name="intent_sender_startactivity_text">"启动<ns0:g id="ACTIVITY">活动</ns0:g>"</string>
-  <string name="intent_sender_resource_label"><ns0:g id="RESOURCE">资源</ns0:g>:"</string>
   <string name="intent_sender_account_label">帐户:</string>
   <string name="proxy_settings_title">代理</string>
   <string name="proxy_clear_text">清除</string>
@@ -297,12 +288,10 @@
   <string name="biometric_weak_liveliness_title">真人判断</string>
   <string name="biometric_weak_liveliness_summary">解锁时需要眨眼</string>
   <string name="lock_after_timeout">自动锁定</string>
-  <string name="lock_after_timeout_summary">"休眠<ns0:g id="TIMEOUT_STRING">%1$s</ns0:g>后"</string>
   <string name="show_owner_info_on_lockscreen_label">在锁定屏幕上显示机主信息</string>
   <string name="owner_info_settings_title">机主信息</string>
   <string name="security_enable_widgets_title">启用小部件</string>
   <string name="security_enable_widgets_disabled_summary">已被管理员停用</string>
-  <string name="owner_info_settings_summary" />
   <string name="owner_info_settings_edit_text_hint">输入要在锁定屏幕上显示的文字</string>
   <string name="show_user_info_on_lockscreen_label">在锁定屏幕上显示用户信息</string>
   <string name="user_info_settings_title">用户信息</string>
@@ -347,7 +336,6 @@
   <string name="unlock_set_unlock_launch_picker_enable_summary">选择锁定屏幕的方法</string>
   <string name="unlock_backup_info_summary">当人脸解锁识别不出您时，您希望如何解锁？</string>
   <string name="unlock_set_unlock_off_title">无</string>
-  <string name="unlock_set_unlock_off_summary" />
   <string name="unlock_set_unlock_none_title">滑动</string>
   <string name="unlock_set_unlock_none_summary">无安全措施</string>
   <string name="unlock_set_unlock_biometric_weak_title">人脸解锁</string>
@@ -452,7 +440,6 @@
     <ns0:g id="END_BOLD2">&lt;/b&gt;</ns0:g>，然后按回车键。"</string>
   <string name="bluetooth_pairing_accept">配对</string>
   <string name="bluetooth_pairing_decline">取消</string>
-  <string name="bluetooth_error_title" />
   <string name="bluetooth_pairing_error_message">"无法与“<ns0:g id="DEVICE_NAME">%1$s</ns0:g>”进行配对。"</string>
   <string name="bluetooth_pairing_pin_error_message">"PIN 或配对密钥不正确，无法与“<ns0:g id="DEVICE_NAME">%1$s</ns0:g>”配对。"</string>
   <string name="bluetooth_pairing_device_down_error_message">"无法与“<ns0:g id="DEVICE_NAME">%1$s</ns0:g>”进行通信。"</string>
@@ -483,12 +470,7 @@
   <string name="bluetooth_profile_map">消息权限</string>
   <string name="bluetooth_profile_sap">SIM访问</string>
   <string name="bluetooth_profile_dun">拨号网络访问</string>
-  <string name="bluetooth_disconnect_a2dp_profile"><ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与媒体音频断开连接。"</string>
-  <string name="bluetooth_disconnect_headset_profile"><ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与免提音频断开连接。"</string>
-  <string name="bluetooth_disconnect_hid_profile"><ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与输入设备断开连接。"</string>
   <string name="bluetooth_disconnect_pan_user_profile">"将断开<ns0:g id="DEVICE_NAME">%1$s</ns0:g> 的互联网访问。"</string>
-  <string name="bluetooth_disconnect_pan_nap_profile" product="tablet"><ns0:g id="DEVICE_NAME">%1$s</ns0:g> 将断开而不再共享该平板电脑的互联网连接。"</string>
-  <string name="bluetooth_disconnect_pan_nap_profile" product="default"><ns0:g id="DEVICE_NAME">%1$s</ns0:g> 将断开而不再共享该手机的互联网连接。"</string>
   <string name="bluetooth_device_advanced_title">已配对的蓝牙设备</string>
   <string name="bluetooth_device_advanced_online_mode_title">连接</string>
   <string name="bluetooth_device_advanced_online_mode_summary">连接到蓝牙设备</string>
@@ -694,8 +676,6 @@
   <string name="wifi_tether_enabled_subtext">"便携式热点<ns0:g id="NETWORK_SSID">%1$s</ns0:g> 已启用"</string>
   <string name="wifi_tether_failed_subtext">便携式 WLAN 热点错误</string>
   <string name="wifi_tether_configure_ap_text">设置 WLAN 热点</string>
-  <string name="wifi_tether_configure_subtext"><ns0:g id="NETWORK_SSID">%1$s</ns0:g>
-    <ns0:g id="NETWORK_SECURITY">%2$s</ns0:g>便携式 WLAN 热点"</string>
   <string name="wifi_tether_configure_ssid_default">Android 热点</string>
   <string name="home_settings">主屏幕</string>
   <string name="display_settings_title">显示</string>
@@ -871,8 +851,6 @@
   <string name="sd_insert_summary" product="default">插入要挂载的SD卡</string>
   <string name="sd_mount" product="nosdcard">装载 USB 存储设备</string>
   <string name="sd_mount" product="default">挂载SD卡</string>
-  <string name="sd_mount_summary" product="nosdcard" />
-  <string name="sd_mount_summary" product="default" />
   <string name="sd_format" product="nosdcard">格式化 USB 存储设备</string>
   <string name="sd_format" product="default">格式化SD卡</string>
   <string name="sd_format_summary" product="nosdcard">清除内部 USB 存储设备中的全部数据，例如音乐和照片</string>
@@ -884,8 +862,6 @@
   <string name="dlg_confirm_unmount_title" product="default">要卸载SD卡吗?</string>
   <string name="dlg_confirm_unmount_text" product="nosdcard">如果卸载该 USB 存储设备，您当前使用的某些应用会停止运行，并且在您重新装载该设备前可能都无法使用。</string>
   <string name="dlg_confirm_unmount_text" product="default">I"如果卸载该 SD卡，您当前使用的某些应用会停止运行，并且在您重新装载该设备前可能都无法使用。"</string>
-  <string name="dlg_error_unmount_title" product="nosdcard" />
-  <string name="dlg_error_unmount_title" product="default" />
   <string name="dlg_error_unmount_text" product="nosdcard">无法卸载 USB 存储设备，请稍后重试。</string>
   <string name="dlg_error_unmount_text" product="default">无法卸载 SD卡，请稍后重试。</string>
   <string name="unmount_inform_text" product="nosdcard">系统将会卸载 USB 存储设备。</string>
@@ -938,7 +914,6 @@
   <string name="menu_new">新建 APN</string>
   <string name="menu_save">保存</string>
   <string name="menu_cancel">放弃</string>
-  <string name="error_title" />
   <string name="error_name_empty">“名称”字段不能为空。</string>
   <string name="error_apn_empty">APN 不能为空。</string>
   <string name="error_mcc_not3">MCC 字段必须为 3 位数。</string>
@@ -1010,7 +985,6 @@
   <string name="bluetooth_tethering_off_subtext" product="default">不共享该手机的互联网连接</string>
   <string name="bluetooth_tethering_errored_subtext">未共享网络</string>
   <string name="bluetooth_tethering_overflow_error">"无法与<ns0:g id="MAXCONNECTION">%1$d</ns0:g> 台以上的设备共享网络。"</string>
-  <string name="bluetooth_untether_blank">"即将断开与<ns0:g id="DEVICE_NAME">%1$s</ns0:g>的网络共享。"</string>
   <string name="tethering_help_button_text">帮助</string>
   <string name="network_settings_title">移动网络</string>
   <string name="manage_mobile_plan_title">手机套餐</string>
@@ -1084,9 +1058,7 @@
   <string name="lockpattern_change_lock_pattern_label">更改解锁图案</string>
   <string name="lockpattern_change_lock_pin_label">更改解锁 PIN</string>
   <string name="lockpattern_need_to_unlock">确认已保存的图案</string>
-  <string name="lockpattern_need_to_unlock_footer" />
   <string name="lockpattern_need_to_unlock_wrong">请重试：</string>
-  <string name="lockpattern_need_to_unlock_wrong_footer" />
   <string name="lockpattern_recording_intro_header">绘制解锁图案</string>
   <string name="lockpattern_recording_intro_footer">按 MENU 获得帮助。</string>
   <string name="lockpattern_recording_inprogress">完成后松开手指</string>
@@ -1183,7 +1155,6 @@
   <string name="clear_data_dlg_text">系统会永久删除此应用的所有数据。删除的内容包括所有文件、设置、帐户、数据库等。</string>
   <string name="dlg_ok">确定</string>
   <string name="dlg_cancel">取消</string>
-  <string name="app_not_found_dlg_title" />
   <string name="app_not_found_dlg_text">在已安装应用的列表中找不到该应用。</string>
   <string name="clear_data_failed">无法清除应用数据。</string>
   <string name="app_factory_reset_dlg_title">要卸载更新吗？</string>
@@ -1194,10 +1165,6 @@
   <string name="security_settings_desc" product="default">此应用有权访问您手机上的以下内容：</string>
   <string name="security_settings_desc_multi" product="tablet">"此应用可访问您平板电脑上的以下内容。为了提高性能和减少内存使用量，<ns0:g id="BASE_APP_NAME">%1$s</ns0:g>可获得其中的部分权限，因为它与<ns0:g id="ADDITIONAL_APPS_LIST">%2$s</ns0:g>运行在同一进程中。"</string>
   <string name="security_settings_desc_multi" product="default">"此应用可访问您手机上的以下内容。为了提高性能和减少内存使用量，<ns0:g id="BASE_APP_NAME">%1$s</ns0:g>可获得其中的部分权限，因为它与<ns0:g id="ADDITIONAL_APPS_LIST">%2$s</ns0:g>运行在同一进程中。"</string>
-  <string name="join_two_items"><ns0:g id="FIRST_ITEM">%1$s</ns0:g>和<ns0:g id="SECOND_ITEM">%2$s</ns0:g>"</string>
-  <string name="join_many_items_last"><ns0:g id="ALL_BUT_LAST_ITEM">%1$s</ns0:g>和<ns0:g id="LAST_ITEM_0">%2$s</ns0:g>"</string>
-  <string name="join_many_items_first"><ns0:g id="FIRST_ITEM">%1$s</ns0:g>、<ns0:g id="ALL_BUT_FIRST_AND_LAST_ITEM">%2$s</ns0:g>"</string>
-  <string name="join_many_items_middle"><ns0:g id="ADDED_ITEM">%1$s</ns0:g>、<ns0:g id="REST_OF_ITEMS">%2$s</ns0:g>"</string>
   <string name="security_settings_billing_desc">使用此应用可能会产生费用：</string>
   <string name="security_settings_premium_sms_desc">发送付费短信</string>
   <string name="computing_size">正在计算...</string>
@@ -1217,7 +1184,6 @@
   <string name="system_package">无法在外部介质上安装系统更新。</string>
   <string name="force_stop_dlg_title">要强行停止吗？</string>
   <string name="force_stop_dlg_text">强行停止某个应用可能会导致其出现异常。</string>
-  <string name="move_app_failed_dlg_title" />
   <string name="move_app_failed_dlg_text">"无法移动应用。<ns0:g id="REASON">%1$s</ns0:g>"</string>
   <string name="app_install_location_title">首选安装位置</string>
   <string name="app_install_location_summary">更改安装新应用时使用的首选安装位置</string>
@@ -1238,21 +1204,9 @@
   <string name="cached">缓存的后台进程</string>
   <string name="no_running_services">当前未运行任何服务。</string>
   <string name="service_started_by_app">已由应用启动。</string>
-  <string name="service_client_name">
-    <ns0:g id="client_name">%1$s</ns0:g>
-  </string>
-  <string name="service_background_processes">"可用：<ns0:g id="MEMORY">%1$s</ns0:g>"</string>
-  <string name="service_foreground_processes">"已用：<ns0:g id="MEMORY">%1$s</ns0:g>"</string>
   <string name="memory">RAM</string>
-  <string name="service_process_name">
-    <ns0:g id="process">%1$s</ns0:g>
-  </string>
   <string name="running_process_item_user_label">"用户：<ns0:g id="USER_NAME">%1$s</ns0:g>"</string>
   <string name="running_process_item_removed_user_label">已删除用户</string>
-  <string name="running_processes_item_description_s_s"><ns0:g id="NUMPROCESS">%1$d</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">%2$d</ns0:g> 个服务"</string>
-  <string name="running_processes_item_description_s_p"><ns0:g id="NUMPROCESS">%1$d</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">%2$d</ns0:g> 个服务"</string>
-  <string name="running_processes_item_description_p_s"><ns0:g id="NUMPROCESS">%1$d</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">%2$d</ns0:g> 个服务"</string>
-  <string name="running_processes_item_description_p_p"><ns0:g id="NUMPROCESS">%1$d</ns0:g> 个进程和 <ns0:g id="NUMSERVICES">%2$d</ns0:g> 个服务"</string>
   <string name="runningservicedetails_settings_title">正在运行的应用</string>
   <string name="no_services">无活动服务</string>
   <string name="runningservicedetails_services_title">服务</string>
@@ -1262,7 +1216,6 @@
   <string name="service_stop_description">此服务由其应用启动。停止服务可能会导致应用无法运行。</string>
   <string name="heavy_weight_stop_description">无法安全地停止该应用。如果强行停止，可能会导致您目前的部分工作内容丢失。</string>
   <string name="background_process_stop_description">这是旧应用进程，仍在运行，以备不时之需。通常不建议停止。</string>
-  <string name="service_manage_description">"目前正在使用“<ns0:g id="CLIENT_NAME">%1$s</ns0:g>”。触摸“设置”可以对其进行控制。"</string>
   <string name="main_running_process_description">正在使用的主要进程。</string>
   <string name="process_service_in_use_description">"正在使用服务<ns0:g id="COMP_NAME">%1$s</ns0:g>。"</string>
   <string name="process_provider_in_use_description">"正在使用提供商<ns0:g id="COMP_NAME">%1$s</ns0:g>。"</string>
@@ -1345,7 +1298,6 @@
   <string name="input_method_settings_button">设置</string>
   <string name="active_input_method_subtypes">有效的输入法</string>
   <string name="use_system_language_to_select_input_method_subtypes">使用系统语言</string>
-  <string name="input_methods_settings_label_format"><ns0:g id="IME_NAME">%1$s</ns0:g> 设置"</string>
   <string name="input_methods_and_subtype_enabler_title">选择有效的输入法</string>
   <string name="onscreen_keyboard_settings_summary">屏幕键盘设置</string>
   <string name="builtin_keyboard_settings_title">物理键盘</string>
@@ -1393,13 +1345,6 @@
   <string name="allow_bind_app_widget_activity_allow_bind_title">是否允许该应用创建小部件并查看其数据？</string>
   <string name="allow_bind_app_widget_activity_allow_bind">"当您创建小部件后，“<ns0:g id="WIDGET_HOST_NAME">%1$s</ns0:g>”将能查看其显示的所有数据。"</string>
   <string name="allow_bind_app_widget_activity_always_allow_bind">"始终允许“<ns0:g id="WIDGET_HOST_NAME">%1$s</ns0:g>”创建小部件并查看其数据"</string>
-  <string name="battery_history_days"><ns0:g id="DAYS">%1$d</ns0:g> 天 <ns0:g id="HOURS">%2$d</ns0:g> 小时 <ns0:g id="MINUTES">%3$d</ns0:g> 分 <ns0:g id="SECONDS">%4$d</ns0:g> 秒"</string>
-  <string name="battery_history_hours"><ns0:g id="HOURS">%1$d</ns0:g> 小时 <ns0:g id="MINUTES">%2$d</ns0:g> 分 <ns0:g id="SECONDS">%3$d</ns0:g> 秒"</string>
-  <string name="battery_history_minutes"><ns0:g id="MINUTES">%1$d</ns0:g> 分 <ns0:g id="SECONDS">%2$d</ns0:g> 秒"</string>
-  <string name="battery_history_seconds"><ns0:g id="SECONDS">%1$d</ns0:g> 秒"</string>
-  <string name="battery_history_days_no_seconds"><ns0:g id="DAYS">%1$d</ns0:g>天<ns0:g id="HOURS">%2$d</ns0:g>小时<ns0:g id="MINUTES">%3$d</ns0:g>分钟"</string>
-  <string name="battery_history_hours_no_seconds"><ns0:g id="HOURS">%1$d</ns0:g>小时<ns0:g id="MINUTES">%2$d</ns0:g>分钟"</string>
-  <string name="battery_history_minutes_no_seconds"><ns0:g id="MINUTES">%1$d</ns0:g>分钟"</string>
   <string name="usage_stats_label">使用情况统计数据</string>
   <string name="testing_usage_stats">使用情况统计数据</string>
   <string name="display_order_text">排序方式：</string>
@@ -1454,7 +1399,6 @@
   <string name="color_yellow">黄色</string>
   <string name="color_magenta">紫红色</string>
   <string name="enable_service_title">"要启用<ns0:g id="SERVICE">%1$s</ns0:g>吗？"</string>
-  <string name="capabilities_list_title"><ns0:g id="SERVICE">%1$s</ns0:g>需要："</string>
   <string name="capability_title_receiveAccessibilityEvents">监测您的操作</string>
   <string name="capability_desc_receiveAccessibilityEvents">在您与应用互动时接收通知。</string>
   <string name="disable_service_title">"要停用<ns0:g id="SERVICE">%1$s</ns0:g>吗？"</string>
@@ -1483,7 +1427,6 @@
   <string name="print_print_job">打印作业</string>
   <string name="print_restart">重新开始</string>
   <string name="print_cancel">取消</string>
-  <string name="print_job_summary"><ns0:g id="PRINTER">%1$s</ns0:g>\n<ns0:g id="TIME">%2$s</ns0:g>"</string>
   <string name="print_printing_state_title_template">"正在打印“<ns0:g id="PRINT_JOB_NAME">%1$s</ns0:g>”"</string>
   <string name="print_cancelling_state_title_template">"正在取消打印“<ns0:g id="PRINT_JOB_NAME">%1$s</ns0:g>”"</string>
   <string name="print_failed_state_title_template">"打印机在打印“<ns0:g id="PRINT_JOB_NAME">%1$s</ns0:g>”时出错"</string>
@@ -1497,11 +1440,8 @@
   <string name="power_usage_summary_title">电池</string>
   <string name="power_usage_summary">耗电情况</string>
   <string name="power_usage_not_available">无法获取电池使用数据。</string>
-  <string name="power_usage_level_and_status"><ns0:g id="LEVEL">%1$s</ns0:g> - <ns0:g id="STATUS">%2$s</ns0:g>"</string>
   <string name="battery_since_unplugged">拔下电源后的电量消耗情况</string>
   <string name="battery_since_reset">重置后的电量消耗情况</string>
-  <string name="battery_stats_on_battery">"电池已用时间：<ns0:g id="TIME">%1$s</ns0:g>"</string>
-  <string name="battery_stats_duration">"拔下电源后已过<ns0:g id="TIME">%1$s</ns0:g>"</string>
   <string name="battery_stats_charging_label">正在充电</string>
   <string name="battery_stats_screen_on_label">屏幕已开启</string>
   <string name="battery_stats_gps_on_label">GPS 已启用</string>
@@ -1511,8 +1451,6 @@
   <string name="awake">设备唤醒时间</string>
   <string name="wifi_on_time">WLAN 开启时间</string>
   <string name="bluetooth_on_time">WLAN 开启时间</string>
-  <string name="usage_name_percent"><ns0:g id="NAME">%1$s</ns0:g> - <ns0:g id="NUMBER">%2$s</ns0:g>
-    <ns0:g id="PERCENT">%%</ns0:g>"</string>
   <string name="history_details_title">历史记录详细信息</string>
   <string name="details_title">使用详情</string>
   <string name="details_subtitle">详细使用情况</string>
@@ -1563,7 +1501,6 @@
   <string name="battery_sugg_apps_gps">选择“耗电量低”模式</string>
   <string name="battery_sugg_apps_settings">该应用中可能提供了用于减少耗电量的设置</string>
   <string name="battery_desc_users">用户所耗电量</string>
-  <string name="menu_stats_unplugged">"拔下电源后已过<ns0:g id="UNPLUGGED">%1$s</ns0:g>"</string>
   <string name="menu_stats_last_unplugged">"上次拔下电源<ns0:g id="UNPLUGGED">%1$s</ns0:g> 时"</string>
   <string name="menu_stats_total">总使用量</string>
   <string name="menu_stats_refresh">刷新</string>
@@ -1572,7 +1509,6 @@
   <string name="process_stats_summary_title">进程统计信息</string>
   <string name="process_stats_summary">运行中进程的相关技术统计信息</string>
   <string name="app_memory_use">内存用量</string>
-  <string name="process_stats_total_duration"><ns0:g id="TYPE">%1$s</ns0:g>应用<ns0:g id="TIME">%2$s</ns0:g>内的统计信息"</string>
   <string name="process_stats_type_background">后台</string>
   <string name="process_stats_type_foreground">前台</string>
   <string name="process_stats_type_cached">缓存</string>
@@ -1627,14 +1563,8 @@
   <string name="tts_engine_network_required">您必须连接到网络才能使用文字转语音功能输出这种语言。</string>
   <string name="tts_default_sample_string">这是语音合成示例</string>
   <string name="tts_status_title">默认语言状态</string>
-  <string name="tts_status_ok">"完全支持<ns0:g id="LOCALE">%1$s</ns0:g>"</string>
-  <string name="tts_status_requires_network">"只有在连接到网络的情况下，才支持<ns0:g id="LOCALE">%1$s</ns0:g>"</string>
-  <string name="tts_status_not_supported">"不支持<ns0:g id="LOCALE">%1$s</ns0:g>"</string>
   <string name="tts_status_checking">正在检查…</string>
   <string name="tts_engines_section">引擎</string>
-  <string name="tts_engine_name_settings"><ns0:g id="TTS_PLUGIN_ENGINE_NAME">%s</ns0:g>设置"</string>
-  <string name="tts_engine_name_is_enabled_summary">"已启用<ns0:g id="TTS_PLUGIN_ENGINE_NAME">%s</ns0:g>"</string>
-  <string name="tts_engine_name_is_disabled_summary">"未启用<ns0:g id="TTS_PLUGIN_ENGINE_NAME">%s</ns0:g>"</string>
   <string name="tts_engine_settings_section">引擎设置</string>
   <string name="tts_engine_settings_title">"“<ns0:g id="TTS_ENGINE_NAME">%s</ns0:g>”的设置"</string>
   <string name="pico_languages_and_voices">语言和语音</string>
@@ -1650,8 +1580,6 @@
   <string name="gadget_title">电量控制</string>
   <string name="gadget_toggle_wifi">正在更新 WLAN 设置</string>
   <string name="gadget_toggle_bluetooth">正在更新蓝牙设置</string>
-  <string name="gadget_state_template"><ns0:g id="ID_1">%1$s</ns0:g>
-    <ns0:g id="ID_2">%2$s</ns0:g>"</string>
   <string name="gadget_state_on">开启</string>
   <string name="gadget_state_off">关闭</string>
   <string name="gadget_state_turning_on">正在开启</string>
@@ -1680,7 +1608,6 @@
   <string name="credential_storage_type_software">仅限软件</string>
   <string name="credentials_install_gesture_prompt">绘制您的解锁图案</string>
   <string name="credentials_install_gesture_explanation">您需要绘制解锁图案，以确认凭据安装操作。</string>
-  <string name="credentials_unlock" />
   <string name="credentials_unlock_hint">键入凭据存储的密码。</string>
   <string name="credentials_old_password">当前密码：</string>
   <string name="credentials_reset_hint">要删除所有内容吗？</string>
@@ -1710,7 +1637,6 @@
   <string name="local_backup_password_toast_success">已设置了新的备份密码</string>
   <string name="local_backup_password_toast_confirmation_mismatch">新密码和确认密码不一致</string>
   <string name="local_backup_password_toast_validation_failure">设置备份密码失败</string>
-  <string name="backup_erase_dialog_title" />
   <string name="backup_erase_dialog_message">要停止备份您的 WLAN 密码、书签、其他设置和应用数据，并清除 Google 服务器上的所有副本吗？</string>
   <string name="device_admin_settings_title">设备管理设置</string>
   <string name="active_device_admin_msg">设备管理器</string>
@@ -1781,8 +1707,6 @@
   <string name="sync_gmail">Gmail</string>
   <string name="sync_calendar">日历</string>
   <string name="sync_contacts">联系人</string>
-  <string name="sync_plug">
-    <font fgcolor="#ffffffff">欢迎使用 Google Sync！</font>" \n这款数据同步工具可让您随时随地查看您的联系人、约会以及更多信息。"</string>
   <string name="header_application_sync_settings">应用同步设置</string>
   <string name="header_data_and_synchronization">数据与同步</string>
   <string name="preference_change_password_title">更改密码</string>
@@ -1796,9 +1720,6 @@
   <string name="remove_account_failed" product="tablet">某些应用需要使用此帐户。您只有将平板电脑重置为出厂默认设置（此操作会删除您的所有个人数据），才能删除此帐户。您可以通过“设置”&gt;“备份和重置 ”执行此操作。</string>
   <string name="remove_account_failed" product="default">某些应用需要使用此帐户。您只有将手机重置为出厂默认设置（此操作会删除您的所有个人数据），才能删除此帐户。您可以通过“设置”&gt;“备份和重置 ”执行此操作。</string>
   <string name="provider_label">推送订阅</string>
-  <string name="sync_item_title">
-    <ns0:g example="Calendar" id="authority">%s</ns0:g>
-  </string>
   <string name="cant_sync_dialog_title">无法手动同步</string>
   <string name="cant_sync_dialog_message">目前，此条目的同步功能已停用。要更改此设置，请暂时启用后台数据和自动同步功能。</string>
   <string name="wimax_settings">4G</string>
@@ -1808,7 +1729,6 @@
   <string name="delete">删除</string>
   <string name="misc_files">其他文件</string>
   <string name="misc_files_selected_count">"已选择<ns0:g id="NUMBER">%1$d</ns0:g> 个，共 <ns0:g id="TOTAL">%2$d</ns0:g> 个"</string>
-  <string name="misc_files_selected_count_bytes"><ns0:g id="NUMBER">%1$s</ns0:g>，共 <ns0:g id="TOTAL">%2$s</ns0:g>"</string>
   <string name="select_all">全选</string>
   <string name="hdcp_checking_title">HDCP 检查</string>
   <string name="hdcp_checking_dialog_title">设置 HDCP 检查行为</string>
@@ -1917,18 +1837,8 @@
   <string name="data_usage_restrict_background">如果您限制在后台使用移动数据网络，则在未连接到 WLAN 网络时，部分应用和服务将会无法运行。</string>
   <string name="data_usage_restrict_background_multiuser" product="tablet">如果您限制在后台使用移动数据网络，则在未连接到 WLAN 网络时，部分应用和服务将会无法运行。\n\n此设置会影响这台平板电脑上的所有用户。</string>
   <string name="data_usage_restrict_background_multiuser" product="default">如果您限制在后台使用移动数据网络，则在未连接到 WLAN 网络时，部分应用和服务将会无法运行。\n\n此设置会影响这台手机上的所有用户。</string>
-  <string name="data_usage_sweep_warning">
-    <font size="21"><ns0:g id="NUMBER">^1</ns0:g>"</font>" "<font size="9"><ns0:g id="UNIT">^2</ns0:g>"</font>\n<font size="12">警告</font>
-  </string>
-  <string name="data_usage_sweep_limit">
-    <font size="21"><ns0:g id="NUMBER">^1</ns0:g>"</font>" "<font size="9"><ns0:g id="UNIT">^2</ns0:g>"</font>\n<font size="12">限制</font>
-  </string>
   <string name="data_usage_uninstalled_apps">已删除的应用</string>
   <string name="data_usage_uninstalled_apps_users">已删除的应用和用户</string>
-  <string name="data_usage_received_sent">"已接收<ns0:g id="RECEIVED">%1$s</ns0:g>，已发送 <ns0:g id="SENT">%2$s</ns0:g>"</string>
-  <string name="data_usage_total_during_range"><ns0:g id="RANGE">%2$s</ns0:g>：已使用约 <ns0:g id="TOTAL">%1$s</ns0:g>。"</string>
-  <string name="data_usage_total_during_range_mobile" product="tablet"><ns0:g id="RANGE">%2$s</ns0:g>：已使用约 <ns0:g id="TOTAL">%1$s</ns0:g>，由您的平板电脑计算得出。您的运营商对于流量的计算方法可能有所不同。"</string>
-  <string name="data_usage_total_during_range_mobile" product="default"><ns0:g id="RANGE">%2$s</ns0:g>：已使用约 <ns0:g id="TOTAL">%1$s</ns0:g>，由您的手机计算得出。您的运营商对于流量的计算方法可能有所不同。"</string>
   <string name="data_usage_metered_title">移动热点</string>
   <string name="data_usage_metered_body">选择属于移动热点的 WLAN 网络。这样可限制应用在后台使用这些网络。应用在使用这些网络下载较大的文件时，还可能会发出警告。</string>
   <string name="data_usage_metered_mobile">移动网络</string>
@@ -1985,7 +1895,6 @@
   <string name="confirm_new_backup_pw_prompt">在此重新键入新的完整备份密码</string>
   <string name="backup_pw_set_button_text">设置备份密码</string>
   <string name="backup_pw_cancel_button_text">取消</string>
-  <string name="percentage"><ns0:g id="NUMBER">%d</ns0:g>%%"</string>
   <string name="sel_sub_title">设置订阅</string>
   <string name="sel_sub_summary">选择订阅 SUB1, SUB2, etc..</string>
   <string name="select_subscription">选择订阅</string>
@@ -2109,7 +2018,6 @@
   <string name="wizard_finish">完成</string>
   <string name="user_image_take_photo">拍照</string>
   <string name="user_image_choose_photo">从图库中选择照片</string>
-  <string name="regulatory_info_text" />
   <string name="screencolor_save">保存</string>
   <string name="screencolor_cancel">放弃</string>
   <string name="previous_str">前一个</string>

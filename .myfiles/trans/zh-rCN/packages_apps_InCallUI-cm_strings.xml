@@ -6,13 +6,11 @@
   <string name="onscreenBlacklistText">黑名单</string>
   <string name="blacklist_dialog_title">加入黑名单</string>
   <string name="blacklist_dialog_message">从<ns0:g id="number">%s</ns0:g>的呼叫将被阻止</string>
+  <string name="sub_no_sim">无SIM卡</string>
   <string name="callFailed_dialToUssd">拨号请求更改为USSD请求.</string>
   <string name="callFailed_dialToSs">拨号请求更改为SS请求.</string>
   <string name="callFailed_dialToDial">拨号请求更改为呼叫其他号码.</string>
-  <string name="modify_call_prompt_yes">是</string>
-  <string name="modify_call_prompt_no">否</string>
   <string name="modify_call_option_vt">VT</string>
-  <string name="vt_init_fail_str">视频传输初始化失败. 将通话降为VoLTE\n</string>
   <string name="stk_cc_ss_to_dial_error">SS请求改为拨号请求.</string>
   <string name="stk_cc_ss_to_ussd_error">SS请求改为USSD请求.</string>
   <string name="stk_cc_ss_to_ss_error">SS请求改为新的SS请求.</string>

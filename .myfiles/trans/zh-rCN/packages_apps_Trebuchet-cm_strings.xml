@@ -40,6 +40,7 @@
   <string name="default_iconpack_title">默认图标集</string>
   <string name="icon_packs_title">图标集</string>
   <string name="no_iconpacks_summary">没有安装图标集</string>
+  <string name="clear_keyguard_wallpaper">清理</string>
   <string name="all_apps_cling_cm">自定义抽屉</string>
   <string name="all_apps_cling_summary">点击页面指示器查看更多设置</string>
   <string name="menu_hidden_apps_delete">重置</string>

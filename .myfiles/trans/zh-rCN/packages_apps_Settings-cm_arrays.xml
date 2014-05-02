@@ -88,9 +88,4 @@
     <item>1</item>
     <item>2</item>
   </string-array>
-  <string-array name="screen_color_setting">
-    <item>标准</item>
-    <item>清晰</item>
-    <item>定制</item>
-  </string-array>
 </resources>
