@@ -492,7 +492,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    if grep -q "removePreferenceIfPackageNotInstalled(findPreference(KEY_CM_UPDATES));" \
            $basedir/packages/apps/Settings/src/com/android/settings/DeviceInfoSettings.java; then
        cd $basedir/packages/apps/Settings
-       patch -p1 <$rdir/patchs/cmupdater.diff
+       patch -p1 <$rdir/patchs/setting_device_info.diff
        cd $rdir
    fi
    sed -e "/CMUpdater/d" -i $basedir/vendor/cm/config/common.mk

@@ -1,16 +1,8 @@
-commit 540ff2bcdaecaa34e5475996d171b986e7095e3c
-Author: nx111 <gd.zhangdz@gmail.com>
-Date:   Fri Mar 7 23:29:59 2014 +0800
-
-    add snapshot
-    
-    Change-Id: I8143bc9e77c5bc6cfd1c042dc04c3a7509d0ba9b
-
 diff --git a/res/xml/device_info_settings.xml b/res/xml/device_info_settings.xml
-index 51a6e2a..783f22c 100644
+index b111c98..1c3e0c5 100644
 --- a/res/xml/device_info_settings.xml
 +++ b/res/xml/device_info_settings.xml
-@@ -42,15 +42,6 @@
+@@ -42,35 +42,6 @@
                      android:targetClass="com.android.settings.deviceinfo.Status" />
          </PreferenceScreen>
  
@@ -23,9 +15,26 @@ index 51a6e2a..783f22c 100644
 -                    android:targetClass="com.cyanogenmod.updater.UpdatesSettings" />
 -        </PreferenceScreen>
 -
-         <!-- Anonymous statistics - (CMStats) -->
-         <PreferenceScreen
-             android:key="cmstats"
+-        <!-- Anonymous statistics - (CMStats) -->
+-        <PreferenceScreen
+-            android:key="cmstats"
+-            android:title="@string/anonymous_statistics_title"
+-            android:summary="@string/anonymous_statistics_summary"
+-            android:fragment="com.android.settings.cmstats.AnonymousStats" >
+-        </PreferenceScreen>
+-
+-        <!-- Change Log -->
+-        <PreferenceScreen android:key="changelog"
+-            android:title="@string/changelog_title"
+-            android:fragment="com.android.settings.cyanogenmod.ChangeLog" >
+-        </PreferenceScreen>
+-
+-        <!-- Contributors cloud -->
+-        <PreferenceScreen android:key="contributor_cloud"
+-            android:title="@string/contributor_cloud_title"
+-            android:fragment="com.android.settings.cyanogenmod.ContributorsCloud" >
+-        </PreferenceScreen>
+-
          <!-- Legal Information -->
          <PreferenceScreen
                  android:key="container"
