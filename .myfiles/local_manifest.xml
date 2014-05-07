@@ -22,4 +22,10 @@
 <project name="nx111/android_packages_apps_caifatcmd" path="packages/apps/caifatcmd"  remote="github" revision="master"/>
 <project name="nx111/android_packages_apps_HdmiToggle" path="packages/apps/HdmiToggle"  remote="github" revision="cm-11.0"/>
 <project name="amarullz/AROMA-Installer" path="tools/aroma-installer"  remote="github" revision="master"/>
+
+<!-- ZTE N880e -->
+<project name="KonstaT/android_kernel_zte_msm7x27a" path="kernel/zte/msm7x27a" remote="github" revision="cm-11.0" />
+<project name="KonstaT/android_device_zte_atlas40" path="device/zte/atlas40" remote="github" revision="cm-11.0" />
+<project name="KonstaT/proprietary_vendor_zte" path="vendor/zte" remote="github" revision="cm-11.0" />
+
 </manifest>

@@ -306,7 +306,7 @@ fi
 
 
 ########## Device Edison/Spyder/Targa,etc OMAP4-COMMON...#########
-if [ "$device" != "mb526" ]; then
+if [ "$device" != "mb526" -a "$device" != "atlas40" ]; then
 
    reset_for_manifest
 
@@ -500,7 +500,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    sed -e "/OMX_FreeBuffer for buffer header %p successful/d" -i $basedir/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
 
    ## fix media_profiles.xml for HFR encode
-   [ "$device" != "mb526" ] && \
+   [ "$device" != "mb526" -a "$device" != "atlas40" ] && \
    if grep -q "maxHFRFrameWidth" $basedir/frameworks/av/media/libmedia/MediaProfiles.cpp; then
       if ! grep -q "maxHFRFrameWidth" $basedir/device/motorola/$device/media_profiles.xml; then
          cd $basedir/device/motorola/$device

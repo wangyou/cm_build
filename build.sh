@@ -2,8 +2,8 @@ reset
 compile_user=NX111
 branch=cm-11.0
 
-KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "test")
-KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "jtest")
+KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "cm-11.0" "test")
+KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "n880e" "jtest")
 
 isKernelOpt()
 {
@@ -92,9 +92,11 @@ if [ -f .lastBuild ]; then
    for((i=0;i<${#KernelBranches[@]};i++)) do
 	elemI=${KernelBranches[$i]}
 	[ "${KernelOpts[$i]}" = "jordan" ] && elemI="JORDAN"
+	[ "${KernelOpts[$i]}" = "n880e" ] && elemI="ATLAS40"
         for((j=0;j<$i;j++)) do
 		elemJ=${KernelBranches[$j]}
 		[ "${KernelOpts[$j]}" = "jordan" ] && elemJ="JORDAN"
+		[ "${KernelOpts[$j]}" = "n880e" ] && elemJ="ATLAS40"
 		[ "$elemI" = "$elemJ" ] && break
 	done
 	if [ $j -lt $i ]; then
@@ -111,7 +113,7 @@ fi
 
 for op in $*;do
    transop=0
-   if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa" ]; then
+   if [ "$op" = "spyder" -o "$op" = "edison" -o "$op" = "targa" -o "$op" = "atlas40" ]; then
 	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
@@ -120,6 +122,7 @@ for op in $*;do
 	[ -d  $basedir/vendor/moto/jordan-common ] && cp -r $basedir/vendor/moto/jordan-common $basedir/vendor/motorola/jordan-common
    elif isKernelOpt $op; then
 	opKernel="$op"
+	[ "$op" = "n880e" ] && device="atlas40"
 	transop=1
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
@@ -150,7 +153,7 @@ for op in $*;do
    [ $transop -eq 0 ] && moreopt="$moreopt $op"
 done
 
-[ "$device" = "mb526" ] && opKernel="cm"
+[ "$device" = "mb526" -o "$device" = "atlas40" ] && opKernel="cm"
 [ $kernelonly -eq 0 ] && kernelzip=0
 if [ "$mode" = "cleanall" ]; then
     for f in * .*; do
@@ -267,14 +270,15 @@ elif ! grep -q "build/core/main.mk" $basedir/Makefile; then
     echo "include build/core/main.mk" > $basedir/Makefile
 fi
 
-if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
+if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "atlas40" ]; then
 	KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
 	[ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
    	export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
 fi
 
-[ "$device" != "mb526" ] && KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
-[ "$device" != "mb526" ] || KBCCOUNT=JORDAN_CCNUM
+[ "$device" != "mb526" -a "$device" != "atlas40" ] && KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
+[ "$device" = "mb526" ] && KBCCOUNT=JORDAN_CCNUM
+[ "$device" = "atlas40" ] && KBCCOUNT=ATLAS40_CCNUM
 [ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
 retcode=1
@@ -283,7 +287,7 @@ if [ $kernelonly -eq 0 ]; then
 #	export TARGET_KERNEL_CUSTOM_TOOLCHAIN=arm-none-eabi
 fi
 
-if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" ]; then
+if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "atlas40" ]; then
 
 	export BOARD_HAS_SDCARD_INTERNAL=false
 
