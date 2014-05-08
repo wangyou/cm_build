@@ -6,8 +6,8 @@ releaseKernel=1
 kernelUpdate=0
 opKernel=cm
 
-KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "test")
-KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "jtest")
+KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "cm-11.0" "test")
+KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "n880e" "jtest")
 
 isKernelOpt()
 {
@@ -187,13 +187,14 @@ reset_for_manifest()
 
 ### parse params #########
 for op in $*;do 
-   if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa" ]; then
+   if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa"  -o "$op" = "atlas40" ]; then
         device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
      device="mb526"
      opKernel="jordan"
    elif isKernelOpt $op; then
      opKernel="$op"
+     [ "$op" = "n880e" ] && device="atlas40"
    elif [ "$op" = "-ku" ]; then
      kernelUpdate=1
    elif [ "$op" = "-kuo" ]; then
@@ -220,11 +221,14 @@ fi
 [ -z "$device" ] && device=$lastDevice
 [ -z "$opKernel" ] && opKernel=$lastOpKernel
 
-if [ "$device" != "mb526" ]; then
+if [ "$device" != "mb526" -a "$device" != "atlas40" ]; then
      DeviceDir="device/motorola/$device"
-else
+elif [ "$device" != "atlas40" ]; then
      DeviceDir="device/moto/$device"
      opKernel=jordan
+else
+     DeviceDir="device/zte/$device"
+     opKernel=n880e
 fi
 kbranch=`getKernelBranchName $opKernel`
 
