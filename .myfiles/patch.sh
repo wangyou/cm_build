@@ -450,6 +450,14 @@ elif [ "$device" = "mb526" ]; then
 #        patch -N -p1 <$rdir/patchs/jordan-common.diff
 #        cd $rdir
 #  fi
+elif [ "$device" = "atlas40" ]; then
+   newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
+   newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
+   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git 
+   if [ "$mode" = "u" ]; then
+        updateBranch frameworks/av legaCyMod_$branch legaCyMod $branch
+        updateBranch frameworks/native legaCyMod_$branch  legaCyMod $branch
+   fi
 fi
 
 [ "$mode" = "kbranch" ] && exit
