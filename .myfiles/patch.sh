@@ -138,12 +138,15 @@ resetProject()
      local var;
      local project="";
      local mode="";
+     local targetBranch="";
 
      for  var in $*;do 
           if [ _${var:0:1} = "_-" -a -z "$mode" ]; then
                mode="${var:1}"
           elif [ -z "$project" ]; then
                project=$var
+          elif [ ! -z "$project" ]; then
+               targetBranch=$var
           fi
      done
      if [ -z "$project" ]; then return 1; fi
@@ -155,6 +158,9 @@ resetProject()
      local branch=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
      if echo $branch | grep -q "(" ; then 
           branch=""
+     fi
+     if [ "$branch" != "$targetBranch" -a "$targetBranch" != "" ] && git branch | sed -e "s/\s//g" -e "s/\*//g" | eval grep -qe "^${targetBranch}$"; then
+         git checkout -f $targetBranch >/dev/null
      fi
      
      if [ "$mode" = "keep" ]; then
@@ -256,10 +262,10 @@ if [ "$mode" = "r" ]; then
      resetProject device/motorola/edison
      resetProject device/motorola/omap4-common
      resetProject -keep vendor/cm
-     resetProject system/core
-     resetProject frameworks/base
-     resetProject frameworks/native
-     resetProject frameworks/av
+     resetProject system/core $branch
+     resetProject frameworks/base $branch
+     resetProject frameworks/native $branch
+     resetProject frameworks/av $branch
      resetProject packages/services/Telephony
      resetProject packages/apps/Settings
      resetProject external/wpa_supplicant_8
