@@ -203,7 +203,13 @@ fi
 #	rm -rf ~/.ccache
 #fi
 
-[ ! -f vendor/cm/proprietary/Term.apk ] && vendor/cm/get-prebuilts
+if [ ! -f vendor/cm/proprietary/Term.apk ]; then
+   if  [ -f $basedir/.myfiles/Term.apk ]; then
+        unzip -o -d $basedir/vendor/cm/proprietary $basedir/.myfiles/Term.apk lib/* >/dev/null
+   else
+        vendor/cm/get-prebuilts
+   fi
+fi
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 if [ "${opKernel:0:1}" = "j" ]; then
