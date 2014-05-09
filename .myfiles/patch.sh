@@ -286,19 +286,7 @@ if [ "$mode" = "r" ]; then
      exit
 fi
 
-####### patch for vendor cm  ########
-   sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
-   sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
-   sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
-   if ! grep -q "^\s*vendor\/cm\/prebuilt\/common\/bootanimation\/480.zip:system\/media\/bootanimation.zip" \
-          $basedir/vendor/cm/config/common_full_phone.mk \
-        $basedir/vendor/cm/config/common_full.mk; then
-     cd $basedir/vendor/cm
-     patch -N -p1 <$rdir/patchs/vendor_cm.diff
-     cd $rdir
-   fi
-
-   ### patch for apns-conf #########
+### patch for apns-conf #########
    if [ -f $basedir/$DeviceDir/apns-conf.xml ]; then
      sed -e "s/<apns version=\"7\">/<apns version=\"8\">/" \
          -e "s/\"China Mobile\"/\"中国移动\"/g" \
@@ -466,8 +454,8 @@ elif [ "$device" = "atlas40" ]; then
    fi
    cp $basedir/build/core/root.mk $basedir/build/Makefile
    sed -i $basedir/kernel/zte/msm7x27a/arch/arm/configs/cyanogen_atlas40_defconfig \
-       -e "s/# CONFIG_BCMDHD is not set/CONFIG_BCMDHD=y/g" \
        -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
+#       -e "s/# CONFIG_BCMDHD is not set/CONFIG_BCMDHD=y/g" \
 
    ##fix error###
    sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
@@ -478,6 +466,19 @@ elif [ "$device" = "atlas40" ]; then
 fi
 
 [ "$mode" = "kbranch" ] && exit
+
+####### patch for vendor cm  ########
+   sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
+   sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
+   sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
+   if ! grep -q "^\s*vendor\/cm\/prebuilt\/common\/bootanimation\/480.zip:system\/media\/bootanimation.zip" \
+          $basedir/vendor/cm/config/common_full_phone.mk \
+        $basedir/vendor/cm/config/common_full.mk; then
+     cd $basedir/vendor/cm
+     patch -N -p1 <$rdir/patchs/vendor_cm.diff
+     cd $rdir
+   fi
+
 
 ## Not use ccache
 #sed -e "s/ifneq (\$(USE_CCACHE),)/ifneq (\$(USE_CCACHE),\$(USE_CCACHE))/g" -i $basedir/build/core/tasks/kernel.mk
