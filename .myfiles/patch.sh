@@ -469,6 +469,12 @@ elif [ "$device" = "atlas40" ]; then
        -e "s/# CONFIG_BCMDHD is not set/CONFIG_BCMDHD=y/g" \
        -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
 
+   ##fix error###
+   sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
+       -e "s/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
+       -e "s/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
+       -e "s/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g"
+
 fi
 
 [ "$mode" = "kbranch" ] && exit
