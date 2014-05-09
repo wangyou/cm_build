@@ -48,16 +48,16 @@ newBranch()
      git remote | grep -wq "$3" || git remote add $3 $4
      
      if ! git branch | grep -wq "$2"; then
-          echo "Create branch $2..."
-          git checkout --orphan $2
+          echo "Create branch $2 for $1..."
+          git checkout --orphan $2 >/dev/null 2>/dev/null
           git rm -rf . >/dev/null
-          git pull $3 $5
+          git pull $3 $5 >/dev/null 2>/dev/null
      fi
      
       if [ _$6 = _checkout ]; then
           if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
               git stash >/dev/null
-              git checkout $2 >/dev/null
+              git checkout $2 >/dev/null 2>/dev/null
           fi
      fi 
 
@@ -74,8 +74,8 @@ addBranch()
      cd $1
      
      if ! git branch | grep -wq "$2"; then
-          echo "Create branch $2..."
-          git checkout --orphan $2
+          echo "Create branch $2 for $1..."
+          git checkout --orphan $2 >/dev/null 2>/dev/null
           git rm -rf . >/dev/null
           git pull github $2
      fi
@@ -160,7 +160,7 @@ resetProject()
           branch=""
      fi
      if [ "$branch" != "$targetBranch" -a "$targetBranch" != "" ] && git branch | sed -e "s/\s//g" -e "s/\*//g" | eval grep -qe "^${targetBranch}$"; then
-         git checkout -f $targetBranch >/dev/null
+         git checkout -f $targetBranch >/dev/null 2>/dev/null
      fi
      
      if [ "$mode" = "keep" ]; then
@@ -178,17 +178,6 @@ resetProject()
      cd $curdir
 }
 
-reset_for_manifest()
-{
-    cd $basedir/frameworks/av;                [ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
-    cd $basedir/frameworks/base;           [ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
-    cd $basedir/frameworks/native;           [ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
-    cd $basedir/frameworks/opt/telephony;     [ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
-    cd $basedir/system/core;               [ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
-    cd $basedir/hardware/ril;               [ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
-    cd $basedir/hardware/ti/wlan;          [ _`git branch | grep "\*" |cut -f2 -d" "` = _quarx2k_$branch ] && git checkout -f $branch;
-    cd $basedir/bootable/recovery;          [ _`git branch | grep "\*" |cut -f2 -d" "` = _twrp ] && git checkout -f $branch;
-}
 ############################################################################
 
 ### parse params #########
@@ -205,7 +194,7 @@ for op in $*;do
      kernelUpdate=1
    elif [ "$op" = "-kuo" ]; then
      kernelUpdate=2
-   elif [ "$op" = "-r" -o "$op" = "-kbranch" ]; then
+   elif [ "$op" = "-r" -o "$op" = "-kbranch" -o "$op" = "-u" ]; then
      mode="${op#-*}"
    elif [ "$op" = "old" ]; then
      oldupdate=1
@@ -258,21 +247,25 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
 fi
 
 if [ "$mode" = "r" ]; then
-     resetProject build
+     resetProject build $branch
      resetProject device/motorola/edison
      resetProject device/motorola/omap4-common
-     resetProject -keep vendor/cm
+     resetProject -keep vendor/cm $branch
      resetProject system/core $branch
      resetProject frameworks/base $branch
      resetProject frameworks/native $branch
      resetProject frameworks/av $branch
+     resetProject frameworks/opt/telephony $branch
      resetProject packages/services/Telephony
      resetProject packages/apps/Settings
+     resetProject packages/apps/Browser $branch
      resetProject external/wpa_supplicant_8
      resetProject vendor/motorola
+     resetProject vendor/cm $branch
      resetProject kernel/motorola/omap4-common
-
-     reset_for_manifest
+     resetProject hardware/ril $branch
+     resetProject hardware/ti/wlan $branch
+     resetProject bootable/recovery $branch
 
      #reset that translation local
      for fl in $rdir/trans/*; do
@@ -423,24 +416,24 @@ if [ "$device" != "mb526" -a "$device" != "atlas40" ]; then
 
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
-#   newBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
-#   newBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
-#   newBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
-#   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch checkout
-#   newBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch checkout
-#   newBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch checkout
+   newBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
+   newBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
+   newBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
+   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch checkout
+   newBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch checkout
+   newBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch checkout
    newBranch bootable/recovery twrp  twrp https://github.com/omnirom/android_bootable_recovery.git android-4.4 checkout
    newBranch hardware/ti/wlan quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ti_wlan.git $branch checkout
 
    if [ "$mode" = "u" ]; then
-#        updateBranch frameworks/av quarx2k_$branch quarx2k $branch
-#        updateBranch frameworks/base quarx2k_$branch  quarx2k  $branch
-#        updateBranch frameworks/native quarx2k_$branch  quarx2k $branch
-#        updateBranch frameworks/opt/telephony quarx2k_$branch  quarx2k $branch
-#        updateBranch system/core quarx2k_$branch  quarx2k $branch
-#        updateBranch hardware/ril quarx2k_$branch  quarx2k $branch
-         updateBranch hardware/ti/wlan quarx2k_$branch quarx2k $branch
-         updateBranch bootable/recovery twrp twrp android-4.4
+        updateBranch frameworks/av quarx2k_$branch quarx2k $branch
+        updateBranch frameworks/base quarx2k_$branch  quarx2k  $branch
+        updateBranch frameworks/native quarx2k_$branch  quarx2k $branch
+        updateBranch frameworks/opt/telephony quarx2k_$branch  quarx2k $branch
+        updateBranch system/core quarx2k_$branch  quarx2k $branch
+        updateBranch hardware/ril quarx2k_$branch  quarx2k $branch
+        updateBranch hardware/ti/wlan quarx2k_$branch quarx2k $branch
+        updateBranch bootable/recovery twrp twrp android-4.4
    fi
 
    ### patch for vendor cm  ########
@@ -457,13 +450,20 @@ elif [ "$device" = "mb526" ]; then
 #        cd $rdir
 #  fi
 elif [ "$device" = "atlas40" ]; then
+   newBranch build legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_build.git $branch checkout
    newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
    newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
-   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git 
+   newBranch packages/apps/Browser legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_packages_apps_Browser.git  $branch checkout
+   newBranch vendor/cm legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_vendor_cm.git  $branch checkout
    if [ "$mode" = "u" ]; then
+        updateBranch build legaCyMod_$branch legaCyMod $branch
         updateBranch frameworks/av legaCyMod_$branch legaCyMod $branch
         updateBranch frameworks/native legaCyMod_$branch  legaCyMod $branch
+        updateBranch packages/apps/Browser legaCyMod_$branch legaCyMod $branch
+        updateBranch vendor/cm legaCyMod_$branch legaCyMod $branch
+
    fi
+   cp $basedir/build/core/root.mk $basedir/build/Makefile
 fi
 
 [ "$mode" = "kbranch" ] && exit
