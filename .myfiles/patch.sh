@@ -263,6 +263,7 @@ if [ "$mode" = "r" ]; then
      resetProject vendor/motorola
      resetProject vendor/cm $branch
      resetProject kernel/motorola/omap4-common
+     resetProject kernel/zte/msm7x27a
      resetProject hardware/ril $branch
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch
@@ -464,6 +465,10 @@ elif [ "$device" = "atlas40" ]; then
 
    fi
    cp $basedir/build/core/root.mk $basedir/build/Makefile
+   sed -i $basedir/kernel/zte/msm7x27a/arch/arm/configs/cyanogen_atlas40_defconfig \
+       -e "s/# CONFIG_BCMDHD is not set/CONFIG_BCMDHD=y/g" \
+       -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
+
 fi
 
 [ "$mode" = "kbranch" ] && exit
