@@ -114,7 +114,7 @@ updateBranch()
      if [ $# -lt 4 ]; then return 1;fi
      [ -d $1 ] || mkdir -p $1
      cd $1
-     echo "update project\"$1\" $2<=$4..."
+     echo "update project:$1 branch:$2 <-- $4  ..."
      git checkout $2 >/dev/null 2>/dev/null
      git fetch $3 $4 >/dev/null 2>/dev/null
      git merge FETCH_HEAD -m "$3:$4 `date +%Y%m%d`" >/dev/null 2>/dev/null
