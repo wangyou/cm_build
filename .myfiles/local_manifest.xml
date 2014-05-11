@@ -24,9 +24,9 @@
 <project name="amarullz/AROMA-Installer" path="tools/aroma-installer"  remote="github" revision="master"/>
 
 <!-- ZTE N880e -->
-<project name="KonstaT/android_kernel_zte_msm7x27a" path="kernel/zte/msm7x27a" remote="github" revision="cm-11.0" />
-<project name="KonstaT/android_device_zte_atlas40" path="device/zte/atlas40" remote="github" revision="cm-11.0" />
-<project name="KonstaT/proprietary_vendor_zte" path="vendor/zte" remote="github" revision="cm-11.0" />
+<project name="nx111/android_kernel_zte_msm7x27a" path="kernel/zte/msm7x27a" remote="github" revision="cm-11.0" />
+<project name="nx111/android_device_zte_n880e" path="device/zte/atlas40" remote="github" revision="cm-11.0" />
+<project name="nx111/proprietary_vendor_zte" path="vendor/zte" remote="github" revision="cm-11.0" />
 <project name="legaCyMod/android_external_webkit" path="external/webkit" revision="cm-11.0" />
 <project name="legaCyMod/android_hardware_atheros_wlan" path="hardware/atheros/wlan" revision="cm-11.0" />
 <project name="legaCyMod/android_hardware_qcom_display-legacy" path="hardware/qcom/display-legacy" revision="cm-11.0" />

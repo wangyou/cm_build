@@ -5,6 +5,7 @@ oldupdate=1
 releaseKernel=1
 kernelUpdate=0
 opKernel=cm
+device=edison
 
 KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "cm-11.0" "test")
 KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "n880e" "jtest")
@@ -113,9 +114,10 @@ updateBranch()
      if [ $# -lt 4 ]; then return 1;fi
      [ -d $1 ] || mkdir -p $1
      cd $1
-     git checkout $2
-     git fetch $3 $4
-     git merge FETCH_HEAD -m "$3:$4 `date +%Y%m%d`"
+     echo "update project\"$1\" $2<=$4..."
+     git checkout $2 >/dev/null 2>/dev/null
+     git fetch $3 $4 >/dev/null 2>/dev/null
+     git merge FETCH_HEAD -m "$3:$4 `date +%Y%m%d`" >/dev/null 2>/dev/null
      cd $curdir
      return 0
 }
@@ -246,7 +248,7 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
    fi
 fi
 
-if [ "$mode" = "r" ]; then
+if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject build $branch
      resetProject device/motorola/edison
      resetProject device/motorola/omap4-common
@@ -264,6 +266,7 @@ if [ "$mode" = "r" ]; then
      resetProject vendor/cm $branch
      resetProject kernel/motorola/omap4-common
      resetProject kernel/zte/msm7x27a
+     resetProject device/zte/atlas40
      resetProject hardware/ril $branch
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch
@@ -299,8 +302,6 @@ fi
 
 ########## Device Edison/Spyder/Targa,etc OMAP4-COMMON...#########
 if [ "$device" != "mb526" -a "$device" != "atlas40" ]; then
-
-   reset_for_manifest
 
    ### if not kernel branch switch start ####
    if [ "$mode" != "kbranch" -a "${opKernel:0:1}" = "j" ]; then
@@ -425,19 +426,6 @@ elif [ "$device" = "mb526" ]; then
         updateBranch bootable/recovery twrp twrp android-4.4
    fi
 
-   ### patch for vendor cm  ########
-#   if ! grep -q "^\s*#\$(call inherit-product, frameworks\/base\/data\/videos\/VideoPackage2.mk)" \
-#        $basedir/vendor/cm/config/common_full.mk; then
-#         cd $basedir/vendor/cm
-#         patch -N -p1 <$rdir/patchs/vendor_cm_quarx2k.diff
-#         cd $rdir
-#   fi
-#  if grep -q "^\s*<string-array name=\"config_vendorServices\">\s*$" \
-#      $basedir/device/moto/jordan-common/overlay/frameworks/base/core/res/res/values/arrays.xml; then
-#        cd $basedir/device/moto/jordan-common
-#        patch -N -p1 <$rdir/patchs/jordan-common.diff
-#        cd $rdir
-#  fi
 elif [ "$device" = "atlas40" ]; then
    newBranch build legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_build.git $branch checkout
    newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
@@ -453,19 +441,18 @@ elif [ "$device" = "atlas40" ]; then
 
    fi
    cp $basedir/build/core/root.mk $basedir/build/Makefile
-   sed -i $basedir/kernel/zte/msm7x27a/arch/arm/configs/cyanogen_atlas40_defconfig \
-       -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
+#   sed -i $basedir/kernel/zte/msm7x27a/arch/arm/configs/zte_n880e_defconfig \
+#       -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g" \
+#       -e "s/# CONFIG_CFG80211_WEXT is not set/CONFIG_CFG80211_WEXT=y/g" \
 #       -e "s/# CONFIG_BCMDHD is not set/CONFIG_BCMDHD=y/g" \
 
    ##fix error###
-   sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
-       -e "s/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
-       -e "s/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
-       -e "s/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g"
+#   sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
+#       -e "s/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
+#       -e "s/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
+#       -e "s/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g"
 
 fi
-
-[ "$mode" = "kbranch" ] && exit
 
 ####### patch for vendor cm  ########
    sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
@@ -479,18 +466,13 @@ fi
      cd $rdir
    fi
 
+[ "$mode" = "kbranch" ] && exit
 
 ## Not use ccache
 #sed -e "s/ifneq (\$(USE_CCACHE),)/ifneq (\$(USE_CCACHE),\$(USE_CCACHE))/g" -i $basedir/build/core/tasks/kernel.mk
 
 #### LOG for KERNEL ##########
 sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/system/core/include/cutils/klog.h
-
-#### update calendar ###########
-if [ "$mode" = "u" ]; then
-     newBranch packages/app/Calendar $branch cm https://github.com/CyanogenMod/android_packages_app_Calendar.git $branch
-     updateBranch packages/app/Calendar $branch cm $branch
-fi
 
 if [ $oldupdate -eq 1 ]; then
      sed -e "/use_set_metadata=1/d" -i $basedir/build/core/Makefile

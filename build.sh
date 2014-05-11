@@ -196,20 +196,13 @@ echo "Starting ............."
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 	export USE_CCACHE=1
 	source build/envsetup.sh > /dev/null
-   	lunch cm_$device-userdebug >/dev/null
+   	lunch cm_$device-userdebug > /dev/null
 fi
 #if [ "$device" != "$lastDevice" -o "$opKernel" != "$lastOpKernel" ]; then
 #	export USE_CCACHE=
 #	rm -rf ~/.ccache
 #fi
 
-if [ ! -f vendor/cm/proprietary/Term.apk ]; then
-   if  [ -f $basedir/.myfiles/Term.apk ]; then
-        unzip -o -d $basedir/vendor/cm/proprietary $basedir/.myfiles/Term.apk lib/* >/dev/null
-   else
-        vendor/cm/get-prebuilts
-   fi
-fi
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 if [ "${opKernel:0:1}" = "j" ]; then
@@ -263,6 +256,16 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
     [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
     [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
 
+fi
+
+if [ ! -f vendor/cm/proprietary/Term.apk ]; then
+   if  [ -f $basedir/.myfiles/Term.apk ]; then
+        mkdir -p $basedir/vendor/cm/proprietary
+        cp $basedir/.myfiles/Term.apk $basedir/vendor/cm/proprietary/
+        unzip -o -d $basedir/vendor/cm/proprietary $basedir/vendor/cm/proprietary/Term.apk lib/* >/dev/null
+   else
+        vendor/cm/get-prebuilts
+   fi
 fi
 
 ########## MAKE #########################
@@ -338,7 +341,7 @@ fi
 export TARGET_KERNEL_CUSTOM_TOOLCHAIN=
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-   [ $keepPatch -eq 0 ] || $rdir/.myfiles/patch.sh -r 
+   [ $keepPatch -eq 0  -o $retcode -ne 0 ] || $rdir/.myfiles/patch.sh -r 
 
    eval $"$KBCCOUNT"=`cat $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version`
 
