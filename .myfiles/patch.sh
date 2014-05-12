@@ -441,16 +441,12 @@ elif [ "$device" = "atlas40" ]; then
 
    fi
    cp $basedir/build/core/root.mk $basedir/build/Makefile
-#   sed -i $basedir/kernel/zte/msm7x27a/arch/arm/configs/zte_n880e_defconfig \
-#       -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g" \
-#       -e "s/# CONFIG_CFG80211_WEXT is not set/CONFIG_CFG80211_WEXT=y/g" \
-#       -e "s/# CONFIG_BCMDHD is not set/CONFIG_BCMDHD=y/g" \
 
    ##fix error###
-#   sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
-#       -e "s/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
-#       -e "s/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
-#       -e "s/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g"
+   sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
+       -e "s/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
+       -e "s/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
+       -e "s/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g"
 
 fi
 
