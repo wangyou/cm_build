@@ -184,14 +184,14 @@ resetProject()
 
 ### parse params #########
 for op in $*;do 
-   if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa"  -o "$op" = "atlas40" ]; then
+   if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa"  -o "$op" = "n880e" ]; then
         device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
      device="mb526"
      opKernel="jordan"
    elif isKernelOpt $op; then
      opKernel="$op"
-     [ "$op" = "n880e" ] && device="atlas40"
+     [ "$op" = "n880e" ] && device="n880e"
    elif [ "$op" = "-ku" ]; then
      kernelUpdate=1
    elif [ "$op" = "-kuo" ]; then
@@ -218,9 +218,9 @@ fi
 [ -z "$device" ] && device=$lastDevice
 [ -z "$opKernel" ] && opKernel=$lastOpKernel
 
-if [ "$device" != "mb526" -a "$device" != "atlas40" ]; then
+if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
      DeviceDir="device/motorola/$device"
-elif [ "$device" != "atlas40" ]; then
+elif [ "$device" != "n880e" ]; then
      DeviceDir="device/moto/$device"
      opKernel=jordan
 else
@@ -266,7 +266,7 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject vendor/cm $branch
      resetProject kernel/motorola/omap4-common
      resetProject kernel/zte/msm7x27a
-     resetProject device/zte/atlas40
+     resetProject device/zte/n880e
      resetProject hardware/ril $branch
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch
@@ -301,7 +301,7 @@ fi
 
 
 ########## Device Edison/Spyder/Targa,etc OMAP4-COMMON...#########
-if [ "$device" != "mb526" -a "$device" != "atlas40" ]; then
+if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
 
    ### if not kernel branch switch start ####
    if [ "$mode" != "kbranch" -a "${opKernel:0:1}" = "j" ]; then
@@ -426,7 +426,7 @@ elif [ "$device" = "mb526" ]; then
         updateBranch bootable/recovery twrp twrp android-4.4
    fi
 
-elif [ "$device" = "atlas40" ]; then
+elif [ "$device" = "n880e" ]; then
    newBranch build legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_build.git $branch checkout
    newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
    newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
@@ -508,7 +508,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    sed -e "/OMX_FreeBuffer for buffer header %p successful/d" -i $basedir/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
 
    ## fix media_profiles.xml for HFR encode
-   [ "$device" != "mb526" -a "$device" != "atlas40" ] && \
+   [ "$device" != "mb526" -a "$device" != "n880e" ] && \
    if grep -q "maxHFRFrameWidth" $basedir/frameworks/av/media/libmedia/MediaProfiles.cpp; then
       if ! grep -q "maxHFRFrameWidth" $basedir/device/motorola/$device/media_profiles.xml; then
          cd $basedir/device/motorola/$device
