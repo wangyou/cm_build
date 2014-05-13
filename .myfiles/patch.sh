@@ -404,49 +404,49 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
   cd $basedir
   echo "Process kernel ended."
 
-elif [ "$device" = "mb526" ]; then
+#elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
-   newBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
-   newBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
-   newBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
-   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch checkout
-   newBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch checkout
-   newBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch checkout
-   newBranch bootable/recovery twrp  twrp https://github.com/omnirom/android_bootable_recovery.git android-4.4 checkout
-   newBranch hardware/ti/wlan quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ti_wlan.git $branch checkout
+#   newBranch frameworks/av quarx2k_$branch quarx2k https://github.com/Quarx2k/android_frameworks_av.git $branch checkout
+#   newBranch frameworks/base quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_base.git $branch checkout
+#   newBranch frameworks/native quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_native.git $branch checkout
+#   newBranch frameworks/opt/telephony quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_frameworks_opt_telephony.git $branch checkout
+#   newBranch system/core quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_system_core.git $branch checkout
+#   newBranch hardware/ril quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ril.git $branch checkout
+#   newBranch bootable/recovery twrp  twrp https://github.com/omnirom/android_bootable_recovery.git android-4.4 checkout
+#   newBranch hardware/ti/wlan quarx2k_$branch  quarx2k https://github.com/Quarx2k/android_hardware_ti_wlan.git $branch checkout
 
-   if [ "$mode" = "u" ]; then
-        updateBranch frameworks/av quarx2k_$branch quarx2k $branch
-        updateBranch frameworks/base quarx2k_$branch  quarx2k  $branch
-        updateBranch frameworks/native quarx2k_$branch  quarx2k $branch
-        updateBranch frameworks/opt/telephony quarx2k_$branch  quarx2k $branch
-        updateBranch system/core quarx2k_$branch  quarx2k $branch
-        updateBranch hardware/ril quarx2k_$branch  quarx2k $branch
-        updateBranch hardware/ti/wlan quarx2k_$branch quarx2k $branch
-        updateBranch bootable/recovery twrp twrp android-4.4
-   fi
+#   if [ "$mode" = "u" ]; then
+#        updateBranch frameworks/av quarx2k_$branch quarx2k $branch
+#        updateBranch frameworks/base quarx2k_$branch  quarx2k  $branch
+#        updateBranch frameworks/native quarx2k_$branch  quarx2k $branch
+#        updateBranch frameworks/opt/telephony quarx2k_$branch  quarx2k $branch
+#        updateBranch system/core quarx2k_$branch  quarx2k $branch
+#        updateBranch hardware/ril quarx2k_$branch  quarx2k $branch
+#        updateBranch hardware/ti/wlan quarx2k_$branch quarx2k $branch
+#        updateBranch bootable/recovery twrp twrp android-4.4
+#   fi
 
-elif [ "$device" = "n880e" ]; then
-   newBranch build legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_build.git $branch checkout
-   newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
-   newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
-   newBranch packages/apps/Browser legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_packages_apps_Browser.git  $branch checkout
-   newBranch vendor/cm legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_vendor_cm.git  $branch checkout
-   if [ "$mode" = "u" ]; then
-        updateBranch build legaCyMod_$branch legaCyMod $branch
-        updateBranch frameworks/av legaCyMod_$branch legaCyMod $branch
-        updateBranch frameworks/native legaCyMod_$branch  legaCyMod $branch
-        updateBranch packages/apps/Browser legaCyMod_$branch legaCyMod $branch
-        updateBranch vendor/cm legaCyMod_$branch legaCyMod $branch
+#elif [ "$device" = "n880e" ]; then
+#   newBranch build legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_build.git $branch checkout
+#   newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
+#   newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
+#   newBranch packages/apps/Browser legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_packages_apps_Browser.git  $branch checkout
+#   newBranch vendor/cm legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_vendor_cm.git  $branch checkout
+#   if [ "$mode" = "u" ]; then
+#        updateBranch build legaCyMod_$branch legaCyMod $branch
+#        updateBranch frameworks/av legaCyMod_$branch legaCyMod $branch
+#        updateBranch frameworks/native legaCyMod_$branch  legaCyMod $branch
+#        updateBranch packages/apps/Browser legaCyMod_$branch legaCyMod $branch
+#        updateBranch vendor/cm legaCyMod_$branch legaCyMod $branch
 
-   fi
-   cp $basedir/build/core/root.mk $basedir/build/Makefile
+#   fi
+#   cp $basedir/build/core/root.mk $basedir/build/Makefile
 
    ##fix error###
-   sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
-       -e "s/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
-       -e "s/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
-       -e "s/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g"
+#   sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
+#       -e "s/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
+#       -e "s/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
+#       -e "s/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g"
 
 fi
 
