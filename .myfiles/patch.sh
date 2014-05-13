@@ -191,7 +191,6 @@ for op in $*;do
      opKernel="jordan"
    elif isKernelOpt $op; then
      opKernel="$op"
-     [ "$op" = "n880e" ] && device="n880e"
    elif [ "$op" = "-ku" ]; then
      kernelUpdate=1
    elif [ "$op" = "-kuo" ]; then
@@ -454,7 +453,7 @@ fi
    sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
    sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
    sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
-   if ! grep -q "^\s*vendor\/cm\/prebuilt\/common\/bootanimation\/480.zip:system\/media\/bootanimation.zip" \
+   if grep -q "system\/media\/bootanimation.zip" \
           $basedir/vendor/cm/config/common_full_phone.mk \
         $basedir/vendor/cm/config/common_full.mk; then
      cd $basedir/vendor/cm

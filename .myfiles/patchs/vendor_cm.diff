@@ -1,5 +1,5 @@
 diff --git a/config/common.mk b/config/common.mk
-index 1653d4b..eebaee3 100644
+index b83b994..5c44bc9 100644
 --- a/config/common.mk
 +++ b/config/common.mk
 @@ -30,9 +30,7 @@ endef
@@ -12,7 +12,7 @@ index 1653d4b..eebaee3 100644
  endif
  endif
  
-@@ -138,7 +136,7 @@ PRODUCT_PACKAGES += \
+@@ -134,7 +132,7 @@ PRODUCT_PACKAGES += \
  
  # Custom CM packages
  PRODUCT_PACKAGES += \
@@ -21,7 +21,7 @@ index 1653d4b..eebaee3 100644
      Trebuchet \
      DSPManager \
      libcyanogen-dsp \
-@@ -148,8 +146,6 @@ PRODUCT_PACKAGES += \
+@@ -144,8 +142,6 @@ PRODUCT_PACKAGES += \
      CMFileManager \
      LockClock \
      CMUpdater \
@@ -30,7 +30,7 @@ index 1653d4b..eebaee3 100644
  
  # CM Hardware Abstraction Framework
  PRODUCT_PACKAGES += \
-@@ -244,7 +240,7 @@ ifdef CM_BUILDTYPE
+@@ -240,7 +236,7 @@ ifdef CM_BUILDTYPE
      ifneq ($(CM_BUILDTYPE), SNAPSHOT)
          ifdef CM_EXTRAVERSION
              # Force build type to EXPERIMENTAL
@@ -39,7 +39,7 @@ index 1653d4b..eebaee3 100644
              # Remove leading dash from CM_EXTRAVERSION
              CM_EXTRAVERSION := $(shell echo $(CM_EXTRAVERSION) | sed 's/-//')
              # Add leading dash to CM_EXTRAVERSION
-@@ -253,7 +249,7 @@ ifdef CM_BUILDTYPE
+@@ -249,7 +245,7 @@ ifdef CM_BUILDTYPE
      else
          ifndef CM_EXTRAVERSION
              # Force build type to EXPERIMENTAL, SNAPSHOT mandates a tag
@@ -49,7 +49,7 @@ index 1653d4b..eebaee3 100644
              # Remove leading dash from CM_EXTRAVERSION
              CM_EXTRAVERSION := $(shell echo $(CM_EXTRAVERSION) | sed 's/-//')
 diff --git a/config/common_full.mk b/config/common_full.mk
-index 2eccc56..f584fe3 100644
+index ffdb2da..2e85b4d 100644
 --- a/config/common_full.mk
 +++ b/config/common_full.mk
 @@ -14,10 +14,6 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/cm/overlay/dictionaries
@@ -63,3 +63,57 @@ index 2eccc56..f584fe3 100644
      PhaseBeam \
      VisualizationWallpapers \
      PhotoTable \
+diff --git a/config/common_full_phone.mk b/config/common_full_phone.mk
+index f35bd58..81d52fa 100644
+--- a/config/common_full_phone.mk
++++ b/config/common_full_phone.mk
+@@ -6,9 +6,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
+     ro.config.notification_sound=Argon.ogg \
+     ro.config.alarm_alert=Hassium.ogg
+ 
+-ifeq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
+-    PRODUCT_COPY_FILES += \
+-        vendor/cm/prebuilt/common/bootanimation/480.zip:system/media/bootanimation.zip
+-endif
+ 
+ $(call inherit-product, vendor/cm/config/telephony.mk)
+diff --git a/config/common_full_tablet_wifionly.mk b/config/common_full_tablet_wifionly.mk
+index fa0080d..e1939b5 100644
+--- a/config/common_full_tablet_wifionly.mk
++++ b/config/common_full_tablet_wifionly.mk
+@@ -6,7 +6,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
+     ro.config.notification_sound=Argon.ogg \
+     ro.config.alarm_alert=Hassium.ogg
+ 
+-ifeq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
+-    PRODUCT_COPY_FILES += \
+-        vendor/cm/prebuilt/common/bootanimation/800.zip:system/media/bootanimation.zip
+-endif
++
+diff --git a/config/common_mini_phone.mk b/config/common_mini_phone.mk
+index 4b19306..1635dc2 100644
+--- a/config/common_mini_phone.mk
++++ b/config/common_mini_phone.mk
+@@ -9,9 +9,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
+     ro.config.notification_sound=Argon.ogg \
+     ro.config.alarm_alert=Hassium.ogg
+ 
+-ifeq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
+-    PRODUCT_COPY_FILES += \
+-        vendor/cm/prebuilt/common/bootanimation/320.zip:system/media/bootanimation.zip
+-endif
+ 
+ $(call inherit-product, vendor/cm/config/telephony.mk)
+diff --git a/config/common_mini_tablet_wifionly.mk b/config/common_mini_tablet_wifionly.mk
+index 882af7e..cdceacd 100644
+--- a/config/common_mini_tablet_wifionly.mk
++++ b/config/common_mini_tablet_wifionly.mk
+@@ -9,7 +9,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
+     ro.config.notification_sound=Argon.ogg \
+     ro.config.alarm_alert=Hassium.ogg
+ 
+-ifeq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
+-    PRODUCT_COPY_FILES += \
+-        vendor/cm/prebuilt/common/bootanimation/800.zip:system/media/bootanimation.zip
+-endif
++
