@@ -224,7 +224,7 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    echo "opKernel: $opKernel">>.lastBuild.tmp
 
     ######generate projects's last 10 logs########
-    if [ $kernelonly -eq 1 ]; then
+   if [ $kernelonly -eq 1 ]; then
     	echo "Generating projects's snapshot logs..."
     	PROJECTLIST=$rdir/.repo/project.list
    	 OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt

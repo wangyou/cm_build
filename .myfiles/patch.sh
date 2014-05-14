@@ -285,7 +285,7 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
         fi
      done
 
-     exit
+     [ "$mode" = "r" ] && exit
 fi
 
 ### patch for apns-conf #########
@@ -450,9 +450,6 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
 fi
 
 ####### patch for vendor cm  ########
-   sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
-   sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
-   sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
    if grep -q "system\/media\/bootanimation.zip" \
           $basedir/vendor/cm/config/common_full_phone.mk \
         $basedir/vendor/cm/config/common_full.mk; then
@@ -460,6 +457,9 @@ fi
      patch -N -p1 <$rdir/patchs/vendor_cm.diff
      cd $rdir
    fi
+   sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
+   sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
+   sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
 
 [ "$mode" = "kbranch" ] && exit
 

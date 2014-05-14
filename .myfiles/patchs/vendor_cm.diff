@@ -1,5 +1,5 @@
 diff --git a/config/common.mk b/config/common.mk
-index b83b994..5c44bc9 100644
+index b83b994..c1d8397 100644
 --- a/config/common.mk
 +++ b/config/common.mk
 @@ -30,9 +30,7 @@ endef
@@ -12,7 +12,15 @@ index b83b994..5c44bc9 100644
  endif
  endif
  
-@@ -134,7 +132,7 @@ PRODUCT_PACKAGES += \
+@@ -124,6 +122,7 @@ include vendor/cm/config/themes_common.mk
+ PRODUCT_PACKAGES += \
+     Development \
+     LatinIME \
++    PinyinIME \
+     BluetoothExt
+ 
+ # Optional CM packages
+@@ -134,7 +133,7 @@ PRODUCT_PACKAGES += \
  
  # Custom CM packages
  PRODUCT_PACKAGES += \
@@ -21,7 +29,7 @@ index b83b994..5c44bc9 100644
      Trebuchet \
      DSPManager \
      libcyanogen-dsp \
-@@ -144,8 +142,6 @@ PRODUCT_PACKAGES += \
+@@ -144,8 +143,6 @@ PRODUCT_PACKAGES += \
      CMFileManager \
      LockClock \
      CMUpdater \
@@ -30,7 +38,7 @@ index b83b994..5c44bc9 100644
  
  # CM Hardware Abstraction Framework
  PRODUCT_PACKAGES += \
-@@ -240,7 +236,7 @@ ifdef CM_BUILDTYPE
+@@ -240,7 +237,7 @@ ifdef CM_BUILDTYPE
      ifneq ($(CM_BUILDTYPE), SNAPSHOT)
          ifdef CM_EXTRAVERSION
              # Force build type to EXPERIMENTAL
@@ -39,7 +47,7 @@ index b83b994..5c44bc9 100644
              # Remove leading dash from CM_EXTRAVERSION
              CM_EXTRAVERSION := $(shell echo $(CM_EXTRAVERSION) | sed 's/-//')
              # Add leading dash to CM_EXTRAVERSION
-@@ -249,7 +245,7 @@ ifdef CM_BUILDTYPE
+@@ -249,7 +246,7 @@ ifdef CM_BUILDTYPE
      else
          ifndef CM_EXTRAVERSION
              # Force build type to EXPERIMENTAL, SNAPSHOT mandates a tag
