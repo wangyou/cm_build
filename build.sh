@@ -220,6 +220,7 @@ fi
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    .myfiles/patch.sh $device $moreopt $opKernel
+
    echo "device: $device">.lastBuild.tmp
    echo "opKernel: $opKernel">>.lastBuild.tmp
 

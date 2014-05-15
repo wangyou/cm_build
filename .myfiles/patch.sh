@@ -441,25 +441,19 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
 #   fi
 #   cp $basedir/build/core/root.mk $basedir/build/Makefile
 
-   ##fix error###
-#   sed -i $basedir/kernel/zte/msm7x27a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h \
-#       -e "s/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
-#       -e "s/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g" \
-#       -e "s/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? :/#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 :/g"
-
 fi
 
 ####### patch for vendor cm  ########
-   if grep -q "system\/media\/bootanimation.zip" \
-          $basedir/vendor/cm/config/common_full_phone.mk \
-        $basedir/vendor/cm/config/common_full.mk; then
-     cd $basedir/vendor/cm
-     patch -N -p1 <$rdir/patchs/vendor_cm.diff
-     cd $rdir
-   fi
-   sed -e "/PRODUCT_BOOTANIMATION :=/d" -e "/CMAccount/d"  -e "/CMFota/d" -i $basedir/vendor/cm/config/common.mk
-   sed -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" -i $basedir/vendor/cm/config/common.mk
+   sed -i $basedir/vendor/cm/config/common.mk -e "/CMAccount/d"  -e "/CMFota/d" -e "/Launcher3/d"
+   sed -i $basedir/vendor/cm/config/common.mk -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" 
+   sed -i $basedir/vendor/cm/config/common.mk -e '/LatinIME \\/ a\
+    PinyinIME \\'
    sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
+   sed -e "s/\(PRODUCT_BOOTANIMATION :=\).*/\1/g" -i $basedir/vendor/cm/config/common.mk
+   sed -e "s/.*bootanimation\.zip//" -i $basedir/vendor/cm/config/common_full_phone.mk
+   sed -e "s/.*bootanimation\.zip//" -i $basedir/vendor/cm/config/common_mini_phone.mk
+   sed -e "s/.*bootanimation\.zip//" -i $basedir/vendor/cm/config/common_full_tablet_wifionly.mk
+   sed -e "s/.*bootanimation\.zip//" -i $basedir/vendor/cm/config/common_mini_tablet_wifionly.mk
 
 [ "$mode" = "kbranch" ] && exit
 
