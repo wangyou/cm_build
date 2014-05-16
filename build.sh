@@ -2,8 +2,8 @@ reset
 compile_user=NX111
 branch=cm-11.0
 
-KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "cm-11.0" "test")
-KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "n880e" "jtest")
+KernelBranches=("cm-11.0" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
+KernelOpts=("cm" "jbx" "j30x" "jordan" "n880e")
 
 isKernelOpt()
 {
@@ -50,18 +50,18 @@ prepare_kernelzip()
 ##############################################################
 getKernelBranchName()
 {
-	[ "$1" = "" ] && return 
 	i=0
-        for e in ${KernelOpts[@]}; do
-		if [ "$e" = "$1" -a "$e" != "" ]; then
-			echo  ${KernelBranches[$i]}
-			return
-		fi
-		i=$((i+1))
-	done
-	return 1
+     if [ "$1" != "" -a "$KernelBranchName" != "" ]; then
+         for e in ${KernelOpts[@]}; do
+		    if [ "$e" = "$1" -a "$e" != "" ]; then
+                   KernelBranchName=${KernelBranches[$i]}
+			    break
+		    fi
+		    i=$((i+1))
+	    done
+     fi
+	echo  $KernelBranchName
 }
-
 
 #############################################################
 
@@ -81,6 +81,9 @@ oldupdate="old"
 keepPatch=1
 kernelzip=1
 kernelonly=1
+kernelBranchOptionStart=1
+KernelBranchName=$branch
+jbx=1
 moreopt=""
 nomake=1
 
@@ -113,7 +116,11 @@ fi
 
 for op in $*;do
    transop=0
-   if [ "$op" = "spyder" -o "$op" = "edison" -o "$op" = "targa" -o "$op" = "n880e" ]; then
+   if [ $kernelBranchOptionStart -eq 0 ]; then
+      KernelBranchName=$op
+      kernelBranchOptionStart=1
+      opKernel=${device}_${KernelBranchName}
+   elif [ "$op" = "spyder" -o "$op" = "edison" -o "$op" = "targa" -o "$op" = "n880e" ]; then
 	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
@@ -124,18 +131,24 @@ for op in $*;do
 	opKernel="$op"
 	[ "$op" = "n880e" ] && device="n880e"
 	transop=1
+   elif [ "$op" = "-jbx" ]; then
+      jbx=0
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
 	transop=1
-   elif [ "${op}" = "-kernel-zip" ]; then
+   elif [ "${op}" = "-kernel-zip" -o "${op}" = "-kz" ]; then
 	kernelzip=0
 	transop=1
-   elif [ "$op" = "-kernel" ]; then
+   elif [ "$op" = "-kernel-only" -o "$op" = "-ko" ]; then
 	kernelonly=0
-   elif [ "${op}" = "-k" ]; then
+     transop=1
+   elif [ "$op" = "-kernel-branch" -o "$op" = "-kb" ]; then
+     kernelBranchOptionStart=0
+     transop=0
+   elif [ "${op}" = "-keep" ]; then
 	keepPatch=0
    elif [ "$op" = "-nomake" ]; then
-        nomake=0
+     nomake=0
 	transop=1
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
@@ -155,6 +168,7 @@ done
 
 [ "$device" = "mb526" -o "$device" = "n880e" ] && opKernel="cm"
 [ $kernelonly -eq 0 ] && kernelzip=0
+
 if [ "$mode" = "cleanall" ]; then
     for f in * .*; do
 	[ "$f" != "$ScriptName" -a "$f" != ".myfiles" -a "$f" != ".git" -a "$f" != ".gitignore" -a "$f" != ".repo" ] \
@@ -192,7 +206,7 @@ if [ "$mode" = "sync" ]; then
     exit 0
 fi
 
-echo "Starting ............."
+echo "Start compiling for $device ............."
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 	export USE_CCACHE=1
 	source build/envsetup.sh > /dev/null
@@ -206,6 +220,7 @@ fi
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
 if [ "${opKernel:0:1}" = "j" ]; then
+    jbx=0
     kernel_config=mapphone_OCE_defconfig
     if [ "$device" = "edison" ]; then
 	kernel_config=mapphone_OCEdison_defconfig
@@ -226,36 +241,36 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 
     ######generate projects's last 10 logs########
    if [ $kernelonly -eq 1 ]; then
-    	echo "Generating projects's snapshot logs..."
-    	PROJECTLIST=$rdir/.repo/project.list
-   	 OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
-    	[ -d $basedir/out/target/product/$device/system/etc/ ] || mkdir -p $basedir/out/target/product/$device/system/etc/
-    	rm -f $OUTLOG
-    	touch $OUTLOG
-    	while read project
-   	do
-		cd $basedir/$project
-		echo $project: >>$OUTLOG
-		git log -10 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
-		echo -e "\n">>$OUTLOG
-    	done < $PROJECTLIST
-    	cd $basedir
+    	  echo "Generating projects's snapshot logs..."
+    	  PROJECTLIST=$rdir/.repo/project.list
+   	  OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
+    	  [ -d $basedir/out/target/product/$device/system/etc/ ] || mkdir -p $basedir/out/target/product/$device/system/etc/
+    	  rm -f $OUTLOG
+    	  touch $OUTLOG
+    	  while read project
+   	  do
+	  	 cd $basedir/$project
+		 echo $project: >>$OUTLOG
+		 git log -10 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
+		 echo -e "\n">>$OUTLOG
+    	  done < $PROJECTLIST
+    	  cd $basedir
 
     	########Delete old files#############################
-    	if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
+    	  if [ -d out/target/product/$device/obj/PACKAGING/target_files_intermediates ]; then
        		cd out/target/product/$device/obj/PACKAGING/target_files_intermediates
        		ls -t  | awk '{if(NR>2){print $0}}' | xargs rm -rf 
        		cd $basedir
-    	fi
-    	if [ -d out/target/product/$device/ ]; then
+    	  fi
+    	  if [ -d out/target/product/$device/ ]; then
        		cd out/target/product/$device
        		ls -t cm-*.zip 2>/dev/null | awk '{if(NR>4){print $0}}' |xargs rm -rf 
        		cd $basedir
-    	fi
-    	rm -f out/target/product/$device/system/build.prop
-    fi
-    [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
-    [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
+    	  fi
+    	  rm -f out/target/product/$device/system/build.prop
+   fi
+   [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
+   [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
 
 fi
 
@@ -280,7 +295,7 @@ elif ! grep -q "build/core/main.mk" $basedir/Makefile; then
     echo "include build/core/main.mk" > $basedir/Makefile
 fi
 
-if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; then
+if [ $jbx -eq 0 -a "$device" != "mb526" -a "$device" != "n880e" ]; then
 	KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
 	[ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
    	export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
@@ -294,9 +309,12 @@ fi
 retcode=1
 if [ $kernelonly -eq 0 ]; then
 	mod=$OUT/boot.img
-#	export TARGET_KERNEL_CUSTOM_TOOLCHAIN=arm-none-eabi
 fi
 
+#do or not make realy, for debug
+if [ 1 -eq 1 ]; then   
+
+#realy make
 if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; then
 
 	export BOARD_HAS_SDCARD_INTERNAL=false
@@ -320,7 +338,7 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; 
 		cd $curdir
 	fi
 
-elif [ "$opKernel" = "cm" ]; then
+else
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
             [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
@@ -336,6 +354,8 @@ elif [ "$opKernel" = "cm" ]; then
 		zip -r "../${KERNELZIP_NAME}" * >/dev/null
 		cd $curdir
 	fi
+
+fi
 
 fi
 

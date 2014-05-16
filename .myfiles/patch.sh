@@ -6,9 +6,11 @@ releaseKernel=1
 kernelUpdate=0
 opKernel=cm
 device=edison
+kernelBranchOptionStart=1
+KernelBranchName=$branch
 
-KernelBranches=("cm-11.0" "JBX" "JBX_4.4" "JBX_30X" "cm-11.0" "cm-11.0" "test")
-KernelOpts=("cm" "jbx" "j44" "j30x" "jordan" "n880e" "jtest")
+KernelBranches=("cm-11.0" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
+KernelOpts=("cm" "jbx" "j30x" "jordan" "n880e")
 
 isKernelOpt()
 {
@@ -26,16 +28,17 @@ isKernelOpt()
 ##############################################################
 getKernelBranchName()
 {
-     [ "$1" = "" ] && return 
-     i=0
-        for e in ${KernelOpts[@]}; do
-          if [ "$e" = "$1" -a "$e" != "" ]; then
-               echo  ${KernelBranches[$i]}
-               return
-          fi
-          i=$((i+1))
-     done
-     return 1
+	i=0
+     if [ "$1" != "" -a "$KernelBranchName" != "" ]; then
+         for e in ${KernelOpts[@]}; do
+		    if [ "$e" = "$1" -a "$e" != "" ]; then
+                   KernelBranchName=${KernelBranches[$i]}
+			    break
+		    fi
+		    i=$((i+1))
+	    done
+     fi
+	echo  $KernelBranchName
 }
 
 #newBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch> [checkout]
@@ -182,15 +185,26 @@ resetProject()
 
 ############################################################################
 
+jbx=1
+
 ### parse params #########
+
 for op in $*;do 
-   if [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa"  -o "$op" = "n880e" ]; then
+   if [ $kernelBranchOptionStart -eq 0 ]; then
+      KernelBranchName=$op
+      kernelBranchOptionStart=1
+      opKernel=$device_$kernelBranchName
+   elif [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa"  -o "$op" = "n880e" ]; then
         device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
      device="mb526"
      opKernel="jordan"
    elif isKernelOpt $op; then
      opKernel="$op"
+   elif [ "$op" = "-kernel-branch" -o "$op" = "-kb" ]; then
+     kernelBranchOptionStart=0
+   elif [ "$op" = "-jbx" ]; then
+      jbx=0
    elif [ "$op" = "-ku" ]; then
      kernelUpdate=1
    elif [ "$op" = "-kuo" ]; then
@@ -203,7 +217,6 @@ for op in $*;do
      oldupdate=0
    fi
 done
-
 
 cdir=`pwd`
 rdir=`cd \`dirname $0\`;pwd`
@@ -226,6 +239,8 @@ else
      DeviceDir="device/zte/$device"
      opKernel=n880e
 fi
+
+[ "${opKernel:0:1}" = "j" ]&& jbx=0
 kbranch=`getKernelBranchName $opKernel`
 
 ## local_manifest.xml   ####
@@ -240,7 +255,7 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
    if [ _$rdir/local_manifest.xml = _`find $rdir/local_manifest.xml -newer $basedir/.repo/local_manifests/local_manifest.xml` ]; then
        cp $rdir/local_manifest.xml $basedir/.repo/local_manifests/
 
-       [ "$device" != "mb526" ] && \
+       [ "$device" != "mb526" ] && isKernelOpt "$opKernel" && \
        sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" \
            -i $basedir/.repo/local_manifests/local_manifest.xml
 
@@ -263,12 +278,21 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject external/wpa_supplicant_8
      resetProject vendor/motorola
      resetProject vendor/cm $branch
-     resetProject kernel/motorola/omap4-common
      resetProject kernel/zte/msm7x27a
      resetProject device/zte/n880e
      resetProject hardware/ril $branch
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch
+    
+     ### reset kernel/motorola/omap4-common
+     curdir=`pwd`
+     cd $basedir/kernel/motorola/omap4-common
+     kernel_omap4_branch_remote=`grep -e "<project.*kernel/motorola/omap4-common.*revision=" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:<project.*kernel/motorola/omap4-common.*revision=\"\(.*\)\"/>:\1:g" `
+     kernel_omap4_branch_local=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
+     if [ "${kernel_omap4_branch_remote}" != "${kernel_omap4_branch_local}" ]; then
+          resetProject kernel/motorola/omap4-common ${kernel_omap4_branch_remote}
+     fi
+     cd $curdir
 
      #reset that translation local
      for fl in $rdir/trans/*; do
@@ -301,9 +325,8 @@ fi
 
 ########## Device Edison/Spyder/Targa,etc OMAP4-COMMON...#########
 if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
-
    ### if not kernel branch switch start ####
-   if [ "$mode" != "kbranch" -a "${opKernel:0:1}" = "j" ]; then
+   if [ "$mode" != "kbranch" -a $jbx -eq 0 ]; then
        if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
              cd $basedir/device/motorola/omap4-common
