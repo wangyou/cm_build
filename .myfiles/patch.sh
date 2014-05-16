@@ -48,10 +48,10 @@ newBranch()
      if [ $# -lt 5 ]; then return 1;fi
      [ -d $1 ] || mkdir -p $1
      cd $1
-     git branch | grep -wq "$branch" || git branch $branch
-     git remote | grep -wq "$3" || git remote add $3 $4
+     git branch | grep -q -e "[[:space:]?]$branch$" || git branch $branch
+     git remote | grep -q -e "[[:space:]?]$3$" || git remote add $3 $4
      
-     if ! git branch | grep -wq "$2"; then
+     if ! git branch | grep -q -e "[[:space:]?]$2$"; then
           echo "Create branch $2 for $1..."
           git checkout --orphan $2 >/dev/null 2>/dev/null
           git rm -rf . >/dev/null
@@ -77,7 +77,7 @@ addBranch()
      [ -d $1 ] || return 1
      cd $1
      
-     if ! git branch | grep -wq "$2"; then
+     if ! git branch | grep -q -e  "[[:space:]?]$2$"; then
           echo "Create branch $2 for $1..."
           git checkout --orphan $2 >/dev/null 2>/dev/null
           git rm -rf . >/dev/null
@@ -103,11 +103,16 @@ checkoutBranch()
      [ -d $1 ] || return 1
      cd $1
 
-     if [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
+     if ! git branch | grep -q -e "[[:space:]?]$branch$"; then
+          echo "$1 not exists branch $branch !"
+          cd $curdir
+          return 1
+     elif [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
           git stash >/dev/null
           git checkout -f $2 >/dev/null 2>/dev/null
      fi
      cd $curdir
+     return 0
 }
 
 #updateBranch <dir> <localBranch> <remoteName> <remoteBranch>
@@ -134,7 +139,7 @@ addRemote()
      if [ $curdir = $1 ]; then return 0; fi
 
      cd $1
-     git remote | grep -wq "$1" || git remote add $2 $3
+     git remote | grep -q -e "[[:space:]?]$1$" || git remote add $2 $3
      cd $curdir
 }
 
@@ -175,11 +180,6 @@ resetProject()
      fi
 
      git stash > /dev/null
-#     if [ "$branch" = "" ]; then
-#          git rebase -f >/dev/null
-#     else
-#          git rebase -f $branch >/dev/null
-#     fi
      cd $curdir
 }
 
@@ -254,11 +254,6 @@ if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
    fi
    if [ _$rdir/local_manifest.xml = _`find $rdir/local_manifest.xml -newer $basedir/.repo/local_manifests/local_manifest.xml` ]; then
        cp $rdir/local_manifest.xml $basedir/.repo/local_manifests/
-
-       [ "$device" != "mb526" ] && isKernelOpt "$opKernel" && \
-       sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" \
-           -i $basedir/.repo/local_manifests/local_manifest.xml
-
    fi
 fi
 
@@ -341,16 +336,14 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
   cd $basedir/kernel/motorola/omap4-common
   oldBranch=`git branch | grep "\*" |cut -f2 -d" "`
   addBranch $basedir/kernel/motorola/omap4-common $kbranch
-  checkoutBranch $basedir/kernel/motorola/omap4-common $kbranch
+  checkoutBranch $basedir/kernel/motorola/omap4-common $kbranch 
+  [ $? -ne 0 ] && exit 1
   if [ -f $basedir/.lastBuild ] && [ "$mode" != "kbranch" ]; then
      sed -e "s/opKernel:.*/opKernel: $opKernel/" -i $basedir/.lastBuild
   else
      echo "opKernel: $opKernel" > $basedir/.lastBuild
   fi
-  sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" \
-      -i $basedir/.repo/local_manifests/local_manifest.xml
-  git branch --unset-upstream $oldBranch >/dev/null 2>/dev/null
-  git branch --set-upstream-to github/$kbranch $kbranch >/dev/null 2>/dev/null          
+
   addRemote cm https://github.com/CyanogenMod/android_kernel_motorola_omap4-common.git
   addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
   
@@ -365,7 +358,7 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
      fi
   fi
 
-  if [ "${opKernel:0:1}" = "j" ]; then
+  if [ $jbx -eq 0 ]; then
       kernel_config=mapphone_OCE_defconfig
       if [ "$device" = "edison" ]; then
 	  kernel_config=mapphone_OCEdison_defconfig
@@ -378,7 +371,7 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
 	kernel_config=mapphone_mmi_defconfig
   fi
 
-  if [ "${opKernel:0:1}" = "j" ] && [ "$mode" != "kbranch" ] ; then
+  if [ $jbx -eq 0 ] && [ "$mode" != "kbranch" ] ; then
       sed -e "s/^\(\s*echo \\\#define LINUX_COMPILE_HOST \s*\\\\\"\)\`echo dtrail\`\(\\\\\"\)/\1\\\`echo \$LINUX_COMPILE_HOST | sed -e \\\"s\/\\\s\/_\/g\\\"\`\2/"  -i $basedir/kernel/motorola/omap4-common/scripts/mkcompile_h
 
      if  [ -f $basedir/kernel/motorola/omap4-common/arch/arm/configs/${kernel_config} ] ; then
@@ -411,17 +404,6 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
       sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig \
           -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
   fi
-
-  #some patch for kernel
-#  if  grep -q "^#if defined(CONFIG_MAPPHONE_EDISON) || defined(CONFIG_MAPPHONE_TARGA)" \
-#            $basedir/kernel/motorola/omap4-common/arch/arm/mach-omap2/sr_device.c; then
-#      patch -p1 -N < $rdir/patchs/kernel/jbx/jbx_sr-device.diff
-#  fi
-
-#  if ! grep -q "static bool skip_first_boot = true" \
-#     $basedir/kernel/motorola/omap4-common/drivers/video/omap2/displays/panel-mapphone.c; then
-#        patch -p1 -N < $rdir/patchs/kernel/first_boot.diff
-#  fi
 
   cd $basedir
   echo "Process kernel ended."
@@ -533,6 +515,6 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
       fi
    fi
 
-
-###  fix for compile error ##########
+###return####
+exit 0
 

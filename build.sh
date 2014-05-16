@@ -234,8 +234,11 @@ else
 fi
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-   .myfiles/patch.sh $device $moreopt $opKernel
-
+   if ! $basedir/.myfiles/patch.sh $device $moreopt $opKernel; then
+        $basedir/.myfiles/patch.sh -r
+        echo "Error happended...exit!"
+        exit -1
+   fi   
    echo "device: $device">.lastBuild.tmp
    echo "opKernel: $opKernel">>.lastBuild.tmp
 
