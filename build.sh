@@ -206,7 +206,7 @@ if [ "$mode" = "sync" ]; then
     exit 0
 fi
 
-echo "Start compiling for $device ............."
+echo "Start compiling for ${device^^} ............."
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 	export USE_CCACHE=1
 	source build/envsetup.sh > /dev/null
