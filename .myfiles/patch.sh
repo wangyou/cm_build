@@ -348,14 +348,18 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
   addRemote jbx https://github.com/RAZR-K-Devs/android_kernel_motorola_omap4-common.git
   
   if [ $kernelUpdate -eq 1 ]; then
-      repo sync  .
+      cd $basedir/kernel/motorola/omap4-common
+      git pull github $kbranch
+      cd $rdir
   elif [ $kernelUpdate -eq 2 ] ; then
-     repo sync  .
+     cd $basedir/kernel/motorola/omap4-common
+     git pull github $kbranch
      if [ $opKernel = "cm" ]; then
          git pull cm $kbranch
      elif echo $kbranch | grep -q JBX ; then
          git pull jbx $kbranch
      fi
+     cd $rdir
   fi
 
   if [ $jbx -eq 0 ]; then

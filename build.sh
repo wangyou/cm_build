@@ -185,18 +185,11 @@ if [ ! -f build/envsetup.sh -o "$mode" = "init" ]; then
 fi
 
 if [ "$mode" = "sync" ]; then
-    if [ -d  kernel/motorola/omap4-common ]; then
-        cd kernel/motorola/omap4-common
-        kbranch=`git branch | grep "\*" |cut -f2 -d" "`
-        sed -e "s:\(<project.*kernel/motorola/omap4-common.*revision=\).*\(/>\):\1\"$kbranch\"\2:" \
-            -i $basedir/.repo/local_manifests/local_manifest.xml
-        cd $basedir
-    fi
     while true 
     do 
 	if repo sync; then
 		for kop in ${KernelOpts[@]}; do 
-			.myfiles/patch.sh $device -kbranch  $kop -kuo
+			.myfiles/patch.sh $device -kbranch  $kop -ku
  		done
 		echo "sync successed!"
 		break
