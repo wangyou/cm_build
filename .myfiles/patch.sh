@@ -282,7 +282,7 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      ### reset kernel/motorola/omap4-common
      curdir=`pwd`
      cd $basedir/kernel/motorola/omap4-common
-     kernel_omap4_branch_remote=`grep -e "<project.*kernel/motorola/omap4-common.*revision=" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:<project.*kernel/motorola/omap4-common.*revision=\"\(.*\)\"/>:\1:g" `
+     kernel_omap4_branch_remote=`grep -e "<project.*kernel/motorola/omap4-common.*revision=" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:<project.*kernel/motorola/omap4-common.*revision=\"\(.*\)\".*/>:\1:g" `
      kernel_omap4_branch_local=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
      if [ "${kernel_omap4_branch_remote}" != "${kernel_omap4_branch_local}" ]; then
           resetProject kernel/motorola/omap4-common ${kernel_omap4_branch_remote}
