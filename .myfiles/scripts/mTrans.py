@@ -30,16 +30,17 @@ def indent(elem,recursive=True,level=0):
                elem.text = elem.text.strip()
                if elem.text[0] == '"' and elem.text[-1]=='"':
                    elem.text = elem.text[1:-1]
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i 
+        if elem.tail and elem.tail.find("\n")>=0:
+            elem.tail = elem.tail.strip()+i 
         if recursive:
-            for elem in elem:
-                indent(elem,True,level+1)
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-    else:
-        if level and (not elem.tail or not elem.tail.strip()):
-            elem.tail = i
+            if elem.__len__() >= 1 :
+                for child in elem:
+                    indent(child,True,level+1)
+                if  elem[elem.__len__()-1].tail != None and elem[elem.__len__()-1].tail.find("\n") >= 0 :
+                    elem[elem.__len__()-1].tail=elem[elem.__len__()-1].tail.strip()+i
+#    else:
+#        if level and (not elem.tail or not elem.tail.strip()):
+#            elem.tail = i
 
 def findItem(root,elem,lang="",ignoreProduct=False):
      if elem is None:
@@ -88,6 +89,7 @@ def mTrans(xmlfile,xmldict,xmlout):
 
    baseXMLname=os.path.abspath(xmlfile).replace(basedir+"/","")
    langstr=os.path.basename(os.path.dirname(xmlout))
+
    if langstr[0:7] == 'values-':
        lang=langstr[7:]
    else:
@@ -191,10 +193,15 @@ def mTrans(xmlfile,xmldict,xmlout):
               continue
 
            ####not translate items#########
-           if child_of_root.attrib.has_key("translatable") and (child_of_root.attrib['translatable'] == 'false') or child_of_root.attrib.has_key("translate") and (child_of_root.attrib['translate'] == 'false'):
+           if not child_of_root.attrib.has_key("name"):
                root.remove(child_of_root)
                continue
-           if child_of_root.text is None or (not child_of_root.text is None and (not child_of_root.text == "") and (not child_of_root.text.strip() == "") and child_of_root.text.strip()[0] == '@'):
+
+           if child_of_root.attrib.has_key("translatable") and (child_of_root.attrib['translatable'] == 'false') or child_of_root.attrib.has_key("translate") and (child_of_root.attrib['translate'] == 'false')  :
+               root.remove(child_of_root)
+               continue
+
+           if (child_of_root.text is None and child_of_root.__len__() == 0) or (not child_of_root.text is None and (not child_of_root.text == "") and (not child_of_root.text.strip() == "") and child_of_root.text.strip()[0] == '@'):
                root.remove(child_of_root)
                continue
 
@@ -226,11 +233,12 @@ def mTrans(xmlfile,xmldict,xmlout):
                if not elem2 is None:
                     root.remove(child_of_root);
                     removed=True
-                    if not (elem2.attrib.has_key("translatable") and (elem2.attrib['translatable']== 'false') or elem2.attrib.has_key("translate") and (elem2.attrib['translate']== 'false')):
+                    if not ( elem2.attrib.has_key("translatable") and (elem2.attrib['translatable'] == 'false') or elem2.attrib.has_key("translate") and (elem2.attrib['translate']== 'false') ):
                         removed=False
                         root.insert(pos,elem2)
                else:
-                    if not child_of_root is None and child_of_root.attrib.has_key("name"):
+
+                    if (not child_of_root is None) and child_of_root.attrib.has_key("name"):
                         try:
                             if file_log is None:
                                 file_log=open(dictdir+"/log.txt","w")
@@ -240,8 +248,12 @@ def mTrans(xmlfile,xmldict,xmlout):
                                    print >> file_log, "#####################################"
                                    print >> file_log, "\n",baseXMLname,":\n===================="
                                    printedHead = 1
-                            print  "[?] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
-                            print >> file_log,  "[?] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
+                            if not child_of_root.text is None:
+                                   print  "[?] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
+                                   print >> file_log,  "[?] ",child_of_root.attrib['name'], child_of_root.text.strip('\r\n \t')
+                            else:
+                                   print  "[?] ",child_of_root.attrib['name']
+                                   print >> file_log,  "[?] ",child_of_root.attrib['name'] 
                         except:
                             pass
                     else:
@@ -250,19 +262,16 @@ def mTrans(xmlfile,xmldict,xmlout):
            if not removed:
                 indent(root[pos],True,1)
                 pos+=1 
-   try:
-       root[pos-1].tail="\n"
-   except:
-       pass
+
    if mode & modWriteTrans:
            tree.write(xmlout,encoding="utf-8",xml_declaration=True) 
    if mode & modRefreshDict:
-           tree.write(xmldict,encoding="UTF-8",xml_declaration=True) 
+           tree.write(xmldict,encoding="utf-8",xml_declaration=True) 
    else:
            if not os.path.exists(os.path.dirname(xmldict)+"/out"):
               os.mkdir(os.path.dirname(xmldict)+"/out")
            ndict=os.path.dirname(xmldict)+"/out/"+os.path.basename(xmldict)
-           tree.write(ndict,encoding="UTF-8",xml_declaration=True) 
+           tree.write(ndict,encoding="utf-8",xml_declaration=True) 
 
    return 0
 
