@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
   <string name="unknown">未知</string>
   <string name="cancel">放弃</string>
@@ -156,4 +156,4 @@
   <string name="weather_icons_standard">彩色</string>
   <string name="weather_icons_monochrome">单色</string>
   <string name="icon_set_selection_get_more">更多\u2026</string>
-</resources>
+  </resources>

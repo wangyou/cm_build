@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
   <string name="pref_camera_picturesize_entry_20_7mp">2070万像素</string>
   <string name="pref_camera_picturesize_entry_18mp">1800万像素</string>
@@ -113,4 +113,4 @@
   <string name="camera_menu_asd_label">智能场景</string>
   <string name="pref_camera_power_shutter_title">Power键快门</string>
   <string name="pref_superzoom_title">高倍变焦</string>
-</resources>
+  </resources>

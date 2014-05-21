@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
   <string name="application_copyright">Copyright \u00A9 2014 The CyanogenMod Project</string>
   <string name="sort_button_text">排序</string>
@@ -47,4 +47,4 @@
   <string name="hidden_apps_title">隐藏应用</string>
   <string name="dummy_custom_cling_error_message">错误: 定制工作区布局已通过但定制磁贴不能覆盖</string>
   <string name="debug_memory_activity">* HPROF</string>
-</resources>
+  </resources>

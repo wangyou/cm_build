@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">文件管理器</string>
   <string name="app_description">CyanogenMod 文件管理器.</string>
@@ -139,6 +139,7 @@
   <string name="search_voice_hint">说出您的搜索内容</string>
   <string name="search_error_msg">搜索时发生了错误. 未找到任何结果.</string>
   <string name="search_no_results_msg">未找到任何结果.</string>
+  <string name="search_found_items_in_directory">在<ns0:g id="path">%2$s</ns0:g> 内<ns0:g id="items">%1$s</ns0:g></string>
   <string name="search_terms">&lt;b&gt;关键词:&lt;/b&gt;<ns0:g id="terms">%1$s</ns0:g>
   </string>
   <string name="search_few_characters_title">确认搜索</string>
@@ -176,14 +177,20 @@
   <string name="menu_no_suggestions">没有建议</string>
   <string name="menu_word_wrap">自动换行</string>
   <string name="menu_syntax_highlight">语法高亮</string>
+  <string name="create_copy_regexp">
+    <ns0:g id="name">%1$s</ns0:g> - 副本<ns0:g id="extension">%2$s</ns0:g></string>
+  <string name="create_new_compress_file_regexp">
+    <ns0:g id="name">%1$s</ns0:g> - 新建<ns0:g id="extension">%2$s</ns0:g></string>
   <string name="waiting_dialog_msg">正在执行操作\u2026</string>
   <string name="waiting_dialog_copying_title">正在复制\u2026</string>
   <string name="waiting_dialog_copying_msg">&lt;b&gt;从&lt;/b&gt;<ns0:g id="from">%1$s</ns0:g>&lt;br/&gt;
-    &lt;b&gt;到&lt;/b&gt; <ns0:g id="to">%2$s</ns0:g>
+    &lt;b&gt;到&lt;/b&gt;
+    <ns0:g id="to">%2$s</ns0:g>
   </string>
   <string name="waiting_dialog_moving_title">正在移动\u2026</string>
   <string name="waiting_dialog_moving_msg">&lt;b&gt;从&lt;/b&gt;<ns0:g id="from">%1$s</ns0:g>&lt;br/&gt;
-    &lt;b&gt;到&lt;/b&gt; <ns0:g id="to">%2$s</ns0:g>
+    &lt;b&gt;到&lt;/b&gt;
+    <ns0:g id="to">%2$s</ns0:g>
   </string>
   <string name="waiting_dialog_deleting_title">正在删除\u2026</string>
   <string name="waiting_dialog_deleting_msg">&lt;b&gt;文件&lt;/b&gt;<ns0:g id="file">%1$s</ns0:g>
@@ -244,6 +251,8 @@
   <string name="execution_console_script_name_label">脚本:</string>
   <string name="execution_console_script_execution_time_label">时间:</string>
   <string name="execution_console_script_exitcode_label">退出代码:</string>
+  <string name="execution_console_script_execution_time_text">
+    <ns0:g id="seconds">%1$s</ns0:g> 秒</string>
   <string name="compute_checksum_title">计算检验和</string>
   <string name="compute_checksum_filename_label">文件:</string>
   <string name="compute_checksum_computing_checksum_msg">正在计算检验和\u2026</string>
@@ -255,6 +264,7 @@
   <string name="filetime_format_mode_ddMMyyyy_HHmmss">日/月/年 时:分:秒</string>
   <string name="filetime_format_mode_MMddyyyy_HHmmss">月/日/年 时:分:秒</string>
   <string name="filetime_format_mode_yyyyMMdd_HHmmss">年-月-日 时:分:秒</string>
+  <string name="selection_folders_and_files">已选择<ns0:g id="folders">%1$s</ns0:g> 个文件夹和 <ns0:g id="files">%2$s</ns0:g> 个文件.</string>
   <string name="category_system">系统</string>
   <string name="category_app">程序</string>
   <string name="category_binary">二进制</string>
@@ -280,8 +290,8 @@
   <string name="pref_editor">编辑器选项</string>
   <string name="pref_themes">主题</string>
   <string name="pref_about">关于</string>
-  <string name="pref_about_summary">文件管理器 v<ns0:g id="version">%1$s</ns0:g>
-    \n版权所有 \u00A9 2013 CyanogenMod</string>
+  <string name="pref_about_summary">文件管理器 v<ns0:g id="version">%1$s</ns0:g>\n版权所有 \u00A9 2013 CyanogenMod
+  </string>
   <string name="pref_general_behaviour_category">常规</string>
   <string name="pref_case_sensitive_sort">排列时区分大小写</string>
   <string name="pref_case_sensitive_sort_summary">导航或排列搜索结果时区分大小写</string>
@@ -364,4 +374,4 @@
     \n\n本程序将会允许您浏览设备的文件系统并做出可能导致损伤的操作. 为了避免损伤, 此程序默认将会在低权限与安全的模式下开始运行.
     \n\n您可以通过设置切换到高级并拥有完全控制的模式. 确保操作不会损坏系统与它的安全性将是您的责任.
     \n\nCyanogenMod 团队.\n</string>
-</resources>
+  </resources>

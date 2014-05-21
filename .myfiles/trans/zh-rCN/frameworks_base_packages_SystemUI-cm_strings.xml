@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
   <string name="accessibility_quick_settings_ringer">声音<ns0:g example="Off" id="state">%s</ns0:g>.</string>
   <string name="accessibility_quick_settings_vibration">震动<ns0:g example="Off" id="state">%s</ns0:g>.</string>
@@ -64,4 +64,4 @@
   <string name="accessibility_desc_add_quick_settings">增加快速设置.</string>
   <string name="accessibility_battery_level">电池<ns0:g id="number">%d</ns0:g>%%.</string>
   <string name="battery_meter_very_low_overlay_symbol">!</string>
-</resources>
+  </resources>

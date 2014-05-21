@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
   <string name="incall_call_type_label_forwarded">呼叫转移</string>
   <string name="card_title_dialing_waiting">正在拨号 (稍候\u2026)</string>
@@ -7,13 +7,4 @@
   <string name="blacklist_dialog_title">加入黑名单</string>
   <string name="blacklist_dialog_message">从<ns0:g id="number">%s</ns0:g>的呼叫将被阻止</string>
   <string name="sub_no_sim">无SIM卡</string>
-  <string name="callFailed_dialToUssd">拨号请求更改为USSD请求.</string>
-  <string name="callFailed_dialToSs">拨号请求更改为SS请求.</string>
-  <string name="callFailed_dialToDial">拨号请求更改为呼叫其他号码.</string>
-  <string name="modify_call_option_vt">VT</string>
-  <string name="stk_cc_ss_to_dial_error">SS请求改为拨号请求.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS请求改为USSD请求.</string>
-  <string name="stk_cc_ss_to_ss_error">SS请求改为新的SS请求.</string>
-  <string name="sub_1">SIM 1</string>
-  <string name="sub_2">SIM 2</string>
-</resources>
+  </resources>
