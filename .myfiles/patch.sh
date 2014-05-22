@@ -518,13 +518,6 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
          cd $rdir
       fi
    fi
-  
-   ### moto_audio_wrapper: fix set_mode for ICS blob
-   if [ _`grep -c "ics_hw_dev->set_voice_volume" $basedir/device/motorola/omap4-common/audio/wrapper.c` = _2 ]; then
-      cd $basedir/device/motorola/omap4-common
-      patch -N -p1 < $rdir/patchs/moto_audio_wrapper-ics_blob.diff
-      cd $rdir
-   fi
 
 ###return####
 exit 0
