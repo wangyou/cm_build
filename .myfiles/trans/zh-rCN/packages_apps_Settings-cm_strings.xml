@@ -292,14 +292,15 @@
   <string name="auto_brightness_preview">预览</string>
   <string name="auto_brightness_preview_dialog_title">亮度曲线</string>
   <string name="auto_brightness_help_dialog_title">帮助</string>
-  <string name="auto_brightness_help_text"><b>亮度是怎么被计算的？</b>
+  <string name="auto_brightness_help_text"><b>亮度是怎么被计算的？</b>\n\n
+亮度曲线是通过在选定的
+    <i>控制点</i>上进行<i>三次样条插值</i>而计算出的。这并不是一个设定了环境亮度范围内，屏幕亮度就不会改变的计算方式。通过这种特殊方式，环境亮度的细微变化将不会导致屏幕亮度的大幅度改变。由于改变控制点会导致的结果是难以预测的，我们为您提供了一个计算后的曲线预览。\n
+请注意：为了能够清晰的显示各个控制点，预览是使用
+    <i>对数刻度</i>绘制的。如果使用的是线性刻度，您将无法明确地区分各个控制点，特别是处于范围底部的。
 \n\n
-亮度曲线是通过在选定的<i>控制点</i>上进行<i>三次样条插值</i>而计算出的。这并不是一个设定了环境亮度范围内，屏幕亮度就不会改变的计算方式。通过这种特殊方式，环境亮度的细微变化将不会导致屏幕亮度的大幅度改变。由于改变控制点会导致的结果是难以预测的，我们为您提供了一个计算后的曲线预览。\n
-请注意：为了能够清晰的显示各个控制点，预览是使用<i>对数刻度</i>绘制的。如果使用的是线性刻度，您将无法明确地区分各个控制点，特别是处于范围底部的。
-\n\n
-<b>应该如何去编辑亮度曲线呢？</b>
-\n\n
-在亮度列表里的每一行都对应着一个在亮度曲线上的<i>控制点</i>。您可以通过各行的滑块来调整每个点的亮度级别。触摸滑块时屏幕的亮度也会做出相应的改变，作为一个亮度级别的预览。\n
+    <b>应该如何去编辑亮度曲线呢？</b>\n\n
+在亮度列表里的每一行都对应着一个在亮度曲线上的
+    <i>控制点</i>。您可以通过各行的滑块来调整每个点的亮度级别。触摸滑块时屏幕的亮度也会做出相应的改变，作为一个亮度级别的预览。\n
 长按任何一行将显示更多的选项。选择 \'编辑\' 将让您编辑环境亮度级别并手动输入所需的屏幕亮度。选择 \'分离\' 将让您把一行分离为两行并同时加入更多的控制点。选择 \'移除\' 将移除所选行。
   </string>
   <string name="auto_brightness_sensitivity_title">调整敏感度</string>
@@ -327,6 +328,8 @@
   <string name="root_access_apps">仅限于应用程序</string>
   <string name="root_access_adb">仅限于 ADB</string>
   <string name="root_access_all">应用程序与 ADB</string>
+  <string name="update_recovery_title">更新 CM recovery</string>
+  <string name="update_recovery_summary">系统升级时更新recovery</string>
   <string name="ok">确定</string>
   <string name="quiet_hours_title">安静时段</string>
   <string name="quiet_hours_summary">配置设备应该安静的时段</string>
@@ -379,6 +382,7 @@
   <string name="styles_settings_title">风格</string>
   <string name="icons_settings_title">图标</string>
   <string name="fonts_settings_title">字体</string>
+  <string name="wallpaper_settings_title_cm">壁纸</string>
   <string name="lockscreen_wallpaper_settings_title">锁屏壁纸</string>
   <string name="bootanim_settings_title">启动动画</string>
   <string name="soundpack_settings_title">声音包</string>
