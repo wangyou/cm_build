@@ -519,6 +519,14 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
       fi
    fi
 
+   ## hdmi toggle 
+   [ "$device" != "mb526" -a "$device" != "n880e" ] && \
+   if ! grep -q "HdmiToggle" $basedir/device/motorola/omap4-common/common.mk; then
+        cd $basedir/device/motorola/omap4-common
+        patch -p1 < $rdir/patchs/hdmiToggle.diff
+        cd $rdir
+   fi
+
 ###return####
 exit 0
 
