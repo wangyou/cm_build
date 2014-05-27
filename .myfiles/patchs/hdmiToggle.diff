@@ -1,0 +1,15 @@
+diff --git a/common.mk b/common.mk
+index 388b203..187aa27 100644
+--- a/common.mk
++++ b/common.mk
+@@ -142,6 +142,10 @@ PRODUCT_PACKAGES += \
+     libjni_mosaic \
+     Torch
+ 
++# HDMI Toggle
++PRODUCT_PACKAGES += HdmiToggle
++
++
+ # Permissions files
+ PRODUCT_COPY_FILES += \
+     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
