@@ -45,6 +45,18 @@
   <string name="all_apps_cling_summary">点击页面指示器查看更多设置</string>
   <string name="menu_hidden_apps_delete">重置</string>
   <string name="hidden_apps_title">隐藏应用</string>
+  <string name="launcher_settings">启动器设置</string>
+  <string name="home_screen_settings">主屏设置</string>
+  <string name="drawer_settings">抽屉设置</string>
+  <string name="page_scroll_effect_text">滚动效果</string>
+  <string name="drawer_scroll_effect_text">滚动效果</string>
+  <string name="drawer_sorting_text">排序模式</string>
+  <string name="home_screen_search_text">搜索条</string>
+  <string name="larger_icons_text">大图标</string>
+  <string name="hide_icon_labels">隐藏图标标签</string>
+  <string name="setting_state_on">开</string>
+  <string name="setting_state_off">关</string>
+  <string name="themes_button_text">主题</string>
   <string name="dummy_custom_cling_error_message">错误: 定制工作区布局已通过但定制磁贴不能覆盖</string>
   <string name="debug_memory_activity">* HPROF</string>
   </resources>
