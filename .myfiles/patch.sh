@@ -434,7 +434,7 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
 #        updateBranch bootable/recovery twrp twrp android-4.4
 #   fi
 
-#elif [ "$device" = "n880e" ]; then
+elif [ "$device" = "n880e" ]; then
 #   newBranch build legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_build.git $branch checkout
 #   newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
 #   newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
@@ -449,6 +449,22 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
 
 #   fi
 #   cp $basedir/build/core/root.mk $basedir/build/Makefile
+
+    if ! grep -q "###Patched for ZTE-N880e######" $basedir/build/core/Makefile; then
+        cd $basedir/build
+        patch -p1 < $rdir/patchs/n880e/build.diff
+        cd $rdir
+    fi 
+    if ! grep -q "ZTE_CAMERA_HARDWARE" $basedir/frameworks/av/camera/CameraParameters.cpp; then
+        cd $basedir/frameworks/av
+        patch -p1 < $rdir/patchs/n880e/legcy_av.diff
+        cd $rdir
+    fi
+    if ! grep -q "DECIDE_TEXTURE_TARGET" $basedir/frameworks/native/services/surfaceflinger/SurfaceFlingerConsumer.cpp; then
+        cd $basedir/frameworks/native
+        patch -p1 < $rdir/patchs/n880e/legcy_native.diff
+        cd $rdir
+    fi
 
 fi
 
