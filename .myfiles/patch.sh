@@ -450,6 +450,9 @@ elif [ "$device" = "n880e" ]; then
 #   fi
 #   cp $basedir/build/core/root.mk $basedir/build/Makefile
 
+    mkdir -p $basedir/vendor/cm/tools; 
+    cp $rdir/patchs/n880e/squisher $basedir/vendor/cm/tools/ 
+    [ -f $basedir/vendor/cm/tools/squisher ] && chmod +x $basedir/vendor/cm/tools/squisher
     if ! grep -q "###Patched for ZTE-N880e######" $basedir/build/core/Makefile; then
         cd $basedir/build
         patch -p1 < $rdir/patchs/n880e/build.diff
@@ -469,7 +472,7 @@ elif [ "$device" = "n880e" ]; then
 fi
 
 ####### patch for vendor cm  ########
-   sed -i $basedir/vendor/cm/config/common.mk -e "/CMAccount/d"  -e "/CMFota/d" -e "/Launcher3/d"
+   sed -i $basedir/vendor/cm/config/common.mk -e "/CMAccount/d" -e "/Basic \\/d"  -e "/CMFota/d" -e "/Launcher3/d"
    sed -i $basedir/vendor/cm/config/common.mk -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" 
    sed -i $basedir/vendor/cm/config/common.mk -e '/LatinIME \\/ a\
     PinyinIME \\'
