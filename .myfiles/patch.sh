@@ -466,7 +466,7 @@ fi
 [ "$mode" = "kbranch" ] && exit
 
 ####### patch for vendor cm  ########
-   sed -i $basedir/vendor/cm/config/common.mk -e "/CMAccount/d" -e "/Basic \\/d"  -e "/CMFota/d" -e "/Launcher3/d"
+   sed -i $basedir/vendor/cm/config/common.mk -e "/CMAccount/d" -e "/Basic \\\\/d"  -e "/CMFota/d" -e "/Launcher3/d"
    sed -i $basedir/vendor/cm/config/common.mk -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" 
    sed -i $basedir/vendor/cm/config/common.mk -e '/LatinIME \\/ a\
     PinyinIME \\'
@@ -479,9 +479,11 @@ fi
 
 
 #### patch build for clean some files before make systemimage
-   mkdir -p $basedir/vendor/cm/tools; 
-   cp $rdir/patchs/n880e/squisher $basedir/vendor/cm/tools/ 
-   [ -f $basedir/vendor/cm/tools/squisher ] && chmod +x $basedir/vendor/cm/tools/squisher
+   if [ ! -f $basedir/vendor/cm/tools/squisher ]; then
+        cd $basedir/vendor/cm
+        patch -p1 < $rdir/patchs/vendor_cm_tools.diff
+        cd $rdir
+   fi
    if ! grep -q "systemimage-squisher" $basedir/build/core/Makefile; then
         cd $basedir/build
         patch -p1 < $rdir/patchs/build.diff
