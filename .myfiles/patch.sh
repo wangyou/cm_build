@@ -482,6 +482,7 @@ fi
    if [ ! -f $basedir/vendor/cm/tools/squisher ]; then
         cd $basedir/vendor/cm
         patch -p1 < $rdir/patchs/vendor_cm_tools.diff
+        chmod +x $basedir/vendor/cm/tools/*
         cd $rdir
    fi
    if ! grep -q "systemimage-squisher" $basedir/build/core/Makefile; then
