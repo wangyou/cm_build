@@ -245,6 +245,7 @@
   <string name="title_dynamic_alarm">闹钟</string>
   <string name="title_dynamic_bugreport">错误报告</string>
   <string name="title_dynamic_dock_battery">基座电池</string>
+  <string name="title_dynamic_equalizer">均衡器</string>
   <string name="title_dynamic_ime">输入法更改器</string>
   <string name="title_dynamic_usbtether">USB 网络共享</string>
   <string name="title_dynamic_wifi">WIFI 显示</string>
