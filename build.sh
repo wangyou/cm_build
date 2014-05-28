@@ -36,6 +36,13 @@ prepare_kernelzip()
 	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
 	cp -r $basedir/.myfiles/scripts/kernel_zip/META-INF $basedir/out/target/product/$device/kernel_zip/rls/
+        if [ "$device" = "n880e" -o "$device" = "atlas4" ]; then
+            mv $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.atlas40 \
+               $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script
+            cp $basedir/out/target/product/$device/boot.img $basedir/out/target/product/$device/kernel_zip/rls/
+        else
+            rm $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.atlas40
+        fi
 	cp -r $basedir/.myfiles/scripts/kernel_zip/utils $basedir/out/target/product/$device/kernel_zip/rls/
 	list_kfiles | while read FILE; do
 		if echo $FILE | grep -q "kernel"; then

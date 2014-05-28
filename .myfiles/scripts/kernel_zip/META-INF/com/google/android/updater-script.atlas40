@@ -1,0 +1,103 @@
+
+# Start
+set_progress(0.05);
+
+#mount("ext3", "EMMC", "/dev/block/system", "/system");
+
+ui_print("Setting up required tools...");
+package_extract_file("utils/mount", "/tmp/mount");
+set_perm(0, 0, 0755, "/tmp/mount");
+
+ui_print("mounting partions...");
+run_program("/tmp/mount", "/system");
+run_program("/tmp/mount", "/ext");
+set_progress(0.03);
+
+##############################################################
+#                                                            #
+#                  Aroma Installer                           #
+#                                                            #
+##############################################################
+##Backup 
+
+if
+      file_getprop("/tmp/aroma/menu.prop","selected") == "1" && file_getprop("/tmp/aroma/install.prop","item.1.2") == "1" 
+then
+      ui_print("@Backing up current modules");
+      delete_recursive("/ext/kernel_backup");
+      run_program("/sbin/mkdir", "-p", "/ext/kernel_backup");
+      run_program("/sbin/mkdir", "-p", "/ext/kernel_backup/modules");
+      run_program("/sbin/cp", "-rf", "/system/lib/modules", "/ext/kernel_backup/");
+      run_program("/sbin/cp", "-f", "/system/lib/libc.so", "/ext/kernel_backup/");
+      run_program("/sbin/cp", "-f", "/system/lib/libdl.so", "/ext/kernel_backup/");
+      run_program("/sbin/cp", "-f", "/system/lib/libm.so", "/ext/kernel_backup/");
+      run_program("/sbin/cp", "-f", "/system/lib/libstdc++.so", "/ext/kernel_backup/");
+endif;
+set_progress(0.06);
+
+##Install
+if
+      file_getprop("/tmp/aroma/menu.prop","selected") == "1" && file_getprop("/tmp/aroma/install.prop","item.1.1") == "1"
+then
+      ui_print("@Installing Kernel");
+      package_extract_file("boot.img", "/dev/block/mmcblk0p16");
+      set_progress(0.50);
+      package_extract_dir("system", "/system");
+      set_progress(0.85);
+endif;
+set_progress(0.14);
+
+##############################################################
+#Restore
+
+if
+      file_getprop("/tmp/aroma/menu.prop","selected") == "2"
+then
+      ui_print("@ Restoring prior modules");
+        delete_recursive("/system/lib/modules");
+        delete("/system/lib/libc.so");
+        delete("/system/lib/libstdc++.so");
+        delete("/system/lib/libdl.so");
+        delete("/system/lib/libm.so");
+
+        run_program("/sbin/cp", "-rf", "/ext/kernel_backup/modules", "/system/lib/");
+        run_program("/sbin/cp", "-f", "/ext/kernel_backup/libc.so", "/system/lib/");
+        run_program("/sbin/cp", "-f", "/ext/kernel_backup/libstdc++.so", "/system/lib/");
+        run_program("/sbin/cp", "-f", "/ext/kernel_backup/libdl.so", "/system/lib/");
+        run_program("/sbin/cp", "-f", "/ext/kernel_backup/libm.so", "/system/lib/");
+endif;
+set_progress(0.13);
+
+
+if
+      file_getprop("/tmp/aroma/menu.prop","selected") == "2" || file_getprop("/tmp/aroma/menu.prop","selected") == "1"  && file_getprop("/tmp/aroma/install.prop","item.1.1") == "1"
+then
+      ui_print("@fix premissions");
+      set_perm_recursive(0, 0, 0755, 0644, "/system/lib/modules");
+      set_perm_recursive(0, 2000, 0755, 0755, "/system/etc/init.d");
+      set_perm(0, 0, 0755, "/system/etc/init.d");
+      set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
+      set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
+      set_perm(0, 0, 06755, "/system/xbin/su");
+      set_progress(0.97);
+endif;
+##############################################################
+#                    aroma installer end.                    #
+##############################################################
+
+# Wipe
+ui_print("Clean up");
+delete_recursive("/tmp/aroma");
+
+set_progress(1);
+#ui_print("fix root");
+#symlink("../xbin/su", "/system/bin/su");
+
+#Finishing
+
+ui_print("Unmounting system...");
+ui_print(" ");
+
+# Unmount
+unmount("/system");
+ui_print("Kernel Installed! Enjoy!");
