@@ -275,6 +275,7 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject vendor/cm $branch
      resetProject kernel/zte/msm7x27a
      resetProject device/zte/n880e
+     resetProject device/zte/atlas40
      resetProject hardware/ril $branch
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch

@@ -24,7 +24,7 @@
 <project name="amarullz/AROMA-Installer" path="tools/aroma-installer"  remote="github" revision="master"/>
 
 <!-- ZTE N880e -->
-<project name="nx111/android_kernel_zte_msm7x27a" path="kernel/zte/msm7x27a" remote="github" revision="cm-11.0" />
+<project name="nx111/android_kernel_zte_msm7x27a" path="kernel/zte/msm7x27a" remote="github" revision="ics" />
 <project name="nx111/android_device_zte_atlas40" path="device/zte/atlas40" remote="github" revision="cm-11.0" />
 <project name="nx111/android_device_zte_n880e" path="device/zte/n880e" remote="github" revision="cm-11.0" />
 <project name="nx111/proprietary_vendor_zte" path="vendor/zte" remote="github" revision="cm-11.0" />
