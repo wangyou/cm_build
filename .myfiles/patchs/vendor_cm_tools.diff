@@ -1,10 +1,10 @@
-commit e7b07c1cb9c0c3f57960f781987523009cfa711f
+commit 41c2d0029c6846a02eb82848a54642539c06a0da
 Author: nx111 <gd.zhangdz@gmail.com>
-Date:   Wed May 28 09:52:23 2014 +0800
+Date:   Thu May 29 23:27:50 2014 +0800
 
-    add tools
+    tools
     
-    Change-Id: Ib6a64d7356aa0f5c1aee3e672176d4896320983a
+    Change-Id: I35d06b6a1007759ad6068b5d82819ecda4862a0e
 
 diff --git a/tools/functions b/tools/functions
 new file mode 100755
@@ -191,10 +191,10 @@ index 0000000..f4afbd0
 +
 diff --git a/tools/squisher b/tools/squisher
 new file mode 100755
-index 0000000..f1eb758
+index 0000000..1c56a18
 --- /dev/null
 +++ b/tools/squisher
-@@ -0,0 +1,50 @@
+@@ -0,0 +1,56 @@
 +#!/bin/bash
 +#
 +# Squish a CM otapackage for distribution
@@ -224,8 +224,14 @@ index 0000000..f1eb758
 +QUIET=-q
 +DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
 +
-+# Optimize PNG resources in APKs
-+( cd "$OUT"/system; find framework/ app/ priv-app/ vendor/app/ -name \*.apk -print | $XARGS "$OPTICHARGER"; )
++if [ "$(which pngcrush)" != "" -o  "$(which optipng)" != "" -o "$(which pngout-static)" != "" -o  "$(which pngout)" != ""  ]; then
++   # Optimize PNG resources in APKs
++   cd "$OUT"/system
++   find framework/ app/ priv-app/ vendor/app/ -name \*.apk -print | $XARGS "$OPTICHARGER"
++else
++  echo -e "Please install pngcrush, optipng, or pngout to Optimize PNG resources in APKs"
++
++fi
 +
 +# Delete unnecessary binaries
 +( cd "$OUT"/system/bin; echo $DELETE_BINS | xargs rm -f; )
@@ -238,10 +244,10 @@ index 0000000..f1eb758
 +DEVICE=$(cat "$OUT"/system/build.prop | grep 'ro.build.product=' | tr '[:upper:]' '[:lower:]' | sed 's/ro.build.product=//')
 +SQUISHER_EXTRAS_FILE="$ANDROID_BUILD_TOP/device/$VENDOR/$DEVICE/squisher-extras.txt"
 +if [ -f "$SQUISHER_EXTRAS_FILE" ]; then
-+    for FILE in `cat "$SQUISHER_EXTRAS_FILE" | grep -v ^# | grep -v ^$`; do
++    for FILE in `cat "$SQUISHER_EXTRAS_FILE" | grep -v "^ *#" | grep -v "^ *$"`; do
 +        EXTRAS="$EXTRAS $FILE"
 +    done
-+    ( cd "$OUT"/system; echo $EXTRAS | xargs rm -f; )
++    ( cd "$OUT"/system; echo $EXTRAS | xargs rm -rf; )
 +fi
 +
 +exit 0

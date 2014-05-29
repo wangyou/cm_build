@@ -413,6 +413,9 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
   cd $basedir
   echo "Process kernel ended."
 
+  ## clean some audios
+  cp $rdir/patchs/squisher-extras.txt $basedir/device/motorola/$device/
+
 : <<'COMMENT'
 elif [ "$device" = "mb526" ]; then
    ###### for jordan ##########
