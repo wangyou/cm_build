@@ -1,0 +1,46 @@
+diff --git a/media/libstagefright/Android.mk b/media/libstagefright/Android.mk
+index 3c56a42..aa38c48 100644
+--- a/media/libstagefright/Android.mk
++++ b/media/libstagefright/Android.mk
+@@ -114,6 +114,10 @@ ifneq ($(filter caf bfam,$(TARGET_QCOM_AUDIO_VARIANT)),)
+             LOCAL_SRC_FILES += LPAPlayer.cpp
+             LOCAL_CFLAGS += -DLEGACY_LPA -DUSE_LPA_MODE
+         endif
++        ifeq ($(call is-chipset-in-board-platform,msm7x27a),true)
++            LOCAL_SRC_FILES += LPAPlayer.cpp
++            LOCAL_CFLAGS += -DLEGACY_LPA -DUSE_LPA_MODE
++        endif
+         ifeq ($(NO_TUNNEL_MODE_FOR_MULTICHANNEL),true)
+             LOCAL_CFLAGS += -DNO_TUNNEL_MODE_FOR_MULTICHANNEL
+         endif
+@@ -186,6 +190,14 @@ ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
+     endif
+ endif #TARGET_ENABLE_AV_ENHANCEMENTS
+ 
++ifeq ($(TARGET_QCOM_LEGACY_OMX),true)
++    LOCAL_CFLAGS += -DQCOM_LEGACY_OMX
++endif
++
++ifeq ($(TARGET_USES_ION),true)
++    LOCAL_CFLAGS += -DUSE_ION
++endif
++
+ LOCAL_SRC_FILES += \
+         chromium_http_stub.cpp
+ LOCAL_CPPFLAGS += -DCHROMIUM_AVAILABLE=1
+diff --git a/media/libstagefright/AwesomePlayer.cpp b/media/libstagefright/AwesomePlayer.cpp
+index 081e41b..310b9ab 100644
+--- a/media/libstagefright/AwesomePlayer.cpp
++++ b/media/libstagefright/AwesomePlayer.cpp
+@@ -76,7 +76,11 @@
+ 
+ #include <cutils/properties.h>
+ 
++#ifdef QCOM_LEGACY_OMX
++#define USE_SURFACE_ALLOC 0
++#else
+ #define USE_SURFACE_ALLOC 1
++#endif
+ #define FRAME_DROP_FREQ 0
+ #ifdef QCOM_HARDWARE
+ #define LPA_MIN_DURATION_USEC_ALLOWED 30000000
