@@ -224,15 +224,6 @@ index 0000000..1c56a18
 +QUIET=-q
 +DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
 +
-+if [ "$(which pngcrush)" != "" -o  "$(which optipng)" != "" -o "$(which pngout-static)" != "" -o  "$(which pngout)" != ""  ]; then
-+   # Optimize PNG resources in APKs
-+   cd "$OUT"/system
-+   find framework/ app/ priv-app/ vendor/app/ -name \*.apk -print | $XARGS "$OPTICHARGER"
-+else
-+  echo -e "Please install pngcrush, optipng, or pngout to Optimize PNG resources in APKs"
-+
-+fi
-+
 +# Delete unnecessary binaries
 +( cd "$OUT"/system/bin; echo $DELETE_BINS | xargs rm -f; )
 +
@@ -248,6 +239,15 @@ index 0000000..1c56a18
 +        EXTRAS="$EXTRAS $FILE"
 +    done
 +    ( cd "$OUT"/system; echo $EXTRAS | xargs rm -rf; )
++fi
++
++if [ "$(which pngcrush)" != "" -o  "$(which optipng)" != "" -o "$(which pngout-static)" != "" -o  "$(which pngout)" != ""  ]; then
++   # Optimize PNG resources in APKs
++   cd "$OUT"/system
++   find framework/ app/ priv-app/ vendor/app/ -name \*.apk -print | $XARGS "$OPTICHARGER"
++else
++  echo -e "Please install pngcrush, optipng, or pngout to Optimize PNG resources in APKs"
++
 +fi
 +
 +exit 0
