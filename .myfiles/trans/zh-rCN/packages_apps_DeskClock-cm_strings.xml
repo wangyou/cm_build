@@ -3,8 +3,7 @@
   <string name="show_status_bar_icon_title">显示图标</string>
   <string name="show_status_bar_icon_summary">闹钟设定时在状态栏上显示一个图标</string>
   <string name="alarm_increasing_volume">渐强音量</string>
-  <string name="profile_description">情景<ns0:g id="profile">%s</ns0:g>
-  </string>
+  <string name="profile_description">情景<ns0:g id="profile">%s</ns0:g></string>
   <string name="profile_no_selected">未选择情景</string>
   <string name="menu_item_add">添加</string>
   <string name="cities_add_city_title">添加城市</string>
@@ -40,5 +39,6 @@
   <string name="alarm_picker_title">选择闹钟类型</string>
   <string name="alarm_type_ringtone">铃声</string>
   <string name="alarm_type_random">随机</string>
+  <string name="warn_silent_alarm_title">闹钟音量已静音</string>
   <string name="control_set_alarm_with_existing"><ns0:g id="time">%s</ns0:g></string>
   </resources>
