@@ -497,18 +497,18 @@ fi
 
 #### patch build for clean some files before make systemimage
    [ ! -f $basedir/build/tools/extra_files.sh ] && cp $rdir/scripts/extra_files.sh $basedir/build/tools/
-   if ! grep -q "systemimage-squisher" $basedir/build/core/Makefile; then
+   if ! grep -q "systemimage-extras" $basedir/build/core/Makefile; then
       sed  -i  $basedir/build/core/Makefile -e 's/\(FULL_SYSTEMIMAGE_DEPS :=.*\)/\
-\#\# add squisher for clean some file before make systemimage\
-systemimage-squisher: \$(INTERNAL_SYSTEMIMAGE_FILES)\
+\#\# add extra_files for clean some file before make systemimage\
+systemimage-extras: \$(INTERNAL_SYSTEMIMAGE_FILES)\
 ifeq (\$(TARGET_SYSTEMIMAGE_USE_SQUISHER),true)\
 	@echo -e \${CL_YLW}"Running Extras..."\${CL_RST}\
 	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/build\/tools\/extra_files.sh\
 endif\
 \
-\.PHONY: systemimage-squisher\
+\.PHONY: systemimage-extras\
 \
-\1 systemimage-squisher/g' 
+\1 systemimage-extras/g' 
    fi 
 
   [ $oldupdate -eq 1 ] && sed -e "/use_set_metadata=1/d" -i $basedir/build/core/Makefile
