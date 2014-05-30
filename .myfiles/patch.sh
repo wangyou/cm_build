@@ -502,7 +502,7 @@ fi
 \#\# add squisher for clean some file before make systemimage\
 systemimage-squisher: \$(INTERNAL_SYSTEMIMAGE_FILES)\
 ifeq (\$(TARGET_SYSTEMIMAGE_USE_SQUISHER),true)\
-	@echo -e \${CL_YLW}"Running squisher..."\${CL_RST}\
+	@echo -e \${CL_YLW}"Running Extras..."\${CL_RST}\
 	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/build\/tools\/extra_files.sh\
 endif\
 \

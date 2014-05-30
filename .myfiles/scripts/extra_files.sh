@@ -51,10 +51,9 @@ fi
 ####################################################################
 ###  copy file to $OUT
 
-echo "Extra: copy extra files to target system directory..."
-
 COPY_EXTRAS_FILE="$ANDROID_BUILD_TOP/device/$VENDOR/$DEVICE/copy-extras.txt"
 if [ -f "COPY_EXTRAS_FILE" ]; then
+    echo "Extra: copy extra files to target system directory..."
     for LINE in `cat "$COPY_EXTRAS_FILE" | grep -v "^ *#" | grep -v "^ *$"`; do
 	   SOURCEFILE=`echo $LINE | cut -f 1 -d:`
 	   DESTFILE=`echo $LINE | cut -f 2 -d:`
