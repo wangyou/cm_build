@@ -1,3 +1,5 @@
+#!/bin/bash
+
 branch=cm-11.0
 
 mode=""
@@ -494,19 +496,14 @@ fi
 
 
 #### patch build for clean some files before make systemimage
-   if [ ! -f $basedir/vendor/cm/tools/squisher ]; then
-        cd $basedir/vendor/cm
-        patch -p1 < $rdir/patchs/vendor_cm_tools.diff
-        chmod +x $basedir/vendor/cm/tools/*
-        cd $rdir
-   fi
+   [ ! -f $basedir/build/tools/squisher.sh ] && cp $rdir/scripts/squisher.sh $basedir/build/tools/
    if ! grep -q "systemimage-squisher" $basedir/build/core/Makefile; then
       sed  -i  $basedir/build/core/Makefile -e 's/\(FULL_SYSTEMIMAGE_DEPS :=.*\)/\
 \#\# add squisher for clean some file before make systemimage\
 systemimage-squisher: \$(INTERNAL_SYSTEMIMAGE_FILES)\
 ifeq (\$(TARGET_SYSTEMIMAGE_USE_SQUISHER),true)\
 	@echo -e \${CL_YLW}"Running squisher..."\${CL_RST}\
-	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/vendor\/cm\/tools\/squisher\
+	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/build\/tools\/squisher.sh\
 endif\
 \
 \.PHONY: systemimage-squisher\

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 reset
 compile_user=NX111
 branch=cm-11.0
