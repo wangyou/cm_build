@@ -496,14 +496,14 @@ fi
 
 
 #### patch build for clean some files before make systemimage
-   [ ! -f $basedir/build/tools/squisher.sh ] && cp $rdir/scripts/squisher.sh $basedir/build/tools/
+   [ ! -f $basedir/build/tools/extra_files.sh ] && cp $rdir/scripts/extra_files.sh $basedir/build/tools/
    if ! grep -q "systemimage-squisher" $basedir/build/core/Makefile; then
       sed  -i  $basedir/build/core/Makefile -e 's/\(FULL_SYSTEMIMAGE_DEPS :=.*\)/\
 \#\# add squisher for clean some file before make systemimage\
 systemimage-squisher: \$(INTERNAL_SYSTEMIMAGE_FILES)\
 ifeq (\$(TARGET_SYSTEMIMAGE_USE_SQUISHER),true)\
 	@echo -e \${CL_YLW}"Running squisher..."\${CL_RST}\
-	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/build\/tools\/squisher.sh\
+	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/build\/tools\/extra_files.sh\
 endif\
 \
 \.PHONY: systemimage-squisher\

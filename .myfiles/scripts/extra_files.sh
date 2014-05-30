@@ -24,6 +24,11 @@ if [ -z "$OUT" -o ! -d "$OUT" ]; then
 fi
 
 UIET=-q
+###################################################################
+#  remove unnecessary file
+
+echo "Extra: Remove unnecessary files ...."
+
 DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
 
 # Delete unnecessary binaries
@@ -41,6 +46,23 @@ if [ -f "$SQUISHER_EXTRAS_FILE" ]; then
         EXTRAS="$EXTRAS $FILE"
     done
     ( cd "$OUT"/system; echo $EXTRAS | xargs rm -rf; )
+fi
+
+####################################################################
+###  copy file to $OUT
+
+echo "Extra: copy extra files to target system directory..."
+
+COPY_EXTRAS_FILE="$ANDROID_BUILD_TOP/device/$VENDOR/$DEVICE/copy-extras.txt"
+if [ -f "COPY_EXTRAS_FILE" ]; then
+    for LINE in `cat "$COPY_EXTRAS_FILE" | grep -v "^ *#" | grep -v "^ *$"`; do
+	   SOURCEFILE=`echo $LINE | cut -f 1 -d:`
+	   DESTFILE=`echo $LINE | cut -f 2 -d:`
+ 	   [ "$SOURCEFILE" = "" -o "$DESTFILE" = "" ] && continue
+	   [ ! -f "$ANDROID_BUILD_TOP/$SOURCEFILE" ] && continue
+	   cp $ANDROID_BUILD_TOP/$SOURCEFILE $OUT/$DESTFLE
+    done
+
 fi
 
 exit 0
