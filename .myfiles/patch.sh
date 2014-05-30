@@ -501,10 +501,20 @@ fi
         cd $rdir
    fi
    if ! grep -q "systemimage-squisher" $basedir/build/core/Makefile; then
-        cd $basedir/build
-        patch -p1 < $rdir/patchs/build.diff
-        cd $rdir
+      sed  -i  $basedir/build/core/Makefile -e 's/\(FULL_SYSTEMIMAGE_DEPS :=.*\)/\
+\#\# add squisher for clean some file before make systemimage\
+systemimage-squisher: \$(INTERNAL_SYSTEMIMAGE_FILES)\
+ifeq (\$(TARGET_SYSTEMIMAGE_USE_SQUISHER),true)\
+	@echo -e \${CL_YLW}"Running squisher..."\${CL_RST}\
+	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/vendor\/cm\/tools\/squisher\
+endif\
+\
+\.PHONY: systemimage-squisher\
+\
+\1 systemimage-squisher/g' 
    fi 
+
+  [ $oldupdate -eq 1 ] && sed -e "/use_set_metadata=1/d" -i $basedir/build/core/Makefile
 
 ## Not use ccache
 #sed -e "s/ifneq (\$(USE_CCACHE),)/ifneq (\$(USE_CCACHE),\$(USE_CCACHE))/g" -i $basedir/build/core/tasks/kernel.mk
@@ -512,9 +522,6 @@ fi
 #### LOG for KERNEL ##########
 sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/system/core/include/cutils/klog.h
 
-if [ $oldupdate -eq 1 ]; then
-     sed -e "/use_set_metadata=1/d" -i $basedir/build/core/Makefile
-fi
 
 
 ####Translation#################
