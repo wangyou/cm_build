@@ -327,7 +327,8 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
             [ ! -z "${!KBCCOUNT}" ] &&  echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
-  		        TARGET_KERNEL_CONFIG=${kernel_config}  
+  		        TARGET_KERNEL_CONFIG=${kernel_config}  \
+			TARGET_SYSTEMIMAGE_USE_SQUISHER=true
         fi
 	retcode=$?
 	if [ $retcode -eq 0 -a $kernelzip -eq 0 ]; then
@@ -346,7 +347,7 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; 
 else
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
             [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
-	    LANG=en_US make $mkJop $mkForce $mod $KERNELOPT
+	    LANG=en_US make $mkJop $mkForce $mod $KERNELOPT TARGET_SYSTEMIMAGE_USE_SQUISHER=true
         fi
 	retcode=$?
 	if [ $retcode -eq 0 -a $kernelzip -eq 0 ]; then
