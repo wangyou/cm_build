@@ -194,7 +194,7 @@ new file mode 100755
 index 0000000..1c56a18
 --- /dev/null
 +++ b/tools/squisher
-@@ -0,0 +1,56 @@
+@@ -0,0 +1,55 @@
 +#!/bin/bash
 +#
 +# Squish a CM otapackage for distribution
@@ -241,13 +241,12 @@ index 0000000..1c56a18
 +    ( cd "$OUT"/system; echo $EXTRAS | xargs rm -rf; )
 +fi
 +
-+if [ "$(which pngcrush)" != "" -o  "$(which optipng)" != "" -o "$(which pngout-static)" != "" -o  "$(which pngout)" != ""  ]; then
++#if [ "$(which pngcrush)" != "" -o  "$(which optipng)" != "" -o "$(which pngout-static)" != "" -o  "$(which pngout)" != ""  ]; then
 +   # Optimize PNG resources in APKs
-+   cd "$OUT"/system
-+   find framework/ app/ priv-app/ vendor/app/ -name \*.apk -print | $XARGS "$OPTICHARGER"
-+else
-+  echo -e "Please install pngcrush, optipng, or pngout to Optimize PNG resources in APKs"
-+
-+fi
++#   cd "$OUT"/system
++#   find framework/ app/ priv-app/ vendor/app/ -name \*.apk -print | $XARGS "$OPTICHARGER"
++#else
++#  echo -e "Please install pngcrush, optipng, or pngout to Optimize PNG resources in APKs"
++#fi
 +
 +exit 0
