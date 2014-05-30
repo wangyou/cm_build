@@ -95,7 +95,8 @@ KernelBranchName=$branch
 jbx=1
 moreopt=""
 nomake=1
-
+VENDOR=""
+childmode=1
 lastDevice="edison"
 lastOpKernel=""
 if [ -f .lastBuild ]; then
@@ -171,6 +172,8 @@ for op in $*;do
    elif [ "$op" = "new" -o "$op" = "old" ]; then
 	oldupdate="$op"
 	transop=1
+   elif [ "${op:0:6}" = "-child" ]; then
+     	childmode=0
    fi
    [ $transop -eq 0 ] && moreopt="$moreopt $op"
 done
@@ -213,6 +216,13 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 	export USE_CCACHE=1
 	source build/envsetup.sh > /dev/null
    	lunch cm_$device-userdebug > /dev/null
+
+	for f in `ls device/*/*/vendorsetup.sh`; do 
+		cat $f | grep "add_lunch" | grep -v "^ *#" | grep -v "^ *$" | grep "${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}"
+		if cat $f | grep "add_lunch" | grep -v "^ *#" | grep -v "^ *$" | grep "${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}"; then
+			VENDOR=`echo $f | cut -f 2 -d/`
+		fi
+	done
 fi
 #if [ "$device" != "$lastDevice" -o "$opKernel" != "$lastOpKernel" ]; then
 #	export USE_CCACHE=
@@ -273,6 +283,9 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
        		cd $basedir
     	  fi
     	  rm -f out/target/product/$device/system/build.prop
+          if [ $childmode -eq 0 ]; then
+               echo ".myfiles/scripts/pm_onoff.sh:system/bin/pm_onoff.sh" > $basedir/device/$VENDOR/$device/copy-extras.txt
+          fi
    fi
    [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
    [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
