@@ -1,0 +1,48 @@
+diff --git a/core/java/android/app/ApplicationPackageManager.java b/core/java/android/app/ApplicationPackageManager.java
+index 00a5d27..754dfd4 100644
+--- a/core/java/android/app/ApplicationPackageManager.java
++++ b/core/java/android/app/ApplicationPackageManager.java
+@@ -59,6 +59,7 @@ import android.view.Display;
+ import java.lang.ref.WeakReference;
+ import java.util.ArrayList;
+ import java.util.List;
++import android.os.SystemProperties;
+ 
+ /*package*/
+ final class ApplicationPackageManager extends PackageManager {
+@@ -1043,7 +1044,10 @@ final class ApplicationPackageManager extends PackageManager {
+     public void installPackage(Uri packageURI, IPackageInstallObserver observer, int flags,
+                                String installerPackageName) {
+         try {
+-            mPM.installPackage(packageURI, observer, flags, installerPackageName);
++            if ("1".equals(SystemProperties.get("android.pm.updateonly")))
++		observer.packageInstalled(installerPackageName, PackageManager.MOVE_FAILED_INTERNAL_ERROR);
++	    else
++                mPM.installPackage(packageURI, observer, flags, installerPackageName);
+         } catch (RemoteException e) {
+             // Should never happen!
+         }
+@@ -1054,7 +1058,10 @@ final class ApplicationPackageManager extends PackageManager {
+             int flags, String installerPackageName, Uri verificationURI,
+             ManifestDigest manifestDigest, ContainerEncryptionParams encryptionParams) {
+         try {
+-            mPM.installPackageWithVerification(packageURI, observer, flags, installerPackageName,
++            if ("1".equals(SystemProperties.get("android.pm.updateonly")))
++		observer.packageInstalled(installerPackageName, PackageManager.MOVE_FAILED_INTERNAL_ERROR);
++	    else
++                mPM.installPackageWithVerification(packageURI, observer, flags, installerPackageName,
+                     verificationURI, manifestDigest, encryptionParams);
+         } catch (RemoteException e) {
+             // Should never happen!
+@@ -1066,7 +1073,10 @@ final class ApplicationPackageManager extends PackageManager {
+             IPackageInstallObserver observer, int flags, String installerPackageName,
+             VerificationParams verificationParams, ContainerEncryptionParams encryptionParams) {
+         try {
+-            mPM.installPackageWithVerificationAndEncryption(packageURI, observer, flags,
++             if ("1".equals(SystemProperties.get("android.pm.updateonly")))
++		observer.packageInstalled(installerPackageName, PackageManager.MOVE_FAILED_INTERNAL_ERROR);
++	    else
++                mPM.installPackageWithVerificationAndEncryption(packageURI, observer, flags,
+                     installerPackageName, verificationParams, encryptionParams);
+         } catch (RemoteException e) {
+             // Should never happen!

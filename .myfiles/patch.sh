@@ -8,6 +8,7 @@ opKernel=cm
 device=edison
 kernelBranchOptionStart=1
 KernelBranchName=$branch
+childmode=1
 
 KernelBranches=("cm-11.0" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
 KernelOpts=("cm" "jbx" "j30x" "jordan" "n880e")
@@ -215,6 +216,8 @@ for op in $*;do
      oldupdate=1
    elif [ "$op" = "new" ]; then
      oldupdate=0
+   elif [ "${op:0:6}" = "-child" ]; then
+     childmode=0
    fi
 done
 
@@ -561,6 +564,14 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    if ! grep -q "HdmiToggle" $basedir/device/motorola/omap4-common/common.mk; then
         cd $basedir/device/motorola/omap4-common
         patch -p1 < $rdir/patchs/hdmiToggle.diff
+        cd $rdir
+   fi
+
+   ## child mode
+   [ $childmode -eq 0 ] && \
+   if ! grep -q "android.pm.updateonly" $basedir/frameworks/base/core/java/android/app/ApplicationPackageManager.java; then
+        cd $basedir/frameworks/base
+        patch -p1 < $rdir/patchs/child_mode.diff
         cd $rdir
    fi
 
