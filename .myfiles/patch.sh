@@ -472,9 +472,12 @@ COMMENT
 
 
     if ! grep -q "msm7x27a" $basedir/frameworks/av/media/libstagefright/Android.mk; then
-        cd $basedir/frameworks/av
-        patch -p1 < $rdir/patchs/frameworks_av_msm7x27a.diff
-        cd $rdir
+	sed -i $basedir/frameworks/av/media/libstagefright/Android.mk \
+            -e '/ifeq (\$(NO_TUNNEL_MODE_FOR_MULTICHANNEL),true)/ i\
+        ifeq ($(call is-chipset-in-board-platform,msm7x27a),true)\
+            LOCAL_SRC_FILES += LPAPlayer.cpp\
+            LOCAL_CFLAGS += -DLEGACY_LPA -DUSE_LPA_MODE\
+        endif'
     fi
 
 

@@ -218,9 +218,9 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    	lunch cm_$device-userdebug > /dev/null
 
 	for f in `ls device/*/*/vendorsetup.sh`; do 
-		cat $f | grep "add_lunch" | grep -v "^ *#" | grep -v "^ *$" | grep "${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}"
-		if cat $f | grep "add_lunch" | grep -v "^ *#" | grep -v "^ *$" | grep "${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}"; then
+		if cat $f | grep "add_lunch" | grep -v "^ *#" | grep -v "^ *$" | grep -q "${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}"; then
 			VENDOR=`echo $f | cut -f 2 -d/`
+                        break
 		fi
 	done
 fi
