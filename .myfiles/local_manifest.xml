@@ -12,7 +12,7 @@
 <!-- Defy -->
 <remove-project name="CyanogenMod/android_hardware_ti_omap3" />
 <project name="nx111/android_device_motorola_jordan-common" path="device/motorola/jordan-common" revision="cm11.0-2.6.32" />
-<project name="nx111/android_device_motorola_mb526" path="device/moto/mb526" revision="cm11.0-2.6.32" />
+<project name="nx111/android_device_motorola_mb526" path="device/motorola/mb526" revision="cm11.0-2.6.32" />
 <project name="Quarx2k/jordan-kernel" path="kernel/motorola/jordan" revision="AeroKernel" />
 <project name="CyanogenDefy/android_hardware_ti_omap3-compat" path="hardware/ti/omap3" revision="jellybean" />
 
