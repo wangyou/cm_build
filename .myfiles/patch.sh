@@ -506,7 +506,7 @@ fi
 systemimage-extras: \$(INTERNAL_SYSTEMIMAGE_FILES)\
 ifeq (\$(TARGET_SYSTEMIMAGE_USE_SQUISHER),true)\
 	@echo -e \${CL_YLW}"Running Extras..."\${CL_RST}\
-	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/build\/tools\/extra_files.sh\
+	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/build\/tools\/prepack.sh\
 endif\
 \
 \.PHONY: systemimage-extras\
