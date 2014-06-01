@@ -499,7 +499,7 @@ fi
 
 
 #### patch build for clean some files before make systemimage
-   [ ! -f $basedir/build/tools/extra_files.sh ] && cp $rdir/scripts/extra_files.sh $basedir/build/tools/
+   [ ! -f $basedir/build/tools/extra_files.sh ] && cp $rdir/scripts/prepack.sh $basedir/build/tools/
    if ! grep -q "systemimage-extras" $basedir/build/core/Makefile; then
       sed  -i  $basedir/build/core/Makefile -e 's/\(FULL_SYSTEMIMAGE_DEPS :=.*\)/\
 \#\# add extra_files for clean some file before make systemimage\
