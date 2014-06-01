@@ -64,4 +64,43 @@ if [ -f "COPY_EXTRAS_FILE" ]; then
 
 fi
 
+#######################################################################
+##  cut LatinIME
+list_keepdict(){
+cat <<EOF
+main.dict
+empty.dict
+main_en.dict
+main_de.dict
+main_fr.dict
+main_it.dict
+main_es.dict
+main_pt_br.dict
+EOF
+}
+curdir=`pwd`
+if [ -f $OUT/system/app/LatinIME.apk ]; then
+    echo "LatinIME: cutting some dictionaries..."
+    rm -rf $OUT/obj/APPS/LatinIME_intermediates/unpacked_files/*
+    rm -f $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk
+    unzip $OUT/system/app/LatinIME.apk -d $OUT/obj/APPS/LatinIME_intermediates/unpacked_files >/dev/null 2>/dev/null
+    for f in $(find $OUT/obj/APPS/LatinIME_intermediates/unpacked_files/res/raw -name *.dict); do
+	dict=`basename "$f"`
+	if ! (list_keepdict|grep -q $dict); then
+	    rm -rf $f
+        fi
+    done
+    rm -f $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned
+    cd $OUT/obj/APPS/LatinIME_intermediates/unpacked_files
+    zip $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned -r * >/dev/null 2>/dev/null
+    java -jar $ANDROID_BUILD_TOP/prebuilts/sdk/tools/lib/signapk.jar \
+              $ANDROID_BUILD_TOP/build/target/product/security/platform.x509.pem \
+              $ANDROID_BUILD_TOP/build/target/product/security/platform.pk8 \
+              $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk
+    if [ -f $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk ]; then
+	mv $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk $OUT/system/app/LatinIME.apk
+    fi
+    rm -rf $OUT/obj/APPS/LatinIME_intermediates/unpacked_files
+fi
+
 exit 0
