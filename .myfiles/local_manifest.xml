@@ -3,7 +3,7 @@
 <project name="Atrix2-Dev-Team/android_device_motorola_edison" path="device/motorola/edison" remote="github" revision="cm-11.0" />
 <project name="Atrix2-Dev-Team/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-11.0" />
 <project name="CyanogenMod/android_device_motorola_spyder" path="device/motorola/spyder" remote="github" revision="cm-11.0" />
-<project name="nx111/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-11.0" />
+<project name="nx111/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-11.0"/>
 
 <!-- VENDOR -->
 <project name="nx111/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-11.0" />
@@ -11,15 +11,15 @@
 
 <!-- Defy -->
 <remove-project name="CyanogenMod/android_hardware_ti_omap3" />
-<project name="Quarx2k/android_device_moto_jordan-common" path="device/moto/jordan-common" revision="cm11.0-2.6.32" />
-<project name="Quarx2k/android_device_moto_mb526" path="device/moto/mb526" revision="cm11.0-2.6.32" />
-<project name="Quarx2k/jordan-kernel" path="kernel/motorola/mb526" revision="AeroKernel" />
+<project name="nx111/android_device_motorola_jordan-common" path="device/motorola/jordan-common" revision="cm11.0-2.6.32" />
+<project name="nx111/android_device_motorola_mb526" path="device/moto/mb526" revision="cm11.0-2.6.32" />
+<project name="Quarx2k/jordan-kernel" path="kernel/motorola/jordan" revision="AeroKernel" />
 <project name="CyanogenDefy/android_hardware_ti_omap3-compat" path="hardware/ti/omap3" revision="jellybean" />
 
 <!-- packages -->
 <remove-project name="CyanogenMod/android_packages_apps_Calendar" />
 <project name="nx111/android_packages_apps_Calendar" path="packages/apps/Calendar"  remote="github" revision="cm-11.0"/>
-<!--<project name="nx111/android_packages_apps_caifatcmd" path="packages/apps/caifatcmd"  remote="github" revision="master"/> -->
+<!-- <project name="nx111/android_packages_apps_caifatcmd" path="packages/apps/caifatcmd"  remote="github" revision="master"/> -->
 <project name="nx111/android_packages_apps_HdmiToggle" path="packages/apps/HdmiToggle"  remote="github" revision="cm-11.0"/>
 <project name="amarullz/AROMA-Installer" path="tools/aroma-installer"  remote="github" revision="master"/>
 
