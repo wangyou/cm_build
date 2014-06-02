@@ -134,9 +134,6 @@ for op in $*;do
 	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
-	KERNELOPT="TARGET_KERNEL_SOURCE=kernel/motorola/mb526"
-	rm -rf $basedir/vendor/motorola/jordan-common
-	[ -d  $basedir/vendor/moto/jordan-common ] && cp -r $basedir/vendor/moto/jordan-common $basedir/vendor/motorola/jordan-common
    elif isKernelOpt $op; then
 	opKernel="$op"
 	[ "$op" = "n880e" ] && device="n880e"
