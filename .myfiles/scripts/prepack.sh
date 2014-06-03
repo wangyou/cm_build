@@ -94,8 +94,8 @@ if [ -f $OUT/system/app/LatinIME.apk ]; then
     cd $OUT/obj/APPS/LatinIME_intermediates/unpacked_files
     zip $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned -r * >/dev/null 2>/dev/null
     java -jar $ANDROID_BUILD_TOP/prebuilts/sdk/tools/lib/signapk.jar \
-              $ANDROID_BUILD_TOP/build/target/product/security/platform.x509.pem \
-              $ANDROID_BUILD_TOP/build/target/product/security/platform.pk8 \
+              $ANDROID_BUILD_TOP/build/target/product/security/shared.x509.pem \
+              $ANDROID_BUILD_TOP/build/target/product/security/shared.pk8 \
               $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk
     if [ -f $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk ]; then
 	mv $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk $OUT/system/app/LatinIME.apk
