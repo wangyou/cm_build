@@ -479,7 +479,11 @@ COMMENT
             LOCAL_CFLAGS += -DLEGACY_LPA -DUSE_LPA_MODE\
         endif'
     fi
-
+    if ! grep -q "CameraParameters::KEY_SHUTTER_SOUND_SELECT" $basedir/frameworks/av/camera/CameraParameters.cpp; then
+        cd $basedir/frameworks/av
+        patch -p1 < "$basedir/device/zte/atlas40/patches/frameworks_av/0001-camera-fix-support-for-zte-atlas40.patch"
+        cd $rdir
+    fi
 
 fi
 
