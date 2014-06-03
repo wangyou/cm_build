@@ -697,6 +697,8 @@
   <string name="storage_rescan_media_complete">扫描完成</string>
   <string name="whisperpush_title">WhisperPush</string>
   <string name="whisperpush_summary">管理安全短信设置.</string>
+  <string name="logger_title">匿名发送错误日志</string>
+  <string name="logger_summary">管理错误日志设置</string>
   <string name="custom_runtime_warning_title">警告</string>
   <string name="custom_runtime_warning_message">ART不被CyanogenMod所支持. 此设置仅用于实验，有可能造成不稳定、死机、数据丢失或导致您的设备不能正常开机。 请访问 &lt;a href=\"http://source.android.com/devices/tech/dalvik/art.html\"&gt;Introducing ART&lt;/a&gt; 查看更多信息。&lt;br/&gt;&lt;br/&gt;如果你启用ART作为你的运行环境，我们请求你不要发送错误报告给我们.&lt;br/&gt;&lt;br/&gt;你要重启设备将运行环境从<ns0:g example="libdvm.so" id="old">%1$s</ns0:g> 改为 <ns0:g example="libart.so" id="new">%2$s</ns0:g>吗?</string>
   <string name="gps_download_data_wifi_only">只通过WiFi下载GPS辅助数据</string>
