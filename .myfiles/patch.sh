@@ -447,43 +447,7 @@ COMMENT
 
 elif [ "$device" = "n880e" ]; then
 
-: <<'COMMENT'
-   newBranch build legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_build.git $branch checkout
-   newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
-   newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
-   newBranch packages/apps/Browser legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_packages_apps_Browser.git  $branch checkout
-   newBranch vendor/cm legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_vendor_cm.git  $branch checkout
-   if [ "$mode" = "u" ]; then
-        updateBranch build legaCyMod_$branch legaCyMod $branch
-        updateBranch frameworks/av legaCyMod_$branch legaCyMod $branch
-        updateBranch frameworks/native legaCyMod_$branch  legaCyMod $branch
-        updateBranch packages/apps/Browser legaCyMod_$branch legaCyMod $branch
-        updateBranch vendor/cm legaCyMod_$branch legaCyMod $branch
-   fi
-   cp $basedir/build/core/root.mk $basedir/build/Makefile
-
-
-    if ! grep -q "DECIDE_TEXTURE_TARGET" $basedir/frameworks/native/services/surfaceflinger/SurfaceFlingerConsumer.cpp; then
-        cd $basedir/frameworks/native
-        patch -p1 < $rdir/patchs/n880e/legcy_native.diff
-        cd $rdir
-    fi
-COMMENT
-
-
-    if ! grep -q "msm7x27a" $basedir/frameworks/av/media/libstagefright/Android.mk; then
-	sed -i $basedir/frameworks/av/media/libstagefright/Android.mk \
-            -e '/ifeq (\$(NO_TUNNEL_MODE_FOR_MULTICHANNEL),true)/ i\
-        ifeq ($(call is-chipset-in-board-platform,msm7x27a),true)\
-            LOCAL_SRC_FILES += LPAPlayer.cpp\
-            LOCAL_CFLAGS += -DLEGACY_LPA -DUSE_LPA_MODE\
-        endif'
-    fi
-    if ! grep -q "CameraParameters::KEY_SHUTTER_SOUND_SELECT" $basedir/frameworks/av/camera/CameraParameters.cpp; then
-        cd $basedir/frameworks/av
-        patch -p1 < "$basedir/device/zte/atlas40/patches/frameworks_av/0001-camera-fix-support-for-zte-atlas40.patch"
-        cd $rdir
-    fi
+   $basedir/device/zte/atlas40/patches/install.sh
 
 fi
 
