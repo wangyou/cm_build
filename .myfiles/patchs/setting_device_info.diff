@@ -1,8 +1,31 @@
 diff --git a/res/xml/device_info_settings.xml b/res/xml/device_info_settings.xml
-index b111c98..1c3e0c5 100644
+index 22c29de..c76eb8c 100644
 --- a/res/xml/device_info_settings.xml
 +++ b/res/xml/device_info_settings.xml
-@@ -42,35 +42,6 @@
+@@ -17,22 +17,6 @@
+ <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+         android:title="@string/about_settings">
+ 
+-        <!-- System update settings - launches activity -->
+-        <PreferenceScreen android:key="system_update_settings"
+-                android:title="@string/system_update_settings_list_item_title" 
+-                android:summary="@string/system_update_settings_list_item_summary">
+-            <intent android:action="android.settings.SYSTEM_UPDATE_SETTINGS"
+-                    android:targetPackage="com.cyngn.fota"
+-                    android:targetClass="com.cyngn.fota.SystemUpdateActivity" />
+-        </PreferenceScreen>
+-
+-        <PreferenceScreen android:key="additional_system_update_settings"
+-                          android:title="@string/additional_system_update_settings_list_item_title">
+-            <intent android:action="android.intent.action.MAIN"
+-                    android:targetPackage="@string/additional_system_update"
+-                    android:targetClass="@string/additional_system_update_menu" />
+-        </PreferenceScreen>
+-
+         <!-- Device status - launches activity -->
+         <PreferenceScreen android:key="status_info"
+                 android:title="@string/device_status" 
+@@ -42,27 +26,6 @@
                      android:targetClass="com.android.settings.deviceinfo.Status" />
          </PreferenceScreen>
  
@@ -13,14 +36,6 @@ index b111c98..1c3e0c5 100644
 -            <intent android:action="android.intent.action.MAIN"
 -                    android:targetPackage="com.cyanogenmod.updater"
 -                    android:targetClass="com.cyanogenmod.updater.UpdatesSettings" />
--        </PreferenceScreen>
--
--        <!-- Anonymous statistics - (CMStats) -->
--        <PreferenceScreen
--            android:key="cmstats"
--            android:title="@string/anonymous_statistics_title"
--            android:summary="@string/anonymous_statistics_summary"
--            android:fragment="com.android.settings.cmstats.AnonymousStats" >
 -        </PreferenceScreen>
 -
 -        <!-- Change Log -->
