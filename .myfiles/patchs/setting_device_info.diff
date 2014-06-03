@@ -1,8 +1,10 @@
 diff --git a/res/xml/device_info_settings.xml b/res/xml/device_info_settings.xml
-index 22c29de..c76eb8c 100644
+index 4b7e5f5..c76eb8c 100644
 --- a/res/xml/device_info_settings.xml
 +++ b/res/xml/device_info_settings.xml
-@@ -17,22 +17,6 @@
+@@ -15,64 +15,19 @@
+ -->
+ 
  <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
          android:title="@string/about_settings">
  
@@ -25,7 +27,9 @@ index 22c29de..c76eb8c 100644
          <!-- Device status - launches activity -->
          <PreferenceScreen android:key="status_info"
                  android:title="@string/device_status" 
-@@ -42,27 +26,6 @@
+                 android:summary="@string/device_status_summary">
+             <intent android:action="android.intent.action.MAIN"
+                     android:targetPackage="com.android.settings"
                      android:targetClass="com.android.settings.deviceinfo.Status" />
          </PreferenceScreen>
  
@@ -36,6 +40,14 @@ index 22c29de..c76eb8c 100644
 -            <intent android:action="android.intent.action.MAIN"
 -                    android:targetPackage="com.cyanogenmod.updater"
 -                    android:targetClass="com.cyanogenmod.updater.UpdatesSettings" />
+-        </PreferenceScreen>
+-
+-        <!-- Anonymous statistics - (CMStats) -->
+-        <PreferenceScreen
+-            android:key="cmstats"
+-            android:title="@string/anonymous_statistics_title"
+-            android:summary="@string/anonymous_statistics_summary"
+-            android:fragment="com.android.settings.cmstats.AnonymousStats" >
 -        </PreferenceScreen>
 -
 -        <!-- Change Log -->
@@ -53,11 +65,15 @@ index 22c29de..c76eb8c 100644
          <!-- Legal Information -->
          <PreferenceScreen
                  android:key="container"
+                 android:title="@string/legal_information">
+                     
 diff --git a/src/com/android/settings/DeviceInfoSettings.java b/src/com/android/settings/DeviceInfoSettings.java
 index 39bcecd..7208315 100644
 --- a/src/com/android/settings/DeviceInfoSettings.java
 +++ b/src/com/android/settings/DeviceInfoSettings.java
-@@ -130,13 +130,6 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
+@@ -128,17 +128,10 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
+                 PROPERTY_SELINUX_STATUS);
+ 
          String cpuInfo = getCPUInfo();
          String memInfo = getMemInfo();
  
@@ -71,3 +87,5 @@ index 39bcecd..7208315 100644
          if (cpuInfo != null) {
              setStringSummary(KEY_DEVICE_CPU, cpuInfo);
          } else {
+             getPreferenceScreen().removePreference(findPreference(KEY_DEVICE_CPU));
+         }
