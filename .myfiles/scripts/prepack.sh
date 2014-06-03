@@ -92,7 +92,9 @@ if [ -f $OUT/system/app/LatinIME.apk ]; then
     done
     rm -f $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned
     cd $OUT/obj/APPS/LatinIME_intermediates/unpacked_files
-    zip $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned -r * >/dev/null 2>/dev/null
+    ### res/raw/* could not be compressed
+    zip -0 $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned -r res/raw >/dev/null 2>/dev/null
+    zip -u $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned -r * >/dev/null 2>/dev/null
     java -jar $ANDROID_BUILD_TOP/prebuilts/sdk/tools/lib/signapk.jar \
               $ANDROID_BUILD_TOP/build/target/product/security/shared.x509.pem \
               $ANDROID_BUILD_TOP/build/target/product/security/shared.pk8 \
