@@ -285,6 +285,8 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch
     
+     rm -f $basedir/.atlas40_patched
+
      ### reset kernel/motorola/omap4-common
      curdir=`pwd`
      cd $basedir/kernel/motorola/omap4-common
@@ -447,8 +449,9 @@ COMMENT
 
 elif [ "$device" = "n880e" ]; then
 
-   $basedir/device/zte/atlas40/patches/install.sh
-
+   if [ ! -f $basedir/.atlas40_patched ] ; then
+       $basedir/device/zte/atlas40/patches/install.sh && touch $basedir/.atlas40_patched
+   fi
 fi
 
 [ "$mode" = "kbranch" ] && exit
