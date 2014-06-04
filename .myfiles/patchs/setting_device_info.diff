@@ -1,8 +1,8 @@
 diff --git a/res/xml/device_info_settings.xml b/res/xml/device_info_settings.xml
-index 4b7e5f5..c76eb8c 100644
+index 22c29de..c76eb8c 100644
 --- a/res/xml/device_info_settings.xml
 +++ b/res/xml/device_info_settings.xml
-@@ -15,64 +15,19 @@
+@@ -15,56 +15,19 @@
  -->
  
  <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,14 +40,6 @@ index 4b7e5f5..c76eb8c 100644
 -            <intent android:action="android.intent.action.MAIN"
 -                    android:targetPackage="com.cyanogenmod.updater"
 -                    android:targetClass="com.cyanogenmod.updater.UpdatesSettings" />
--        </PreferenceScreen>
--
--        <!-- Anonymous statistics - (CMStats) -->
--        <PreferenceScreen
--            android:key="cmstats"
--            android:title="@string/anonymous_statistics_title"
--            android:summary="@string/anonymous_statistics_summary"
--            android:fragment="com.android.settings.cmstats.AnonymousStats" >
 -        </PreferenceScreen>
 -
 -        <!-- Change Log -->
