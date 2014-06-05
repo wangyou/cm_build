@@ -229,7 +229,7 @@ rdir=`cd \`dirname $0\`;pwd`
 basedir=`dirname $rdir`
 if [ -s $basedir/.lastBuild ]; then
    lastDevice=`grep device: $basedir/.lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
-   lastOpKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
+   lastOpKernel=`grep opKernel: $basedir/.lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
 fi
 
 [ -z "$device" ] && device=$lastDevice
@@ -271,6 +271,7 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject frameworks/base $branch
      resetProject frameworks/native $branch
      resetProject frameworks/av $branch
+     resetProject frameworks/webview $branch
      resetProject frameworks/opt/telephony $branch
      resetProject packages/services/Telephony
      resetProject packages/apps/Settings
