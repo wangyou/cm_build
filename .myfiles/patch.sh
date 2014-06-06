@@ -449,6 +449,12 @@ elif [ "$device" = "mb526" ]; then
 COMMENT
 
 elif [ "$device" = "n880e" ]; then
+   newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
+   newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
+   if [ "$mode" = "u" ]; then
+        updateBranch frameworks/av legaCyMod_$branch legaCyMod $branch
+        updateBranch frameworks/native legaCyMod_$branch  legaCyMod $branch
+   fi
 
    if [ ! -f $basedir/.atlas40_patched ] ; then
        $basedir/device/zte/atlas40/patches/install.sh && touch $basedir/.atlas40_patched
