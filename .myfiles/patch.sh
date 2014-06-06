@@ -51,8 +51,9 @@ newBranch()
      if [ $# -lt 5 ]; then return 1;fi
      [ -d $1 ] || mkdir -p $1
      cd $1
-     git branch | grep -q -e "[[:space:]?]$branch$" || git branch $branch
-     git remote | grep -q -e "[[:space:]?]$3$" || git remote add $3 $4
+
+     git branch | grep -q -e "[[:space:]]*$branch$" || git branch $branch
+     git remote | grep -q -e "[[:space:]]*$3$" || git remote add $3 $4
      
      if ! git branch | grep -q -e "[[:space:]?]$2$"; then
           echo "Create branch $2 for $1..."
@@ -93,7 +94,6 @@ addBranch()
               git checkout $2 >/dev/null 2>/dev/null
           fi
      fi 
-
      cd $curdir
      return 0
 }
