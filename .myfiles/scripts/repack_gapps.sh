@@ -19,23 +19,30 @@ outfile=`basename $1| sed -e "s/pa_gapps/gapps/" -e "s/-modular//" -e "s/-full//
 edir=`mktemp -d /tmp/gapps_XXXXXX`
 echo "Unpacking << $1..."
 unzip $1 -d $edir >/dev/null
-sed -e "/\/system\/app\/Calendar.apk/d" \
+
+sed -e "/^[[:space:]]*\"\/system\/app\/Calendar.apk\"[[:space:]]*,?[[:space:]]*/d" \
+    -e "s/\"[^\"]*Calendar\.apk\",?//g" \
+    -e "/^[[:space:]]*\"[^\"\/]*\/Trebuchet.apk\"[[:space:]]*,?[[:space:]]*/d" \
+    -e "s/\"[^\"]*Trebuchet\.apk\",?//g" \
     -e "s/PA GApps.*Modular/GApps/g" \
     -i $edir/META-INF/com/google/android/updater-script
 for f in $edir/system/addon.d/*; do
-	sed -e "/rm -f \/system\/app\/Calendar\.apk/d" -i $f
+	sed -i $f \
+	    -e "/rm -f \/system\/app\/Calendar\.apk/d" \
+	    -e "/rm -f \/system\/.*Trebuchet\.apk/d" \
+         -e "/^priv-app\/SetupWizard\.apk$/d"
 done
+
 [ -f $edir/delete-list.txt ] &&
 	sed -e "/\/system\/app\/Calendar\.apk/d" -i $edir/delete-list.txt
+
 [ -f $edir/gapps-list.txt ] &&
 	sed -e "/\/system\\app\\PlayGames\.apk/d" \
 	    -e "/\/system\\app\\Books\.apk/d" \
 	    -e "/\/system\\app\\Magazines\.apk/d" \
             -e "/\/system\\priv-app\\SetupWizard\.apk/d" \
 	    -i $edir/gapps-list.txt
-[ -f $edir/system/addon.d/70-gapps.sh ] &&
-	sed -e "/priv-app\/SetupWizard\.apk/d" \
-	    -i $edir/system/addon.d/70-gapps.sh
+
 
 #rm -f $edir/system/app/GoogleHome.apk
 #rm -f $edir/system/app/GoogleCalendar.apk
