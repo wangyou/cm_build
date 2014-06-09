@@ -1415,6 +1415,7 @@
   <string name="captioning_background_color">背景颜色</string>
   <string name="captioning_background_opacity">背景不透明度</string>
   <string name="captioning_foreground_color">文字颜色</string>
+  <string name="captioning_foreground_opacity">文字不透明度</string>
   <string name="captioning_edge_color">边缘颜色</string>
   <string name="captioning_edge_type">边缘类型</string>
   <string name="captioning_typeface">字体系列</string>

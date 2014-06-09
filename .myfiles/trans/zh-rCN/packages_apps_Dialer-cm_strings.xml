@@ -49,4 +49,8 @@
   <string name="dialpad_7_letters">PQRS</string>
   <string name="dialpad_8_letters">TUV</string>
   <string name="dialpad_9_letters">WXYZ</string>
+  <string name="favorites_menu_speed_dial_font_family">sans-serif-light</string>
+  <string name="favorites_menu_all_contacts_font_family">sans-serif</string>
+  <string name="search_font_family">sans-serif</string>
+  <string name="tab_font_family">sans-serif</string>
   </resources>

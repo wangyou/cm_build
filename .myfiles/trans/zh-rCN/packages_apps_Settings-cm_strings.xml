@@ -5,6 +5,8 @@
   <string name="wifi_setting_countrycode_error">设置地区代码出现问题.</string>
   <string name="wifi_setting_priority_title">WIFI优先级</string>
   <string name="wifi_setting_priority_summary">指定WIFI网络的优先级别</string>
+  <string name="wifi_ssid_input_limit">SSID超过最大长度</string>
+  <string name="p2p_device_name_input_limit">P2P名字超过最大长度</string>
   <string name="change_crypt_password_title">更改密码</string>
   <string name="change_crypt_password_summary">更改设备加密的密码</string>
   <string name="encryptionpassword_choose_your_password_header">设置加密密码</string>
@@ -217,6 +219,7 @@
   <string name="title_tile_bluetooth">蓝牙</string>
   <string name="title_tile_brightness">亮度</string>
   <string name="title_tile_camera">相机</string>
+  <string name="title_tile_compass">指南针</string>
   <string name="title_tile_sleep">进入睡眠</string>
   <string name="title_tile_gps">GPS</string>
   <string name="title_tile_torch">手电筒</string>
@@ -619,6 +622,7 @@
   <string name="power_menu_user_title">用户切换器</string>
   <string name="power_menu_sound_title">声控面板</string>
   <string name="button_settings">按钮</string>
+  <string name="hardware_keys_power_key_title">Power button</string>
   <string name="hardware_keys_home_key_title">Home 键</string>
   <string name="hardware_keys_menu_key_title">菜单键</string>
   <string name="hardware_keys_assist_key_title">搜索键</string>
@@ -635,8 +639,12 @@
   <string name="hardware_keys_action_voice_search">语音搜索</string>
   <string name="hardware_keys_action_in_app_search">程序内搜索</string>
   <string name="hardware_keys_action_launch_camera">打开相机</string>
+  <string name="power_end_call_title">结束呼叫</string>
+  <string name="power_end_call_summary">按电源键将会结束当前呼叫</string>
   <string name="button_wake_title">唤醒</string>
-  <string name="home_wake_summary">长按Home键会唤醒你的设备</string>
+  <string name="home_wake_summary">按Home键会唤醒你的设备</string>
+  <string name="home_answer_call_title">应答呼叫</string>
+  <string name="home_answer_call_summary">按home键将会应答当前来电</string>
   <string name="camera_wake_summary">按下相机键会唤醒你的设备</string>
   <string name="camera_sleep_on_release_title">屏幕窥探</string>
   <string name="camera_sleep_on_release_summary">仅当按钮被按下的时候，半按将会保持屏幕点亮</string>
@@ -669,7 +677,6 @@
   <string name="background_result_successful">背景已改变</string>
   <string name="background_result_not_successful">北京未改变</string>
   <string name="setting_lockscreen_background">应用背景</string>
-  <string name="accessibility_home_button_answers_call_prerefence_title">Home键接听电话</string>
   <string name="confirm_delete_apn">此APN将被删除.</string>
   <string name="status_bar_title">状态栏</string>
   <string name="status_bar_show_clock_title">显示时钟</string>
