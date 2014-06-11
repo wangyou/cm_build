@@ -40,8 +40,6 @@
   <string name="default_iconpack_title">默认图标集</string>
   <string name="icon_packs_title">图标集</string>
   <string name="no_iconpacks_summary">没有安装图标集</string>
-  <string name="all_apps_cling_cm">自定义抽屉</string>
-  <string name="all_apps_cling_summary">点击页面指示器查看更多设置</string>
   <string name="menu_hidden_apps_delete">重置</string>
   <string name="hidden_apps_title">隐藏应用</string>
   <string name="launcher_settings">启动器设置</string>
@@ -55,6 +53,10 @@
   <string name="setting_state_on">开</string>
   <string name="setting_state_off">关</string>
   <string name="themes_button_text">主题</string>
+  <string name="migration_cling_title">复制应用图标</string>
+  <string name="migration_cling_description">从旧主屏幕导入图标和目录吗?</string>
+  <string name="migration_cling_copy_apps">复制图标</string>
+  <string name="migration_cling_use_default">开始更新</string>
   <string name="dummy_custom_cling_error_message">错误: 定制工作区布局已通过但定制磁贴不能覆盖</string>
   <string name="debug_memory_activity">* HPROF</string>
   </resources>
