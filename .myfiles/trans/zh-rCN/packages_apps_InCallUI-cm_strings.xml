@@ -9,6 +9,10 @@
   <string name="sub_no_sim">无SIM卡</string>
   <string name="callFailed_incoming_cb_enabled">所有被阻塞的来电.</string>
   <string name="callUnanswered_forwarded">未接和转移的来电</string>
+  <string name="description_direction_up_right">上 右</string>
+  <string name="description_direction_up_left">上 左</string>
+  <string name="description_direction_down_left">下 左</string>
+  <string name="description_direction_down_right">下 右</string>
   <string name="dialpad_star_number">*</string>
   <string name="dialpad_pound_number">#</string>
   <string name="dialpad_0_letters">+</string>

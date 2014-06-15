@@ -877,4 +877,8 @@
   <string name="autoperf_title">启用独立应用的情景</string>
   <string name="autoperf_summary">为各个应用自动选择适当性能的情景</string>
   <string name="graphics_title">图形与渲染</string>
+  <string name="menu_hidden_apps_delete">重置</string>
+  <string name="menu_hidden_apps_reset_lock">重置图案锁</string>
+  <string name="protected_apps">已保护应用</string>
+  <string name="saving_protected_components">正在保存组件状态\u2026</string>
   </resources>
