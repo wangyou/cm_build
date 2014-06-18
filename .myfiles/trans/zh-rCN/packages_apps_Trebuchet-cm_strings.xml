@@ -21,7 +21,7 @@
   <string name="home_screen_search_text">搜索条</string>
   <string name="larger_icons_text">大图标</string>
   <string name="hide_icon_labels">隐藏图标标签</string>
-  <string name="protected_app_settings">被保护应用</string>
+  <string name="protected_app_settings">保护应用</string>
   <string name="search_screen_left_text">搜索面板</string>
   <string name="search_screen_left_unsupported_toast">你必须提供一个支持搜索的应用且CyanogenMod将使用此特性.</string>
   <string name="migration_cling_title">复制应用图标</string>

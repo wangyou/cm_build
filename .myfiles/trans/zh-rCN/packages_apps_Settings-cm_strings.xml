@@ -349,8 +349,7 @@
   <string name="quiet_hours_dim_summary">禁用提示灯</string>
   <string name="quiet_hours_haptic">禁用触控反馈</string>
   <string name="quiet_hours_haptic_summary">禁用触摸反馈</string>
-  <string name="quiet_hours_active_from">从</string>
-  <string name="quiet_hours_active_to">激活到</string>
+  <string name="quiet_hours_active_period">启用 从<ns0:g id="start">%1$s</ns0:g> 到 <ns0:g id="end">%2$s</ns0:g></string>
   <string name="quiet_hours_ringer_allow_all">所有来电响铃</string>
   <string name="quiet_hours_ringer_allow_contacts">所有联系人响铃</string>
   <string name="quiet_hours_ringer_allow_starred">常用联系人响铃</string>
