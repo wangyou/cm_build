@@ -1,4 +1,5 @@
 curdir=`pwd`
+basedir=$(dirname $(dirname $(dirname $0)))
 dst=`pwd`
 if [ $# -lt 1 ]; then
    echo " usage: $0 <source_zipfile> [dest_dir]"
@@ -20,9 +21,9 @@ edir=`mktemp -d /tmp/gapps_XXXXXX`
 echo "Unpacking << $1..."
 unzip $1 -d $edir >/dev/null
 
-sed -e "/^[[:space:]]*\"\/system\/app\/Calendar.apk\"[[:space:]]*,?[[:space:]]*/d" \
+sed -e "/^[[:space:]]*\"\/system\/app\/Calendar\.apk\"[[:space:]]*,\{0,1\}[[:space:]]*/d" \
     -e "s/\"[^\"]*Calendar\.apk\",?//g" \
-    -e "/^[[:space:]]*\"[^\"\/]*\/Trebuchet.apk\"[[:space:]]*,?[[:space:]]*/d" \
+    -e "/^[[:space:]]*\"[^\"\/]*\/Trebuchet\.apk\"[[:space:]]*,\{0,1\}[[:space:]]*/d" \
     -e "s/\"[^\"]*Trebuchet\.apk\",?//g" \
     -e "s/PA GApps.*Modular/GApps/g" \
     -i $edir/META-INF/com/google/android/updater-script
@@ -60,5 +61,13 @@ fi
 cd $edir
 echo "Repacking >> $dst/$outfile..."
 zip $dst/$outfile -r * >/dev/null
+
+##signed package
+certdir=$basedir/build/target/product/security
+if [ -f "$(which java)" -a -f $certdir/testkey.x509.pem -a  -f $certdir/testkey.pk8 -a -f $basedir/prebuilts/sdk/tools/lib/signapk.jar ]; then
+	echo "Signing $outputfile..."
+	java -jar $basedir/prebuilts/sdk/tools/lib/signapk.jar ${certdir}/testkey.x509.pem ${certdir}/testkey.pk8 $dst/$outfile  $dst/$outfile.signed
+	[ $? -eq 0 ] && mv $dst/$outfile.signed $dst/$outfile
+fi
 cd $curdir
 rm -rf $edir
