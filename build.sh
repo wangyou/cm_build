@@ -338,6 +338,7 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; 
 	export BOARD_HAS_SDCARD_INTERNAL=false
 
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
+            mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
             [ ! -z "${!KBCCOUNT}" ] &&  echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
   		        TARGET_KERNEL_CONFIG=${kernel_config}  \
@@ -359,6 +360,7 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; 
 
 else
         if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
+            mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
             [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
 	    LANG=en_US make $mkJop $mkForce $mod  TARGET_SYSTEMIMAGE_USE_SQUISHER=true
         fi
