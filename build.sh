@@ -285,10 +285,6 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    fi
    [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
    [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
-   if [ "$device" != "$lastDevice" ]; then
-		rm -rf out/target/common
-		rm -rf out/target/product/$device
-   fi
 
 fi
 
