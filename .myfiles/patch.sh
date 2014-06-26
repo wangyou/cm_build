@@ -238,7 +238,7 @@ fi
 if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
      DeviceDir="device/motorola/$device"
 elif [ "$device" != "n880e" ]; then
-     DeviceDir="device/moto/$device"
+     DeviceDir="device/motorola/$device"
      opKernel=jordan
 else
      DeviceDir="device/zte/$device"
@@ -556,11 +556,15 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    fi
 
    ## child mode
-   [ $childmode -eq 0 ] && \
-   if ! grep -q "android.pm.updateonly" $basedir/frameworks/base/core/java/android/app/ApplicationPackageManager.java; then
-        cd $basedir/frameworks/base
-        patch -N -p1 -s < $rdir/patchs/child_mode.diff
-        cd $rdir
+   if [ $childmode -eq 0 ] ; then
+      if ! grep -q "android.pm.updateonly" $basedir/frameworks/base/core/java/android/app/ApplicationPackageManager.java; then
+          cd $basedir/frameworks/base
+          patch -N -p1 -s < $rdir/patchs/child_mode.diff
+          cd $rdir
+      fi
+      echo ".myfiles/scripts/target/pm_onoff.sh:system/bin/pm_onoff.sh" > $basedir/$DeviceDir/copy-extras.txt
+      echo ".myfiles/scripts/target/init.d-PMUpdateOnly:system/etc/init.d/91PMUpdateOnly" >> $basedir/$DeviceDir/copy-extras.txt
+
    fi
 
 ###return####

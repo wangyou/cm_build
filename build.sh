@@ -213,13 +213,8 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 	source build/envsetup.sh > /dev/null
    	lunch cm_$device-userdebug > /dev/null
 
-	for f in `ls device/*/*/vendorsetup.sh`; do 
-		if cat $f | grep "add_lunch" | grep -v "^ *#" | grep -v "^ *$" | grep -q "${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}"; then
-			VENDOR=`echo $f | cut -f 2 -d/`
-                        break
-		fi
-	done
 fi
+
 #if [ "$device" != "$lastDevice" -o "$opKernel" != "$lastOpKernel" ]; then
 #	export USE_CCACHE=
 #	rm -rf ~/.ccache
@@ -279,9 +274,6 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
        		cd $basedir
     	  fi
     	  rm -f out/target/product/$device/system/build.prop
-          if [ $childmode -eq 0 ]; then
-               echo ".myfiles/scripts/pm_onoff.sh:system/bin/pm_onoff.sh" > $basedir/device/$VENDOR/$device/copy-extras.txt
-          fi
    fi
    [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
    [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ

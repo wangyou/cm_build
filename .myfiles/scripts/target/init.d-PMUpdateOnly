@@ -1,0 +1,9 @@
+#
+# Auto set packagemanager to updateonly mode.
+# You can rename this file with '-' prefix filename to disable it.
+#
+
+myname=`basename $0`
+if [ "${myname:0:1}" != "-" ]; then
+   setprop android.pm.updateonly 1
+fi
