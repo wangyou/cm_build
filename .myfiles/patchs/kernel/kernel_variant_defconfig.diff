@@ -2,9 +2,7 @@ commit f695e50d97f93e538b8670d8396391d4d008dfca
 Author: dhacker29 <davidhackerdvm@gmail.com>
 Date:   Fri May 31 05:16:41 2013 -0500
 
-    Add ability to use variant defconfig for device differences
-    
-    and use shared defconfig
+    Add ability to use variant defconfig for device differences and use shared defconfig
     
     Change-Id: Ie49e84a54e9758a661edfde6076ec0fc0929c047
 
