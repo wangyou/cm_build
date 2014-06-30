@@ -12,8 +12,8 @@ kernelBranchOptionStart=1
 KernelBranchName=$branch
 childmode=1
 
-KernelBranches=("cm-11.0" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
-KernelOpts=("cm" "jbx" "j30x" "jordan" "n880e")
+KernelBranches=("cm-11.0" "cm-11.0_3.x" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
+KernelOpts=("cm" "cm3x" "jbx" "j30x" "jordan" "n880e")
 
 isKernelOpt()
 {
