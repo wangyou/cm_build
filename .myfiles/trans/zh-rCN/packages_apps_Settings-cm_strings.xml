@@ -59,6 +59,8 @@
   <string name="profile_networkmode_2g">2G</string>
   <string name="profile_networkmode_3g">3G</string>
   <string name="profile_networkmode_2g3g">2G/3G</string>
+  <string name="settings_search_action_bar_button">搜索</string>
+  <string name="settings_search_autocompleteview_hint">搜索设置</string>
   <string name="profile_connectionoverrides_title">连接覆盖</string>
   <string name="profile_volumeoverrides_title">音量覆盖</string>
   <string name="connection_state_disabled">禁用</string>
