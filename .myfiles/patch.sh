@@ -220,6 +220,8 @@ for op in $*;do
      oldupdate=0
    elif [ "${op:0:6}" = "-child" ]; then
      childmode=0
+   elif [ "${op:0:5}" = "-tag=" ]; then
+	tagname=${op:5}
    fi
 done
 
@@ -350,6 +352,14 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
   addBranch $basedir/kernel/motorola/omap4-common $kbranch
   checkoutBranch $basedir/kernel/motorola/omap4-common $kbranch 
   [ $? -ne 0 ] && exit 1
+  if [ "$tagname" != "" ]; then
+	cd $basedir/kernel/motorola/omap4-common
+     if git tag | grep -q $tagname; then 
+		echo "checkout tag $tagname ..."
+		git checkout $tagname>/dev/null 2>/dev/null
+     fi
+     cd $rdir
+  fi
   if [ -f $basedir/.lastBuild ] && [ "$mode" != "kbranch" ]; then
      sed -e "s/opKernel:.*/opKernel: $opKernel/" -i $basedir/.lastBuild
   else

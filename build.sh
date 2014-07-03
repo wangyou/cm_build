@@ -17,6 +17,17 @@ isKernelOpt()
     done
     return 1
 }
+
+getKernelDir()
+{
+	if [ "$device" = "edison" ]; then
+		grep "kernel_motorola_omap4-common" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:.*path=\"\([^\"]*\)\".*:\1:g"
+	elif  [ "$device" = "n880e" ]; then
+		grep "kernel_zte_msm7x27a" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:.*path=\"\([^\"]*\)\".*:\1:g"
+	elif [ "$device" = "mb526" ]; then
+		grep "kernel_motorola_jordan" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:.*path=\"\([^\"]*\)\".*:\1:g"
+	fi
+}
 #############################################################
 
 list_kfiles()
@@ -289,6 +300,12 @@ if [ ! -f vendor/cm/proprietary/Term.apk ]; then
         vendor/cm/get-prebuilts
    fi
 fi
+###get kernel version
+kerneldir=$(getKernelDir)
+mkversion1=$(grep -w "VERSION =" $basedir/$kerneldir/Makefile|cut -d= -f2|sed -e "s/ //g")
+mkversion2=$(grep -w "PATCHLEVEL =" $basedir/$kerneldir/Makefile|cut -d= -f2|sed -e "s/ //g")
+mkversion3=$(grep -w "SUBLEVEL =" $basedir/$kerneldir/Makefile|cut -d= -f2|sed -e "s/ //g")
+kernelversion=$mkversion1.$mkversion2.$mkversion3
 
 ########## MAKE #########################
 export CM_BUILDTYPE=NIGHTLY
@@ -339,7 +356,7 @@ if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; 
 		cp $basedir/out/target/product/$device/system/etc/init.d/80GPU $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-        KERNELZIP_NAME=Kernel-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip
+        KERNELZIP_NAME=Kernel-v$kernelversion-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip
         echo "Creating ${KERNELZIP_NAME}..."
 		rm -f "../${KERNELZIP_NAME}"
 		zip -r "../${KERNELZIP_NAME}" * >/dev/null
@@ -357,7 +374,7 @@ else
 		prepare_kernelzip
 		curdir=`pwd`
 		cd out/target/product/$device/kernel_zip/rls/
-        KERNELZIP_NAME=Kernel-CM11-$device-$(date +"%Y%m%d").zip
+        KERNELZIP_NAME=Kernel-v$kernelversion-CM11-$device-$(date +"%Y%m%d").zip
         echo "Creating ${KERNELZIP_NAME}..."
 		rm -f "../${KERNELZIP_NAME}"
 		zip -r "../${KERNELZIP_NAME}" * >/dev/null
