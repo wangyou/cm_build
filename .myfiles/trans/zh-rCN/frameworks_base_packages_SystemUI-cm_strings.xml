@@ -2,6 +2,8 @@
 <resources xmlns:ns0="urn:oasis:names:tc:xliff:document:1.2">
   <string name="accessibility_quick_settings_ringer">声音<ns0:g example="Off" id="state">%s</ns0:g>.</string>
   <string name="accessibility_quick_settings_vibration">震动<ns0:g example="Off" id="state">%s</ns0:g>.</string>
+  <string name="accessibility_dpad_left">左光标</string>
+  <string name="accessibility_dpad_right">右光标</string>
   <string name="dessert_case_settings_cm_title">显示CM吉祥物</string>
   <string name="dessert_case_settings_cm_summary">梦幻显示CM吉祥物和Andorid甜点</string>
   <string name="quick_settings_profile_label">情景模式</string>

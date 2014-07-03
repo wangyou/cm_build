@@ -131,7 +131,8 @@
   <string name="icon_picker_gallery_title">图库</string>
   <string name="icon_picker_pack_title">图标包</string>
   <string name="display_lights_settings_title">显示 &amp; 指示灯</string>
-  <string name="lights_category_title">指示灯</string>
+  <string name="lights_category_title">提示灯</string>
+  <string name="notification_light_title">提示灯</string>
   <string name="notification_light_general_title">常规</string>
   <string name="notification_light_applist_title">应用</string>
   <string name="notification_light_phonelist_title">电话</string>
@@ -582,6 +583,8 @@
   <string name="navigation_bar_reset_toast">导航栏设置已还原为系统默认值</string>
   <string name="navigation_bar_menu_editable">可编辑</string>
   <string name="navigation_bar_menu_locked">已锁定</string>
+  <string name="navigation_bar_arrow_keys_title">输入时显示光标键</string>
+  <string name="navigation_bar_arrow_keys_summary">输入时显示左右光标键</string>
   <string name="navigation_ring_title">导航栏快捷方式</string>
   <string name="navring_target_reset_message">确定删除所有用户创建的导航栏快捷方式并还原为默认值?</string>
   <string name="navring_target_reset">导航栏快捷方式已还原为默认值</string>
@@ -611,7 +614,7 @@
   <string name="power_menu_user_title">用户切换器</string>
   <string name="power_menu_sound_title">声控面板</string>
   <string name="button_settings">按钮</string>
-  <string name="hardware_keys_power_key_title">Power button</string>
+  <string name="hardware_keys_power_key_title">电源键</string>
   <string name="hardware_keys_home_key_title">Home 键</string>
   <string name="hardware_keys_menu_key_title">菜单键</string>
   <string name="hardware_keys_assist_key_title">搜索键</string>
@@ -871,4 +874,13 @@
   <string name="menu_hidden_apps_reset_lock">重置图案锁</string>
   <string name="protected_apps">已保护应用</string>
   <string name="saving_protected_components">正在保存组件状态\u2026</string>
+  <string name="keep_screen_on_summary_cm">插入时屏幕从不休眠</string>
+  <plurals name="show_dev_countdown_cm">
+    <item quantity="one">你还有<ns0:g id="step_count">%1$d</ns0:g> 步启用开发者选项.</item>
+    <item quantity="other">你还有<ns0:g id="step_count">%1$d</ns0:g> 步启用开发者选项.</item>
+  </plurals>
+  <string name="show_dev_on_cm">你已经启用开发者选项!</string>
+  <string name="show_dev_already_cm">不需要，你已经处于开发者模式.</string>
+  <string name="enable_adb_cm">Android调试</string>
+  <string name="enable_adb_summary_cm">启用adb接口</string>
   </resources>
