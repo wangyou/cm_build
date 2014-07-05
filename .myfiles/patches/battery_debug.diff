@@ -1,0 +1,24 @@
+diff --git a/src/com/android/settings/fuelgauge/BatteryStatsHelper.java b/src/com/android/settings/fuelgauge/BatteryStatsHelper.java
+index 23835ac..e0d64aa 100644
+--- a/src/com/android/settings/fuelgauge/BatteryStatsHelper.java
++++ b/src/com/android/settings/fuelgauge/BatteryStatsHelper.java
+@@ -39,6 +39,7 @@ import android.os.ServiceManager;
+ import android.os.SystemClock;
+ import android.os.UserHandle;
+ import android.os.UserManager;
++import android.os.SystemProperties;
+ import android.preference.PreferenceActivity;
+ import android.telephony.SignalStrength;
+ import android.util.Log;
+@@ -68,8 +69,9 @@ import java.util.Map;
+  */
+ public class BatteryStatsHelper {
+ 
+-    private static final boolean DEBUG = false;
+-
++    private static boolean DEBUG = false;
++    if ("1".equals(SystemProperties.get("android.battery.debug")))
++	DEBUG = true;
+     private static final String TAG = BatteryStatsHelper.class.getSimpleName();
+ 
+     private static BatteryStatsImpl sStatsXfer;

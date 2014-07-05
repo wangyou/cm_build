@@ -339,7 +339,7 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
        if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
               $basedir/device/motorola/omap4-common/pvr-source/services4/system/omap4/sgxfreq.c; then
              cd $basedir/device/motorola/omap4-common
-             patch -N -p1 -s < $rdir/patchs/device_omap4-common.diff
+             patch -N -p1 -s < $rdir/patches/device_omap4-common.diff
              cd $rdir
        fi
    fi
@@ -419,7 +419,7 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
      ################# Limit the GPU frequency to 307 mhz for edison at JBX-Kernel ###############
      if [ "$device" = "edison" ]; then
          mkdir -p $basedir/vendor/motorola/edison/proprietary/etc/init.d
-         cp $rdir/patchs/kernel/jbx/80GPU $basedir/vendor/motorola/edison/proprietary/etc/init.d/
+         cp $rdir/patches/kernel/jbx/80GPU $basedir/vendor/motorola/edison/proprietary/etc/init.d/
          if ! grep -q "init.d/80GPU" $basedir/vendor/motorola/edison/edison-vendor-blobs.mk ; then
              sed -e "/PRODUCT_COPY_FILES/a\    vendor/motorola/edison/proprietary/etc/init.d/80GPU:system/etc/init.d/80GPU \\\\" \
                  -i $basedir/vendor/motorola/edison/edison-vendor-blobs.mk 
@@ -435,7 +435,7 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
   echo "Process kernel ended."
 
   ## clean some audios
-  cp $rdir/patchs/squisher-extras.txt $basedir/device/motorola/$device/
+  cp $rdir/patches/squisher-extras.txt $basedir/device/motorola/$device/
 
 : <<'COMMENT'
 elif [ "$device" = "mb526" ]; then
@@ -524,7 +524,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
 #   if ! grep -q "if (\!uuid && findDevice){" $basedir/frameworks/base/core/jni/android_os_FileUtils.cpp; then
 #       cd $basedir/frameworks/base
-#       patch -N -p1 -s < $rdir/patchs/fileutils.diff
+#       patch -N -p1 -s < $rdir/patches/fileutils.diff
 #       cd $rdir
 #   fi 
 
@@ -532,7 +532,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    if ! grep -q "batteryLevel = mbatteryLevel > 100 ? 100 : mbatteryLevel;" \
      $basedir/frameworks/native/services/batteryservice/BatteryProperties.cpp; then
      cd $basedir/frameworks/native
-     patch -N -p1 -s < $rdir/patchs/batteryProperties.diff
+     patch -N -p1 -s < $rdir/patches/batteryProperties.diff
      cd $rdir
    fi
    
@@ -540,7 +540,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    if grep -q "removePreferenceIfPackageNotInstalled(findPreference(KEY_CM_UPDATES));" \
            $basedir/packages/apps/Settings/src/com/android/settings/DeviceInfoSettings.java; then
        cd $basedir/packages/apps/Settings
-       patch -N -p1 -s <$rdir/patchs/setting_device_info.diff
+       patch -N -p1 -s <$rdir/patches/setting_device_info.diff
        cd $rdir
    fi
    sed -e "/CMUpdater/d" -i $basedir/vendor/cm/config/common.mk
@@ -552,7 +552,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    if grep -q "maxHFRFrameWidth" $basedir/frameworks/av/media/libmedia/MediaProfiles.cpp; then
       if ! grep -q "maxHFRFrameWidth" $basedir/device/motorola/$device/media_profiles.xml; then
          cd $basedir/device/motorola/$device
-         patch -N -p1 -s < $rdir/patchs/media_profiles.diff
+         patch -N -p1 -s < $rdir/patches/media_profiles.diff
          cd $rdir
       fi
    fi
@@ -561,7 +561,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    [ "$device" != "mb526" -a "$device" != "n880e" ] && \
    if ! grep -q "HdmiToggle" $basedir/device/motorola/omap4-common/common.mk; then
         cd $basedir/device/motorola/omap4-common
-        patch -N -p1 -s < $rdir/patchs/hdmiToggle.diff
+        patch -N -p1 -s < $rdir/patches/hdmiToggle.diff
         cd $rdir
    fi
 
@@ -569,7 +569,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    if [ $childmode -eq 0 ] ; then
       if ! grep -q "android.pm.updateonly" $basedir/frameworks/base/core/java/android/app/ApplicationPackageManager.java; then
           cd $basedir/frameworks/base
-          patch -N -p1 -s < $rdir/patchs/child_mode.diff
+          patch -N -p1 -s < $rdir/patches/child_mode.diff
           cd $rdir
       fi
       echo ".myfiles/scripts/target/pm_onoff.sh:system/bin/pm_onoff.sh" > $basedir/$DeviceDir/copy-extras.txt
@@ -580,7 +580,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    ## battery debug
    if ! grep -q "android.battery.debug" $basedir/packages/apps/Settings/src/com/android/settings/fuelgauge/BatteryStatsHelper.java; then
          cd $basedir/packages/apps/Settings
-         patch -N -p1 -s < $rdir/patchs/battery_debug.diff
+         patch -N -p1 -s < $rdir/patches/battery_debug.diff
          cd $rdir
    fi
 ###return####

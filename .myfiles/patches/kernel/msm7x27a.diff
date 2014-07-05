@@ -1,0 +1,41 @@
+diff --git a/arch/arm/configs/cyanogen_atlas40_defconfig b/arch/arm/configs/cyanogen_atlas40_defconfig
+index c2632eb..4133cb9 100644
+--- a/arch/arm/configs/cyanogen_atlas40_defconfig
++++ b/arch/arm/configs/cyanogen_atlas40_defconfig
+@@ -1233,7 +1233,7 @@ CONFIG_WLAN=y
+ CONFIG_LIBRA_SDIOIF=m
+ # CONFIG_ATH_COMMON is not set
+ # CONFIG_BCM4329 is not set
+-# CONFIG_BCMDHD is not set
++CONFIG_BCMDHD=y
+ # CONFIG_HOSTAP is not set
+ # CONFIG_IWM is not set
+ # CONFIG_LIBERTAS is not set
+@@ -2726,7 +2726,7 @@ CONFIG_NLS_ISO8859_1=y
+ # CONFIG_NLS_ISO8859_15 is not set
+ # CONFIG_NLS_KOI8_R is not set
+ # CONFIG_NLS_KOI8_U is not set
+-# CONFIG_NLS_UTF8 is not set
++CONFIG_NLS_UTF8=y
+ 
+ #
+ # Kernel hacking
+diff --git a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h b/drivers/net/wireless/bcmdhd/wl_cfgp2p.h
+index 5a69168..1237306 100644
+--- a/drivers/net/wireless/bcmdhd/wl_cfgp2p.h
++++ b/drivers/net/wireless/bcmdhd/wl_cfgp2p.h
+@@ -103,11 +103,11 @@ enum wl_cfgp2p_status {
+ #define wl_to_p2p_bss(wl, type) ((wl)->p2p->bss_idx[type])
+ #define wl_get_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0 : test_bit(WLP2P_STATUS_ ## stat, \
+ 									&(wl)->p2p->status))
+-#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? : set_bit(WLP2P_STATUS_ ## stat, \
++#define wl_set_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0: set_bit(WLP2P_STATUS_ ## stat, \
+ 									&(wl)->p2p->status))
+-#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? : clear_bit(WLP2P_STATUS_ ## stat, \
++#define wl_clr_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0: clear_bit(WLP2P_STATUS_ ## stat, \
+ 									&(wl)->p2p->status))
+-#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? : change_bit(WLP2P_STATUS_ ## stat, \
++#define wl_chg_p2p_status(wl, stat) ((!(wl)->p2p_supported) ? 0: change_bit(WLP2P_STATUS_ ## stat, \
+ 									&(wl)->p2p->status))
+ #define p2p_on(wl) ((wl)->p2p->on)
+ #define p2p_scan(wl) ((wl)->p2p->scan)
