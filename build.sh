@@ -104,7 +104,8 @@ kernelBranchOptionStart=1
 KernelBranchName=$branch
 jbx=1
 moreopt=""
-nomake=1
+nomake=1             #no patching and no make
+fakemake=1           #just patching,do not make really
 VENDOR=""
 childmode=1
 lastDevice="edison"
@@ -137,9 +138,9 @@ fi
 for op in $*;do
    transop=0
    if [ $kernelBranchOptionStart -eq 0 ]; then
-      KernelBranchName=$op
-      kernelBranchOptionStart=1
-      opKernel=${device}_${KernelBranchName}
+        KernelBranchName=$op
+        kernelBranchOptionStart=1
+        opKernel=${device}_${KernelBranchName}
    elif [ "$op" = "spyder" -o "$op" = "edison" -o "$op" = "targa" -o "$op" = "n880e" ]; then
 	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
@@ -149,7 +150,7 @@ for op in $*;do
 	[ "$op" = "n880e" ] && device="n880e"
 	transop=1
    elif [ "$op" = "-jbx" ]; then
-      jbx=0
+        jbx=0
    elif [ "${op:0:2}" = "-j" ]; then
 	mkJop=$op
 	transop=1
@@ -158,15 +159,18 @@ for op in $*;do
 	transop=1
    elif [ "$op" = "-kernel-only" -o "$op" = "-ko" ]; then
 	kernelonly=0
-     transop=1
+        transop=1
    elif [ "$op" = "-kernel-branch" -o "$op" = "-kb" ]; then
-     kernelBranchOptionStart=0
-     transop=0
+        kernelBranchOptionStart=0
+        transop=0
    elif [ "${op}" = "-keep" ]; then
 	keepPatch=0
    elif [ "$op" = "-nomake" ]; then
-     nomake=0
-	transop=1
+        nomake=0
+        transop=1
+   elif [ "$op" = "-fakemake" ]; then
+        fakemake=0
+        transop=1
    elif [ "$op" = "-B" ]; then
 	mkForce=$op
 	transop=1
@@ -253,6 +257,9 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
         echo "Error happended...exit!"
         exit -1
    fi   
+   if [ $fakemake -eq 0 ]; then
+	exit 0
+   fi
    echo "device: $device">.lastBuild.tmp
    echo "opKernel: $opKernel">>.lastBuild.tmp
 
