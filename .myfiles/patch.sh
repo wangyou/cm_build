@@ -577,6 +577,12 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
    fi
 
+   ## battery debug
+   if ! grep -q "android.battery.debug" $basedir/packages/apps/Settings/src/com/android/settings/fuelgauge/BatteryStatsHelper.java; then
+         cd $basedir/packages/apps/Settings
+         patch -N -p1 -s < $rdir/patchs/battery_debug.diff
+         cd $rdir
+   fi
 ###return####
 exit 0
 
