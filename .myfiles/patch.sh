@@ -481,6 +481,10 @@ fi
    sed -i $basedir/vendor/cm/config/common.mk -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" 
    sed -i $basedir/vendor/cm/config/common.mk -e '/LatinIME \\/ a\
     PinyinIME \\'
+   sed -i $basedir/vendor/cm/config/common.mk -e '/# Extra tools in CM/ i#performance counters subsystem (perl)\
+PRODUCT_PACKAGES += \\\
+    perf\
+'
    sed -e "/LiveWallpapers/d" -e "/LiveWallpapersPicker/d" -e "/MagicSmokeWallpapers/d" -e "/NoiseField/d" -i $basedir/vendor/cm/config/common_full.mk
    sed -e "s/\(PRODUCT_BOOTANIMATION :=\).*/\1/g" -i $basedir/vendor/cm/config/common.mk
    sed -e "s/.*bootanimation\.zip//" -i $basedir/vendor/cm/config/common_full_phone.mk
