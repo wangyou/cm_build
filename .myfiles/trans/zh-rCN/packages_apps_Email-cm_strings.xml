@@ -10,4 +10,8 @@
   <string name="delete_account_confirmation_msg">将会删除帐号<ns0:g id="account">%s</ns0:g> 的所有邮件及设置. 此操作将无法还原.\n\n是否继续?</string>
   <string name="deleting_account_msg">正在删除帐号\u2026</string>
   <string name="delete_account_failed">无法删除帐号</string>
+  <string name="account_auto_fetch_attachments_label">自动获取附件</string>
+  <string name="account_auto_fetch_attachments_entries_never">从不</string>
+  <string name="account_auto_fetch_attachments_entries_wifi">仅WIFI下</string>
+  <string name="account_auto_fetch_attachments_entries_always">总是</string>
   </resources>
