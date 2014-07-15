@@ -163,7 +163,7 @@ for op in $*;do
    elif [ "$op" = "-kernel-branch" -o "$op" = "-kb" ]; then
         kernelBranchOptionStart=0
         transop=0
-   elif [ "${op}" = "-keep" ]; then
+   elif [ "${op}" = "-keep" -o "${op}" = "-k" ]; then
 	keepPatch=0
    elif [ "$op" = "-nomake" ]; then
         nomake=0
