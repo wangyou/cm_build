@@ -4,8 +4,8 @@ reset
 compile_user=NX111
 branch=cm-11.0
 
-KernelBranches=("cm-11.0" "cm-11.0_3.x" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
-KernelOpts=("cm" "cm3x" "jbx" "j30x" "jordan" "n880e")
+KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
+KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e")
 
 isKernelOpt()
 {
@@ -392,6 +392,7 @@ fi
 
 fi
 
+echo "Building done!"
 export TARGET_KERNEL_CUSTOM_TOOLCHAIN=
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
