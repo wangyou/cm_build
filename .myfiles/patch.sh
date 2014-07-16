@@ -31,20 +31,30 @@ isKernelOpt()
 ##############################################################
 getKernelBranchName()
 {
-	i=0
-     if [ "$1" != "" -a "$KernelBranchName" != "" ]; then
-         for e in ${KernelOpts[@]}; do
-		    if [ "$e" = "$1" -a "$e" != "" ]; then
-                   KernelBranchName=${KernelBranches[$i]}
+     local i=0
+     local curdir=`pwd`
+     if [ $kernelCurrent -eq 1 ]; then
+	 cd `getKernelDir`
+	 KernelBranchName=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
+	 opKernel=$KernelBranchName
+         for e in ${KernelBranches[@]}; do
+                    if [ "$e" = "$opKernel" -a "$e" != "" ]; then
+                            opKernel=${KernelOpts[$i]}
 			    break
 		    fi
 		    i=$((i+1))
-	    done
+	 done
+	 cd $curdir
+     elif [ "$1" != "" -a "$KernelBranchName" != "" ]; then
+         for e in ${KernelOpts[@]}; do
+		    if [ "$e" = "$1" -a "$e" != "" ]; then
+                            KernelBranchName=${KernelBranches[$i]}
+			    break
+		    fi
+		    i=$((i+1))
+	 done
      fi
-     if [ "$1" = "stock" ]; then
-		KernelBranchName="stock.$device"
-	fi
-	echo  $KernelBranchName
+     echo  $KernelBranchName
 }
 
 #newBranch <dir> <localBranchName> <remoteName> <remote.git> <remote_branch> [checkout]
@@ -189,10 +199,21 @@ resetProject()
      cd $curdir
 }
 
+getKernelDir()
+{
+	if [ "$device" = "edison" ]; then
+		grep "kernel_motorola_omap4-common" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:.*path=\"\([^\"]*\)\".*:\1:g"
+	elif  [ "$device" = "n880e" ]; then
+		grep "kernel_zte_msm7x27a" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:.*path=\"\([^\"]*\)\".*:\1:g"
+	elif [ "$device" = "mb526" ]; then
+		grep "kernel_motorola_jordan" $basedir/.repo/local_manifests/local_manifest.xml | sed -e "s:.*path=\"\([^\"]*\)\".*:\1:g"
+	fi
+}
+
 ############################################################################
 
 jbx=1
-
+kernelCurrent=0
 ### parse params #########
 
 for op in $*;do 
@@ -215,6 +236,8 @@ for op in $*;do
      kernelUpdate=1
    elif [ "$op" = "-kuo" ]; then
      kernelUpdate=2
+   elif [ "$op" = "-kc" ]; then
+     kernelCurrent=1
    elif [ "$op" = "-r" -o "$op" = "-kbranch" -o "$op" = "-u" ]; then
      mode="${op#-*}"
    elif [ "$op" = "old" ]; then
@@ -251,7 +274,8 @@ else
 fi
 
 [ "${opKernel:0:1}" = "j" ]&& jbx=0
-kbranch=`getKernelBranchName $opKernel`
+getKernelBranchName $opKernel >/dev/null
+kbranch=$KernelBranchName 
 
 ## local_manifest.xml   ####
 if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
@@ -351,10 +375,12 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
 
   echo "Use $kbranch kernel ..."
   cd $basedir/kernel/motorola/omap4-common
-  oldBranch=`git branch | grep "\*" |cut -f2 -d" "`
-  addBranch $basedir/kernel/motorola/omap4-common $kbranch
-  checkoutBranch $basedir/kernel/motorola/omap4-common $kbranch 
-  [ $? -ne 0 ] && exit 1
+  if [ $kernelCurrent -ne 1 ]; then
+  	oldBranch=`git branch | grep "\*" |cut -f2 -d" "`
+  	addBranch $basedir/kernel/motorola/omap4-common $kbranch
+  	checkoutBranch $basedir/kernel/motorola/omap4-common $kbranch 
+  	[ $? -ne 0 ] && exit 1
+  fi
   if [ "$tagname" != "" ]; then
 	cd $basedir/kernel/motorola/omap4-common
      if git tag | grep -q $tagname; then 
@@ -429,7 +455,7 @@ if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
          fi
      fi
 
-  elif [ "$opKernel" = "cm" ]; then
+  elif [ -f $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig ]; then
       sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig \
           -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
   fi

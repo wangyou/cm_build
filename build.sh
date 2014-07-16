@@ -70,17 +70,31 @@ prepare_kernelzip()
 ##############################################################
 getKernelBranchName()
 {
-	i=0
-     if [ "$1" != "" -a "$KernelBranchName" != "" ]; then
-         for e in ${KernelOpts[@]}; do
-		    if [ "$e" = "$1" -a "$e" != "" ]; then
-                   KernelBranchName=${KernelBranches[$i]}
+     local i=0
+     local curdir=`pwd`
+     echo "kernelCurrent=$kernelCurrent"
+     if [ $kernelCurrent -eq 1 ]; then
+	 cd `getKernelDir`
+	 KernelBranchName=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
+	 opKernel=$KernelBranchName
+         for e in ${KernelBranches[@]}; do
+		    if [ "$e" = "$opKernel" -a "$e" != "" ]; then
+                            opKernel=${KernelOpts[$i]}
 			    break
 		    fi
 		    i=$((i+1))
-	    done
+	 done
+	 cd $curdir
+     elif [ "$1" != "" -a "$KernelBranchName" != "" ]; then
+         for e in ${KernelOpts[@]}; do
+		    if [ "$e" = "$1" -a "$e" != "" ]; then
+                            KernelBranchName=${KernelBranches[$i]}
+			    break
+		    fi
+		    i=$((i+1))
+	 done
      fi
-	echo  $KernelBranchName
+     echo  $KernelBranchName
 }
 
 #############################################################
@@ -102,6 +116,7 @@ kernelzip=1
 kernelonly=1
 kernelBranchOptionStart=1
 KernelBranchName=$branch
+kernelCurrent=0
 jbx=1
 moreopt=""
 nomake=1             #no patching and no make
@@ -165,6 +180,8 @@ for op in $*;do
         transop=0
    elif [ "${op}" = "-keep" -o "${op}" = "-k" ]; then
 	keepPatch=0
+   elif [ "$op" = "-kc" ]; then
+        kernelCurrent=1
    elif [ "$op" = "-nomake" ]; then
         nomake=0
         transop=1
@@ -237,7 +254,9 @@ fi
 
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
-if [ "${opKernel:0:1}" = "j" ]; then
+getKernelBranchName > /dev/null
+
+if [ "$opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ]; then
     jbx=0
     kernel_config=mapphone_OCE_defconfig
     if [ "$device" = "edison" ]; then
@@ -345,7 +364,7 @@ fi
 if [ 1 -eq 1 ]; then   
 
 #realy make
-if [ "${opKernel:0:1}" = "j" -a "$device" != "mb526" -a "$device" != "n880e" ]; then
+if [ "${opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ] && [ "$device" != "mb526" -a "$device" != "n880e" ]; then
 
 	export BOARD_HAS_SDCARD_INTERNAL=false
 
@@ -396,7 +415,7 @@ echo "Building done!"
 export TARGET_KERNEL_CUSTOM_TOOLCHAIN=
 
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-   [ $keepPatch -eq 0  -o $retcode -ne 0 ] || $rdir/.myfiles/patch.sh -r 
+   [ $keepPatch -eq 0  -o $retcode -ne 0 -o $kernelCurrent -eq 1 ] || $rdir/.myfiles/patch.sh -r 
 
    eval $"$KBCCOUNT"=`cat $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version`
 
