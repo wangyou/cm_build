@@ -672,7 +672,10 @@
   <string name="setting_lockscreen_background">应用背景</string>
   <string name="confirm_delete_apn">此APN将被删除.</string>
   <string name="status_bar_title">状态栏</string>
-  <string name="status_bar_show_clock_title">显示时钟</string>
+  <string name="status_bar_clock_title">时钟显示方式</string>
+  <string name="status_bar_clock_style_default">默认</string>
+  <string name="status_bar_clock_style_center">中间</string>
+  <string name="status_bar_clock_style_hidden">隐藏</string>
   <string name="status_bar_battery_title">电池状态样式</string>
   <string name="status_bar_style_icon_portrait">立式图标</string>
   <string name="status_bar_style_icon_landscape">卧式图标</string>

@@ -6,6 +6,8 @@
   <string name="app_settings">应用设置</string>
   <string name="setting_state_on">开</string>
   <string name="setting_state_off">关</string>
+  <string name="search_panel_gel">Google Now</string>
+  <string name="search_panel_custom_home">CM Home</string>
   <string name="themes_button_text">主题</string>
   <string name="scrolling_page_outlines">页面轮廓</string>
   <string name="scrolling_fade_adjacent">页面边界渐隐</string>
@@ -15,6 +17,7 @@
   <string name="grid_size_cozy">适当</string>
   <string name="grid_size_condensed">压缩</string>
   <string name="grid_size_custom">定制</string>
+  <string name="grid_size_custom_and_size">Custom (%1$s)</string>
   <string name="preferences_interface_homescreen_custom">选择定制大小</string>
   <string name="preferences_interface_homescreen_rows_title">行数</string>
   <string name="preferences_interface_homescreen_columns_title">列数</string>
@@ -33,10 +36,8 @@
   <string name="search_screen_left_text">搜索面板</string>
   <string name="search_screen_left_unsupported_toast">你必须提供一个支持搜索的应用且CyanogenMod将使用此特性.</string>
   <string name="dialog_confirm">确定</string>
-  <string name="migration_cling_title">复制应用图标</string>
-  <string name="migration_cling_description">从旧主屏幕导入图标和目录吗?</string>
-  <string name="migration_cling_copy_apps">复制图标</string>
-  <string name="migration_cling_use_default">开始更新</string>
+  <string name="permission_desc_read_extension_data">允许请求DashClock扩展数据</string>
+  <string name="permission_label_read_extension_data">请求DashClock扩展数据</string>
   <string name="dummy_custom_cling_error_message">错误: 定制工作区布局已通过但定制磁贴不能覆盖</string>
   <string name="debug_memory_activity">* HPROF</string>
   </resources>
