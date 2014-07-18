@@ -106,7 +106,7 @@ basedir=`pwd`
 rm -f .lastBuild.tmp
 
 device=edison
-opKernel="cm"
+opKernel="cm3x"
 mkJop=""
 mod=bacon
 mkForce=""
