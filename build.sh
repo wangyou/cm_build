@@ -314,7 +314,10 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    fi
    [ _"$opKernel" != _"$lastOpKernel" ] && rm -rf out/target/product/$device/obj/KERNEL_OBJ/*
    [ -d $basedir/out/target/product/$device/obj/KERNEL_OBJ ] || mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
-
+   rm -rf $basedir/out/target/product/$device/obj/EXECUTABLES/mediaserver_intermediates/*
+   rm -rf $basedir/out/target/product/$device/obj/EXECUTABLES/surfaceflinger_intermediates/*
+   rm -rf $basedir/out/target/product/$device/obj/EXECUTABLES/zygote_intermediates/*
+   rm -rf $basedir/out/target/product/$device/obj/EXECUTABLES/vold_intermediates/*
 fi
 
 if [ ! -f vendor/cm/proprietary/Term.apk ]; then
