@@ -52,7 +52,7 @@ if prop("menu.prop","selected")=="1" then
 		"Kernel",			"",		2,	
 				#-- item.1.1 = 1								
 		"Install Kernel", 		"Install the Kernel experience for Motorola phones!",    1,	    #-- item.1.2 = 1
-		"Backup  kernel",       "UNPLUG USB CABLE!!! Select this option to backup your current installed Kernel. It will create a backup folder on your sdcard.",   1
+		"Backup  kernel",       "UNPLUG USB CABLE!!! Select this option to backup your current installed Kernel. It will create a backup folder on your sdcard.",   0
      );
 
      ini_set("text_next", "Install now");
