@@ -521,6 +521,11 @@ PRODUCT_PACKAGES += \\\
    sed -e "s/.*bootanimation\.zip//" -i $basedir/vendor/cm/config/common_full_tablet_wifionly.mk
    sed -e "s/.*bootanimation\.zip//" -i $basedir/vendor/cm/config/common_mini_tablet_wifionly.mk
 
+   ## add Ringtone TheFoggyDew
+   sed -i $basedir/vendor/cm/config/cm_audio.mk -e '$a\
+PRODUCT_COPY_FILES += \\\
+	$(RINGTONE_PATH)/TheFoggyDew.mp3:system/media/audio/ringtones/TheFoggyDew.mp3'
+   cp $rdir/TheFoggyDew.mp3 $basedir/vendor/cm/prebuilt/common/media/audio/ringtones/
 
 #### patch build for clean some files before make systemimage
    [ ! -f $basedir/build/tools/extra_files.sh ] && cp $rdir/scripts/prepack.sh $basedir/build/tools/
