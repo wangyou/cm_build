@@ -45,6 +45,12 @@
     <item>禁止</item>
     <item>总是询问</item>
   </string-array>
+  <string-array name="qs_quick_access_size_entries">
+    <item>自动</item>
+    <item>自动(压缩)</item>
+    <item>宽大</item>
+    <item>压缩高度</item>
+  </string-array>
   <string-array name="tts_rate_values">
     <item>60</item>
     <item>80</item>

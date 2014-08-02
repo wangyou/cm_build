@@ -508,6 +508,7 @@
   <string name="proximity_wake_summary">使用距离感应器来决定是否唤醒设备</string>
   <string name="category_quick_access">下拉快捷开关</string>
   <string name="title_quick_access">在下拉通知栏内显示</string>
+  <string name="title_quick_access_size">按钮大小</string>
   <string name="title_quick_access_linked">连接布局</string>
   <string name="summary_quick_access_linked">使用与快速设置面板中相同的按钮和布局</string>
   <string name="font_size_sample">示例</string>
