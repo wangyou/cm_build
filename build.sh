@@ -4,8 +4,8 @@ reset
 compile_user=NX111
 branch=cm-11.0
 
-KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
-KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e")
+KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
+KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909")
 
 isKernelOpt()
 {
@@ -132,10 +132,12 @@ if [ -f .lastBuild ]; then
 	elemI=${KernelBranches[$i]}
 	[ "${KernelOpts[$i]}" = "jordan" ] && elemI="JORDAN"
 	[ "${KernelOpts[$i]}" = "n880e" ] && elemI="N880E"
+	[ "${KernelOpts[$i]}" = "n909" ] && elemI="N909"
         for((j=0;j<$i;j++)) do
 		elemJ=${KernelBranches[$j]}
 		[ "${KernelOpts[$j]}" = "jordan" ] && elemJ="JORDAN"
 		[ "${KernelOpts[$j]}" = "n880e" ] && elemJ="N880E"
+		[ "${KernelOpts[$j]}" = "n909" ] && elemJ="N909"
 		[ "$elemI" = "$elemJ" ] && break
 	done
 	if [ $j -lt $i ]; then
@@ -156,13 +158,14 @@ for op in $*;do
         KernelBranchName=$op
         kernelBranchOptionStart=1
         opKernel=${device}_${KernelBranchName}
-   elif [ "$op" = "spyder" -o "$op" = "edison" -o "$op" = "targa" -o "$op" = "n880e" ]; then
+   elif [ "$op" = "spyder" -o "$op" = "edison" -o "$op" = "targa" -o "$op" = "n880e" -o "$op" = "n909" ]; then
 	device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
 	device="mb526"
    elif isKernelOpt $op; then
 	opKernel="$op"
 	[ "$op" = "n880e" ] && device="n880e"
+        [ "$op" = "n909" ] && device="n909"
 	transop=1
    elif [ "$op" = "-jbx" ]; then
         jbx=0
@@ -206,7 +209,7 @@ for op in $*;do
    [ $transop -eq 0 ] && moreopt="$moreopt $op"
 done
 
-[ "$device" = "mb526" -o "$device" = "n880e" ] && opKernel="cm"
+[ "$device" = "mb526" -o "$device" = "n880e" -o "$device" = "n909" ] && opKernel="cm"
 [ $kernelonly -eq 0 ] && kernelzip=0
 
 if [ "$mode" = "cleanall" ]; then
@@ -347,15 +350,16 @@ elif ! grep -q "build/core/main.mk" $basedir/Makefile; then
     echo "include build/core/main.mk" > $basedir/Makefile
 fi
 
-if [ $jbx -eq 0 -a "$device" != "mb526" -a "$device" != "n880e" ]; then
+if [ $jbx -eq 0 ] && [  "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ]; then
 	KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
 	[ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
    	export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
 fi
 
-[ "$device" != "mb526" -a "$device" != "n880e" ] && KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
+[ "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ] && KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
 [ "$device" = "mb526" ] && KBCCOUNT=JORDAN_CCNUM
 [ "$device" = "n880e" ] && KBCCOUNT=N880E_CCNUM
+[ "$device" = "n909" ] && KBCCOUNT=N909_CCNUM
 [ -z "${!KBCCOUNT}" ] && eval $"$KBCCOUNT"=0
 
 retcode=1
@@ -367,7 +371,7 @@ fi
 if [ 1 -eq 1 ]; then   
 
 #realy make
-if [ "${opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ] && [ "$device" != "mb526" -a "$device" != "n880e" ]; then
+if [ "${opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ] && [ "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ]; then
 
 	export BOARD_HAS_SDCARD_INTERNAL=false
 
@@ -426,11 +430,13 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
 	elemI=${KernelBranches[$i]}
 	[ "${KernelOpts[$i]}" = "jordan" ] && elemI="JORDAN"
 	[ "${KernelOpts[$i]}" = "n880e" ] && elemI="N880E"
+	[ "${KernelOpts[$i]}" = "n909" ] && elemI="N909"
 
         for((j=0;j<$i;j++)) do
 		elemJ=${KernelBranches[$j]}
 		[ "${KernelOpts[$j]}" = "jordan" ] && elemJ="JORDAN"
 		[ "${KernelOpts[$j]}" = "n880e" ] && elemJ="N880E"
+		[ "${KernelOpts[$j]}" = "n909" ] && elemJ="N909"
 		[ "$elemI" = "$elemJ" ] && break
 	done
 	if [ $j -lt $i ]; then

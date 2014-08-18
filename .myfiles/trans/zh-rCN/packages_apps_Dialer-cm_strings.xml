@@ -36,6 +36,9 @@
   <string name="toast_added_to_blacklist">%s 已添加到黑名单。</string>
   <string name="nearby_places">附近位置</string>
   <string name="people">联系人</string>
+  <string name="start_call_playback">播放录音</string>
+  <string name="stop_call_playback">停止</string>
+  <string name="call_playback_error_message">播放录音失败</string>
   <string name="call_log_activity_title_font_family">sans-serif-light</string>
   <string name="show_all_contacts_title_font_family">sans-serif-light</string>
   <string name="dialpad_star_number">*</string>

@@ -12,8 +12,8 @@ kernelBranchOptionStart=1
 KernelBranchName=$branch
 childmode=1
 
-KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock" "JBX" "JBX_30X" "cm-11.0" "cm-11.0")
-KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e")
+KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
+KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909")
 
 isKernelOpt()
 {
@@ -221,7 +221,7 @@ for op in $*;do
       KernelBranchName=$op
       kernelBranchOptionStart=1
       opKernel=$device_$kernelBranchName
-   elif [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa"  -o "$op" = "n880e" ]; then
+   elif [ "$op" = "spyder" -o "$op" = "edison" -o "$device" = "targa"  -o "$op" = "n880e" -o "$op" = "n909" ]; then
         device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
      device="mb526"
@@ -263,14 +263,14 @@ fi
 [ -z "$device" ] && device=$lastDevice
 [ -z "$opKernel" ] && opKernel=$lastOpKernel
 
-if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
+if [ "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ]; then
      DeviceDir="device/motorola/$device"
-elif [ "$device" != "n880e" ]; then
+elif [ "$device" = "mb526" ]; then
      DeviceDir="device/motorola/$device"
      opKernel=jordan
-else
+elif [ "$device" = "n880e" -o  "$device" = "n909" ]; then 
      DeviceDir="device/zte/$device"
-     opKernel=n880e
+     opKernel=$device
 fi
 
 [ "${opKernel:0:1}" = "j" ]&& jbx=0
@@ -360,7 +360,7 @@ fi
 
 
 ########## Device Edison/Spyder/Targa,etc OMAP4-COMMON...#########
-if [ "$device" != "mb526" -a "$device" != "n880e" ]; then
+if [  "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ]; then
    ### if not kernel branch switch start ####
    if [ "$mode" != "kbranch" -a $jbx -eq 0 ]; then
        if ! grep -q "static ssize_t store_frequency_limit(struct device \*dev" \
@@ -586,7 +586,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    sed -e "/OMX_FreeBuffer for buffer header %p successful/d" -i $basedir/frameworks/av/media/libstagefright/omx/OMXNodeInstance.cpp
 
    ## fix media_profiles.xml for HFR encode
-   [ "$device" != "mb526" -a "$device" != "n880e" ] && \
+   [ "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ] && \
    if grep -q "maxHFRFrameWidth" $basedir/frameworks/av/media/libmedia/MediaProfiles.cpp; then
       if ! grep -q "maxHFRFrameWidth" $basedir/device/motorola/$device/media_profiles.xml; then
          cd $basedir/device/motorola/$device
@@ -596,7 +596,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
    fi
 
    ## hdmi toggle 
-   [ "$device" != "mb526" -a "$device" != "n880e" ] && \
+   [ "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ] && \
    if ! grep -q "HdmiToggle" $basedir/device/motorola/omap4-common/common.mk; then
         cd $basedir/device/motorola/omap4-common
         patch -N -p1 -s < $rdir/patches/hdmiToggle.diff
