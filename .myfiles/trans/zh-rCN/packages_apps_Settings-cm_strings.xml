@@ -744,7 +744,7 @@
   <string name="stylus_app_not_installed">%s 未安装</string>
   <string name="ime_switcher_notify">选择器通知</string>
   <string name="ime_switcher_notify_summary">显示输入法选择器通知</string>
-  <string name="app_ops_summaries_coarse_location">大致位置</string>
+  <string name="app_ops_summaries_coarse_location">粗略位置</string>
   <string name="app_ops_summaries_fine_location">精确位置</string>
   <string name="app_ops_summaries_gps">GPS</string>
   <string name="app_ops_summaries_vibrate">震动</string>
