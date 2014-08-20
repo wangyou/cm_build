@@ -315,9 +315,9 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch
     
-   if [ -f $basedir/device/zte/atlas40/patches/install.sh ]; then
-       $basedir/device/zte/atlas40/patches/install.sh -r 
-       rm -f $basedir/.atlas40_patched
+   if [ -f $basedir/$DeviceDir/patches/install.sh ]; then
+       $basedir/$DeviceDir/patches/install.sh -r 
+       rm -f $basedir/.legacy_patched
    fi
 
      ### reset kernel/motorola/omap4-common
@@ -490,7 +490,7 @@ elif [ "$device" = "mb526" ]; then
    fi
 COMMENT
 
-elif [ "$device" = "n880e" ]; then
+elif [ "$device" = "n880e" -o  "$device" = "n909" ]; then
    newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
    newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
    if [ "$mode" = "u" ]; then
@@ -498,8 +498,8 @@ elif [ "$device" = "n880e" ]; then
         updateBranch frameworks/native legaCyMod_$branch  legaCyMod $branch
    fi
 
-   if [ ! -f $basedir/.atlas40_patched ] && [ -f $basedir/device/zte/atlas40/patches/install.sh ]; then
-       $basedir/device/zte/atlas40/patches/install.sh && touch $basedir/.atlas40_patched
+   if [ ! -f $basedir/.legacy_patched ] && [ -f $basedir/$DeviceDir/patches/install.sh ]; then
+       $basedir/$DeviceDir/patches/install.sh && touch $basedir/.legacy_patched
    fi
 fi
 
