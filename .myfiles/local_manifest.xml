@@ -3,7 +3,7 @@
 <project name="nx111/android_device_motorola_edison" path="device/motorola/edison" remote="github" revision="cm-11.0" />
 <project name="nx111/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-11.0" />
 <project name="CyanogenMod/android_device_motorola_spyder" path="device/motorola/spyder" remote="github" revision="cm-11.0" />
-<project name="nx111/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-11.0_3.x"/>
+<project name="nx111/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-11.0"/>
 
 <!-- VENDOR -->
 <project name="nx111/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-11.0" />
