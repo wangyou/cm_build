@@ -315,9 +315,13 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch
     
-   if [ -f $basedir/$DeviceDir/patches/install.sh ]; then
-       $basedir/$DeviceDir/patches/install.sh -r 
-       rm -f $basedir/.legacy_patched
+   if [ -f $basedir/.legacy_patched ]; then
+	  LastDeviceDir=`cat $basedir/.legacy_patched`
+       if [ -f $basedir/$LastDeviceDir/patches/install.sh ]; then
+		 $basedir/$LastDeviceDir/patches/install.sh -r 
+           rm -f $basedir/.legacy_patched
+       fi
+      LastDeviceDir=""
    fi
 
      ### reset kernel/motorola/omap4-common
@@ -499,7 +503,7 @@ elif [ "$device" = "n880e" -o  "$device" = "n909" ]; then
    fi
 
    if [ ! -f $basedir/.legacy_patched ] && [ -f $basedir/$DeviceDir/patches/install.sh ]; then
-       $basedir/$DeviceDir/patches/install.sh && touch $basedir/.legacy_patched
+       $basedir/$DeviceDir/patches/install.sh && echo $DeviceDir > $basedir/.legacy_patched
    fi
 fi
 
