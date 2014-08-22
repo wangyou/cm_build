@@ -1,0 +1,45 @@
+commit 91632d065a8940a1e203fe71f08578de636da484
+Author: nx111 <gd.zhangdz@gmail.com>
+Date:   Fri Aug 22 12:42:39 2014 +0800
+
+    fix for some lost GRALLOC_USAGE_XXXXX define
+    
+    Change-Id: Ieae76720d3fef43709bd9b2cb0f40a015ab9fa0d
+
+diff --git a/libgralloc/gralloc_priv.h b/libgralloc/gralloc_priv.h
+index 8a3100f..0faa29a 100644
+--- a/libgralloc/gralloc_priv.h
++++ b/libgralloc/gralloc_priv.h
+@@ -78,6 +78,12 @@ enum {
+      */
+     GRALLOC_USAGE_PRIVATE_CP_BUFFER       =       0x00400000,
+ 
++    /* Buffer content should be displayed on an primary display only */
++    GRALLOC_USAGE_PRIVATE_INTERNAL_ONLY   =       0x00800000,
++
++    /* This flag is used for SECURE display usecase */
++    GRALLOC_USAGE_PRIVATE_SECURE_DISPLAY  =       0x10000000,
++
+     /* Legacy heaps - these heaps are no-ops so we are making them zero
+      * The flags need to be around to compile certain HALs which have
+      * not cleaned up the code
+@@ -132,6 +138,9 @@ enum {
+      */
+     GRALLOC_USAGE_PRIVATE_EXTERNAL_BLOCK  =       0x00020000,
+ 
++    /* Buffer content should be displayed on an primary display only */
++    GRALLOC_USAGE_PRIVATE_INTERNAL_ONLY   =       0x00040000,
++
+     /* Use this flag to request content protected buffers. Please note
+      * that this flag is different from the GRALLOC_USAGE_PROTECTED flag
+      * which can be used for buffers that are not secured for DRM
+@@ -142,6 +151,9 @@ enum {
+ 
+     /* Close Caption displayed on an external display only */
+     GRALLOC_USAGE_PRIVATE_EXTERNAL_CC     =       0x000F0000,
++
++    /* This flag is used for SECURE display usecase */
++    GRALLOC_USAGE_PRIVATE_SECURE_DISPLAY  =       0x10000000,
+ #endif
+ };
+ 

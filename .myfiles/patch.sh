@@ -619,6 +619,13 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
    fi
 
+
+   #### fix error ###
+   if ! grep -q "GRALLOC_USAGE_PRIVATE_INTERNAL_ONLY" $basedir/hardware/qcom/display-legacy/libgralloc/gralloc_priv.h; then
+       cd $basedir/hardware/qcom/display-legacy
+       patch -N -p1 -s < $rdir/patches/display_legacy.diff
+       cd $rdir
+   fi
 ###return####
 exit 0
 
