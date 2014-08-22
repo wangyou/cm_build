@@ -49,7 +49,7 @@ prepare_kernelzip()
 	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/kexec/
 	mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
 	cp -r $basedir/.myfiles/scripts/kernel_zip/META-INF $basedir/out/target/product/$device/kernel_zip/rls/
-        if [ "$device" = "n880e" -o "$device" = "atlas4" ]; then
+        if [ "$device" = "n880e" -o "$device" = "atlas4" -o "$device" = "n909" ]; then
             mv $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.atlas40 \
                $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script
             cp $basedir/out/target/product/$device/boot.img $basedir/out/target/product/$device/kernel_zip/rls/
