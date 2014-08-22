@@ -276,6 +276,8 @@ fi
 [ "${opKernel:0:1}" = "j" ]&& jbx=0
 getKernelBranchName $opKernel >/dev/null
 kbranch=$KernelBranchName 
+[ "$device" = "n909" ] && oldupdate=0
+
 
 ## local_manifest.xml   ####
 if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
