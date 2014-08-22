@@ -186,6 +186,7 @@ resetProject()
           branch=""
      fi
      if [ "$branch" != "$targetBranch" -a "$targetBranch" != "" ] && git branch | sed -e "s/\s//g" -e "s/\*//g" | eval grep -qe "^${targetBranch}$"; then
+         git stash /dev/null 2>/dev/null
          git checkout -f $targetBranch >/dev/null 2>/dev/null
      fi
      
@@ -317,14 +318,14 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject hardware/ti/wlan $branch
      resetProject bootable/recovery $branch
     
-   if [ -f $basedir/.legacy_patched ]; then
-	  LastDeviceDir=`cat $basedir/.legacy_patched`
-       if [ -f $basedir/$LastDeviceDir/patches/install.sh ]; then
-		 $basedir/$LastDeviceDir/patches/install.sh -r 
-           rm -f $basedir/.legacy_patched
-       fi
-      LastDeviceDir=""
-   fi
+     if [ -f $basedir/.legacy_patched ]; then
+         LastDeviceDir=`cat $basedir/.legacy_patched`
+         if [ -f $basedir/$LastDeviceDir/patches/install.sh ]; then
+	     $basedir/$LastDeviceDir/patches/install.sh -r 
+             rm -f $basedir/.legacy_patched
+         fi
+         LastDeviceDir=""
+     fi
 
      ### reset kernel/motorola/omap4-common
      curdir=`pwd`
