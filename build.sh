@@ -52,12 +52,21 @@ prepare_kernelzip()
     mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/kexec/
     mkdir -p $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
     cp -r $basedir/.myfiles/scripts/kernel_zip/META-INF $basedir/out/target/product/$device/kernel_zip/rls/
-    if [ "$device" = "n880e" -o "$device" = "atlas4" -o "$device" = "n909" ]; then
+    if [ "$device" = "n880e" -o "$device" = "atlas4" ]; then
             mv $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.atlas40 \
                $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script
             cp $basedir/out/target/product/$device/boot.img $basedir/out/target/product/$device/kernel_zip/rls/
+            rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/update-script.*
+    elif [ "$device" = "n909" ]; then
+            mv $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.n909 \
+               $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script
+            cp $basedir/out/target/product/$device/boot.img $basedir/out/target/product/$device/kernel_zip/rls/
+            mv $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/update-binary-installer \
+               $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/update-binary
+            rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/aroma*
+            rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/update-script.*
     else
-            rm $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.atlas40
+            rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.*
     fi
     cp -r $basedir/.myfiles/scripts/kernel_zip/utils $basedir/out/target/product/$device/kernel_zip/rls/
     list_kfiles | while read FILE; do
