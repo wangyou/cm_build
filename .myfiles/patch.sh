@@ -277,8 +277,6 @@ fi
 [ "${opKernel:0:1}" = "j" ]&& jbx=0
 getKernelBranchName $opKernel >/dev/null
 kbranch=$KernelBranchName 
-[ "$device" = "n909" ] && oldupdate=0
-
 
 ## local_manifest.xml   ####
 if [ -d $basedir/.repo -a -f $rdir/local_manifest.xml ]; then
@@ -309,20 +307,23 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject packages/apps/Settings
      resetProject packages/apps/Browser $branch
      resetProject external/wpa_supplicant_8
+     resetProject external/skia
      resetProject vendor/motorola
      resetProject vendor/cm $branch
      resetProject kernel/zte/msm7x27a
      resetProject device/zte/n880e
      resetProject device/zte/atlas40
+     resetProject device/zte/n909
      resetProject hardware/ril $branch
      resetProject hardware/ti/wlan $branch
+     resetProject hardware/qcom/display-legacy
      resetProject bootable/recovery $branch
     
-     if [ -f $basedir/.legacy_patched ]; then
-         LastDeviceDir=`cat $basedir/.legacy_patched`
+     if [ -f $basedir/.auto_patched ]; then
+         LastDeviceDir=`sed -n -e '1p' $basedir/.auto_patched`
          if [ -f $basedir/$LastDeviceDir/patches/install.sh ]; then
 	     $basedir/$LastDeviceDir/patches/install.sh -r 
-             rm -f $basedir/.legacy_patched
+             rm -f $basedir/.auto_patched
          fi
          LastDeviceDir=""
      fi
@@ -497,7 +498,7 @@ elif [ "$device" = "mb526" ]; then
    fi
 COMMENT
 
-elif [ "$device" = "n880e" -o  "$device" = "n909" ]; then
+elif [ "$device" = "n880e" ]; then
    newBranch frameworks/av legaCyMod_$branch legaCyMod https://github.com/legaCyMod/android_frameworks_av.git $branch checkout
    newBranch frameworks/native legaCyMod_$branch  legaCyMod https://github.com/legaCyMod/android_frameworks_native.git $branch checkout
    if [ "$mode" = "u" ]; then
@@ -505,8 +506,20 @@ elif [ "$device" = "n880e" -o  "$device" = "n909" ]; then
         updateBranch frameworks/native legaCyMod_$branch  legaCyMod $branch
    fi
 
-   if [ ! -f $basedir/.legacy_patched ] && [ -f $basedir/$DeviceDir/patches/install.sh ]; then
-       $basedir/$DeviceDir/patches/install.sh && echo $DeviceDir > $basedir/.legacy_patched
+   if [ -f $basedir/$DeviceDir/patches/install.sh ]; then
+       if [ -f $basedir/.auto_patched ] && ! grep -q DONE $basedir/.auto_patched; then
+            $basedir/$DeviceDir/patches/install.sh -r
+            rm -f $basedir/.auto_patched
+       fi
+       [ -f $basedir/.auto_patched ] || $basedir/$DeviceDir/patches/install.sh
+   fi
+elif [ "$device" = "n909" ]; then
+   if [ -f $basedir/$DeviceDir/patches/install.sh ]; then
+       if [ -f $basedir/.auto_patched ] && ! grep -q DONE $basedir/.auto_patched; then
+            $basedir/$DeviceDir/patches/install.sh -r
+            rm -f $basedir/.auto_patched
+       fi
+       [ -f $basedir/.auto_patched ] || $basedir/$DeviceDir/patches/install.sh
    fi
 fi
 

@@ -56,7 +56,7 @@ prepare_kernelzip()
             mv $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.atlas40 \
                $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script
             cp $basedir/out/target/product/$device/boot.img $basedir/out/target/product/$device/kernel_zip/rls/
-            rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/update-script.*
+            rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.*
     elif [ "$device" = "n909" ]; then
             mv $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.n909 \
                $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script
@@ -64,9 +64,9 @@ prepare_kernelzip()
             mv $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/update-binary-installer \
                $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/update-binary
             rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/aroma*
-            rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/update-script.*
-    else
             rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updater-script.*
+    else
+            rm -rf $basedir/out/target/product/$device/kernel_zip/rls/META-INF/com/google/android/updaterr-script.*
     fi
     cp -r $basedir/.myfiles/scripts/kernel_zip/utils $basedir/out/target/product/$device/kernel_zip/rls/
     list_kfiles | while read FILE; do
