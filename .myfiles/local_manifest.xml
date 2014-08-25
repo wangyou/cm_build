@@ -28,7 +28,7 @@
 <project name="nx111/android_device_zte_atlas40" path="device/zte/atlas40" remote="github" revision="cm-11.0" />
 <project name="nx111/android_device_zte_n880e" path="device/zte/n880e" remote="github" revision="cm-11.0" />
 <project name="nx111/proprietary_vendor_zte" path="vendor/zte" remote="github" revision="cm-11.0" />
-<project name="legaCyMod/android_external_webkit" path="external/webkit" revision="cm-11.0" />
+<project name="Dazzozo/android_external_webkit" path="external/webkit" revision="kitkat" />
 <project name="legaCyMod/android_hardware_atheros_wlan" path="hardware/atheros/wlan" revision="cm-11.0" />
 <!--
 <project name="legaCyMod/android_hardware_qcom_display-legacy" path="hardware/qcom/display-legacy" revision="cm-11.0" /> -->
@@ -41,5 +41,5 @@
 <project name="nx111/android_kernel_zte_msm8x25q" path="kernel/zte/msm8x25q" revision="cm11" />
 <project name="nx111/android_vendor_zte_n909" path="vendor/zte/n909" revision="cm11" />
 <project name="Mkey-Android/philz_touch_cwm6_cn" path="bootable/recovery-philz" revision="cm-11.0" />
-<project name="c8813q-dev/android_hardware_qcom_display-legacy" path="hardware/qcom/display-legacy" revision="cm-11.0" />
+<project name="iptux/android_hardware_qcom_display-legacy" path="hardware/qcom/display-legacy" revision="jb-7.8" />
 </manifest>
