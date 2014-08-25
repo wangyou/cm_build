@@ -1,0 +1,39 @@
+
+# Start
+ui_print("mounting partions...");
+mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.3/by-num/p12", "/system");
+set_progress(0.03);
+
+##Install
+ui_print("@Installing Kernel");
+package_extract_file("boot.img", "/dev/block/platform/msm_sdcc.3/by-num/p8");
+set_progress(0.50);
+package_extract_dir("system", "/system");
+set_progress(0.85);
+set_progress(0.14);
+
+ui_print("@fix premissions");
+set_perm_recursive(0, 0, 0755, 0644, "/system/lib/modules");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/etc/init.d");
+set_perm(0, 0, 0755, "/system/etc/init.d");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
+set_perm(0, 0, 06755, "/system/xbin/su");
+set_progress(0.97);
+
+# Wipe
+ui_print("Clean up");
+delete_recursive("/tmp/aroma");
+
+set_progress(1);
+#ui_print("fix root");
+#symlink("../xbin/su", "/system/bin/su");
+
+#Finishing
+
+ui_print("Unmounting system...");
+ui_print(" ");
+
+# Unmount
+unmount("/system");
+ui_print("Kernel Installed! Enjoy!");
