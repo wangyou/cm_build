@@ -69,6 +69,7 @@
   <string name="screenshot_delete_action">删除</string>
   <string name="screenshot_delete_confirmation">截图已删除.</string>
   <string name="accessibility_desc_add_quick_settings">增加快速设置.</string>
+  <string name="status_bar_notification_spam_item_title">忽略像这样的消息</string>
   <string name="accessibility_battery_level">电池<ns0:g id="number">%d</ns0:g>%%.</string>
   <string name="battery_meter_very_low_overlay_symbol">!</string>
   </resources>

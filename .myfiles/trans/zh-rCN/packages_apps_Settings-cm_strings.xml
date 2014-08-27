@@ -147,6 +147,8 @@
   <string name="notification_light_voicemail_title">语音信箱</string>
   <string name="adaptive_backlight_title">自适应背光</string>
   <string name="adaptive_backlight_summary">智能调节背光亮度以延长电池寿命</string>
+  <string name="sunlight_enhancement_title">日光增强</string>
+  <string name="sunlight_enhancement_summary">日光下增强显示亮度和可读性</string>
   <string name="color_enhancement_title">色彩增强</string>
   <string name="color_enhancement_summary">动态增强显示色彩</string>
   <string name="wake_when_plugged_or_unplugged_title">插入/拔出电源点亮屏幕</string>
@@ -641,6 +643,7 @@
   <string name="hardware_keys_action_voice_search">语音搜索</string>
   <string name="hardware_keys_action_in_app_search">程序内搜索</string>
   <string name="hardware_keys_action_launch_camera">打开相机</string>
+  <string name="hardware_keys_action_last_app">Last app</string>
   <string name="power_end_call_title">结束呼叫</string>
   <string name="power_end_call_summary">按电源键将会结束当前呼叫</string>
   <string name="button_wake_title">唤醒</string>

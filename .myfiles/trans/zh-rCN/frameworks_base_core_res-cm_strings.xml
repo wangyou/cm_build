@@ -24,6 +24,7 @@
   <string name="reboot_bootmenu">引导菜单</string>
   <string name="reboot_fastboot">Fastboot 模式</string>
   <string name="reboot_download">下载模式</string>
+  <string name="reboot_soft">软重启</string>
   <string name="reboot_progress">正在重启\u2026</string>
   <string name="reboot_confirm" product="tablet">您的平板电脑将会重启。</string>
   <string name="reboot_confirm" product="default">您的手机将会重启。</string>

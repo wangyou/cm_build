@@ -36,8 +36,8 @@
   <string name="search_screen_left_text">搜索面板</string>
   <string name="search_screen_left_unsupported_toast">你必须提供一个支持搜索的应用且CyanogenMod将使用此特性.</string>
   <string name="dialog_confirm">确定</string>
-  <string name="permission_desc_read_extension_data">允许请求DashClock扩展数据</string>
   <string name="permission_label_read_extension_data">请求DashClock扩展数据</string>
+  <string name="permission_desc_read_extension_data">允许请求DashClock扩展数据</string>
   <string name="dummy_custom_cling_error_message">错误: 定制工作区布局已通过但定制磁贴不能覆盖</string>
   <string name="debug_memory_activity">* HPROF</string>
   </resources>
