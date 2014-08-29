@@ -507,17 +507,21 @@ elif [ "$device" = "n880e" ]; then
    fi
 
    if [ -f $basedir/$DeviceDir/patches/install.sh ]; then
-       if [ -f $basedir/.auto_patched ] && ! grep -q DONE $basedir/.auto_patched; then
-            $basedir/$DeviceDir/patches/install.sh -r
-            rm -f $basedir/.auto_patched
+       if [ -f $basedir/.auto_patched ]; then
+            if ! grep -q "DONE" $basedir/.auto_patched; then
+                $basedir/$DeviceDir/patches/install.sh -r
+                rm -f $basedir/.auto_patched
+            fi
        fi
        [ -f $basedir/.auto_patched ] || $basedir/$DeviceDir/patches/install.sh
    fi
 elif [ "$device" = "n909" ]; then
    if [ -f $basedir/$DeviceDir/patches/install.sh ]; then
-       if [ -f $basedir/.auto_patched ] && ! grep -q DONE $basedir/.auto_patched; then
-            $basedir/$DeviceDir/patches/install.sh -r
-            rm -f $basedir/.auto_patched
+       if [ -f $basedir/.auto_patched ]; then
+            if ! grep -q "DONE" $basedir/.auto_patched; then
+                $basedir/$DeviceDir/patches/install.sh -r
+                rm -f $basedir/.auto_patched
+            fi
        fi
        [ -f $basedir/.auto_patched ] || $basedir/$DeviceDir/patches/install.sh
    fi
