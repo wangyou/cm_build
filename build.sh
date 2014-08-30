@@ -126,6 +126,7 @@ oldupdate="old"
 keepPatch=1
 kernelzip=1
 kernelonly=1
+recoveryonly=1
 kernelBranchOptionStart=1
 KernelBranchName=$branch
 kernelCurrent=0
@@ -189,6 +190,9 @@ for op in $*;do
         transop=1
    elif [ "$op" = "-kernel-only" -o "$op" = "-ko" ]; then
         kernelonly=0
+        transop=1
+   elif [ "$op" = "-recovery-only" -o "$op" = "-ro" ]; then
+        recoveryonly=0
         transop=1
    elif [ "$op" = "-kernel-branch" -o "$op" = "-kb" ]; then
         kernelBranchOptionStart=0
@@ -298,7 +302,7 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
    echo "opKernel: $opKernel">>.lastBuild.tmp
 
     ######generate projects's last 10 logs########
-   if [ $kernelonly -eq 1 ]; then
+   if [ $kernelonly -eq 1 -a $recoveryonly -eq 1 ]; then
           echo "Generating projects's snapshot logs..."
           PROJECTLIST=$rdir/.repo/project.list
          OUTLOG=$basedir/out/target/product/$device/system/etc/SNAPSHOT.txt
@@ -377,6 +381,8 @@ fi
 retcode=1
 if [ $kernelonly -eq 0 ]; then
     mod=$OUT/boot.img
+elif [ $recoveryonly -eq 0 ]; then
+    mod=$OUT/recovery.img
 fi
 
 #do or not make realy, for debug
