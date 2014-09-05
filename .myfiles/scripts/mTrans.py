@@ -90,9 +90,6 @@ def mTrans(xmlfile,xmldict,xmlout):
    baseXMLname=os.path.abspath(xmlfile).replace(basedir+"/","")
    langstr=os.path.basename(os.path.dirname(xmlout))
 
-   print "Translating: %-80s\r" % (baseXMLname+" ..."),
-   sys.stdout.flush()
-
    if langstr[0:7] == 'values-':
        lang=langstr[7:]
    else:
@@ -333,4 +330,4 @@ else:
         exit(-1)
     mTrans(xmlfile,xmldict,xmlout)
 
-print ''
+

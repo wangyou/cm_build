@@ -578,7 +578,7 @@ sed -e "s/^\(#define KLOG_DEFAULT_LEVEL\s*\)3\(\s*.*\)/\16\2/" -i $basedir/syste
 
 
 ####Translation#################
-python $rdir/scripts/mTrans.py -wt
+python $rdir/scripts/mTrans.py -wt >/dev/null
 
 ####some patchs###########
 
