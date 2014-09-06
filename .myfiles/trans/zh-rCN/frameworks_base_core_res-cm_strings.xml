@@ -98,6 +98,7 @@
   <string name="app_ops_toggle_bluetooth">开启蓝牙</string>
   <string name="app_ops_toggle_mobile_data">开启移动数据</string>
   <string name="app_ops_toggle_wifi">开启 Wi-Fi</string>
+  <string name="app_ops_toggle_nfc">试图开关NFC</string>
   <string name="app_ops_use_alarm_volume">控制闹铃音量</string>
   <string name="app_ops_use_audio_focus">控制音频焦点</string>
   <string name="app_ops_use_bluetooth_volume">控制蓝牙音量</string>
@@ -120,6 +121,30 @@
   <string name="extmedia_format_message_cm" product="nosdcard">USB存储(路径 \'%1$s\') 的所有数据将被清除。此操作无法还原!</string>
   <string name="extmedia_format_message_cm" product="default">存储卡(路径 \'%1$s\') 的所有数据将被清除。此操作无法欢迎!</string>
   <string name="usb_storage_notification_manage_message">轻触以管理</string>
+  <string name="sd_ext_media_checking_notification_title">准备存储卡</string>
+  <string name="sd_ext_media_checking_notification_message">检查存储卡错误.</string>
+  <string name="sd_ext_media_nofs_notification_title">空白存储卡</string>
+  <string name="sd_ext_media_nofs_notification_message">存储卡空白或其文件系统不被支持.</string>
+  <string name="sd_ext_media_unmountable_notification_title">存储卡损坏</string>
+  <string name="sd_ext_media_unmountable_notification_message">存储卡已损坏，请试着重新格式化.</string>
+  <string name="sd_ext_media_badremoval_notification_title">存储卡意外拔出</string>
+  <string name="sd_ext_media_badremoval_notification_message">拔出存储卡前先卸载以避免数据丢失.</string>
+  <string name="sd_ext_media_safe_unmount_notification_title">存储卡可安全拔出</string>
+  <string name="sd_ext_media_safe_unmount_notification_message">可安全拔出存储卡.</string>
+  <string name="sd_ext_media_nomedia_notification_title">存储卡已拔出</string>
+  <string name="sd_ext_media_nomedia_notification_message">存储卡已拔出，请插入一个.</string>
+  <string name="usb_ext_media_checking_notification_title">准备USB存储</string>
+  <string name="usb_ext_media_checking_notification_message">检查USB存储错误.</string>
+  <string name="usb_ext_media_nofs_notification_title">空白USB存储</string>
+  <string name="usb_ext_media_nofs_notification_message">USB存储空白或其文件系统不被支持.</string>
+  <string name="usb_ext_media_unmountable_notification_title">USB存储已损坏</string>
+  <string name="usb_ext_media_unmountable_notification_message">USB存储已损坏，请试着重新格式化.</string>
+  <string name="usb_ext_media_badremoval_notification_title">USB存储意外拔出</string>
+  <string name="usb_ext_media_badremoval_notification_message">拔出USB存储前先卸载以避免数据丢失.</string>
+  <string name="usb_ext_media_safe_unmount_notification_title">USB存储可安全拔出</string>
+  <string name="usb_ext_media_safe_unmount_notification_message">可安全拔出USB存储.</string>
+  <string name="usb_ext_media_nomedia_notification_title">USB存储已拔出</string>
+  <string name="usb_ext_media_nomedia_notification_message">USB存储已拔出，请插入介质.</string>
   <string name="autofill_attention_ignored_re">attention|attn</string>
   <string name="autofill_region_ignored_re">province|region|other|provincia|bairro|suburb</string>
   <string name="autofill_company_re">company|business|organization|organisation|department|firma|firmenname|empresa|societe|société|ragione.?sociale|会社|название.?компании|单位|公司</string>

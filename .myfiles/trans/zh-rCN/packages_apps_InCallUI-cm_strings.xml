@@ -20,4 +20,8 @@
   <string name="dialpad_7_letters">PQRS</string>
   <string name="dialpad_8_letters">TUV</string>
   <string name="dialpad_9_letters">WXYZ</string>
+  <string name="volume_boost_notify_enabled">音量增强 开启.</string>
+  <string name="volume_boost_notify_disabled">音量增强 关闭.</string>
+  <string name="volume_boost_notify_unavailable">当有线/蓝牙耳机使用时，额外音量不可用.</string>
+  <string name="volume_boost_toast_position">180</string>
   </resources>
