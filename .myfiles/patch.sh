@@ -11,6 +11,7 @@ device=edison
 kernelBranchOptionStart=1
 KernelBranchName=$branch
 childmode=1
+kexec=1
 
 KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
 KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909")
@@ -239,6 +240,8 @@ for op in $*;do
      kernelUpdate=2
    elif [ "$op" = "-kc" ]; then
      kernelCurrent=1
+   elif [ "$op" = "-kexec" ]; then
+     kexec=0
    elif [ "$op" = "-r" -o "$op" = "-kbranch" -o "$op" = "-u" ]; then
      mode="${op#-*}"
    elif [ "$op" = "old" ]; then
@@ -466,6 +469,10 @@ if [  "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ]; the
   elif [ -f $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig ]; then
       sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig \
           -e "s/# CONFIG_NLS_UTF8 is not set/CONFIG_NLS_UTF8=y/g"
+      if [ $kexec -eq 0 ]; then
+          sed -i $basedir/kernel/motorola/omap4-common/arch/arm/configs/mapphone_mmi_defconfig \
+              -e "s/# CONFIG_KEXEC is not set/CONFIG_KEXEC=y/g"
+      fi
   fi
 
   cd $basedir

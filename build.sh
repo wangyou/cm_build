@@ -138,6 +138,8 @@ VENDOR=""
 childmode=1
 lastDevice="edison"
 lastOpKernel=""
+kexec=1
+
 if [ -f .lastBuild ]; then
    lastDevice=`grep device: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
    lastOpKernel=`grep opKernel: .lastBuild|cut -d: -f2|sed -e "s/^ //g" -e "s/ $//g"`
@@ -197,6 +199,8 @@ for op in $*;do
    elif [ "$op" = "-kernel-branch" -o "$op" = "-kb" ]; then
         kernelBranchOptionStart=0
         transop=0
+   elif [ "$op" = "-kexec" ]; then
+        kexec=0
    elif [ "${op}" = "-keep" -o "${op}" = "-k" ]; then
         keepPatch=0
    elif [ "$op" = "-kc" ]; then
@@ -425,7 +429,11 @@ else
         prepare_kernelzip
         curdir=`pwd`
         cd out/target/product/$device/kernel_zip/rls/
-        KERNELZIP_NAME=Kernel-v$kernelversion-CM11-$device-$(date +"%Y%m%d").zip
+        if [ $kexec -eq 0 ]; then
+            KERNELZIP_NAME=Kernel-v$kernelversion-CM11-$device-KEXEC-$(date +"%Y%m%d").zip
+        else
+            KERNELZIP_NAME=Kernel-v$kernelversion-CM11-$device-$(date +"%Y%m%d").zip
+        fi
         echo "Creating ${KERNELZIP_NAME}..."
         rm -f "../${KERNELZIP_NAME}"
         zip -r "../${KERNELZIP_NAME}" * >/dev/null
