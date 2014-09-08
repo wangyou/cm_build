@@ -4,7 +4,7 @@ reset
 compile_user=NX111
 branch=cm-11.0
 
-KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
+KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock-kk" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
 KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909")
 
 isKernelOpt()
@@ -416,14 +416,15 @@ if [ "${opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ] && [ "$device" = "edis
         rm -f "../${KERNELZIP_NAME}"
         zip -r "../${KERNELZIP_NAME}" * >/dev/null
         cd $curdir
+    elif [ $retcode -ne 0 ]; then
+            echo "Make failed(retcode:$retcode)!"
     fi
-
 else
-        if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
-            mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
-            [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
-            LANG=en_US make $mkJop $mkForce $mod  TARGET_SYSTEMIMAGE_USE_SQUISHER=true
-        fi
+    if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
+        mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
+        [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
+        LANG=en_US make $mkJop $mkForce $mod  TARGET_SYSTEMIMAGE_USE_SQUISHER=true
+    fi
     retcode=$?
     if [ $retcode -eq 0 -a $kernelzip -eq 0 ]; then
         prepare_kernelzip
@@ -438,6 +439,8 @@ else
         rm -f "../${KERNELZIP_NAME}"
         zip -r "../${KERNELZIP_NAME}" * >/dev/null
         cd $curdir
+    elif [ $retcode -ne 0 ]; then
+            echo "Make failed(retcode:$retcode)!"
     fi
 
 fi
