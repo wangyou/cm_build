@@ -132,7 +132,7 @@
   <string name="sd_ext_media_safe_unmount_notification_title">存储卡可安全拔出</string>
   <string name="sd_ext_media_safe_unmount_notification_message">可安全拔出存储卡.</string>
   <string name="sd_ext_media_nomedia_notification_title">存储卡已拔出</string>
-  <string name="sd_ext_media_nomedia_notification_message">存储卡已拔出，请插入一个.</string>
+  <string name="sd_ext_media_nomedia_notification_message">存储卡已拔出，请插入.</string>
   <string name="usb_ext_media_checking_notification_title">准备USB存储</string>
   <string name="usb_ext_media_checking_notification_message">检查USB存储错误.</string>
   <string name="usb_ext_media_nofs_notification_title">空白USB存储</string>

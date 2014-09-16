@@ -39,6 +39,21 @@
   <string name="start_call_playback">播放录音</string>
   <string name="stop_call_playback">停止</string>
   <string name="call_playback_error_message">播放录音失败</string>
+  <string name="video_call">视频通话</string>
+  <string name="video_call_settings">视频通话设置</string>
+  <string name="description_videocall">与<ns0:g id="name">%1$s</ns0:g> 视频通话</string>
+  <string name="speed_dial_settings">快速拨号设置</string>
+  <string name="speed_dial_not_set">(未设置)</string>
+  <string name="speed_dial_replace">替换</string>
+  <string name="speed_dial_delete">删除</string>
+  <string name="speed_dial_unassigned_dialog_title">键设置</string>
+  <string name="speed_dial_unassigned_dialog_message">数字键\'<ns0:g id="number">%s</ns0:g>\'未设置快速拨号动作. 是否现在设置?</string>
+  <string name="dialog_speed_dial_airplane_mode_message">要使用快速拨号, 先关闭飞行模式.</string>
+  <string name="msim_ime_dialog_title">设备标识</string>
+  <string name="multi_sim_slot_name">SIM<ns0:g id="index">%d</ns0:g></string>
+  <string name="call_log_show_all_slots">所有SIM</string>
+  <string name="yes">是</string>
+  <string name="no">否</string>
   <string name="call_log_all_calls_header">所有通话</string>
   <string name="call_log_activity_title_font_family">sans-serif-light</string>
   <string name="show_all_contacts_title_font_family">sans-serif-light</string>
@@ -57,23 +72,4 @@
   <string name="favorites_menu_all_contacts_font_family">sans-serif</string>
   <string name="search_font_family">sans-serif</string>
   <string name="tab_font_family">sans-serif</string>
-  <string name="video_call">视频通话</string>
-  <string name="video_call_settings">视频通话设置</string>
-  <string name="videocall">视频通话</string>
-  <string name="videocall_settings">视频通话设置</string>
-  <string name="description_videocall">与 <ns0:g id="name">%1$s</ns0:g> 视频通话</string>
-  <string name="set_speed_dial">快速拨号设置</string>
-  <string name="dialog_title">轻触</string>
-  <string name="not_set">(未设置)</string>
-  <string name="replace">替换</string>
-  <string name="delete">删除</string>
-  <string name="speed_call">呼叫</string>
-  <string name="speed_sms">信息</string>
-  <string name="speed_item"><ns0:g id="index">%s</ns0:g>. <ns0:g id="content">%s</ns0:g></string>
-  <string name="is_set_speed">数字键<ns0:g id="number">%s</ns0:g> 未设置快速拨号, 现在设置?\n</string>
-  <string name="dialog_speed_dial_airplane_mode_message">要使用快速拨号, 先关闭飞行模式.</string>
-  <string name="assignSpeedDialFailToast">此数字已设置快速拨号, 请选择其它数字.</string>
-  <string name="device_id">设备标识</string>
-  <string name="slot_name">SIM</string>
-  <string name="call_log_show_all_slots">所有SIM</string>
   </resources>
