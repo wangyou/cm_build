@@ -1,10 +1,8 @@
 diff --git a/res/xml/device_info_settings.xml b/res/xml/device_info_settings.xml
-index 22c29de..c76eb8c 100644
+index fe30b54..cc24ed0 100644
 --- a/res/xml/device_info_settings.xml
 +++ b/res/xml/device_info_settings.xml
-@@ -15,56 +15,19 @@
- -->
- 
+@@ -17,22 +17,6 @@
  <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
          android:title="@string/about_settings">
  
@@ -27,9 +25,7 @@ index 22c29de..c76eb8c 100644
          <!-- Device status - launches activity -->
          <PreferenceScreen android:key="status_info"
                  android:title="@string/device_status" 
-                 android:summary="@string/device_status_summary">
-             <intent android:action="android.intent.action.MAIN"
-                     android:targetPackage="com.android.settings"
+@@ -42,27 +26,6 @@
                      android:targetClass="com.android.settings.deviceinfo.Status" />
          </PreferenceScreen>
  
@@ -57,15 +53,11 @@ index 22c29de..c76eb8c 100644
          <!-- Legal Information -->
          <PreferenceScreen
                  android:key="container"
-                 android:title="@string/legal_information">
-                     
 diff --git a/src/com/android/settings/DeviceInfoSettings.java b/src/com/android/settings/DeviceInfoSettings.java
-index 39bcecd..7208315 100644
+index b1a27fb..56d0186 100644
 --- a/src/com/android/settings/DeviceInfoSettings.java
 +++ b/src/com/android/settings/DeviceInfoSettings.java
-@@ -128,17 +128,10 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
-                 PROPERTY_SELINUX_STATUS);
- 
+@@ -130,13 +130,6 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
          String cpuInfo = getCPUInfo();
          String memInfo = getMemInfo();
  
@@ -79,5 +71,3 @@ index 39bcecd..7208315 100644
          if (cpuInfo != null) {
              setStringSummary(KEY_DEVICE_CPU, cpuInfo);
          } else {
-             getPreferenceScreen().removePreference(findPreference(KEY_DEVICE_CPU));
-         }
