@@ -145,6 +145,7 @@
   <string name="usb_ext_media_safe_unmount_notification_message">可安全拔出USB存储.</string>
   <string name="usb_ext_media_nomedia_notification_title">USB存储已拔出</string>
   <string name="usb_ext_media_nomedia_notification_message">USB存储已拔出，请插入介质.</string>
+  <string name="lockscreen_sim_locked_message_cm">SIM/RUIM卡已被锁定.</string>
   <string name="autofill_attention_ignored_re">attention|attn</string>
   <string name="autofill_region_ignored_re">province|region|other|provincia|bairro|suburb</string>
   <string name="autofill_company_re">company|business|organization|organisation|department|firma|firmenname|empresa|societe|société|ragione.?sociale|会社|название.?компании|单位|公司</string>
