@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="launcher_settings">启动器设置</string>
   <string name="home_screen_settings">主屏设置</string>
   <string name="drawer_settings">抽屉设置</string>
   <string name="app_settings">应用设置</string>
@@ -19,9 +18,6 @@
   <string name="grid_size_custom">定制</string>
   <string name="grid_size_custom_and_size">Custom (%1$s)</string>
   <string name="preferences_interface_homescreen_custom">选择定制大小</string>
-  <string name="preferences_interface_homescreen_rows_title">行数</string>
-  <string name="preferences_interface_homescreen_columns_title">列数</string>
-  <string name="hidden_apps_title">隐藏应用</string>
   <string name="scroll_effect_text">滚动效果</string>
   <string name="drawer_sorting_text">排序模式</string>
   <string name="sort_mode_title">标题</string>
@@ -34,10 +30,13 @@
   <string name="icon_labels_hide">隐藏</string>
   <string name="protected_app_settings">保护应用</string>
   <string name="search_screen_left_text">搜索面板</string>
-  <string name="search_screen_left_unsupported_toast">你必须提供一个支持搜索的应用且CyanogenMod将使用此特性.</string>
   <string name="dialog_confirm">确定</string>
   <string name="permission_label_read_extension_data">请求DashClock扩展数据</string>
   <string name="permission_desc_read_extension_data">允许请求DashClock扩展数据</string>
+  <string name="migration_cling_title">复制应用图标</string>
+  <string name="migration_cling_description">从原主屏幕导入应用图标和文件夹?</string>
+  <string name="migration_cling_copy_apps">复制图标</string>
+  <string name="migration_cling_use_default">开始更新</string>
   <string name="dummy_custom_cling_error_message">错误: 定制工作区布局已通过但定制磁贴不能覆盖</string>
   <string name="debug_memory_activity">* HPROF</string>
   </resources>
