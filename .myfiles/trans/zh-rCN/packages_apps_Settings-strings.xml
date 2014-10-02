@@ -428,7 +428,6 @@
   <string name="bluetooth_enter_pin_msg">"要与<ns0:g id="BOLD_0">&lt;br&gt;&lt;b&gt;</ns0:g>
     <ns0:g id="DEVICE_NAME">%1$s</ns0:g>
     <ns0:g id="END_BOLD">&lt;/b&gt;&lt;br&gt;&lt;br&gt;</ns0:g> 设备配对，请键入该设备所需的 PIN："</string>
-  <string name="bluetooth_enter_pin_msg_hs">\nType PIN to pair with \u0022<ns0:g id="device_name">%1$s</ns0:g>\u0022. [High Security Enabled: Needs 16 character key] </string>
   <string name="bluetooth_enter_passkey_msg">"要与<ns0:g id="BOLD_0">&lt;br&gt;&lt;b&gt;</ns0:g>
     <ns0:g id="DEVICE_NAME">%1$s</ns0:g>
     <ns0:g id="END_BOLD">&lt;/b&gt;&lt;br&gt;&lt;br&gt;</ns0:g> 设备配对，请键入该设备所需的配对密钥："</string>
@@ -473,8 +472,6 @@
   <string name="bluetooth_profile_pan">互联网访问</string>
   <string name="bluetooth_profile_pan_nap">互联网连接共享</string>
   <string name="bluetooth_profile_map">消息权限</string>
-  <string name="bluetooth_profile_sap">SIM访问</string>
-  <string name="bluetooth_profile_dun">拨号网络访问</string>
   <string name="bluetooth_disconnect_a2dp_profile"><ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与媒体音频断开连接。"</string>
   <string name="bluetooth_disconnect_headset_profile"><ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与免提音频断开连接。"</string>
   <string name="bluetooth_disconnect_hid_profile"><ns0:g id="DEVICE_NAME">%1$s</ns0:g>将与输入设备断开连接。"</string>
@@ -491,8 +488,6 @@
   <string name="bluetooth_headset_profile_summary_connected">已连接到手机音频</string>
   <string name="bluetooth_opp_profile_summary_connected">已连接到文件传输服务器</string>
   <string name="bluetooth_map_profile_summary_connected">已连接到地图</string>
-  <string name="bluetooth_sap_profile_summary_connected">连接到SIM访问服务器</string>
-  <string name="bluetooth_dun_profile_summary_connected">连接到DUN服务器</string>
   <string name="bluetooth_opp_profile_summary_not_connected">未连接到文件传输服务器</string>
   <string name="bluetooth_hid_profile_summary_connected">已连接到输入设备</string>
   <string name="bluetooth_pan_user_profile_summary_connected">连接到设备以访问互联网</string>
@@ -500,8 +495,6 @@
   <string name="bluetooth_a2dp_profile_summary_use_for">用于媒体音频</string>
   <string name="bluetooth_headset_profile_summary_use_for">用于手机音频</string>
   <string name="bluetooth_opp_profile_summary_use_for">用于文件传输</string>
-  <string name="bluetooth_sap_profile_summary_use_for">用于SIM访问</string>
-  <string name="bluetooth_dun_profile_summary_use_for">用于拨号网络访问</string>
   <string name="bluetooth_hid_profile_summary_use_for">用于输入</string>
   <string name="bluetooth_pan_profile_summary_use_for">用于访问互联网</string>
   <string name="bluetooth_map_profile_summary_use_for">用于地图</string>
@@ -612,7 +605,6 @@
   <string name="wifi_disabled_generic">未启用</string>
   <string name="wifi_disabled_network_failure">已停用（互联网连接状况不佳）</string>
   <string name="wifi_disabled_password_failure">身份验证出现问题</string>
-  <string name="wifi_disabled_association_rejected">Association rejected</string>
   <string name="wifi_not_in_range">不在范围内</string>
   <string name="wifi_wps_available_first_item">可使用 WPS</string>
   <string name="wifi_wps_available_second_item">（可使用 WPS）</string>
@@ -747,8 +739,6 @@
   <string name="accelerometer_summary_off" product="tablet">旋转平板电脑时自动切换浏览模式</string>
   <string name="accelerometer_summary_off" product="default">旋转手机时自动切换浏览模式</string>
   <string name="brightness">亮度</string>
-  <string name="screencolor">Screen color</string>
-  <string name="custom_screencolor">Custom screen color</string>
   <string name="brightness_summary">调整屏幕亮度</string>
   <string name="screen_timeout">休眠</string>
   <string name="screen_timeout_summary">"无操作<ns0:g id="TIMEOUT_DESCRIPTION">%1$s</ns0:g>后"</string>
@@ -812,8 +802,6 @@
   <string name="device_status">状态信息</string>
   <string name="device_status_summary" product="tablet">电池状态、网络状态和其他信息</string>
   <string name="device_status_summary" product="default">电池状态、网络状态和其他信息</string>
-  <string name="device_additional_status_summary">电话号码, 信号, IMEI, 等.</string>
-  <string name="device_additional_status">更多状态信息</string>
   <string name="storage_settings">存储</string>
   <string name="storage_settings_title">存储设置</string>
   <string name="storage_settings_summary" product="nosdcard">卸载 USB 存储设备，查看可用存储设备</string>
@@ -1352,8 +1340,6 @@
   <string name="adb_keys_warning_message">是否针对您之前授权的所有计算机撤消 USB 调试的访问权限？</string>
   <string name="dev_settings_warning_title">允许开发设置？</string>
   <string name="dev_settings_warning_message">这些设置仅适用于开发工作。一旦启用，会导致您的设备以及设备上的应用崩溃或出现异常。</string>
-  <string name="enable_quickboot_title">Enable QuickBoot mode</string>
-  <string name="enable_quickboot_summary">Put device into QuickBoot mode instead of normal power off.</string>
   <string name="verify_apps_over_usb_title">通过 USB 验证应用</string>
   <string name="verify_apps_over_usb_summary">通过 ADB/ADT 检查安装的应用是否存在有害行为。</string>
   <string name="enforce_read_external_title" product="nosdcard">对 USB 存储设备进行读写保护</string>
@@ -1857,7 +1843,6 @@
   <string name="data_usage_tab_wifi">WLAN</string>
   <string name="data_usage_tab_ethernet">以太网</string>
   <string name="data_usage_tab_mobile">移动</string>
-  <string name="data_usage_tab_slot">SIM</string>
   <string name="data_usage_tab_4g">4G</string>
   <string name="data_usage_tab_3g">2G-3G</string>
   <string name="data_usage_list_mobile">移动网络</string>
@@ -1954,20 +1939,6 @@
   <string name="backup_pw_set_button_text">设置备份密码</string>
   <string name="backup_pw_cancel_button_text">取消</string>
   <string name="percentage"><ns0:g id="NUMBER">%d</ns0:g>%%"</string>
-  <string name="sel_sub_title">设置订阅</string>
-  <string name="sel_sub_summary">选择订阅 SUB1, SUB2, etc..</string>
-  <string name="select_subscription">选择订阅</string>
-  <string name="no_sim_info">SIM卡信息不可用.\n菜单不能使用</string>
-  <string name="subs_settings">订阅状态</string>
-  <string name="set_data_subscription_progress">正在设置数据通信订阅</string>
-  <string name="set_dds_success">设置数据通信订阅成功</string>
-  <string name="set_dds_failed">设置数据订阅出错,清除所有数据连接后重试.</string>
-  <string name="set_dds_error">设置数据订阅出错.</string>
-  <string name="set_sms_error">设置短信订阅出错. 订阅未启用.</string>
-  <string name="set_voice_error">设置语音订阅出错. 订阅未启用.</string>
-  <string name="set_priority_sub_error">设置优先级订阅出错. 定于未启用.</string>
-  <string name="prompt">提示</string>
-  <string name="prompt_user">提示用户</string>
   <string name="additional_system_update_settings_list_item_title">其他系统更新</string>
   <string name="selinux_status_disabled">未启用</string>
   <string name="selinux_status_permissive">启用</string>
@@ -1978,9 +1949,6 @@
   <string name="ssl_ca_cert_info_message">"此设备由以下企业域管理：\n<ns0:g id="MANAGING_DOMAIN">%s</ns0:g>\n\n您的管理员可以监控您的网络活动，包括收发电子邮件、使用应用和浏览安全网站。\n\n如要了解详情，请与您的管理员联系。"</string>
   <string name="ssl_ca_cert_warning_message">第三方可以监控您的网络活动，包括收发电子邮件、使用应用和浏览安全网站。\n\n如果您在设备上安装受信任的凭据，就可能出现这种情况。</string>
   <string name="ssl_ca_cert_settings_button">查看受信任的凭据</string>
-  <string name="tune_away_title">Tune Away</string>
-  <string name="tune_away_enabled">TuneAway 启用!</string>
-  <string name="tune_away_disabled">TuneAway 停用!</string>
   <string name="user_settings_title">用户</string>
   <string name="user_list_title">用户和个人资料</string>
   <string name="user_add_user_menu">添加用户或个人资料</string>
@@ -2067,20 +2035,4 @@
   <string name="wizard_finish">完成</string>
   <string name="user_image_take_photo">拍照</string>
   <string name="user_image_choose_photo">从图库中选择照片</string>
-  <string name="screencolor_save">保存</string>
-  <string name="screencolor_cancel">放弃</string>
-  <string name="previous_str">前一个</string>
-  <string name="new_str">新建</string>
-  <string name="restore_preview">查看默认图片</string>
-  <string name="selectnewfile_menu">从图库查看新图片</string>
-  <string name="selectfile_menu">从图库查看图片</string>
-  <string name="restore_default_str">重置</string>
-  <string name="hue_str">色度:<ns0:g id="hue_value">%1$s</ns0:g>
-  </string>
-  <string name="saturation_str">饱和度:<ns0:g id="saturation_value">%1$s</ns0:g>
-  </string>
-  <string name="contrast_str">对比度:<ns0:g id="contrast_value">%1$s</ns0:g>
-  </string>
-  <string name="intensity_str">亮度:<ns0:g id="intensity_str_value">%1$s</ns0:g>
-  </string>
   </resources>

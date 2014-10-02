@@ -4,6 +4,7 @@
   <string name="pref_camera_picturesize_entry_18mp">1800万像素</string>
   <string name="pref_camera_picturesize_entry_12_8mp">128万像素</string>
   <string name="pref_camera_picturesize_entry_12_7mp">1270万像素</string>
+  <string name="pref_camera_picturesize_entry_12mp">1200 万像素</string>
   <string name="pref_camera_picturesize_entry_11_5mp">1150万像素</string>
   <string name="pref_camera_picturesize_entry_10_4mp">1040万像素</string>
   <string name="pref_camera_picturesize_entry_10mp">1000万像素</string>
@@ -74,6 +75,7 @@
   <string name="pref_camera_focusmode_entry_fixed">固定</string>
   <string name="pref_camera_focusmode_entry_portrait">肖像</string>
   <string name="pref_camera_focusmode_entry_hyperfocal">超距</string>
+  <string name="pref_camera_focusmode_entry_manual">手动</string>
   <string name="pref_camera_coloreffect_entry_washed">洁净</string>
   <string name="pref_camera_coloreffect_entry_vintage_warm">复古暖色</string>
   <string name="pref_camera_coloreffect_entry_vintage_cold">复古冷色</string>
@@ -88,7 +90,6 @@
   <string name="pref_camera_burst_entry_15">15 连拍</string>
   <string name="pref_camera_burst_entry_20">20 连拍</string>
   <string name="pref_camera_focustime_title">触摸聚焦</string>
-  <string name="pref_camera_focustime_summary">选择触摸聚焦的时间</string>
   <string name="pref_camera_focustime_entry_5">5秒</string>
   <string name="pref_camera_focustime_entry_10">10秒</string>
   <string name="pref_camera_focustime_entry_15">15秒</string>
@@ -111,7 +112,6 @@
   <string name="pref_camera_slow_shutter_entry_64s">64 秒</string>
   <string name="pref_camera_storage_title">存储</string>
   <string name="camera_menu_enhance_label">增强</string>
-  <string name="camera_menu_slow_shutter_label">慢速快门</string>
   <string name="camera_menu_beauty_mode_label">美化</string>
   <string name="camera_menu_asd_label">智能场景</string>
   <string name="pref_camera_power_shutter_title">Power键快门</string>

@@ -15,7 +15,6 @@
   <string name="account_auto_fetch_attachments_entries_wifi">仅WIFI下</string>
   <string name="account_auto_fetch_attachments_entries_always">总是</string>
   <string name="account_settings_sync_size_label">可同步的最大邮件大小</string>
-  <string name="account_settings_sync_size_category_label">同步大小设置</string>
   <string name="account_setup_options_mail_sync_size_all">无限制</string>
   <string name="account_setup_options_mail_sync_size_20k">20KB</string>
   <string name="account_setup_options_mail_sync_size_100k">100KB</string>
