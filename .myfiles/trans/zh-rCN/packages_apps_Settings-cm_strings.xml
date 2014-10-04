@@ -967,4 +967,15 @@
   <string name="wifi_ap_clients_title">已连接设备</string>
   <string name="wifi_ap_client_ap_disabled">热点已停用</string>
   <string name="wifi_ap_client_none_connected">没有已连接设备</string>
+  <string name="profile_action_none">无动作</string>
+  <string name="profile_action_disabled">停用</string>
+  <string name="profile_action_enable">启用</string>
+  <string name="profile_setup_setup_triggers_title">第1步: 添加触发器</string>
+  <string name="profile_setup_setup_triggers_title_config">修改触发器</string>
+  <string name="profile_setup_actions_title">第2步: 设置动作</string>
+  <string name="profile_setup_actions_title_config">重设动作</string>
+  <string name="no_bluetooth_triggers">没有可用的蓝牙触发器</string>
+  <string name="no_wifi_triggers">没有可用的Wifi触发器</string>
+  <string name="profile_setup_setup_triggers_description">请选择此情景激活时的触发器</string>
+  <string name="profile_setup_actions_description">设置此情景激活时将发生的事件</string>
   </resources>

@@ -155,6 +155,8 @@
   <string name="stk_cc_ss_to_dial">SS 请求已修改为 DIAL 请求。</string>
   <string name="stk_cc_ss_to_ussd">SS 请求已修改为 USSD 请求。</string>
   <string name="stk_cc_ss_to_ss">SS 请求已修改为新的 SS 请求。</string>
+  <string name="theme_install_error_title">安装主题失败</string>
+  <string name="theme_install_error_message">安装 %s 失败</string>
   <string name="autofill_attention_ignored_re">attention|attn</string>
   <string name="autofill_region_ignored_re">province|region|other|provincia|bairro|suburb</string>
   <string name="autofill_company_re">company|business|organization|organisation|department|firma|firmenname|empresa|societe|société|ragione.?sociale|会社|название.?компании|单位|公司</string>
