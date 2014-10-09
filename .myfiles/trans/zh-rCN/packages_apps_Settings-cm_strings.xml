@@ -967,9 +967,14 @@
   <string name="wifi_ap_clients_title">已连接设备</string>
   <string name="wifi_ap_client_ap_disabled">热点已停用</string>
   <string name="wifi_ap_client_none_connected">没有已连接设备</string>
+  <string name="profile_menu_delete_title">删除</string>
+  <string name="profile_menu_triggers_title">修改触发器</string>
   <string name="profile_action_none">无动作</string>
   <string name="profile_action_disabled">停用</string>
   <string name="profile_action_enable">启用</string>
+  <string name="profile_tabs_wifi">WiFi</string>
+  <string name="profile_tabs_bluetooth">蓝牙</string>
+  <string name="profile_tabs_nfc">NFC</string>
   <string name="profile_setup_setup_triggers_title">第1步: 添加触发器</string>
   <string name="profile_setup_setup_triggers_title_config">修改触发器</string>
   <string name="profile_setup_actions_title">第2步: 设置动作</string>
