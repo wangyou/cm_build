@@ -275,6 +275,10 @@
   <string name="cm_sound_mode_vibrate">震动</string>
   <string name="cm_sound_mode_sound">声音</string>
   <string name="cm_sound_mode_soundVibrate">声音 &amp; 震动</string>
+  <string name="pref_location_mode_title">定位模式</string>
+  <string name="cm_location_mode_battery_saving">省电</string>
+  <string name="cm_location_mode_device_only">仅设备</string>
+  <string name="cm_location_mode_high_accuracy">高精度</string>
   <string name="tiles_reset_title">重置</string>
   <string name="tiles_reset_message">您确定将显示的按钮与布局还原为默认值?</string>
   <string name="auto_brightness_setup_title">自动亮度</string>
