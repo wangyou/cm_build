@@ -370,9 +370,9 @@ elif ! grep -q "build/core/main.mk" $basedir/Makefile; then
     echo "include build/core/main.mk" > $basedir/Makefile
 fi
 
-KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
+KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel | sed -e "s/\.0$//" -e "s/[_-\.]//g" | tr 'a-z' 'A-Z'`
 [ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
-export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
+[ "$opKernel" != "cm" ] && export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
 
 KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
 [ "$device" = "mb526" ] && KBCCOUNT=JORDAN_CCNUM
@@ -409,7 +409,7 @@ if [ "${opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ] && [ "$device" = "edis
         cp $basedir/out/target/product/$device/system/etc/init.d/80GPU $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
         curdir=`pwd`
         cd out/target/product/$device/kernel_zip/rls/
-        KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME}| tr 'a-z' 'A-Z' `-$device-4.4_$(date +"%Y%m%d").zip
+        KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME}`-$device-4.4_$(date +"%Y%m%d").zip
         echo "Creating ${KERNELZIP_NAME}..."
         rm -f "../${KERNELZIP_NAME}"
         zip -r "../${KERNELZIP_NAME}" * >/dev/null
@@ -429,9 +429,9 @@ else
         curdir=`pwd`
         cd out/target/product/$device/kernel_zip/rls/
         if [ $kexec -eq 0 ]; then
-            KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME} | tr 'a-z' 'A-Z' `-$device-KEXEC-$(date +"%Y%m%d").zip
+            KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME}`-$device-KEXEC-$(date +"%Y%m%d").zip
         else
-            KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME} | tr 'a-z' 'A-Z' `-$device-$(date +"%Y%m%d").zip
+            KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME}`-$device-$(date +"%Y%m%d").zip
         fi
         echo "Creating ${KERNELZIP_NAME}..."
         rm -f "../${KERNELZIP_NAME}"
