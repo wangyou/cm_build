@@ -84,28 +84,28 @@ getKernelBranchName()
 {
      local i=0
      local curdir=`pwd`
-     echo "kernelCurrent=$kernelCurrent"
+ #    echo "kernelCurrent=$kernelCurrent"
      if [ $kernelCurrent -eq 1 ]; then
-     cd `getKernelDir`
-     KernelBranchName=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
-     opKernel=$KernelBranchName
-     for e in ${KernelBranches[@]}; do
-            if [ "$e" = "$opKernel" -a "$e" != "" ]; then
-                            opKernel=${KernelOpts[$i]}
-                break
-            fi
-            i=$((i+1))
-     done
-     cd $curdir
+         cd `getKernelDir`
+         KernelBranchName=`LANG=en_US git branch | grep "*"| sed "s/\* *//g"`
+         opKernel=$KernelBranchName
+         for e in ${KernelBranches[@]}; do
+                if [ "$e" = "$opKernel" -a "$e" != "" ]; then
+                      opKernel=${KernelOpts[$i]}
+                      break
+                fi
+                i=$((i+1))
+         done
      elif [ "$1" != "" -a "$KernelBranchName" != "" ]; then
          for e in ${KernelOpts[@]}; do
             if [ "$e" = "$1" -a "$e" != "" ]; then
-                            KernelBranchName=${KernelBranches[$i]}
+                      KernelBranchName=${KernelBranches[$i]}
                 break
             fi
             i=$((i+1))
-     done
+         done
      fi
+     cd $curdir
      echo  $KernelBranchName
 }
 
@@ -277,7 +277,7 @@ fi
 
 cm_version=`grep "^\s*<default revision=\"refs/heads/cm-" .repo/manifest.xml  | sed -e "s/^\s*<default revision=\"refs\/heads\/\(cm-.*\)\"/\1/"`
 
-getKernelBranchName > /dev/null
+getKernelBranchName >/dev/null
 
 if [ "$opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ]; then
     jbx=0
@@ -370,7 +370,7 @@ elif ! grep -q "build/core/main.mk" $basedir/Makefile; then
     echo "include build/core/main.mk" > $basedir/Makefile
 fi
 
-if [ $jbx -eq 0 ] && [  "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ]; then
+if  [  "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ]; then
     KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
     [ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
     export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
@@ -411,7 +411,7 @@ if [ "${opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ] && [ "$device" = "edis
         cp $basedir/out/target/product/$device/system/etc/init.d/80GPU $basedir/out/target/product/$device/kernel_zip/rls/system/etc/init.d/
         curdir=`pwd`
         cd out/target/product/$device/kernel_zip/rls/
-        KERNELZIP_NAME=Kernel-v$kernelversion-${KERNEL_BRANCH_SHORTNAME}-$device-4.4_$(date +"%Y%m%d").zip
+        KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME}| tr 'a-z' 'A-Z' `-$device-4.4_$(date +"%Y%m%d").zip
         echo "Creating ${KERNELZIP_NAME}..."
         rm -f "../${KERNELZIP_NAME}"
         zip -r "../${KERNELZIP_NAME}" * >/dev/null
@@ -431,9 +431,9 @@ else
         curdir=`pwd`
         cd out/target/product/$device/kernel_zip/rls/
         if [ $kexec -eq 0 ]; then
-            KERNELZIP_NAME=Kernel-v$kernelversion-CM11-$device-KEXEC-$(date +"%Y%m%d").zip
+            KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME} | tr 'a-z' 'A-Z' `-$device-KEXEC-$(date +"%Y%m%d").zip
         else
-            KERNELZIP_NAME=Kernel-v$kernelversion-CM11-$device-$(date +"%Y%m%d").zip
+            KERNELZIP_NAME=Kernel-v$kernelversion-`echo ${KERNEL_BRANCH_SHORTNAME} | tr 'a-z' 'A-Z' `-$device-$(date +"%Y%m%d").zip
         fi
         echo "Creating ${KERNELZIP_NAME}..."
         rm -f "../${KERNELZIP_NAME}"
