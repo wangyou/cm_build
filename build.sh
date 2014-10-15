@@ -370,13 +370,11 @@ elif ! grep -q "build/core/main.mk" $basedir/Makefile; then
     echo "include build/core/main.mk" > $basedir/Makefile
 fi
 
-if  [  "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ]; then
-    KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
-    [ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
-    export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
-fi
+KERNEL_BRANCH_SHORTNAME=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`
+[ "$opKernel" = "jbx" ] && KERNEL_BRANCH_SHORTNAME="JBX"
+export CM_EXTRAVERSION=${CM_EXTRAVERSION}_${KERNEL_BRANCH_SHORTNAME}
 
-[ "$device" = "edison" -o "$device" = "targa" -o "$device" = "spyder" ] && KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
+KBCCOUNT=`getKernelBranchName $opKernel|sed -e "s/[_-\.]//g"`_CCNUM
 [ "$device" = "mb526" ] && KBCCOUNT=JORDAN_CCNUM
 [ "$device" = "n880e" ] && KBCCOUNT=N880E_CCNUM
 [ "$device" = "n909" ] && KBCCOUNT=N909_CCNUM
