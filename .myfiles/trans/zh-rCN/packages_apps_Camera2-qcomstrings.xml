@@ -19,12 +19,16 @@
   <string name="pref_camera_selectablezoneaf_entry_spotmetering">点测光</string>
   <string name="pref_camera_selectablezoneaf_entry_centerweighted">中心加权</string>
   <string name="pref_camera_selectablezoneaf_entry_frameaverage">帧平均</string>
+  <string name="hdr_enable_message">HDR已启用，仅支持自动场景模式</string>
+  <string name="scene_enable_message">HDR不支持非自动场景模式</string>
   <string name="pref_camera_video_hdr_title">视频HDR</string>
   <string name="pref_camera_facedetection_title">面部检测</string>
   <string name="pref_camera_redeyereduction_title">红眼消除</string>
+  <string name="error_app_unsupported_hfr_selection">视频防抖、定时自拍或视频HDR打开时不支持HFR</string>
   <string name="error_app_unsupported_hfr">HFR不支持所选分辨率</string>
   <string name="error_app_unsupported_hfr_codec">HFR打开时只支持H.264视频编码</string>
   <string name="error_app_unsupported">此编码类型不支持该分辨率</string>
+  <string name="error_app_unsupported_dis">视频防抖不支持所选分辨率</string>
   <string name="pref_camera_ae_bracket_hdr_title">支架自动曝光</string>
   <string name="pref_camera_hfr_title">高帧率录像</string>
   <string name="pref_camera_hfr_entry_off">关闭</string>

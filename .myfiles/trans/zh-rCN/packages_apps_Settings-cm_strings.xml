@@ -199,6 +199,7 @@
   <string name="lockscreen_maximize_widgets_title">最大化锁屏小部件</string>
   <string name="lockscreen_maximize_widgets_summary">开启屏幕时放大锁屏小部件</string>
   <string name="lockscreen_enable_camera_title">相机部件</string>
+  <string name="lockscreen_enable_application_widget_title">应用小部件</string>
   <string name="safe_headset_volume_title">安全耳机音量</string>
   <string name="safe_headset_volume_restore_title">连接时降低耳机音量</string>
   <string name="cyanogenmod_waiver_title">弃权声明书</string>
@@ -592,6 +593,7 @@
   <string name="navigation_bar_menu_locked">已锁定</string>
   <string name="navigation_bar_arrow_keys_title">输入时显示光标键</string>
   <string name="navigation_bar_arrow_keys_summary">输入时显示左右光标键</string>
+  <string name="navigation_bar_recents_title">最近应用 长按动作</string>
   <string name="navigation_ring_title">导航栏快捷方式</string>
   <string name="navring_target_reset_message">确定删除所有用户创建的导航栏快捷方式并还原为默认值?</string>
   <string name="navring_target_reset">导航栏快捷方式已还原为默认值</string>
@@ -879,6 +881,7 @@
   <string name="menu_hidden_apps_reset_lock">重置图案锁</string>
   <string name="protected_apps">已保护应用</string>
   <string name="saving_protected_components">正在保存组件状态\u2026</string>
+  <string name="launch_app">运行应用</string>
   <string name="pa_login_username_hint">用户名(邮箱)</string>
   <string name="pa_login_password_hint">口令</string>
   <string name="pa_login_submit_button">登录</string>
@@ -951,7 +954,6 @@
   <string name="set_priority_sub_error">设置优先订阅时出错。订阅未生效。</string>
   <string name="prompt">提示</string>
   <string name="prompt_user">提示用户</string>
-  <string name="sar_info">最大比吸收率SAR</string>
   <string name="maximum_head_level">头部: %1$s W/kg</string>
   <string name="maximum_body_level">身体: %1$s W/kg</string>
   <string name="tune_away_title">偏离调谐TuneAway</string>
