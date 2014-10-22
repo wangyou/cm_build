@@ -203,4 +203,5 @@
   <string name="network_available_sign_in_detailed"><ns0:g id="network_ssid">%1$s</ns0:g></string>
   <string name="locale_replacement" />
   <string name="alternate_eri_file">/data/eri.xml</string>
+  <string name="storage_uicc">UICC存储</string>
   </resources>
