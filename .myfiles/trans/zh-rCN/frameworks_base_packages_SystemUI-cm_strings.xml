@@ -52,6 +52,7 @@
   <string name="navbar_menu_big_button">菜单键</string>
   <string name="advanced_dev_option_wipe_app">清空应用数据</string>
   <string name="advanced_dev_option_force_stop">强制结束</string>
+  <string name="advanced_dev_option_uninstall">卸载</string>
   <string name="accessibility_dock_battery_level">基座电池<ns0:g id="number">%d</ns0:g>%%.</string>
   <string name="screenshot_delete_action">删除</string>
   <string name="screenshot_delete_confirmation">截图已删除.</string>
