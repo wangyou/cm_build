@@ -65,6 +65,7 @@
   <string name="choose_reverse_lookup_provider_title">选择反向查找提供者</string>
   <string name="sim_name">SIM名称</string>
   <string name="sub_no_sim">无SIM卡</string>
+  <string name="multi_sim_entry_format_no_carrier">SIM卡<ns0:g id="index">%1$d</ns0:g></string>
   <string name="sub_active">激活</string>
   <string name="sub_not_active">未激活</string>
   <string name="msim_call_selector_title">呼叫<ns0:g id="number">%s</ns0:g> 通过</string>

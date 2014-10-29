@@ -120,8 +120,8 @@
   <string name="adb_net_active_notification_title">网络ADB 已启用</string>
   <string name="adb_both_active_notification_title">USB &amp; 网络 ADB已启用</string>
   <string name="adb_active_generic_notification_message">触摸禁用调试.</string>
-  <string name="extmedia_format_message_cm" product="nosdcard">USB存储(路径 \'%1$s\') 的所有数据将被清除。此操作无法还原!</string>
-  <string name="extmedia_format_message_cm" product="default">存储卡(路径 \'%1$s\') 的所有数据将被清除。此操作无法欢迎!</string>
+  <string name="usb_extmedia_format_message">USB存储(\'%1$s\')上的所有数据将被擦除. 此操作不可逆转!</string>
+  <string name="sd_extmedia_format_message">存储卡(\'%1$s\') 上的所有数据将被擦除. 此操作不可逆转!</string>
   <string name="usb_storage_notification_manage_message">轻触以管理</string>
   <string name="sd_ext_media_checking_notification_title">准备存储卡</string>
   <string name="sd_ext_media_checking_notification_message">检查存储卡错误.</string>
@@ -159,6 +159,21 @@
   <string name="stk_cc_ss_to_ss">SS 请求已修改为新的 SS 请求。</string>
   <string name="theme_install_error_title">安装主题失败</string>
   <string name="theme_install_error_message">安装 %s 失败</string>
+  <string name="storage_uicc">UICC存储</string>
+  <string name="sd_progress_unmounting">卸载SD卡\u2026</string>
+  <string name="sd_progress_erasing">擦除SDk卡\u2026</string>
+  <string name="sd_format_error">不能擦除SD卡.</string>
+  <string name="sd_media_bad_removal">SD卡卸载前已被拔出.</string>
+  <string name="sd_media_checking">SD卡正在检查.</string>
+  <string name="sd_media_removed">SD卡已被拔出.</string>
+  <string name="sd_media_shared">SD卡正被计算机使用.</string>
+  <string name="usb_progress_unmounting">卸载USB存储\u2026</string>
+  <string name="usb_progress_erasing">擦除USB存储\u2026</string>
+  <string name="usb_format_error">不能擦除USB存储.</string>
+  <string name="usb_media_bad_removal">USB存储卸载前已被拔出.</string>
+  <string name="usb_media_checking">USB存储正在检查.</string>
+  <string name="usb_media_removed">USB存储已被拔出.</string>
+  <string name="usb_media_shared">USB存储正被计算机使用.</string>
   <string name="autofill_attention_ignored_re">attention|attn</string>
   <string name="autofill_region_ignored_re">province|region|other|provincia|bairro|suburb</string>
   <string name="autofill_company_re">company|business|organization|organisation|department|firma|firmenname|empresa|societe|société|ragione.?sociale|会社|название.?компании|单位|公司</string>
@@ -203,5 +218,4 @@
   <string name="network_available_sign_in_detailed"><ns0:g id="network_ssid">%1$s</ns0:g></string>
   <string name="locale_replacement" />
   <string name="alternate_eri_file">/data/eri.xml</string>
-  <string name="storage_uicc">UICC存储</string>
   </resources>
