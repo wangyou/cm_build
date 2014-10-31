@@ -653,6 +653,17 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
        patch -N -p1 -s < $rdir/patches/display_legacy.diff
        cd $rdir
    fi
+
+   #### add gps.conf for china
+   if [ ! -f $basedir/vendor/cm/prebuilt/common/etc/gps_cn.conf ]; then
+       cp $rdir/gps.conf $basedir/vendor/cm/prebuilt/common/etc/gps_cn.conf
+       cp $rdir/scripts/target/init.d-GPS_cn $basedir/vendor/cm/prebuilt/common/etc/init.d/01GPS_cn
+       sed -i $basedir/vendor/cm/config/common.mk -e '/# CM-specific init file/ i#gps.conf for china\
+PRODUCT_COPY_FILES += \\\
+    vendor/cm/prebuilt/common/etc/init.d/01GPS_cn:system/etc/init.d/01GPS_cn\\\
+    vendor/cm/prebuilt/common/etc/gps_cn.conf:system/etc/gps_cn.conf\
+'
+   fi
 ###return####
 exit 0
 

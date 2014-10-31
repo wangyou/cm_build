@@ -1,0 +1,8 @@
+system_rw=0
+[ ! -w /system ] && system_rw=1
+if [ _`getprop gsm.operator.iso-country` = _cn -a -f /system/etc/gps_cn.conf ]; then
+   [ ${system_rw} -eq 1 ] && mount -o remount,rw /system
+   mv /system/etc/gps.conf /system/etc/gps_orig.conf
+   mv /system/etc/gps_cn.conf /system/etc/gps.conf
+   [ ${system_rw} -eq 1 ] && mount -o remount,ro /system
+fi
