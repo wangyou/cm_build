@@ -398,7 +398,9 @@ if [ "${opKernel:0:1}" = "j" -o "${opKernel:0:1}" = "J" ] && [ "$device" = "edis
     if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
         mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
         [ ! -z "${!KBCCOUNT}" ] &&  echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
-        LANG=en_US make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
+
+        LANG=en_US JAVA_TOOL_OPTIONS=-Dfile.encoding=utf-8 \
+          make $mod $mkJop $mkForce TARGET_BOOTLOADER_BOARD_NAME=$device \
             TARGET_KERNEL_CONFIG=${kernel_config}  \
             TARGET_SYSTEMIMAGE_USE_SQUISHER=true
     fi
@@ -421,7 +423,8 @@ else
     if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
         mkdir -p $basedir/out/target/product/$device/obj/KERNEL_OBJ
         [ ! -z "${!KBCCOUNT}" ] && echo ${!KBCCOUNT} > $basedir/out/target/product/$device/obj/KERNEL_OBJ/.version
-        LANG=en_US make $mkJop $mkForce $mod  TARGET_SYSTEMIMAGE_USE_SQUISHER=true
+        LANG=en_US JAVA_TOOL_OPTIONS=-Dfile.encoding=utf-8\
+          make $mkJop $mkForce $mod  TARGET_SYSTEMIMAGE_USE_SQUISHER=true
     fi
     retcode=$?
     if [ $retcode -eq 0 -a $kernelzip -eq 0 ]; then
