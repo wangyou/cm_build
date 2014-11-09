@@ -650,10 +650,12 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
 
    #### fix error ###
-   if ! grep -q "GRALLOC_USAGE_PRIVATE_INTERNAL_ONLY" $basedir/hardware/qcom/display-legacy/libgralloc/gralloc_priv.h; then
-       cd $basedir/hardware/qcom/display-legacy
-       patch -N -p1 -s < $rdir/patches/display_legacy.diff
-       cd $rdir
+   if [ "$device" = "n880e" -o "$device" = "n909" ]; then
+       if ! grep -q "GRALLOC_USAGE_PRIVATE_INTERNAL_ONLY" $basedir/hardware/qcom/display-legacy/libgralloc/gralloc_priv.h; then
+           cd $basedir/hardware/qcom/display-legacy
+           patch -N -p1 -s < $rdir/patches/display_legacy.diff
+           cd $rdir
+       fi
    fi
 
    #### add gps.conf for china
