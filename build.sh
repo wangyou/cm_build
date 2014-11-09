@@ -2,7 +2,7 @@
 
 reset
 compile_user=NX111
-branch=cm-11.0
+branch=aosp-5.0
 
 KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock-kk" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
 KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909")
@@ -120,7 +120,7 @@ rm -f .lastBuild.tmp
 device=edison
 opKernel="cm"
 mkJop=""
-mod=bacon
+mod=
 mkForce=""
 oldupdate="old"
 keepPatch=1
@@ -266,7 +266,7 @@ echo "Start compiling for ${device^^} ............."
 if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
     export USE_CCACHE=1
     source build/envsetup.sh > /dev/null
-       lunch cm_$device-userdebug > /dev/null
+       lunch aosp_$device-userdebug > /dev/null
 
 fi
 

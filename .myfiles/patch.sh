@@ -1,6 +1,6 @@
 #!/bin/bash
 
-branch=cm-11.0
+branch=aosp-5.0
 
 mode=""
 oldupdate=1
@@ -116,12 +116,14 @@ addBranch()
 checkoutBranch()
 {
      local curdir=`pwd`
+     local targetBranch=$branch
      if [ $# -lt 2 ]; then return 1;fi
      [ -d $1 ] || return 1
+     [ $# -ge 2 ] && targetBranch=$2
      cd $1
-
-     if ! git branch | grep -q -e "[[:space:]?]$branch$"; then
-          echo "$1 not exists branch $branch !"
+     
+     if ! git branch | grep -q -e "[[:space:]?]$targetBranch$"; then
+          echo "$1 not exists branch $targetBranch !"
           cd $curdir
           return 1
      elif [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
@@ -536,6 +538,8 @@ fi
 
 [ "$mode" = "kbranch" ] && exit
 
+exit 0;
+
 ####### patch for vendor cm  ########
    sed -i $basedir/vendor/cm/config/common.mk -e "/CMAccount/d" -e "/Basic \\\\/d"  -e "/CMFota/d" -e "/Launcher3/d"
    sed -i $basedir/vendor/cm/config/common.mk -e "s/^\(\s*CM_BUILDTYPE := EXPERIMENTAL\)/#\1/g" 
@@ -648,10 +652,12 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
 
    #### fix error ###
-   if ! grep -q "GRALLOC_USAGE_PRIVATE_INTERNAL_ONLY" $basedir/hardware/qcom/display-legacy/libgralloc/gralloc_priv.h; then
-       cd $basedir/hardware/qcom/display-legacy
-       patch -N -p1 -s < $rdir/patches/display_legacy.diff
-       cd $rdir
+   if [ "$device" = "n880e" -o "$device" = "n909" ]; then
+     if ! grep -q "GRALLOC_USAGE_PRIVATE_INTERNAL_ONLY" $basedir/hardware/qcom/display-legacy/libgralloc/gralloc_priv.h; then
+         cd $basedir/hardware/qcom/display-legacy
+         patch -N -p1 -s < $rdir/patches/display_legacy.diff
+         cd $rdir
+     fi
    fi
 
    #### add gps.conf for china
