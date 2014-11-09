@@ -116,12 +116,14 @@ addBranch()
 checkoutBranch()
 {
      local curdir=`pwd`
+     local targetBranch=$branch
      if [ $# -lt 2 ]; then return 1;fi
      [ -d $1 ] || return 1
+     [ $# -ge 2 ] && targetBranch=$2
      cd $1
 
-     if ! git branch | grep -q -e "[[:space:]?]$branch$"; then
-          echo "$1 not exists branch $branch !"
+     if ! git branch | grep -q -e "[[:space:]?]$targetBranch$"; then
+          echo "$1 not exists branch $targetBranch !"
           cd $curdir
           return 1
      elif [ _`git branch | grep "\*" |cut -f2 -d" "` != _$2 ] ; then 
