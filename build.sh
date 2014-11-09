@@ -2,7 +2,7 @@
 
 reset
 compile_user=NX111
-branch=cm-11.0
+branch=cm-12.0
 
 KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock-kk" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
 KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909")

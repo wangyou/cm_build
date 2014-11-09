@@ -1,6 +1,6 @@
 #!/bin/bash
 
-branch=cm-11.0
+branch=cm-12.0
 
 mode=""
 oldupdate=1
