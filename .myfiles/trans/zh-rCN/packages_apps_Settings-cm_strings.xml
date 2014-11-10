@@ -200,6 +200,7 @@
   <string name="lockscreen_maximize_widgets_summary">开启屏幕时放大锁屏小部件</string>
   <string name="lockscreen_enable_camera_title">相机部件</string>
   <string name="lockscreen_enable_application_widget_title">应用小部件</string>
+  <string name="lockscreen_application_widget_summary">接力棒特性: 在其它设备上快速运行云应用。</string>
   <string name="safe_headset_volume_title">安全耳机音量</string>
   <string name="safe_headset_volume_restore_title">连接时降低耳机音量</string>
   <string name="cyanogenmod_waiver_title">弃权声明书</string>
@@ -866,7 +867,6 @@
   <string name="voice_wakeup_retrain_title">训练语音</string>
   <string name="voice_wakeup_activity_title">激活运行</string>
   <string name="voice_wakeup_default_activity">Google Now</string>
-  <string name="sub_no_sim">无SIM卡</string>
   <string name="multi_sim_settings_title">多SIM卡</string>
   <string name="multi_sim_settings_group_summary">默认SIM选择</string>
   <string name="voice_title">语音呼叫</string>
@@ -961,7 +961,6 @@
   <string name="set_voice_error">设置语音订阅时出错。订阅未生效。</string>
   <string name="set_priority_sub_error">设置优先订阅时出错。订阅未生效。</string>
   <string name="prompt">提示</string>
-  <string name="prompt_user">提示用户</string>
   <string name="maximum_head_level">头部: %1$s W/kg</string>
   <string name="maximum_body_level">身体: %1$s W/kg</string>
   <string name="tune_away_title">偏离调谐TuneAway</string>
