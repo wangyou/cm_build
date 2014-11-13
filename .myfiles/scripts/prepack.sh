@@ -100,7 +100,7 @@ if [ -f $OUT/system/app/LatinIME.apk ]; then
               $ANDROID_BUILD_TOP/build/target/product/security/shared.pk8 \
               $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk.unsigned $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk
     if [ -f $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk ]; then
-	mv $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk $OUT/system/app/LatinIME.apk
+	mv $OUT/obj/APPS/LatinIME_intermediates/LatinIME.apk $OUT/system/app/LatinIME/LatinIME.apk
     fi
     rm -rf $OUT/obj/APPS/LatinIME_intermediates/unpacked_files
 fi
