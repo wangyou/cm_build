@@ -315,10 +315,12 @@ if [ $nomake -ne 0 -o "$device" != "$lastDevice" ]; then
           touch $OUTLOG
           while read project
           do
-              cd $basedir/$project
-              echo $project: >>$OUTLOG
-              git log -10 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
-              echo -e "\n">>$OUTLOG
+              if [ -d $basedir/$project ]; then
+                  cd $basedir/$project
+                  echo $project: >>$OUTLOG
+                  git log -10 --pretty=format:'    %h  %ad  %s' --date=short >>$OUTLOG
+                  echo -e "\n">>$OUTLOG
+              fi
           done < $PROJECTLIST
           cd $basedir
 
