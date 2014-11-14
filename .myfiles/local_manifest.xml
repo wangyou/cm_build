@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
 <project name="nx111/android_device_motorola_edison" path="device/motorola/edison" remote="github" revision="cm-11.0" />
-<project name="nx111/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-11.0" />
-<project name="CyanogenMod/android_device_motorola_spyder" path="device/motorola/spyder" remote="github" revision="cm-11.0" />
-<project name="nx111/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-11.0"/>
+<project name="nx111/android_device_motorola_omap4-common" path="device/motorola/omap4-common" remote="github" revision="cm-12.0" />
+
+<project name="nx111/android_kernel_motorola_omap4-common" path="kernel/motorola/omap4-common" remote="github" revision="cm-12.0"/>
 
 <!-- VENDOR -->
 <project name="nx111/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-11.0" />
 
-
-<!-- Defy -->
-<remove-project name="CyanogenMod/android_hardware_ti_omap3" />
-<project name="nx111/android_device_motorola_jordan-common" path="device/motorola/jordan-common" revision="cm11.0-3.0-new" />
-<project name="nx111/android_device_motorola_mb526" path="device/motorola/mb526" revision="cm11.0-3.0-new" />
-<project name="nx111/android_kernel_motorola_jordan" path="kernel/motorola/jordan" revision="android-3.10" />
-<project name="CyanogenDefy/android_hardware_ti_omap3-compat" path="hardware/ti/omap3" revision="jellybean" />
 
 <!-- packages -->
 <remove-project name="CyanogenMod/android_packages_apps_Calendar" />
 <project name="nx111/android_packages_apps_Calendar" path="packages/apps/Calendar"  remote="github" revision="cm-11.0"/>
 <!-- <project name="nx111/android_packages_apps_caifatcmd" path="packages/apps/caifatcmd"  remote="github" revision="master"/> -->
 <project name="nx111/android_packages_apps_HdmiToggle" path="packages/apps/HdmiToggle"  remote="github" revision="cm-11.0"/>
-<project name="amarullz/AROMA-Installer" path="tools/aroma-installer"  remote="github" revision="master"/>
 
 <!-- ZTE N880e -->
+<!--
 <project name="nx111/android_kernel_zte_msm7x27a" path="kernel/zte/msm7x27a" remote="github" revision="cm-11.0" />
 <project name="nx111/android_device_zte_atlas40" path="device/zte/atlas40" remote="github" revision="cm-11.0" />
 <project name="nx111/android_device_zte_n880e" path="device/zte/n880e" remote="github" revision="cm-11.0" />
 <project name="nx111/proprietary_vendor_zte" path="vendor/zte" remote="github" revision="cm-11.0" />
 <project name="Dazzozo/android_external_webkit" path="external/webkit" revision="kitkat" />
 <project name="legaCyMod/android_hardware_atheros_wlan" path="hardware/atheros/wlan" revision="cm-11.0" />
-<!--
-<project name="legaCyMod/android_hardware_qcom_display-legacy" path="hardware/qcom/display-legacy" revision="cm-11.0" /> -->
 <project name="legaCyMod/android_hardware_qcom_media-legacy" path="hardware/qcom/media-legacy" revision="cm-11.0" />
 <project name="legaCyMod/android_local_manifest" path="device/zte/legaCy_manifest" revision="cm-11.0" />
 <project name="CyanogenMod/android_hardware_qcom_fm" path="hardware/qcom/fm" revision="cm-11.0" />
-
+-->
 <!-- ZTE N909 -->
+<!--
 <project name="nx111/android_device_zte_n909" path="device/zte/n909" revision="cm11" />
 <project name="nx111/android_kernel_zte_msm8x25q" path="kernel/zte/msm8x25q" revision="cm-11.0" />
 <project name="nx111/android_vendor_zte_n909" path="vendor/zte/n909" revision="cm11" />
 <project name="PhilZ-cwm6/philz_touch_cwm6" path="bootable/recovery-philz" revision="cm-11.0" />
 <project name="iptux/android_hardware_qcom_display-legacy" path="hardware/qcom/display-legacy" revision="jb-7.8" />
+-->
 </manifest>
