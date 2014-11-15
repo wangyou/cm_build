@@ -658,6 +658,15 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
        fi
    fi
 
+   ## fix for omap4xxx
+   if [ "$device" = "edison" -o "$device" = "spyder" ]; then
+       if ! grep -q "TI_CUSTOM_DOMX_PATH" $basedir/hardware/ti/omap4xxx/domx/Android.mk; then
+           cd $basedir/hardware/ti/omap4xxx
+           patch -N -p1 -s <$rdir/patches/ti_omap4xxx.diff
+           cd $rdir
+       fi
+   fi
+
    #### add gps.conf for china
    if [ ! -f $basedir/vendor/cm/prebuilt/common/etc/gps_cn.conf ]; then
        cp $rdir/gps.conf $basedir/vendor/cm/prebuilt/common/etc/gps_cn.conf

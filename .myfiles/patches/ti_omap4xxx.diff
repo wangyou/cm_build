@@ -1,0 +1,101 @@
+diff --git a/domx/Android.mk b/domx/Android.mk
+index 6571161..f2f9b7f 100644
+--- a/domx/Android.mk
++++ b/domx/Android.mk
+@@ -1 +1,3 @@
+-include $(all-subdir-makefiles)
++ifeq ($(TI_CUSTOM_DOMX_PATH),)
++    include $(all-subdir-makefiles)
++endif
+diff --git a/domx/domx/Android.mk b/domx/domx/Android.mk
+index 3a47878..3c70596 100644
+--- a/domx/domx/Android.mk
++++ b/domx/domx/Android.mk
+@@ -1,3 +1,4 @@
++ifeq ($(TI_CUSTOM_DOMX_PATH),)
+ LOCAL_PATH:= $(call my-dir)
+ 
+ include $(CLEAR_VARS)
+@@ -32,3 +33,4 @@ LOCAL_MODULE:= libdomx
+ LOCAL_MODULE_TAGS:= optional
+ 
+ include $(BUILD_HEAPTRACKED_SHARED_LIBRARY)
++endif
+diff --git a/domx/mm_osal/Android.mk b/domx/mm_osal/Android.mk
+index a4862ec..6692227 100644
+--- a/domx/mm_osal/Android.mk
++++ b/domx/mm_osal/Android.mk
+@@ -1,3 +1,4 @@
++ifeq ($(TI_CUSTOM_DOMX_PATH),)
+ LOCAL_PATH:= $(call my-dir)
+ 
+ include $(CLEAR_VARS)
+@@ -27,3 +28,4 @@ LOCAL_MODULE:= libmm_osal
+ LOCAL_MODULE_TAGS:= optional
+ 
+ include $(BUILD_HEAPTRACKED_SHARED_LIBRARY)
++endif
+diff --git a/domx/omx_core/Android.mk b/domx/omx_core/Android.mk
+index 1c217b3..022a1ec 100644
+--- a/domx/omx_core/Android.mk
++++ b/domx/omx_core/Android.mk
+@@ -1,3 +1,4 @@
++ifeq ($(TI_CUSTOM_DOMX_PATH),)
+ LOCAL_PATH:= $(call my-dir)
+ 
+ include $(CLEAR_VARS)
+@@ -19,3 +20,4 @@ LOCAL_CFLAGS += -DSTATIC_TABLE -D_Android -DCHECK_SECURE_STATE
+ LOCAL_MODULE:= libOMX_Core
+ LOCAL_MODULE_TAGS:= optional
+ include $(BUILD_HEAPTRACKED_SHARED_LIBRARY)
++endif
+diff --git a/domx/omx_proxy_component/Android.mk b/domx/omx_proxy_component/Android.mk
+index 7931962..1a38c39 100644
+--- a/domx/omx_proxy_component/Android.mk
++++ b/domx/omx_proxy_component/Android.mk
+@@ -1,3 +1,4 @@
++ifeq ($(TI_CUSTOM_DOMX_PATH),)
+ LOCAL_PATH:= $(call my-dir)
+ 
+ #
+@@ -192,3 +193,4 @@ LOCAL_MODULE_TAGS:= optional
+ LOCAL_SRC_FILES:= omx_video_dec/src/omx_proxy_videodec_secure.c
+ LOCAL_MODULE:= libOMX.TI.DUCATI1.VIDEO.DECODER.secure
+ include $(BUILD_HEAPTRACKED_SHARED_LIBRARY)
++endif
+diff --git a/ion/Android.mk b/ion/Android.mk
+index 58fc9f9..f8a85d4 100644
+--- a/ion/Android.mk
++++ b/ion/Android.mk
+@@ -1,3 +1,4 @@
++ifndef BOARD_USE_CUSTOM_LIBION
+ # only include if running on an omap4 platform
+ ifeq ($(TARGET_BOARD_PLATFORM),omap4)
+ 
+@@ -11,3 +12,4 @@ LOCAL_SHARED_LIBRARIES := liblog
+ include $(BUILD_HEAPTRACKED_SHARED_LIBRARY)
+ 
+ endif
++endif
+diff --git a/libtiutils/Android.mk b/libtiutils/Android.mk
+index 2540985..aeba516 100644
+--- a/libtiutils/Android.mk
++++ b/libtiutils/Android.mk
+@@ -19,11 +19,16 @@ LOCAL_SHARED_LIBRARIES:= \
+     libcutils \
+     liblog
+ 
++ifneq ($(TI_CUSTOM_DOMX_PATH),)
++	LOCAL_C_INCLUDES += \
++	$(TI_CUSTOM_DOMX_PATH)/omx_core/inc \
++	$(TI_CUSTOM_DOMX_PATH)/mm_osal/inc
++else
+ LOCAL_C_INCLUDES += \
+ 	bionic/libc/include \
+ 	hardware/ti/omap4xxx/domx/omx_core/inc \
+ 	hardware/ti/omap4xxx/domx/mm_osal/inc
+-	
++endif	
+ LOCAL_CFLAGS += -fno-short-enums 
+ 
+ # LOCAL_CFLAGS +=
