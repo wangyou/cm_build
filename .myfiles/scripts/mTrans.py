@@ -57,7 +57,7 @@ def findItem(root,elem,lang="",ignoreProduct=False):
                   if defaultItemStr == "" and ignoreProduct==True:
                       defaultItemStr=ET.tostring(founditem,'utf-8')
                       defaultItemType=founditem.attrib["product"]
-                  if elem.attrib['product'] == founditem.attrib['product']:
+                  if founditem.attrib.has_key("product") and elem.attrib['product'] == founditem.attrib['product']:
                       return founditem
             else:
                if not founditem is None:
