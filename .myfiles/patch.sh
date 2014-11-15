@@ -321,6 +321,7 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject device/zte/n909
      resetProject hardware/ril $branch
      resetProject hardware/ti/wlan $branch
+     resetProject hardware/ti/omap4xxx $branch
      resetProject hardware/qcom/display-legacy
      resetProject bootable/recovery $branch
     
