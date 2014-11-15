@@ -1,0 +1,34 @@
+diff --git a/domain.te b/domain.te
+index f940b38..f20887e 100644
+--- a/domain.te
++++ b/domain.te
+@@ -251,17 +251,17 @@ neverallow domain init:binder call;
+ 
+ # Don't allow raw read/write/open access to block_device
+ # Rather force a relabel to a more specific type
+-neverallow { domain -kernel -init -recovery -vold -uncrypt -install_recovery } block_device:blk_file { open read write };
++neverallow { domain -kernel -init -recovery -vold -uncrypt -install_recovery -pvrsrvinit } block_device:blk_file { open read write };
+ 
+ # Don't allow raw read/write/open access to generic devices.
+ # Rather force a relabel to a more specific type.
+ # ueventd is exempt from this, as its managing these devices.
+-neverallow { domain -unconfineddomain -ueventd -recovery } device:chr_file { open read write };
++neverallow { domain -unconfineddomain -ueventd -recovery -rild } device:chr_file { open read write };
+ 
+ # Limit what domains can mount filesystems or change their mount flags.
+ # sdcard_type / vfat is exempt as a larger set of domains need
+ # this capability, including device-specific domains.
+-neverallow { domain -kernel -init -recovery -vold -zygote } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
++neverallow { domain -kernel -init -recovery -vold -zygote -init_shell -pvrsrvinit } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+ 
+ #
+ # Assert that, to the extent possible, we're not loading executable content from
+@@ -287,7 +287,7 @@ neverallow { domain -init } property_data_file:dir { create setattr relabelfrom
+ neverallow { domain -init } property_data_file:file { create setattr relabelfrom write append unlink link rename };
+ 
+ # Only recovery should be doing writes to /system
+-neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
++neverallow { domain -recovery -init_shell -pvrsrvinit -vold } { system_file exec_type }:dir_file_class_set
+     { create write setattr relabelfrom relabelto append unlink link rename };
+ 
+ # Nothing should be writing to files in the rootfs.

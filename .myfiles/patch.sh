@@ -313,6 +313,7 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject packages/apps/Browser $branch
      resetProject external/wpa_supplicant_8
      resetProject external/skia
+     resetProject external/sepolicy
      resetProject vendor/motorola
      resetProject vendor/cm $branch
      resetProject kernel/zte/msm7x27a
@@ -666,8 +667,13 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
            patch -N -p1 -s <$rdir/patches/ti_omap4xxx.diff
            cd $rdir
        fi
-   fi
+       if ! grep -q "pvrsrvinit" $basedir/external/sepolicy/domain.te; then
+           cd $basedir/external/sepolicy
+           patch -N -p1 -s <$rdir/patches/sepolicy.diff
+           cd $rdir
+       fi 
 
+   fi
    #### add gps.conf for china
    if [ ! -f $basedir/vendor/cm/prebuilt/common/etc/gps_cn.conf ]; then
        cp $rdir/gps.conf $basedir/vendor/cm/prebuilt/common/etc/gps_cn.conf
