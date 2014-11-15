@@ -660,7 +660,7 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
    ## fix for omap4xxx
    if [ "$device" = "edison" -o "$device" = "spyder" ]; then
-       if ! grep -q "TI_CUSTOM_DOMX_PATH" $basedir/hardware/ti/omap4xxx/domx/Android.mk; then
+       if ! grep -q "BOARD_USE_TI_CUSTOM_DOMX" $basedir/hardware/ti/omap4xxx/domx/Android.mk; then
            cd $basedir/hardware/ti/omap4xxx
            patch -N -p1 -s <$rdir/patches/ti_omap4xxx.diff
            cd $rdir
