@@ -674,6 +674,12 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
        fi 
 
    fi
+   ### fix releasetools
+   if ! grep -q "# not exists mount_point in fstab" $basedir/build/tools/releasetools/common.py; then
+       cd $basedir/build
+       patch -N -p1 -s <$rdir/patches/releasetools.diff
+       cd $rdir
+   fi
    #### add gps.conf for china
    if [ ! -f $basedir/vendor/cm/prebuilt/common/etc/gps_cn.conf ]; then
        cp $rdir/gps.conf $basedir/vendor/cm/prebuilt/common/etc/gps_cn.conf

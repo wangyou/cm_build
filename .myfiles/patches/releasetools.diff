@@ -1,0 +1,17 @@
+diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
+index 7826c7d..03741f3 100755
+--- a/tools/releasetools/common.py
++++ b/tools/releasetools/common.py
+@@ -1115,7 +1115,11 @@ PARTITION_TYPES = { "yaffs2": "MTD", "mtd": "MTD",
+ def GetTypeAndDevice(mount_point, info):
+   fstab = info["fstab"]
+   if fstab:
+-    return PARTITION_TYPES[fstab[mount_point].fs_type], fstab[mount_point].device
++      try:
++          return PARTITION_TYPES[fstab[mount_point].fs_type], fstab[mount_point].device
++      except:
++          # not exists mount_point in fstab
++          return None
+   else:
+     return None
+ 
