@@ -9,10 +9,6 @@
   <string name="pref_camera_autoexposure_entry_spotmetering">点测光</string>
   <string name="pref_camera_videoencoder_title">视频编码</string>
   <string name="pref_camera_audioencoder_title">声音编码</string>
-  <string name="pref_camera_video_duration_title">视频时长</string>
-  <string name="pref_camera_video_duration_entry_mms">30秒(MMS)</string>
-  <string name="pref_camera_video_duration_entry_10">10分钟</string>
-  <string name="pref_camera_video_duration_entry_30">30分钟</string>
   <string name="pref_camera_skinToneEnhancement_title">增强肤色</string>
   <string name="pref_camera_selectablezoneaf_title">自动对焦区域</string>
   <string name="pref_camera_selectablezoneaf_entry_auto">自动</string>

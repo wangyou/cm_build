@@ -271,7 +271,5 @@
   <string name="sip_accounts_title_cm">SIP帐号</string>
   <string name="respond_via_sms_cannot_be_empty">快速回应不能为空</string>
   <string name="call_recording_format">通话录音格式</string>
-  <string name="wb_amr_format">WB AMR</string>
-  <string name="aac_format">AAC</string>
   <string name="call_settings_title_font_family">sans-serif-light</string>
   </resources>

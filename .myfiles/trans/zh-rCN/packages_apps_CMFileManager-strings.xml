@@ -70,6 +70,7 @@
   <string name="actionbar_button_overflow_cd">更多选项</string>
   <string name="actionbar_button_storage_cd">存储卷</string>
   <string name="actionbar_button_save_cd">保存</string>
+  <string name="actionbar_button_print_cd">Print</string>
   <string name="sort_by_name_asc">按名称排列 ▲</string>
   <string name="sort_by_name_desc">按名称排列 ▼</string>
   <string name="sort_by_date_asc">按日期排列 ▲</string>
@@ -96,6 +97,7 @@
   <string name="filesystem_info_dialog_type">类型:</string>
   <string name="filesystem_info_dialog_options">选项:</string>
   <string name="filesystem_info_dialog_dump_pass">转储 / 传递:</string>
+  <string name="filesystem_info_dialog_virtual">Virtual:</string>
   <string name="filesystem_info_dialog_total_disk_usage">总数:</string>
   <string name="filesystem_info_dialog_used_disk_usage">已用:</string>
   <string name="filesystem_info_dialog_free_disk_usage">可用:</string>
@@ -160,6 +162,8 @@
   <string name="bookmarks_home">Home</string>
   <string name="bookmarks_root_folder">根目录</string>
   <string name="bookmarks_system_folder">系统文件夹</string>
+  <string name="bookmarks_secure">Secure storage</string>
+  <string name="bookmarks_remote">Remote storage</string>
   <string name="bookmarks_button_config_cd">设置初始文件夹.</string>
   <string name="bookmarks_button_remove_bookmark_cd">移除书签.</string>
   <string name="bookmarks_msgs_add_success">书签已成功加入.</string>
@@ -230,6 +234,7 @@
   <string name="actions_menu_open_parent_folder">打开父目录</string>
   <string name="actions_menu_compute_checksum">计算校验和</string>
   <string name="actions_menu_print">打印</string>
+  <string name="actions_menu_set_as_home">Set as home</string>
   <string name="actions_ask_undone_operation_msg">此操作无法撤销. 您确定要继续?</string>
   <string name="input_name_dialog_label">名称:</string>
   <string name="input_name_dialog_message_empty_name">名称不能为空.</string>
@@ -262,6 +267,21 @@
   <string name="filetime_format_mode_MMddyyyy_HHmmss">月/日/年 时:分:秒</string>
   <string name="filetime_format_mode_yyyyMMdd_HHmmss">年-月-日 时:分:秒</string>
   <string name="selection_folders_and_files">已选择<ns0:g id="folders">%1$s</ns0:g> 个文件夹和 <ns0:g id="files">%2$s</ns0:g> 个文件.</string>
+  <string name="category_system">SYSTEM</string>
+  <string name="category_app">APP</string>
+  <string name="category_binary">BINARY</string>
+  <string name="category_text">TEXT</string>
+  <string name="category_document">DOCUMENT</string>
+  <string name="category_ebook">EBOOK</string>
+  <string name="category_mail">MAIL</string>
+  <string name="category_compress">COMPRESS</string>
+  <string name="category_exec">EXECUTABLE</string>
+  <string name="category_database">DATABASE</string>
+  <string name="category_font">FONT</string>
+  <string name="category_image">IMAGE</string>
+  <string name="category_audio">AUDIO</string>
+  <string name="category_video">VIDEO</string>
+  <string name="category_security">SECURITY</string>
   <string name="compression_mode_title">压缩方式</string>
   <string name="shortcut_failed_msg">快捷方式处理失败.</string>
   <string name="shortcut_creation_success_msg">快捷方式创建成功.</string>
@@ -269,6 +289,7 @@
   <string name="pref">设置</string>
   <string name="pref_general">常规设置</string>
   <string name="pref_search">搜索选项</string>
+  <string name="pref_storage">Storage options</string>
   <string name="pref_editor">编辑器选项</string>
   <string name="pref_themes">主题</string>
   <string name="pref_about">关于</string>
@@ -310,6 +331,11 @@
   <string name="pref_remove_saved_search_terms">删除保存的关键词</string>
   <string name="pref_remove_saved_search_terms_summary">点击此将会删除所有保存的搜索关键词</string>
   <string name="pref_remove_saved_search_terms_msg">所有保存的搜索关键词已被删除.</string>
+  <string name="pref_secure_storage_category">安全存储</string>
+  <string name="pref_secure_storage_delayed_sync_title">延迟同步</string>
+  <string name="pref_secure_storage_delayed_sync_summary">安全文件系统的同步是个昂贵的操作. 启用此选项以允许每次操作后得到更好的时间响应,当文件系统空闲时执行同步, 但应用崩溃时会丢失部分未同步的未决信息.</string>
+  <string name="pref_secure_storage_reset_password_title">重设密码</string>
+  <string name="pref_secure_storage_delete_storage_title">删除存储</string>
   <string name="pref_editor_behaviour_category">行为</string>
   <string name="pref_no_suggestions">不显示建议</string>
   <string name="pref_no_suggestions_desc">编辑文件时不要显示字典建议</string>
@@ -346,6 +372,25 @@
   <string name="ash_keyword">关键词</string>
   <string name="ash_quoted_string">带引号的字符串</string>
   <string name="ash_variable">变量</string>
+  <string name="secure_storage_unlock_title">解锁存储</string>
+  <string name="secure_storage_create_title">创建存储</string>
+  <string name="secure_storage_reset_title">重设密码</string>
+  <string name="secure_storage_delete_title">删除存储</string>
+  <string name="secure_storage_unlock_key_prompt_msg">输入密码解锁安全存储文件系统.</string>
+  <string name="secure_storage_unlock_key_new_msg">输入密码保护安全存储文件系统.</string>
+  <string name="secure_storage_unlock_key_reset_msg">输入当前的和旧的密码重设安全存储文件系统密码.</string>
+  <string name="secure_storage_unlock_key_delete_msg">输入当前密码删除安全文件系统.</string>
+  <string name="secure_storage_unlock_old_key_title">旧密码:</string>
+  <string name="secure_storage_unlock_new_key_title">新密码:</string>
+  <string name="secure_storage_unlock_key_title">密码:</string>
+  <string name="secure_storage_unlock_repeat_title">重复密码:</string>
+  <string name="secure_storage_create_button">创建</string>
+  <string name="secure_storage_unlock_button">解锁</string>
+  <string name="secure_storage_reset_button">重设</string>
+  <string name="secure_storage_delete_button">删除</string>
+  <string name="secure_storage_unlock_failed">无法解锁存储</string>
+  <string name="secure_storage_unlock_validation_length">密码至少<ns0:g id="characters">%1$d</ns0:g>个字符.</string>
+  <string name="secure_storage_unlock_validation_equals">密码不正确.</string>
   <string name="print_unsupported_document">不支持的文档格式</string>
   <string name="print_unsupported_image">不支持的图形格式</string>
   <string name="print_document_header">文档:<ns0:g id="document_name">%1$s</ns0:g></string>

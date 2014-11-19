@@ -66,6 +66,8 @@
   <string name="connection_state_disabled">禁用</string>
   <string name="connection_state_enabled">启用</string>
   <string name="volume_override_summary">设置为</string>
+  <string name="volume_override_summary_no_override">不覆写音量</string>
+  <string name="profile_volume_override_checkbox_label">覆写音量</string>
   <string name="profile_profiles_manage">情景</string>
   <string name="profile_profile_manage">管理情景</string>
   <string name="profile_appgroups_manage">应用组</string>
@@ -114,6 +116,7 @@
   <string name="ring_mode_normal">正常</string>
   <string name="ring_mode_vibrate">震动</string>
   <string name="ring_mode_mute">静音</string>
+  <string name="ring_mode_unchanged">未改变</string>
   <string name="volume_overlay_title">音量面板样式</string>
   <string name="volume_overlay_single">单一设置</string>
   <string name="volume_overlay_expandable">可扩展设置</string>
@@ -199,8 +202,6 @@
   <string name="lockscreen_maximize_widgets_title">最大化锁屏小部件</string>
   <string name="lockscreen_maximize_widgets_summary">开启屏幕时放大锁屏小部件</string>
   <string name="lockscreen_enable_camera_title">相机部件</string>
-  <string name="lockscreen_enable_application_widget_title">应用小部件</string>
-  <string name="lockscreen_application_widget_summary">接力棒特性: 在其它设备上快速运行云应用。</string>
   <string name="safe_headset_volume_title">安全耳机音量</string>
   <string name="safe_headset_volume_restore_title">连接时降低耳机音量</string>
   <string name="cyanogenmod_waiver_title">弃权声明书</string>
@@ -250,6 +251,7 @@
   <string name="title_tile_volume">音量</string>
   <string name="title_tile_expanded_desktop">扩展桌面</string>
   <string name="title_tile_network_adb">网络调试</string>
+  <string name="title_tile_themes">主题</string>
   <string name="title_dynamic_tiles">动态按钮</string>
   <string name="dynamic_tiles_note_title">注意</string>
   <string name="dynamic_tiles_note_summary">动态按钮不是随时都会显示的，它们仅会在有相关的系统事件时显示</string>
@@ -279,6 +281,8 @@
   <string name="cm_sound_mode_sound">声音</string>
   <string name="cm_sound_mode_soundVibrate">声音 &amp; 震动</string>
   <string name="pref_location_mode_title">定位模式</string>
+  <string name="pref_location_mode_summary">取消选中所有默认行为模式</string>
+  <string name="cm_location_mode_off">位置 关闭</string>
   <string name="cm_location_mode_battery_saving">省电</string>
   <string name="cm_location_mode_device_only">仅设备</string>
   <string name="cm_location_mode_high_accuracy">高精度</string>
