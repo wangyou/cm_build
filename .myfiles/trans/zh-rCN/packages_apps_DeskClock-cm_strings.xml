@@ -39,6 +39,7 @@
   <string name="alarm_picker_title">选择闹钟类型</string>
   <string name="alarm_type_ringtone">铃声</string>
   <string name="alarm_type_random">随机</string>
+  <string name="alarm_type_default">默认</string>
   <string name="warn_silent_alarm_title">闹钟音量已静音</string>
   <string name="alarm_select">选择铃声</string>
   <string name="alarm_select_ringtone">铃声</string>

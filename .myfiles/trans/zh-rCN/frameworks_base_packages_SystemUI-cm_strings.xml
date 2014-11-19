@@ -34,6 +34,7 @@
   <string name="quick_settings_compass_init">正在初始化\u2026</string>
   <string name="quick_settings_heads_up_on">已启用弹出式通知</string>
   <string name="quick_settings_heads_up_off">不打扰</string>
+  <string name="quick_settings_themes">主题</string>
   <string name="location_mode_high_accuracy_title">高精确度</string>
   <string name="location_mode_battery_saving_title">节省电量</string>
   <string name="location_mode_sensors_only_title">仅设备</string>
@@ -58,6 +59,8 @@
   <string name="screenshot_delete_confirmation">截图已删除.</string>
   <string name="accessibility_desc_add_quick_settings">增加快速设置.</string>
   <string name="status_bar_notification_spam_item_title">忽略像这样的消息</string>
+  <string name="protected_app_notification_title">保护应用 提示</string>
+  <string name="protected_app_notification_summary">点击开启保护应用的提示</string>
   <string name="accessibility_battery_level">电池<ns0:g id="number">%d</ns0:g>%%.</string>
   <string name="battery_meter_very_low_overlay_symbol">!</string>
   </resources>
