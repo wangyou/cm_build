@@ -690,6 +690,12 @@ PRODUCT_COPY_FILES += \\\
     vendor/cm/prebuilt/common/etc/gps_cn.conf:system/etc/gps_cn.conf\
 '
    fi
+
+   ## add 51_bmm.sh
+   [ -f $basedir/$DeviceDir/copy-extras.txt ] || touch $basedir/$DeviceDir/copy-extras.txt
+   if ! grep -q "51-bmm.sh" $basedir/$DeviceDir/copy-extras.txt; then
+       echo  `basename $rdir`/scripts/target/addon_bmm.sh:system/addon.d/51-bmm.sh >> $basedir/$DeviceDir/copy-extras.txt
+   fi
 ###return####
 exit 0
 
