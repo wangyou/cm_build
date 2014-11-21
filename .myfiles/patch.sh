@@ -320,6 +320,7 @@ if [ "$mode" = "r"  -o "$lastDevice" != "$device" ]; then
      resetProject device/zte/n880e
      resetProject device/zte/atlas40
      resetProject device/zte/n909
+     resetProject hardware/libhardware
      resetProject hardware/ril $branch
      resetProject hardware/ti/wlan $branch
      resetProject hardware/ti/omap4xxx $branch
@@ -672,7 +673,11 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
            patch -N -p1 -s <$rdir/patches/sepolicy.diff
            cd $rdir
        fi 
-
+       if ! grep -q "back compatiblity for motorola omap4-common" $basedir/hardware/libhardware/modules/gralloc/gralloc.cpp; then
+           cd $basedir/hardware/libhardware
+           patch -N -p1 -s <$rdir/patches/gralloc.diff
+           cd $rdir
+       fi 
    fi
    ### fix releasetools
    if ! grep -q "# not exists mount_point in fstab" $basedir/build/tools/releasetools/common.py; then
