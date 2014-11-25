@@ -1,0 +1,21 @@
+# Removals COMPLETE - On to the installation process
+
+# Main install process - copying over system files
+ui_print("Installing GApps...");
+ui_print(" ");
+package_extract_dir("system", "/system");
+
+show_progress(0.2, 6);
+ui_print("Fixing Permissions...");
+ui_print(" ");
+set_perm(0, 0, 0755, "/system/addon.d/70-gapps.sh");
+set_perm_recursive(0, 0, 0755, 0644, "/system/app");
+set_perm_recursive(0, 0, 0755, 0644, "/system/priv-app");
+
+ui_print("Unmounting system...");
+ui_print(" ");
+run_program("/sbin/busybox", "umount", "/system");
+ui_print("GApps Installation Complete!");
+ui_print(" ");
+sleep(3);
+

@@ -1,0 +1,71 @@
+# AOSPA GApps Installation Script - Updated: @@update_time@@
+
+ui_print(" ");
+ui_print("@@installer_name@@ @@version@@");
+ui_print(" ");
+sleep(3);
+ui_print("Mounting system...");
+run_program("/sbin/busybox", "mount", "/system");
+ui_print(" ");
+
+# Checking to make certain user has a @@req_android_version@@.x ROM Installed - If not, we abort
+ifelse(
+    is_substring("@@req_android_version@@", file_getprop("/system/build.prop","ro.build.version.release")),
+    (
+        ui_print("Android @@req_android_version@@.x ROM detected");
+        ui_print(" ");
+    ),
+    (
+        ui_print("*** Incompatible Android ROM detected ***");
+        ui_print(" ");
+        ui_print("This GApps pkg is for Android @@req_android_version@@.x ONLY");
+        ui_print(" ");
+        ui_print("******* GApps Installation failed *******");
+        ui_print(" ");
+        ui_print("Unmounting system...");
+        run_program("/sbin/busybox", "umount", "/system");
+        ui_print(" ");
+        sleep(7);
+        abort("Aborting...");
+    )
+);
+
+show_progress(0.8,18);
+
+# Extract required package files to /tmp and run the preparation script
+package_extract_file("g.prop", "/tmp/g.prop");
+package_extract_file("gapps-remove.txt", "/tmp/delete-list.txt");
+package_extract_file("gapps-list.txt", "/tmp/gapps-list.txt");
+package_extract_file("install-prep.sh", "/tmp/install-prep.sh");
+set_perm(0, 0, 0777, "/tmp/install-prep.sh");
+run_program("/tmp/install-prep.sh", file_getprop("/tmp/g.prop","ro.addon.pa_type"), file_getprop("/tmp/g.prop","ro.addon.pa_size"), file_getprop("/tmp/g.prop","ro.addon.pa_version"), file_getprop("/system/build.prop","ro.product.device"));
+
+# Check that sufficient space exists in the system partition to install this GApps
+# Calculations should be extremely accurate and include a 10MB buffer to allow for ROM growth
+ifelse(
+    less_than_int(file_getprop("/tmp/gapps.prop","free_system_size_kb"), file_getprop("/tmp/gapps.prop","free_space_reqd_kb")),
+    (
+        ui_print("Insufficient storage space available in");
+        ui_print("System partition. You may want to use a");
+        ui_print("smaller ROM or wipe device and start over");
+        ui_print(" ");
+        ui_print("You need ",file_getprop("/tmp/gapps.prop","free_space_reqd_kb")," KB system free space.");
+        ui_print("You only have ", file_getprop("/tmp/gapps.prop","free_system_size_kb")," KB available.");
+        ui_print(" ");
+        ui_print("If you have further questions, please");
+        ui_print("post the pa_gapps.log file that has been");
+        ui_print("copied to /sdcard/.");
+        ui_print(" ");
+        ui_print("******* GApps Installation failed *******");
+        ui_print(" ");
+        ui_print("Unmounting system...");
+        run_program("/sbin/busybox", "umount", "/system");
+        ui_print(" ");
+        sleep(15);
+        abort("Aborting...");
+    )
+);
+
+# Removing pieces that may be left over from other GApps or ROM's
+delete(
+
