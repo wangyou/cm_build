@@ -10,8 +10,6 @@
 <!-- VENDOR -->
 <project name="nx111/proprietary_vendor_motorola" path="vendor/motorola" remote="github" revision="cm-11.0" />
 
-<remove-project name="CyanogenMod/android_external_sepolicy" />
-<project path="external/sepolicy" name="CyanogenMod/android_external_sepolicy" revision="cm-11.0" />
 
 <!-- packages -->
 <!--
