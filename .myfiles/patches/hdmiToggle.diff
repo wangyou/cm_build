@@ -1,8 +1,8 @@
 diff --git a/common.mk b/common.mk
-index 388b203..187aa27 100644
+index db852eb..621de09 100644
 --- a/common.mk
 +++ b/common.mk
-@@ -142,6 +142,10 @@ PRODUCT_PACKAGES += \
+@@ -155,6 +155,10 @@ PRODUCT_PACKAGES += \
      libjni_mosaic \
      Torch
  
