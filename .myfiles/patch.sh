@@ -668,11 +668,18 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
            patch -N -p1 -s <$rdir/patches/ti_omap4xxx.diff
            cd $rdir
        fi
-       if ! grep -q "pvrsrvinit" $basedir/external/sepolicy/domain.te; then
-           cd $basedir/external/sepolicy
-           patch -N -p1 -s <$rdir/patches/sepolicy.diff
-           cd $rdir
-       fi 
+       #if ! grep -q "pvrsrvinit" $basedir/external/sepolicy/domain.te; then
+          # cd $basedir/external/sepolicy
+          # patch -N -p1 -s <$rdir/patches/sepolicy/sepolicy.diff
+          # cd $rdir
+       #fi
+       if [ -f $basedir/external/sepolicy/system.te ]; then
+           rm $basedir/vendor/cm/sepolicy/*
+           rm $basedir/device/motorola/omap4-common/sepolicy/*
+           cp $rdir/patches/sepolicy/cm/* $basedir/vendor/cm/sepolicy/
+           cp $rdir/patches/sepolicy/omap4-common/* $basedir/device/motorola/omap4-common/sepolicy/
+       fi
+ 
        if ! grep -q "back compatiblity for motorola omap4-common" $basedir/hardware/libhardware/modules/gralloc/gralloc.cpp; then
            cd $basedir/hardware/libhardware
            patch -N -p1 -s <$rdir/patches/gralloc.diff
