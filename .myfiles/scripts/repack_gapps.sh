@@ -16,6 +16,19 @@ elif [ $# -eq 2 ]; then
         dst=$2
    fi
 fi
+
+copy()
+{
+  [ $# -lt 2 ] && return 1
+  local targetdir=$2
+  local src=$1
+  [ "${src: -1}" != "/" ] && targetdir=`dirname $2`
+  [ _$targetdir = _  ] && targetdir="./"
+  [ -d $targetdir ] || mkdir -p $targetdir
+  cp -f $src $targetdir
+  return 0
+}
+
 outfile=`basename $1| sed -e "s/pa_gapps/gapps/" -e "s/-modular//" -e "s/-full//" `
 nameitemset=(`basename $1 | sed -e "s/-/ /g"`)
 updatetime=""
@@ -30,7 +43,6 @@ done
 
 
 edir=`mktemp -d /tmp/gapps_XXXXXX`
-rm -rf $edir
 echo "Unpacking << $1..."
 unzip -q $1 -d $edir >/dev/null 2>/dev/null
 
@@ -61,7 +73,7 @@ if [ `du -b $edir/META-INF/com/google/android/updater-script | cut -f1` -lt 5120
     mv $edir/Core/required/* $edir/system/
     for f in `find $edir/GApps -mindepth 3`; do 
         targetApp=`echo $f |sed -e "s:$edir::" -e "s:[^/]*/[^/]*/[^/]*/::"`
-        [ -d $f ] || cp -rf $f $edir/system/$targetApp
+         [ -d $f ] || copy  $f $edir/system/$targetApp
     done
     cp -rf $edir/GMSCore/common/* $edir/system/
     cp -rf $edir/GMSCore/0/* $edir/system/
