@@ -1,14 +1,14 @@
 diff --git a/res/xml/device_info_settings.xml b/res/xml/device_info_settings.xml
-index fe30b54..cc24ed0 100644
+index fbc6541..cb6c911 100644
 --- a/res/xml/device_info_settings.xml
 +++ b/res/xml/device_info_settings.xml
-@@ -17,22 +17,6 @@
+@@ -17,30 +17,6 @@
  <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
          android:title="@string/about_settings">
  
 -        <!-- System update settings - launches activity -->
 -        <PreferenceScreen android:key="system_update_settings"
--                android:title="@string/system_update_settings_list_item_title" 
+-                android:title="@string/system_update_settings_list_item_title"
 -                android:summary="@string/system_update_settings_list_item_summary">
 -            <intent android:action="android.settings.SYSTEM_UPDATE_SETTINGS"
 -                    android:targetPackage="com.cyngn.fota"
@@ -22,22 +22,21 @@ index fe30b54..cc24ed0 100644
 -                    android:targetClass="@string/additional_system_update_menu" />
 -        </PreferenceScreen>
 -
-         <!-- Device status - launches activity -->
-         <PreferenceScreen android:key="status_info"
-                 android:title="@string/device_status" 
-@@ -42,27 +26,6 @@
-                     android:targetClass="com.android.settings.deviceinfo.Status" />
-         </PreferenceScreen>
- 
 -        <!-- CyanogenMod Updates -->
 -        <PreferenceScreen android:key="cm_updates"
--                android:title="@string/cmupdate_settings_title" 
--                android:summary="@string/cmupdate_settings_summary">
+-                android:title="@string/cmupdate_settings_title"
+-                android:summary="@string/system_update_settings_list_item_summary">
 -            <intent android:action="android.intent.action.MAIN"
 -                    android:targetPackage="com.cyanogenmod.updater"
 -                    android:targetClass="com.cyanogenmod.updater.UpdatesSettings" />
 -        </PreferenceScreen>
--
+ 
+         <!-- Device status - launches activity -->
+         <PreferenceScreen android:key="status_info"
+@@ -51,18 +27,6 @@
+                     android:targetClass="com.android.settings.deviceinfo.Status" />
+         </PreferenceScreen>
+ 
 -        <!-- Change Log -->
 -        <PreferenceScreen android:key="changelog"
 -            android:title="@string/changelog_title"
@@ -54,11 +53,11 @@ index fe30b54..cc24ed0 100644
          <PreferenceScreen
                  android:key="container"
 diff --git a/src/com/android/settings/DeviceInfoSettings.java b/src/com/android/settings/DeviceInfoSettings.java
-index b1a27fb..56d0186 100644
+index 9e82abf..f03d5d3 100644
 --- a/src/com/android/settings/DeviceInfoSettings.java
 +++ b/src/com/android/settings/DeviceInfoSettings.java
-@@ -130,13 +130,6 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
-         String cpuInfo = getCPUInfo();
+@@ -131,13 +131,6 @@ public class DeviceInfoSettings extends RestrictedSettingsFragment {
+         final String cpuInfo = getCPUInfo();
          String memInfo = getMemInfo();
  
 -        // Only the owner should see the Updater settings, if it exists
