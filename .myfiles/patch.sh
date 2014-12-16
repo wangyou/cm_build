@@ -568,7 +568,7 @@ PRODUCT_COPY_FILES += \\\
 systemimage-extras: \$(INTERNAL_SYSTEMIMAGE_FILES)\
 ifeq (\$(TARGET_SYSTEMIMAGE_USE_SQUISHER),true)\
 	@echo -e \${CL_YLW}"Running Extras..."\${CL_RST}\
-	\$(hide) APKCERTS=\$(APKCERTS_FILE) \.\/build\/tools\/prepack.sh\
+	\$(hide) PATH=\/usr\/local\/sbin:\/usr\/local\/bin:\/usr\/sbin:\/usr\/bin:\/sbin:\/bin \.\/build\/tools\/prepack.sh\
 endif\
 \
 \.PHONY: systemimage-extras\
