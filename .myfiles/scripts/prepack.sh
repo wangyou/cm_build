@@ -38,8 +38,15 @@ DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
 rm -rf "$OUT"/system/extras
 
 # Delete files defined in custom squisher extras list
-VENDOR=$(cat "$OUT"/system/build.prop | grep 'ro.product.brand=' | tr '[:upper:]' '[:lower:]' | sed 's/ro.product.brand=//')
-DEVICE=$(cat "$OUT"/system/build.prop | grep 'ro.build.product=' | tr '[:upper:]' '[:lower:]' | sed 's/ro.build.product=//')
+for f in `/bin/ls $ANDROID_BUILD_TOP/device/*/*/vendorsetup.sh 2> /dev/null`
+do
+    if [ _`grep '^[[:space:]]*add_lunch_combo' $f | cut -f2 -d' '` = _${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT} ]; then
+	VENDOR=$(basename $(dirname $(dirname $f)))
+        DEVICE=$(basename $(dirname $f))
+        break
+    fi
+done
+unset f
 SQUISHER_EXTRAS_FILE="$ANDROID_BUILD_TOP/device/$VENDOR/$DEVICE/squisher-extras.txt"
 if [ -f "$SQUISHER_EXTRAS_FILE" ]; then
     for FILE in `cat "$SQUISHER_EXTRAS_FILE" | grep -v "^ *#" | grep -v "^ *$"`; do
