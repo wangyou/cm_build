@@ -696,12 +696,6 @@ PRODUCT_COPY_FILES += \\\
 '
    fi
 
-   ## fix hostapd compile
-   if grep -q "int wpa_driver_set_p2p_noa" $basedir/hardware/ti/wlan/mac80211/wpa_supplicant_lib/driver_mac80211_nl.c; then
-       cd $basedir/hardware/ti/wlan
-       patch -N -p1 -s < $rdir/patches/hardware_ti_wlan.diff
-       cd $rdir
-   fi
    ## add 51_bmm.sh
    [ -f $basedir/$DeviceDir/copy-extras.txt ] || touch $basedir/$DeviceDir/copy-extras.txt
    if ! grep -q "51-bmm.sh" $basedir/$DeviceDir/copy-extras.txt; then
