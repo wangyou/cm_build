@@ -643,8 +643,13 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
           patch -N -p1 -s < $rdir/patches/child_mode.diff
           cd $rdir
       fi
+      [ -f $basedir/$DeviceDir/copy-extras.txt ] || touch $basedir/$DeviceDir/copy-extras.txt
       echo ".myfiles/scripts/target/pm_onoff.sh:system/bin/pm_onoff.sh" > $basedir/$DeviceDir/copy-extras.txt
       echo ".myfiles/scripts/target/init.d-PMUpdateOnly:system/etc/init.d/91PMUpdateOnly" >> $basedir/$DeviceDir/copy-extras.txt
+      echo ".myfiles/scripts/target/target/lockAppNet/addon.d/80-lockAppNet.sh:system/etc/init.d/80-lockAppNet.sh" >> $basedir/$DeviceDir/copy-extras.txt
+      echo ".myfiles/scripts/target/target/lockAppNet/bin/lockAppNet:system/bin/lockAppNet" >> $basedir/$DeviceDir/copy-extras.txt
+      echo ".myfiles/scripts/target/target/lockAppNet/etc/lockAppNet.conf:system/etc/lockAppNet.conf" >> $basedir/$DeviceDir/copy-extras.txt
+      echo ".myfiles/scripts/target/target/lockAppNet/etc/init.d/02lockAppNet:system/etc/init.d/02lockAppNet" >> $basedir/$DeviceDir/copy-extras.txt
 
    fi
 
