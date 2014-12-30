@@ -46,7 +46,7 @@ edir=`mktemp -d /tmp/gapps_XXXXXX`
 echo "Unpacking << $1..."
 unzip -q $1 -d $edir >/dev/null 2>/dev/null
 
-if [ `du -b $edir/META-INF/com/google/android/updater-script | cut -f1` -lt 5120 ]; then
+if [ `du -b $edir/META-INF/com/google/android/updater-script | cut -f1` -lt 128 ] && [ -f $edir/installer.data ]; then
    #gapp installer v2.0
    cp -r $mydir/gapps/* $edir/
    rm -rf $edir/META-INF/com/google/android/updater-script
