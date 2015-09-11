@@ -1,0 +1,35 @@
+diff --git a/cmds/installd/installd.c b/cmds/installd/installd.c
+index f11e258..f1aa3d2 100644
+--- a/cmds/installd/installd.c
++++ b/cmds/installd/installd.c
+@@ -16,6 +16,7 @@
+ 
+ #include <sys/capability.h>
+ #include <linux/prctl.h>
++#include <unistd.h>
+ 
+ #include "installd.h"
+ 
+@@ -248,6 +249,7 @@ static int execute(int s, char cmd[BUFFER_MAX], int id)
+     unsigned n = 0;
+     unsigned short count;
+     int ret = -1;
++    struct stat sts;
+ 
+     // ALOGI("execute('%s')\n", cmd);
+ 
+@@ -275,7 +277,13 @@ static int execute(int s, char cmd[BUFFER_MAX], int id)
+                 ALOGE("%s requires %d arguments (%d given)\n",
+                      cmds[i].name, cmds[i].numargs, n);
+             } else {
+-                ret = cmds[i].func(arg + 1, reply);
++                // when exists /data/property/.pm_readonly,not run install or remove
++                if ( ((!strcmp(cmds[i].name,"install")) || (!strcmp(cmds[i].name,"remove")))
++                   && access("/data/property/android.pm.readonly", F_OK) == 0 ) {
++                    ALOGE("skipped command '%s',package manager is in read-only mode.\n", arg[0]);
++                    return 0;
++                }else
++                    ret = cmds[i].func(arg + 1, reply);
+             }
+             goto done;
+         }

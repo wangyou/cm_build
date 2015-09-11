@@ -1,14 +1,17 @@
 #!/system/bin/sh
 
-## switch package manager to updateonly or not.
+## switch package manager to read-only or not.
 
-updateonly=`getprop android.pm.updateonly`
-if [ "$updateonly" = "" -o "$updateonly" = "0" ]; then
-   setprop android.pm.updateonly 1
-   echo "PackageMananger in UpdateOnly mode now."
+if [ -f /data/property/android.pm.readonly ]; then
+    rm -f /data/property/android.pm.readonly
 else
-   setprop android.pm.updateonly 0
-   echo "PackageMananger in Normal mode now."
+   touch /data/property/android.pm.readonly
+ fi
+
+if [ ! -f /data/property/android.pm.readonly ]; then
+    echo "PackageMananger in Normal mode now."
+else
+   echo "PackageMananger in ReadOnly mode now."
 fi
 
 exit 0

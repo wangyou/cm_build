@@ -638,9 +638,9 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
    ## child mode
    if [ $childmode -eq 0 ] ; then
-      if ! grep -q "android.pm.updateonly" $basedir/frameworks/base/core/java/android/app/ApplicationPackageManager.java; then
-          cd $basedir/frameworks/base
-          patch -N -p1 -s < $rdir/patches/child_mode.diff
+      if ! grep -q "/sys/installd/readonly" $basedir/frameworks/native/cmds/installd/installd.c; then
+          cd $basedir/frameworks/native
+          patch -N -p1 -s < $rdir/patches/pm_readonly.diff
           cd $rdir
       fi
       [ -f $basedir/$DeviceDir/copy-extras.txt ] || touch $basedir/$DeviceDir/copy-extras.txt
@@ -673,6 +673,12 @@ PRODUCT_COPY_FILES += \\\
     vendor/cm/prebuilt/common/etc/gps_cn.conf:system/etc/gps_cn.conf\
 '
    fi
+
+  if grep -q "static inline void \*mmap64" $basedir/system/core/libsparse/output_file.c; then
+       cd $basedir/system/core
+       patch -N -p1 -s < $rdir/patches/fixes/system_core_libsparse.diff
+       cd $rdir
+  fi
 
    ## add 51_bmm.sh
    [ -f $basedir/$DeviceDir/copy-extras.txt ] || touch $basedir/$DeviceDir/copy-extras.txt

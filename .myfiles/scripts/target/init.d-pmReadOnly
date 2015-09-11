@@ -1,0 +1,13 @@
+#
+# Auto set packagemanager to updateonly mode.
+# You can rename this file with '-' prefix filename to disable it.
+#
+
+myname=`basename $0`
+if [ "${myname:0:1}" != "-" ]; then
+   if [ -f /etc/.pmReadOnly -o -f /data/.pmReadOnly -o -f /storage/sdcard0/.pmReadOnly ]; then
+        touch /data/property/android.pm.readonly
+  else
+        rm -f /data/property/android.pm.readonly
+   fi
+fi
