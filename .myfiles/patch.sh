@@ -13,8 +13,8 @@ KernelBranchName=$branch
 childmode=1
 kexec=1
 
-KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock-kk" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
-KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909")
+KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock-kk" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11" "cm-11.0")
+KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909" "mocha")
 
 isKernelOpt()
 {
@@ -638,19 +638,14 @@ python $rdir/scripts/mTrans.py -wt >/dev/null
 
    ## child mode
    if [ $childmode -eq 0 ] ; then
-      if ! grep -q "/sys/installd/readonly" $basedir/frameworks/native/cmds/installd/installd.c; then
-          cd $basedir/frameworks/native
-          patch -N -p1 -s < $rdir/patches/pm_readonly.diff
-          cd $rdir
-      fi
-      [ -f $basedir/$DeviceDir/copy-extras.txt ] || touch $basedir/$DeviceDir/copy-extras.txt
-      echo ".myfiles/scripts/target/pm_onoff.sh:system/bin/pm_onoff.sh" > $basedir/$DeviceDir/copy-extras.txt
-      echo ".myfiles/scripts/target/init.d-PMUpdateOnly:system/etc/init.d/91PMUpdateOnly" >> $basedir/$DeviceDir/copy-extras.txt
-      echo ".myfiles/scripts/target/target/lockAppNet/addon.d/80-lockAppNet.sh:system/etc/init.d/80-lockAppNet.sh" >> $basedir/$DeviceDir/copy-extras.txt
-      echo ".myfiles/scripts/target/target/lockAppNet/bin/lockAppNet:system/bin/lockAppNet" >> $basedir/$DeviceDir/copy-extras.txt
-      echo ".myfiles/scripts/target/target/lockAppNet/etc/lockAppNet.conf:system/etc/lockAppNet.conf" >> $basedir/$DeviceDir/copy-extras.txt
-      echo ".myfiles/scripts/target/target/lockAppNet/etc/init.d/02lockAppNet:system/etc/init.d/02lockAppNet" >> $basedir/$DeviceDir/copy-extras.txt
-
+     echo "" > $basedir/$DeviceDir/copy-extras.txt
+      for f in `find $rdir/scripts/target/pmReadOnly | sed -e "s:$rdir/scripts/target/pmReadOnly/::"`  do
+         echo ".myfiles/scripts/target/pmReadOnly/$f:system/$f" >> $basedir/$DeviceDir/copy-extras.txt
+     done
+     for f in `find $rdir/scripts/target/lockAppNet | sed -e "s:$rdir/scripts/target/lockAppNet/::"`  do
+         echo ".myfiles/scripts/target/lockAppNet/$f:system/$f" >> $basedir/$DeviceDir/copy-extras.txt
+    done
+    
    fi
 
 

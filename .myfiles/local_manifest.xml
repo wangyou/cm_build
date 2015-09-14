@@ -42,4 +42,11 @@
 <project name="nx111/android_vendor_zte_n909" path="vendor/zte/n909" revision="cm-11.0" />
 <project name="PhilZ-cwm6/philz_touch_cwm6" path="bootable/recovery-philz" revision="cm-11.0" />
 <project name="iptux/android_hardware_qcom_display-legacy" path="hardware/qcom/display-legacy" revision="jb-7.8" />
+
+<!-- Xiaomi mipad -->
+<project name="TeamRegular/android_kernel_nvidia_shieldtablet" path="kernel/nvidia/shieldtablet" revision="cm-11.0" />
+<project name="faust93/android_device_xiaomi_mocha" path="device/xiaomi/mocha" revision="master" />
+<project name="faust93/android_device_xiaomi_mocha_common" path="device/xiaomi/mocha-common" revision="master" />
+<project name="Mi-PAD-DEVS/android_vendor_Xiaomi_mocha" path="vendor/Xiaomi/mocha" revision="master" />
+
 </manifest>

@@ -4,8 +4,8 @@ reset
 compile_user=NX111
 branch=cm-11.0
 
-KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock-kk" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11")
-KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909")
+KernelBranches=("cm-11.0" "cm-11.0_3.x" "stock-kk" "JBX" "JBX_30X" "cm-11.0" "cm-11.0" "cm11" "cm-11.0")
+KernelOpts=("cm" "cm3x" "stock" "jbx" "j30x" "jordan" "n880e" "n909" "mocha")
 
 isKernelOpt()
 {
@@ -173,7 +173,7 @@ for op in $*;do
         KernelBranchName=$op
         kernelBranchOptionStart=1
         opKernel=${device}_${KernelBranchName}
-   elif [ "$op" = "spyder" -o "$op" = "edison" -o "$op" = "targa" -o "$op" = "n880e" -o "$op" = "n909" ]; then
+   elif [ "$op" = "spyder" -o "$op" = "edison" -o "$op" = "targa" -o "$op" = "n880e" -o "$op" = "n909" -o "$op" = "mocha" ]; then
         device="$op"
    elif [ "$op" = "jordan" -o "$op" = "mb526" ]; then
         device="mb526"
@@ -181,6 +181,7 @@ for op in $*;do
         opKernel="$op"
         [ "$op" = "n880e" ] && device="n880e"
         [ "$op" = "n909" ] && device="n909"
+        [ "$op" = "mocha" ] && device="mocha"
         transop=1
    elif [ "$op" = "-jbx" ]; then
         jbx=0

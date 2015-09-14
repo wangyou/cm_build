@@ -11,6 +11,9 @@ readonly=0
 hostsconfig=/system/etc/hosts
 [ -w /system ] && readonly=1
 
+#check network lock is opened,if opened,do not disable network
+netlock=`getprop android.network.lockAppNet`
+[  "$netlock" = "" ]  && netlock=1
 #############################################################
 cat /system/etc/lockAppNet.conf | while read Line; do
    if echo $Line | grep -q "^[[:space:]]*#"; then
@@ -18,18 +21,21 @@ cat /system/etc/lockAppNet.conf | while read Line; do
    elif echo $Line | grep -q "^[[:space:]]*$"; then
         continue;
    fi
-   lockhost=$(echo "$Line"|sed -e "s/\([[:alnum:]\.]*\)[[:space:]]*\(.*\)/\1\$\2"/)
+   lockhost=$(echo "$Line"|sed -e "s/\([[:alnum:]\.\*]*\)[[:space:]]*\(.*\)/\1\$\2"/)
+   echo "LOCKHOST:$lockhost"
    [ "$lockhost" = "" ] && break
    if ! echo "${lockhost}" | grep -q "\$" ; then 
 	continue
    fi
    hostname=$(echo "${lockhost}"|cut -d$ -f1)
    plans=$(echo "${lockhost}"|cut -d$ -f2)
-
-   if ! grep -q "127\.0\.0\.1.*${hostname}" ${hostsconfig}; then
-       [ $readonly -eq 0 ] && mount -o remount,rw /system
-       [ -f ${hostsconfig} ] || echo "" >> ${hostsconfig}
-       echo "127.0.0.1      ${hostname}" >> ${hostsconfig}
+   
+   if [ "${hostname}" != "*" ]; then
+       if ! grep -q "127\.0\.0\.1.*${hostname}" ${hostsconfig}; then
+           [ $readonly -eq 0 ] && mount -o remount,rw /system
+           [ -f ${hostsconfig} ] || echo "" >> ${hostsconfig}
+           echo "127.0.0.1      ${hostname}" >> ${hostsconfig}
+       fi
    fi
    timeif=1
    timeset=(1 2 3 4 5 6 7 8 9)
@@ -102,18 +108,29 @@ cat /system/etc/lockAppNet.conf | while read Line; do
 	    timeif=0
             break
         fi
+        if [ "${hostname}" != "*" ]; then
+            break
+        fi
     done
-    if [ $timeif -eq 0 ]; then
+    if [ $timeif -eq 0 -a $netlock -eq 1 ] ; then
 	 echo "$hostname===>disable"
-         if  grep -q "^#.*${hostname}" ${hostsconfig}; then
-            [ $readonly -eq 0 ] && mount -o remount,rw /system
-             sed -e "s/#*\([^#]*${hostname}.*\)/\1/g" -i ${hostsconfig}
+         if [ "${hostname}" != "*" ]; then
+             if  grep -q "^#.*${hostname}" ${hostsconfig}; then
+                [ $readonly -eq 0 ] && mount -o remount,rw /system
+                sed -e "s/#*\([^#]*${hostname}.*\)/\1/g" -i ${hostsconfig}
+             fi
+         else
+             iptables -P INPUT DROP
          fi
     else
 	 echo "$hostname===>enable"
-         if ! grep -q "^#.*${hostname}" ${hostsconfig}; then
-            [ $readonly -eq 0 ] && mount -o remount,rw /system
-	     sed -e "s/\([^#]*${hostname}.*\)/#\1/g" -i ${hostsconfig}
+         if [ "${hostname}" != "*" ]; then
+             if ! grep -q "^#.*${hostname}" ${hostsconfig}; then
+                 [ $readonly -eq 0 ] && mount -o remount,rw /system
+	         sed -e "s/\([^#]*${hostname}.*\)/#\1/g" -i ${hostsconfig}
+             fi
+         else
+             iptables -P INPUT ACCEPT
          fi
    fi
             

@@ -3,4 +3,8 @@
 [ -f /system/etc/lockAppNet.conf ] || exit 0
 /system/bin/lockAppNet
 
-crond -c /data/crontabs
+if [ -f /data/crontabs/root ]; then 
+   crond -c /data/crontabs
+elif [ -f /system/etc/crontabs/root ]; then
+   crond -c /system/etc/crontabs
+fi

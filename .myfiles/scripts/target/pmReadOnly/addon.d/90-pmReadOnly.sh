@@ -9,11 +9,10 @@
 
 list_files() {
 cat <<EOF
-etc/hosts
-bin/lockAppNet
-bin/net_onoff.sh
-etc/init.d/02lockAppNet
-etc/lockAppNet.conf
+addon.d/90-pmReadOnly.sh
+etc/init.d/99-pmReadOnly
+bin/pm_onoff.sh
+etc/.pmReadOnly
 EOF
 }
 
