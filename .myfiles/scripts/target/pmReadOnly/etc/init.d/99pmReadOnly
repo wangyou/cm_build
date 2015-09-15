@@ -1,4 +1,5 @@
-#
+#!/system/bin/sh
+
 # Auto set packagemanager to updateonly mode.
 # You can rename this file with '-' prefix filename to disable it.
 #
